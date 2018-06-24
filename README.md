@@ -38,7 +38,7 @@ If no NZBlnk link is provided, select title, header and password, then right cli
 An overlay window will appear showing the extracted title, header and password. If automatic parsing of the selected text did not work correctly you can now manually enter or correct the title, header or password. For your convenience the selected text is shown as well to facilitate to copy and paste the required information.
 If the title, header and password information is correct select "Get NZB file" and NZBDonkey will take over and search for the NZB file.
 
-####Best practice for text selection
+#### Best practice for text selection
 ![alt text](https://raw.githubusercontent.com/Tensai75/NZBDonkey/master/screenshots/text_selection_best_practice.jpg "Best practice for text selection")
 
 1. Make sure the title information is in the first line of your selected text. If no other title information was found, the first line will automatically become the title information.
