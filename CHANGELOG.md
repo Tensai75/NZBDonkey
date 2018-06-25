@@ -1,3 +1,6 @@
+#### v0.6.4
+* Bug fixes: Replace plus signs (+) with spaces (%20) before URIdecoding the query parameters of the nzblnk
+
 #### v0.6.3
 * NZBDonkey is no longer working on certain domains
 
