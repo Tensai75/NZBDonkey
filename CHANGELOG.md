@@ -1,3 +1,11 @@
+#### v0.7.0
+* New function: Added popup window with download history and debug log
+* Improvement: Complete redesign of options page
+* Improvement: Changed category selection from modal popup to window popup
+3 Improvement: Complete redesign of the modal popup for the analysis/modification of the selected text
+* Searchengines: Removed "NZBindex (Beta)" and change URL/API of NZBIndex to former beta API (Old API no longer available / beta API is now standard)
+* Other: u4a is supported again (let's make peace to the world)
+
 #### v0.6.4
 * Bug fixes: Replace plus signs (+) with spaces (%20) before URIdecoding the query parameters of the nzblnk
 
