@@ -1,3 +1,10 @@
+#### v0.7.1
+* Bug fix: NZBKing is working again
+* Bug fix: Fixed error in AnalyzeURL function if parameters are undefined
+* Bug fix: Improved starting routine to avoid the settings to be loaded too fast resulting in being undefined
+* Improvement: Added "file" as additional keyword for the header information in the function to analyze the selected text
+* Other: Added some credits on the about page (I actually figured out the NZBKing fix by myself, without spying anyone's source code and my solution is much simpler. Only because a little birdie told me, I eventually got the hidden message anyway. Next time just ask me directly...)
+
 #### v0.7.0
 * New function: Added popup window with download history and debug log
 * Improvement: Complete redesign of options page
