@@ -1,3 +1,9 @@
+#### v0.7.2
+* Bug fix: Fixed an error which caused any Synology Diskstation administration page to reload if it was open during a push of the NZB file to Synology Diskstation.
+* Bug fix: Fixed an error which caused the NZB file to be saved with the file extensiosn ".xml" in Chrome v77.
+* Other: Updated jQuery to v3.4.1.
+* Other: Updated Bootstrap to v4.3.1.
+
 #### v0.7.1
 * Bug fix: NZBKing is working again
 * Bug fix: Fixed error in AnalyzeURL function if parameters are undefined
