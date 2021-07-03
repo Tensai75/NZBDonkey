@@ -1,3 +1,6 @@
+#### v0.7.5
+* Bug fix: Fixed some errors in the connection routines for Synology Diskstation which resulted in wrong connection test results and prevented the connection to new DSM v7.0
+ 
 #### v0.7.4
 * Bug fix: Fixed the "expects one parameter" error which appeared due to a change in the API response in SABnzbd version 3.0.0 and upwards although testing the connection with SABnzbd was successful.
 * Other: Removed newzleech.com from the default search engines because it is no longer operating
