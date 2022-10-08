@@ -1,3 +1,6 @@
+#### v0.7.6
+* Bug fix: Rewrite of the runtime.onInstalled.addListener function and the startScript function (now self executing) in order to try to fix some startup errors after browser updates.
+
 #### v0.7.5
 * Bug fix: Fixed some errors in the connection routines for Synology Diskstation which resulted in wrong connection test results and prevented the connection to new DSM v7.0
  
