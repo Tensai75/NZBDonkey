@@ -1,3 +1,9 @@
+#### v0.7.7
+* Bug fix: Hopefully the final fix for connection to the Synology DownloadStation on DSM 7.x and upwards.
+* Premiumize.me: Updated to new API with API key instead of custommer number and PIN.
+* Other: Some code refactoring in the connections functions.
+* Other: Translation to German completed.
+ 
 #### v0.7.6
 * Bug fix: Rewrite of the runtime.onInstalled.addListener function and the startScript function (now self executing) in order to try to fix some startup errors after browser updates.
 
