@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+build
+dist
+*.pem
+.vscode
+.VSCodeCounter
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+*.log*

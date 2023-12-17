@@ -1,0 +1,55 @@
+export default [
+  {
+    name: 'additionalSettings',
+    title: 'Allgemeine Einstellungen',
+    settings: [
+      {
+        name: 'defaultPath',
+        title: 'Unterordner für NZB-Dateien',
+        subtitle: '',
+        caption: '',
+        description: '(nur relative Ordner-Pfade möglich)',
+        helptext: '',
+        inputType: 'text',
+        rules: {
+          relativePath: true,
+        },
+        isAdvancedSetting: false,
+      },
+      {
+        name: 'saveAs',
+        title: '"Speichern unter..."',
+        subtitle: '',
+        caption: '"Speichern unter..."-Dialog anzeigen',
+        description: '',
+        helptext: '',
+        inputType: 'switch',
+        rules: {},
+        isAdvancedSetting: false,
+      },
+    ],
+    hasConnectionTest: false,
+    isCategorySetting: false,
+    nextButton: 'Weiter',
+  },
+  {
+    name: 'category',
+    title: 'Kategorien',
+    settings: [
+      {
+        name: 'useCategories',
+        title: 'Kategorien-Unterordner',
+        subtitle: '',
+        caption: 'NZB-Dateien in Kategorien-Unterordner speichern',
+        description: '',
+        helptext: '',
+        inputType: 'switch',
+        rules: {},
+        isAdvancedSetting: false,
+      },
+    ],
+    hasConnectionTest: false,
+    isCategorySetting: true,
+    nextButton: 'Save',
+  },
+];

@@ -1,0 +1,148 @@
+#loadingOverlay {
+    background: #ffffff;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 9900;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    padding-top: 20%;
+}
+
+.flex_container {
+    display: flex;
+}
+
+.flex_row {
+    flex-direction: row;
+}
+
+.flex_column {
+    flex-direction: column;
+}
+
+.scroll {
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+}
+
+.flex_max {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.flex_min {
+    display: flex;
+    flex: 0 0 auto;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+h4:first-of-type {
+  margin-top: 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: inherit;
+}
+
+ul {
+  list-style-position: initial;
+  margin-left: 1.2rem;
+}
+
+td, th, label.radio {
+  vertical-align: middle;
+}
+
+.caption:empty {
+  display: none;
+}
+
+#navigationmenu a {
+  font-size: 11pt;
+}
+
+#navigationmenu a.active,
+#navigationmenu a:active,
+#navigationmenu a:focus {
+  border-color: #0050ef;
+  background-color: #0050ef;
+  color: #ffffff;
+}
+
+.spinner input, .spinner button {
+  border-radius: 4px;
+}
+
+#target\[targets\] > tr:only-child td:last-child * {
+  display: none;
+}
+
+.invalid input {
+  border: 1px #CE352C solid !important;
+}
+.invalid input:focus
+ {
+  -webkit-box-shadow: 0 0 0 3px rgba(206, 53, 44, 0.45) !important;
+          box-shadow: 0 0 0 3px rgba(206, 53, 44, 0.45) !important;
+}
+.invalid input:after {
+  position: absolute;
+  content: attr(data-exclaim);
+  color: #CE352C;
+  left: -16px;
+  top: 0;
+  font-size: 1.625rem;
+  font-weight: bold;
+}
+
+.popover {
+  max-width: 450px;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.alert.outline {
+  background-color: #ffffff !important;
+  border-color:#ff0000 !important;
+  color: #ff0000 !important;
+}
+
+.alert, .alert.outline:hover, .alert.outline:focus {
+  background-color:#ff0000 !important;
+  border-color:#ff0000 !important;
+  color:#ffffff !important;
+}
+
+.alert:hover, .alert:focus {
+  background-color:#990000 !important;
+  border-color:#990000 !important;
+  color:#ffffff !important;
+}
+
+.primary.outline {
+  background-color: #ffffff !important;
+  border-color:#0050ef !important;
+  color: #0050ef !important;
+}
+
+.primary, .primary.outline:hover, .primary.outline:focus {
+  background-color:#0050ef !important;
+  border-color:#0050ef !important;
+  color:#ffffff !important;
+}
+
+.primary:hover, .primary:focus {
+  background-color:#0036a1 !important;
+  border-color:#0036a1 !important;
+  color:#ffffff !important;
+}
+
+.invalid span.check {
+  border-color: #ce352c !important;
+}

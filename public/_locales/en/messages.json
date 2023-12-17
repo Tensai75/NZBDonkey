@@ -1,0 +1,323 @@
+{
+  "error_noHeader": {
+    "message": "Header is missing!"
+  },
+  "error_noTitle": {
+    "message": "Title is missing!"
+  },
+  "info_searchingNzbFileFor": {
+    "message": "Searching for the NZB file for \"$1\""
+  },
+  "error_noActiveSearchEngines": {
+    "message": "There are no active search engines. Please check settings."
+  },
+  "debug_searchModeSequential": {
+    "message": "Search mode is set to sequential"
+  },
+  "debug_ignoringResultFromSearchEngine": {
+    "message": "Ignoring the result from search engine \"$1\""
+  },
+  "error_noSearchEngineReturnedAResult": {
+    "message": "No search engine returned a result"
+  },
+  "debug_usingTheNzbFileFromSearchEngine": {
+    "message": "Using the NZB file from search engine \"$1\""
+  },
+  "error_whileSearchingNzbFile": {
+    "message": "Error while searching for the NZB file for \"$1\": $2"
+  },
+  "debug_checkingTheNzbFileForCompleteness": {
+    "message": "Checking the NZB file from search engine \"$1\" for completeness"
+  },
+  "debug_completnessCheckResults": {
+    "message": "Completness check results for search engine \"$1\""
+  },
+  "general_files": {
+    "message": "Files"
+  },
+  "general_segments": {
+    "message": "Segments"
+  },
+  "debug_searchEngineReturnedACompleteNzbFile": {
+    "message": "Search engine \"$1\" has returned a complete NZB file"
+  },
+  "debug_errorWhileCheckingForCompleteness": {
+    "message": "Error while checking the NZB file from search engine \"$1\" for completeness: $2"
+  },
+  "debug_completenessCheckDisabled": {
+    "message": "Completeness check is disabled"
+  },
+  "debug_settingTheTargetForNzbFile": {
+    "message": "Setting the target for the NZB file"
+  },
+  "debug_targetForNzbFileSetTo": {
+    "message": "The target for this NZB file is: $1"
+  },
+  "error_whileSettingTheTarget": {
+    "message": "Error while setting the target for the NZB file \"$1\": $2"
+  },
+  "debug_settingTheCategoryForNzbFile": {
+    "message": "Setting the category for the NZB file"
+  },
+  "debug_categoryForNzbFileSetTo": {
+    "message": "The category for the NZB file is: \"$1\""
+  },
+  "error_whileSettingTheCategory": {
+    "message": "Error while setting the category for the NZB file: $1"
+  },
+  "debug_processingTheTitleForNzbFile": {
+    "message": "Processing the title for the NZB file \"$1\""
+  },
+  "error_whileProcessingTitleForNzbFile": {
+    "message": "Error while processing the title for the NZB file \"$1\": $2"
+  },
+  "debug_processingThePasswordForNzbFile": {
+    "message": "Processing the password for the NZB file \"$1\""
+  },
+  "error_whileProcessingThePasswordForNzbFile": {
+    "message": "Error while processing the password for the NZB file \"$1\": $2"
+  },
+  "debug_addingMetaDataToNzbFile": {
+    "message": "Adding the meta data to the NZB file"
+  },
+  "debug_addingTitleToMetaData": {
+    "message": "Adding the title to the NZB file meta data"
+  },
+  "debug_errorWhileAddingTheMetaData": {
+    "message": "Error while adding the meta data to the NZB file \"$1\": $2"
+  },
+  "debug_addingPasswordToMetaData": {
+    "message": "Adding the password to the NZB file meta data"
+  },
+  "debug_addingCategoryToTheMetaData": {
+    "message": "Adding the category to the NZB file meta data"
+  },
+  "debug_generatingFinalNzbFile": {
+    "message": "Creating the final NZB file for \"$1\""
+  },
+  "error_whileGeneratingFinalNzbFile": {
+    "message": "Error while creating the final NZB file for \"$1\": $2"
+  },
+  "info_pushingNzbFileToTarget": {
+    "message": "Pushing the NZB file for \"$1\" to target \"$2\""
+  },
+  "info_nzbFileSuccesfullyPushedToTarget": {
+    "message": "NZB file for \"$1\" succesfully pushed to target \"$2\""
+  },
+  "error_whileProcessingTitle": {
+    "message": "Error while processing \"$1\""
+  },
+  "error_whileProcessing": {
+    "message": "Error while processing"
+  },
+  "debug_initialisingContenScriptListener": {
+    "message": "Initialising the content script message listener.message"
+  },
+  "debug_developmentModeOn": {
+    "message": "Development mode on"
+  },
+  "debug_ScriptVersion": {
+    "message": "$1 script v$2"
+  },
+  "debug_searchInformationReceivedFromContentScript": {
+    "message": "Search information received from the the content script"
+  },
+  "error_contentScriptListenerError": {
+    "message": "Content script message listener error: $1"
+  },
+  "debug_contentScriptMessageListenersSuccessfullyInitialised": {
+    "message": "Content script message listeners successfully initialised"
+  },
+  "debug_initialisingBackgroundScript": {
+    "message": "Initialising the Background script"
+  },
+  "debug_backgroundScriptSuccessfullyInitialised": {
+    "message": "Background script successfully initialised"
+  },
+  "info_donkeySuccessfullyInitialised": {
+    "message": "NZBDonkey v$1 erfolgreich initialisiert"
+  },
+  "error_initialisingBackgroundScript": {
+    "message": "Error initialising the background script: $1"
+  },
+  "error_initialisingNzbdonkeyVersion": {
+    "message": "Fehler bei der Initialisierung von NZBDonkey v{0}: {1}"
+  },
+  "error_initialisingDonkeyVersion": {
+    "message": "Error initializing NZBDonkey v$1: $2"
+  },
+  "debug_initialisingContextMenu": {
+    "message": "Initialising the context menu"
+  },
+  "debug_contextMenuSuccessfullyInitialised": {
+    "message": "Context menu successfully initialised"
+  },
+  "error_whileInitialisingContextMenu": {
+    "message": "Error while initialising the context menu: $1"
+  },
+  "debug_settingContextMenu": {
+    "message": "Setting the context menu"
+  },
+  "contextmenu_nzbdonkeySendTo": {
+    "message": "NZBDonkey 🠖 send to"
+  },
+  "contextmenu_nzbdonkeyAnalyseSelection": {
+    "message": "NZBDonkey 🠖 analyse text selection"
+  },
+  "debug_contextMenuSuccessfullySet": {
+    "message": "Context menu successfully set"
+  },
+  "error_whileSettingContextMenu": {
+    "message": "Error while setting the context menu: $1"
+  },
+  "debug_contextMenuClickOnLinkDetected": {
+    "message": "Context menu click on a link was detected -> analyzing the link"
+  },
+  "debug_validNzblnkDetected": {
+    "message": "Valid NZBLNK detected -> let's do the donkey..."
+  },
+  "debug_noValidNzblnkDetected": {
+    "message": "No valid NZBLNK detected"
+  },
+  "debug_clickOnTextSelectionDetected": {
+    "message": "Context menu click on a text selection was detected -> activating content script"
+  },
+  "error_whileProcessingUserInteraction": {
+    "message": "Error while processing an user interaction: $1"
+  },
+  "general_extensionName": {
+    "message": "NZBDonkey"
+  },
+  "debug_sendingNotification": {
+    "message": "Sending desktop notification: $1"
+  },
+  "error_nzbfileIncomplete": {
+    "message": "The NZB file is incomplete"
+  },
+  "error_missingFiles": {
+    "message": "missing file"
+  },
+  "error_noSegments": {
+    "message": "The NZB file contains no segments"
+  },
+  "general_and": {
+    "message": "and"
+  },
+  "error_missingSegments": {
+    "message": "missing segments"
+  },
+  "error_noFiles": {
+    "message": "The NZB file contains no files"
+  },
+  "general_error": {
+    "message": "ERROR"
+  },
+  "popup_menuQuicksettings": {
+    "message": "Quick settings"
+  },
+  "popup_menuLogs": {
+    "message": "Logs"
+  },
+  "popup_menuNzblog": {
+    "message": "NZB file log"
+  },
+  "popup_menuDebuglog": {
+    "message": "Debug log"
+  },
+  "settings_targetTitle": {
+    "message": "NZB file target"
+  },
+  "settings_searchenginesTitle": {
+    "message": "Search engines"
+  },
+  "settings_interceptionTitle": {
+    "message": "Download interception"
+  },
+  "settings_generalTitle": {
+    "message": "General"
+  },
+  "general_close": {
+    "message": "Close"
+  },
+  "general_openSettings": {
+    "message": "Open settings"
+  },
+  "target_jdownloader_name": {
+    "message": "JDownloader"
+  },
+  "target_jdownloader_description": {
+    "message": "push to JDownloader"
+  },
+  "target_jdownloader_connectionSettings_title": {
+    "message": "Connection settings"
+  },
+  "target_jdownloader_connectionSettings_username_title": {
+    "message": "Username"
+  },
+  "target_jdownloader_connectionSettings_username_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_title": {
+    "message": "Password"
+  },
+  "target_jdownloader_connectionSettings_password_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_title": {
+    "message": "Additional settings"
+  },
+  "target_jdownloader_additionalSettings_addPaused_title": {
+    "message": "Add as paused"
+  },
+  "target_jdownloader_additionalSettings_addPaused_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_addPaused_caption": {
+    "message": "add NZB file in paused mode"
+  },
+  "target_jdownloader_additionalSettings_addPaused_description": {
+    "message": "If enabled, the NZB file will be added to the JDownloader queue as \"paused\" and the download must be started manually in JDownloader."
+  },
+  "target_jdownloader_additionalSettings_addPaused_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_title": {
+    "message": "Device selection"
+  },
+  "target_jdownloader_additionalSettings_deviceID_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_caption": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_description": {
+    "message": "Please select the target device for JDownloader"
+  },
+  "target_jdownloader_additionalSettings_deviceID_helptext": {
+    "message": ""
+  },
+  "general_testconnection": {
+    "message": "Test connection..."
+  },
+  "general_save": {
+    "message": "Save"
+  }
+}

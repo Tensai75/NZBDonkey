@@ -1,0 +1,2502 @@
+{
+  "extension_name": {
+    "message": "NZBDonkey",
+    "hash": ""
+  },
+  "extension_description": {
+    "message": "Das ultimative NZB-Datei Downloader-Addon",
+    "hash": ""
+  },
+  "settings_title": {
+    "message": "Einstellungen",
+    "hash": ""
+  },
+  "settings_loadingtext": {
+    "message": "Einstellungen werden geladen...",
+    "hash": ""
+  },
+  "settings_clear": {
+    "message": "Einstellungen zurücksetzen",
+    "hash": ""
+  },
+  "settings_clear_description": {
+    "message": "Sollen die Einstellungen wirklich auf die Standardwerte zurückgesetzt werden?",
+    "hash": ""
+  },
+  "settings_target_title": {
+    "message": "NZB-Datei Ziel",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_title": {
+    "message": "Ziel-Auswahl Einstellung",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_false_text": {
+    "message": "Die NZB-Datei ans Standard Ziel senden",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_false_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_true_text": {
+    "message": "Einen Auswahldialog anzeigen, um das NZB-Datei Ziel auszuwählen",
+    "hash": ""
+  },
+  "settings_target_allowMultipleTargets_true_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_showTargetsInContextMenu_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_showTargetsInContextMenu_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_showTargetsInContextMenu_caption": {
+    "message": "Ziel-Auswahl im Kontextmenu und im NZBDonkey-Dialog anzeigen",
+    "hash": ""
+  },
+  "settings_target_showTargetsInContextMenu_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_showTargetsInContextMenu_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_targets_title": {
+    "message": "NZB-Datei Ziele",
+    "hash": ""
+  },
+  "settings_target_targets_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_targets_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_targets_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_targets_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_target_targets_options_active_title": {
+    "message": "Aktiv",
+    "hash": ""
+  },
+  "settings_target_targets_options_active_helptext": {
+    "message": "Nur aktivierte NZB-Datei Ziele stehen im Ziel-Auswahldialog zu Verfügung",
+    "hash": ""
+  },
+  "settings_target_targets_options_defaultTarget_title": {
+    "message": "Ziel",
+    "hash": ""
+  },
+  "settings_target_targets_options_defaultTarget_helptext": {
+    "message": "Auswahl des Standard NZB-Datei Ziel",
+    "hash": ""
+  },
+  "settings_target_targets_options_type_title": {
+    "message": "Typ",
+    "hash": ""
+  },
+  "settings_target_targets_options_name_title": {
+    "message": "Name",
+    "hash": ""
+  },
+  "settings_target_targets_options_name_helptext": {
+    "message": "Name des NZB-Datei Ziel (z.B. für den Ziel-Auswahldialog)",
+    "hash": ""
+  },
+  "settings_target_addtarget": {
+    "message": "NZB-Datei Ziel hinzufügen",
+    "hash": ""
+  },
+  "settings_target_deletetarget": {
+    "message": "NZB-Datei Ziel löschen",
+    "hash": ""
+  },
+  "settings_target_deletetargetdescription": {
+    "message": "Soll dieses NZB-Datei Ziel wirklich gelöscht werden?",
+    "hash": ""
+  },
+  "settings_target_selecttarget": {
+    "message": "NZB-Datei Ziel auswählen",
+    "hash": ""
+  },
+  "settings_target_hasnotargetcategories": {
+    "message": "Keine Kategorien gefunden!\n\rDiese Funktion kann nur verwendet werden, wenn in den Einstellungen von $TARGET$ Kategorien definiert sind.",
+    "placeholders": {
+      "target": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "settings_target_testconnection": {
+    "message": "Verbindungstest",
+    "hash": ""
+  },
+  "settings_target_testconnection_successinfo": {
+    "message": "Verbindungstest erfolgreich!",
+    "hash": ""
+  },
+  "settings_target_testconnection_errorinfo": {
+    "message": "Fehler beim Verbindungstest!",
+    "hash": ""
+  },
+  "settings_searchengines_title": {
+    "message": "Suchmaschinen",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_title": {
+    "message": "Suchreihenfolge",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_parallel_text": {
+    "message": "Gleichzeit in allen Suchmaschinen suchen",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_parallel_helptext": {
+    "message": "Sucht gleichzeitig in allen aktiven Suchmaschinen.\nEs wird die NZB-Datei der Suchmaschine verwendet, welche am schnellsten ein gültiges Resultat liefert.",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_sequential_text": {
+    "message": "Suchmaschinen der Reihe nach absuchen",
+    "hash": ""
+  },
+  "settings_searchengines_searchOrder_sequential_helptext": {
+    "message": "Sucht die aktiven Suchmaschinen eine nach der anderen ab.\nEs wird die NZB-Datei der ersten Suchmaschine verwendet, welche ein gültiges Resultat liefert.\nDie Reihenfolge der Suchmaschinen kann über \"Drag & Drop\" angepasst werden.",
+    "hash": ""
+  },
+  "settings_searchengines_engines_title": {
+    "message": "Suchmaschinen",
+    "hash": ""
+  },
+  "settings_searchengines_engines_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_engines_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_engines_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_engines_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_engines_options_active_title": {
+    "message": "Aktiv",
+    "hash": ""
+  },
+  "settings_searchengines_engines_options_active_helptext": {
+    "message": "Nur aktivierte Suchmaschinen werden für die NZB-Datei-Suche verwendet",
+    "hash": ""
+  },
+  "settings_searchengines_engines_options_name_title": {
+    "message": "Suchmaschinen-Name",
+    "hash": ""
+  },
+  "settings_searchengines_engines_options_name_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_searchengines_add": {
+    "message": "Suchmaschine hinzufügen",
+    "hash": ""
+  },
+  "settings_searchengines_edit": {
+    "message": "Suchmaschine bearbeiten",
+    "hash": ""
+  },
+  "settings_searchengines_test": {
+    "message": "Suchmaschinen-Test",
+    "hash": ""
+  },
+  "settings_searchengines_test_header": {
+    "message": "Test-Header",
+    "hash": ""
+  },
+  "settings_searchengines_test_header_helptext": {
+    "message": "Als Test-Header muss ein Header verwendet werden, welcher mit dieser Suchmaschine zu 100% ein Resultat liefert.",
+    "hash": ""
+  },
+  "settings_searchengines_test_run": {
+    "message": "Test starten",
+    "hash": ""
+  },
+  "settings_searchengines_test_searchtest": {
+    "message": "Verbindung mit der Suchmaschine",
+    "hash": ""
+  },
+  "settings_searchengines_test_scrapingtest": {
+    "message": "Auswertung des Suchresultates",
+    "hash": ""
+  },
+  "settings_searchengines_test_downloadtest": {
+    "message": "Laden der NZB-Datei",
+    "hash": ""
+  },
+  "settings_searchengines_test_successinfo": {
+    "message": "Suchmaschinen-Test erfolgreich!",
+    "hash": ""
+  },
+  "settings_engineSettings_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_name_title": {
+    "message": "Suchmaschinen-Name",
+    "hash": ""
+  },
+  "settings_engineSettings_name_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_name_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_name_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_name_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchURL_title": {
+    "message": "URL für die Suche",
+    "hash": ""
+  },
+  "settings_engineSettings_searchURL_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchURL_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchURL_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchURL_helptext": {
+    "message": "Die URL die für die NZB-Datei-Suche verwendet wird. Für den Suchstring muss der Platzhalter \"%s\" gesetzt werden.",
+    "hash": ""
+  },
+  "settings_engineSettings_setIntoQuotes_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_setIntoQuotes_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_setIntoQuotes_caption": {
+    "message": "Suchstring in Anführungszeichen setzen",
+    "hash": ""
+  },
+  "settings_engineSettings_setIntoQuotes_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_setIntoQuotes_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeUnderscore_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeUnderscore_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeUnderscore_caption": {
+    "message": "Unterstriche entfernen",
+    "hash": ""
+  },
+  "settings_engineSettings_removeUnderscore_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeUnderscore_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeHyphen_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeHyphen_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeHyphen_caption": {
+    "message": "Bindestriche entfernen",
+    "hash": ""
+  },
+  "settings_engineSettings_removeHyphen_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_removeHyphen_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_title": {
+    "message": "Art der Antwort",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_helptext": {
+    "message": "Art der Antwort die von der Suchmaschine zurückgegeben wird. Das kann eine HTML-Seite oder ein JSON-Antwort sein.",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_html_text": {
+    "message": "HTML-Seite",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_html_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_json_text": {
+    "message": "JSON-Antwort",
+    "hash": ""
+  },
+  "settings_engineSettings_responseType_json_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_jsonPath_title": {
+    "message": "JSON Objekt-Pfad",
+    "hash": ""
+  },
+  "settings_engineSettings_jsonPath_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_jsonPath_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_jsonPath_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_jsonPath_helptext": {
+    "message": "Objekt-Pfad für die NZB-Datei ID bei einer JSON-Antwort.\nBeispiel:\n { results: [ { id: 'NZB-ID' } ] } \n=> results[0].id",
+    "hash": ""
+  },
+  "settings_engineSettings_searchPattern_title": {
+    "message": "Regulärer Ausdruck",
+    "hash": ""
+  },
+  "settings_engineSettings_searchPattern_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchPattern_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchPattern_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchPattern_helptext": {
+    "message": "Regulärer Ausdruck für die Suche nach der NZB-Datei ID in der HTML-Seite. Die NZB-Datei ID muss in einer Gruppierung () erfasst werden.",
+    "hash": ""
+  },
+  "settings_engineSettings_searchGroup_title": {
+    "message": "Gruppen-Nr.",
+    "hash": ""
+  },
+  "settings_engineSettings_searchGroup_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchGroup_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchGroup_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_searchGroup_helptext": {
+    "message": "Nummer der Erfassungsgruppe des regulären Ausdruckes, welcher die NZB-Datei ID enthält.",
+    "hash": ""
+  },
+  "settings_engineSettings_downloadURL_title": {
+    "message": "URL für den NZB-Datei Download",
+    "hash": ""
+  },
+  "settings_engineSettings_downloadURL_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_downloadURL_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_downloadURL_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_engineSettings_downloadURL_helptext": {
+    "message": "Die URL die für den Download der NZB-Datei verwendet wird. Für die NZB-Datei ID muss der Platzhalter \"%s\" gesetzt werden.",
+    "hash": ""
+  },
+  "settings_interception_title": {
+    "message": "Download Überwachung",
+    "hash": ""
+  },
+  "settings_interception_enabled_title": {
+    "message": "NZB-Datei Download-Überwachung",
+    "hash": ""
+  },
+  "settings_interception_enabled_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_enabled_caption": {
+    "message": "den Download von NZB-Dateien abfangen",
+    "hash": ""
+  },
+  "settings_interception_enabled_description": {
+    "message": "Wenn aktiviert, wird der Download von NZB-Dateien auf den unten angegebene Domänen abgefangen und die NZB-Dateien durch den NZBDonkey verarbeitet.",
+    "hash": ""
+  },
+  "settings_interception_enabled_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_showDialog_title": {
+    "message": "NZBDonkey-Dialog",
+    "hash": ""
+  },
+  "settings_interception_showDialog_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_showDialog_caption": {
+    "message": "NZBDonkey-Dialog für abgefangenen NZB-Dateien anzeigen",
+    "hash": ""
+  },
+  "settings_interception_showDialog_description": {
+    "message": "Wenn aktiviert, wird für abgefangene NZB-Dateien ein Dialog-Fenster angezeigt, in welchem die Informationen bearbeitet werden können, bevor die Datei an das Ziel gesendet wird.",
+    "hash": ""
+  },
+  "settings_interception_showDialog_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_domains_title": {
+    "message": "Domänen",
+    "hash": ""
+  },
+  "settings_interception_domains_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_domains_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_domains_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_domains_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_domains_options_active_title": {
+    "message": "Aktiv",
+    "hash": ""
+  },
+  "settings_interception_domains_options_active_helptext": {
+    "message": "Die Download-Überwachung erfolgt nur auf aktivierten Domänen",
+    "hash": ""
+  },
+  "settings_interception_domains_options_domain_title": {
+    "message": "Domäne",
+    "hash": ""
+  },
+  "settings_interception_domains_options_domain_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_interception_adddomain": {
+    "message": "Domäne hinzufügen",
+    "hash": ""
+  },
+  "settings_interception_deletedomain": {
+    "message": "Domäne löschen",
+    "hash": ""
+  },
+  "settings_interception_deletedomaindescription": {
+    "message": "Soll dieses Domäne wirklich gelöscht werden?",
+    "hash": ""
+  },
+  "settings_completeness_title": {
+    "message": "NZB-Datei Vollständigkeitsprüfung",
+    "hash": ""
+  },
+  "settings_completeness_fileCheck_title": {
+    "message": "Dateien",
+    "hash": ""
+  },
+  "settings_completeness_fileCheck_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_fileCheck_caption": {
+    "message": "Anzahl der Dateien überprüfen",
+    "hash": ""
+  },
+  "settings_completeness_fileCheck_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_fileCheck_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_fileCheckThreshold_title": {
+    "message": "Anzahl erlaubter fehlende Dateien",
+    "hash": ""
+  },
+  "settings_completeness_fileCheckThreshold_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_fileCheckThreshold_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_fileCheckThreshold_description": {
+    "message": "NZB-Dateien mit mehr fehlenden Dateien als dieser Wert werden zurückgewiesen.",
+    "hash": ""
+  },
+  "settings_completeness_fileCheckThreshold_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheck_title": {
+    "message": "Segmente",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheck_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheck_caption": {
+    "message": "Anzahl der Segmente überprüfen",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheck_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheck_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheckThreshold_title": {
+    "message": "Anzahl erlaubter fehlende Segmente in %",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheckThreshold_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheckThreshold_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheckThreshold_description": {
+    "message": "NZB-Dateien mit mehr fehlenden Segmenten als dieser Prozent-Wert werden zurückgewiesen.",
+    "hash": ""
+  },
+  "settings_completeness_segmentCheckThreshold_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_title": {
+    "message": "NZB-Datei Bearbeitung",
+    "hash": ""
+  },
+  "settings_processing_processTitle_title": {
+    "message": "NZB-Dateinamen Bearbeitung",
+    "hash": ""
+  },
+  "settings_processing_processTitle_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitle_caption": {
+    "message": "den NZB-Dateinamen bearbeiten",
+    "hash": ""
+  },
+  "settings_processing_processTitle_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitle_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_spaces_text": {
+    "message": "Leerzeichen in Punkte umwandeln",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_spaces_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_periods_text": {
+    "message": "Punke in Leerzeichen umwandeln",
+    "hash": ""
+  },
+  "settings_processing_processTitleType_periods_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addTitle_title": {
+    "message": "NZB-Datei Meta-Daten-Bearbeitung",
+    "hash": ""
+  },
+  "settings_processing_addTitle_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addTitle_caption": {
+    "message": "den Titel als Meta-Tag der NZB-Datei hinzufügen",
+    "hash": ""
+  },
+  "settings_processing_addTitle_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addTitle_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addPassword_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addPassword_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addPassword_caption": {
+    "message": "das Passwort als Meta-Tag der NZB-Datei hinzufügen",
+    "hash": ""
+  },
+  "settings_processing_addPassword_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addPassword_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addCategory_title": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addCategory_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addCategory_caption": {
+    "message": "die Kategorie als Meta-Tag der NZB-Datei hinzufügen",
+    "hash": ""
+  },
+  "settings_processing_addCategory_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_processing_addCategory_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_title": {
+    "message": "Allgemeine Einstellungen",
+    "hash": ""
+  },
+  "settings_general_catchLinks_title": {
+    "message": "NZBLNK-Links",
+    "hash": ""
+  },
+  "settings_general_catchLinks_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_catchLinks_caption": {
+    "message": "NZBLNK-Links verarbeiten",
+    "hash": ""
+  },
+  "settings_general_catchLinks_description": {
+    "message": "Wenn aktiviert, übernimmt und verarbeitet NZBDonkey Klicks auf NZBLNK-Links.",
+    "hash": ""
+  },
+  "settings_general_catchLinks_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_catchLinksShowDialog_title": {
+    "message": "NZBDonkey-Dialog",
+    "hash": ""
+  },
+  "settings_general_catchLinksShowDialog_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_catchLinksShowDialog_caption": {
+    "message": "NZBDonkey-Dialog anzeigen",
+    "hash": ""
+  },
+  "settings_general_catchLinksShowDialog_description": {
+    "message": "Wenn aktiviert, wird bei einem Klick auf einen NZBLNK-Link ein Dialog-Fenster angezeigt, in welchem die Informationen bearbeitet werden können, bevor die Verarbeitung durch NZBDonkey beginnt.",
+    "hash": ""
+  },
+  "settings_general_catchLinksShowDialog_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_syncsettings_title": {
+    "message": "Einstellungs-Synchronisation",
+    "hash": ""
+  },
+  "settings_general_syncsettings_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_syncsettings_caption": {
+    "message": "Einstellungen synchronisieren",
+    "hash": ""
+  },
+  "settings_general_syncsettings_description": {
+    "message": "Wenn aktiviert, werden die Einstellungen mit allen Browsern synchronisiert, wo man mit dem gleichen Browser-Konto eingeloggt ist.",
+    "hash": ""
+  },
+  "settings_general_syncsettings_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_notifications_title": {
+    "message": "Benachrichtigungen",
+    "hash": ""
+  },
+  "settings_general_notifications_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_notifications_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_notifications_description": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_notifications_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_notifications_0_text": {
+    "message": "alle Meldungen anzeigen",
+    "hash": ""
+  },
+  "settings_general_notifications_0_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_notifications_1_text": {
+    "message": "nur Erfolgs- und Fehlermeldungen anzeigen",
+    "hash": ""
+  },
+  "settings_general_notifications_1_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_notifications_3_text": {
+    "message": "nur Fehlermeldungen anzeigen",
+    "hash": ""
+  },
+  "settings_general_notifications_3_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_language_title": {
+    "message": "Sprachauswahl",
+    "hash": ""
+  },
+  "settings_general_language_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_language_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_language_description": {
+    "message": "Legt die Sprache des NZBDonkey fest.\n(Eine Änderung benötigt einen Browser-Neustart um völlig aktiv zu werden)",
+    "hash": ""
+  },
+  "settings_general_language_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_language_de_text": {
+    "message": "Deutsch",
+    "hash": ""
+  },
+  "settings_general_language_de_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_language_en_text": {
+    "message": "English",
+    "hash": ""
+  },
+  "settings_general_language_en_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_debug_title": {
+    "message": "Debug-Modus",
+    "hash": ""
+  },
+  "settings_general_debug_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_debug_caption": {
+    "message": "Debug-Modus aktivieren",
+    "hash": ""
+  },
+  "settings_general_debug_description": {
+    "message": "Wenn aktiviert, gibt NZBDonkey Debug-Informationen in der Konsole aus und speicher diese im Debug-Protokoll",
+    "hash": ""
+  },
+  "settings_general_debug_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "settings_general_debuglog_title": {
+    "message": "Debug-Protokoll",
+    "hash": ""
+  },
+  "settings_general_debuglog_show": {
+    "message": "Debug-Protokoll anzeigen",
+    "hash": ""
+  },
+  "settings_general_debuglog_clear": {
+    "message": "Debug-Protokoll löschen",
+    "hash": ""
+  },
+  "settings_general_debuglog_copy": {
+    "message": "Debug-Protokoll ins Clipboard kopieren",
+    "hash": ""
+  },
+  "settings_general_debuglog_save": {
+    "message": "Debug-Protokoll als CSV-Datei speichern",
+    "hash": ""
+  },
+  "settings_general_debuglog_date": {
+    "message": "Datum/Zeit",
+    "hash": ""
+  },
+  "settings_general_debuglog_type": {
+    "message": "Typ",
+    "hash": ""
+  },
+  "settings_general_debuglog_text": {
+    "message": "Eintrag",
+    "hash": ""
+  },
+  "information_title": {
+    "message": "Informationen",
+    "hash": ""
+  },
+  "information_about_title": {
+    "message": "Über NZBDonkey",
+    "hash": ""
+  },
+  "information_license_title": {
+    "message": "Lizenz",
+    "hash": ""
+  },
+  "information_changelog_title": {
+    "message": "Änderungs-Historie",
+    "hash": ""
+  },
+  "information_credits_title": {
+    "message": "Credits",
+    "hash": ""
+  },
+  "common_advancedsettingshide": {
+    "message": "Erweiterte Einstellungen ausblenden",
+    "hash": ""
+  },
+  "common_advancedsettingsshow": {
+    "message": "Erweiterte Einstellungen anzeigen",
+    "hash": ""
+  },
+  "common_cancel": {
+    "message": "Abbrechen",
+    "hash": ""
+  },
+  "common_confirm": {
+    "message": "Bestätigen",
+    "hash": ""
+  },
+  "common_close": {
+    "message": "Schliessen",
+    "hash": ""
+  },
+  "common_back": {
+    "message": "Zurück",
+    "hash": ""
+  },
+  "common_next": {
+    "message": "Weiter",
+    "hash": ""
+  },
+  "common_save": {
+    "message": "Speichern",
+    "hash": ""
+  },
+  "common_error": {
+    "message": "FEHLER",
+    "hash": ""
+  },
+  "common_uncoughterror": {
+    "message": "Unvorhergesehener Fehler",
+    "hash": ""
+  },
+  "common_testconnection": {
+    "message": "Verbindung testen",
+    "hash": ""
+  },
+  "common_unknownerror": {
+    "message": "Unbekannter Fehler",
+    "hash": ""
+  },
+  "common_title": {
+    "message": "Titel",
+    "hash": ""
+  },
+  "common_header": {
+    "message": "Header",
+    "hash": ""
+  },
+  "common_password": {
+    "message": "Passwort",
+    "hash": ""
+  },
+  "common_selectedText": {
+    "message": "Selektierter Text",
+    "hash": ""
+  },
+  "common_target": {
+    "message": "NZB-Datei Ziel",
+    "hash": ""
+  },
+  "common_category": {
+    "message": "Kategorie",
+    "hash": ""
+  },
+  "common_nocategory": {
+    "message": "Keine Kategorie",
+    "hash": ""
+  },
+  "common_opensettings": {
+    "message": "Einstellungen öffnen..."
+  },
+  "common_doTheDonkey": {
+    "message": "Do the Donkey...",
+    "hash": ""
+  },
+  "searchengine_error_novalidnzb": {
+    "message": "Die Antwort der Suchmaschine \"$ENGINE$\" war keine gültige NZB-Datei",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "searchengine_error_novalidsearchtype": {
+    "message": "Der Suchtyp für Suchmaschine \"$ENGINE$\" ist ungültig",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "searchengine_error_novalidregex": {
+    "message": "Der Reguläre Ausdruck für Suchmaschine \"$ENGINE$\" ist ungültig",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "searchengine_error_nonzbidfound": {
+    "message": "In der Antwort von Suchmaschine \"$ENGINE$\" wurde keine NZB ID gefunden",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "searchengine_error_novalidjson": {
+    "message": "Die Antwort von Suchmaschine \"$ENGINE$\" ist nicht in einem gültigen JSON-Format",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "settings_error_nostorage": {
+    "message": "Einstellung können nicht gespeichert werden: der Browser unterstützt weder storage.sync noch storage.local",
+    "hash": ""
+  },
+  "target_download_name": {
+    "message": "Download",
+    "hash": ""
+  },
+  "target_download_description": {
+    "message": "im Download-Ordner speichern",
+    "hash": ""
+  },
+  "target_download_additionalSettings_title": {
+    "message": "Allgemeine Einstellungen",
+    "hash": ""
+  },
+  "target_download_additionalSettings_defaultPath_title": {
+    "message": "Unterordner für NZB-Dateien",
+    "hash": ""
+  },
+  "target_download_additionalSettings_defaultPath_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_additionalSettings_defaultPath_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_additionalSettings_defaultPath_description": {
+    "message": "(nur relative Ordner-Pfade möglich)",
+    "hash": ""
+  },
+  "target_download_additionalSettings_defaultPath_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_additionalSettings_saveAs_title": {
+    "message": "\"Speichern unter...\"",
+    "hash": ""
+  },
+  "target_download_additionalSettings_saveAs_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_additionalSettings_saveAs_caption": {
+    "message": "\"Speichern unter...\"-Dialog anzeigen",
+    "hash": ""
+  },
+  "target_download_additionalSettings_saveAs_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_additionalSettings_saveAs_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_category_title": {
+    "message": "Kategorien",
+    "hash": ""
+  },
+  "target_download_category_useCategories_title": {
+    "message": "Kategorien-Unterordner",
+    "hash": ""
+  },
+  "target_download_category_useCategories_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_category_useCategories_caption": {
+    "message": "NZB-Dateien in Kategorien-Unterordner speichern",
+    "hash": ""
+  },
+  "target_download_category_useCategories_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_category_useCategories_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_download_success": {
+    "message": "Die NZB-Datei für \"$TITLE$\" wurde erfolgreich heruntergeladen",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "target_download_error": {
+    "message": "Fehler beim Herunterladen der NZB-Datei für \"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "target_download_error_aborted": {
+    "message": "Der Download wurde durch den Benutzer abgebrochen",
+    "hash": ""
+  },
+  "target_download_error_save": {
+    "message": "Die Datei konnte nicht gespeichert werden",
+    "hash": ""
+  },
+  "target_nzbget_name": {
+    "message": "NZBGet",
+    "hash": ""
+  },
+  "target_nzbget_description": {
+    "message": "an NZBGet senden",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_title": {
+    "message": "Verbindungs-Einstellungen",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_scheme_title": {
+    "message": "Verbindungs-Art",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_scheme_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_scheme_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_scheme_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_scheme_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_scheme_https_text": {
+    "message": "https:// (sichere Verbindung mit SSL-Verschlüsselung)",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_scheme_http_text": {
+    "message": "http:// (normale Verbindung ohne SSL-Verschlüsselung)",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_host_title": {
+    "message": "Host",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_host_subtitle": {
+    "message": "Hostname oder IP-Adresse",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_host_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_host_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_host_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_port_title": {
+    "message": "Port",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_port_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_port_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_port_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_port_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_username_title": {
+    "message": "Benutzername",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_username_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_username_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_username_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_password_title": {
+    "message": "Passwort",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_password_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_password_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_password_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_basepath_title": {
+    "message": "Reverse Proxy Pfad",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_basepath_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_basepath_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_basepath_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_connectionSettings_basepath_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_title": {
+    "message": "Weitere Einstellungen",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_addPaused_title": {
+    "message": "Download-Modus",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_addPaused_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_addPaused_caption": {
+    "message": "als \"pausiert\" hinzufügen",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_addPaused_description": {
+    "message": "Wenn aktiviert, wird die NZB-Datei als \"pausiert\" in die NZBGet-Warteschlange aufgenommen und der Download muss in NZBGet manuell gestartet werden.",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_addPaused_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_title": {
+    "message": "Duplikat-Erkennung",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_description": {
+    "message": "Siehe https://nzbget.net/rss für eine Erklährung. Standard ist \"Score\"",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_Score_text": {
+    "message": "Score",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_All_text": {
+    "message": "All",
+    "hash": ""
+  },
+  "target_nzbget_additionalSettings_dupeMode_Force_text": {
+    "message": "Force",
+    "hash": ""
+  },
+  "target_nzbget_category_title": {
+    "message": "Kategorien-Einstellungen",
+    "hash": ""
+  },
+  "target_nzbget_category_useCategories_title": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_category_useCategories_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_category_useCategories_caption": {
+    "message": "Verwendung von Kategorien aktivieren",
+    "hash": ""
+  },
+  "target_nzbget_category_useCategories_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_nzbget_category_useCategories_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_jdownloader_name": {
+    "message": "JDownloader"
+  },
+  "target_jdownloader_description": {
+    "message": "an JDownloader senden"
+  },
+  "target_jdownloader_connectionSettings_title": {
+    "message": "Verbindungs-Einstellungen"
+  },
+  "target_jdownloader_connectionSettings_username_title": {
+    "message": "Benutzername"
+  },
+  "target_jdownloader_connectionSettings_username_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_title": {
+    "message": "Passwort"
+  },
+  "target_jdownloader_connectionSettings_password_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_title": {
+    "message": "Weitere Einstellungen"
+  },
+  "target_jdownloader_additionalSettings_addPaused_title": {
+    "message": "Download-Modus"
+  },
+  "target_jdownloader_additionalSettings_addPaused_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_addPaused_caption": {
+    "message": "als \"pausiert\" hinzufügen"
+  },
+  "target_jdownloader_additionalSettings_addPaused_description": {
+    "message": "Wenn aktiviert, wird die NZB-Datei als \"pausiert\" in die JDownloader-Warteschlange aufgenommen und der Download muss in JDownloader manuell gestartet werden."
+  },
+  "target_jdownloader_additionalSettings_addPaused_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_title": {
+    "message": "Geräte-Auswahl"
+  },
+  "target_jdownloader_additionalSettings_deviceID_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_caption": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_description": {
+    "message": "Bitte das Ziel-Gerät für JDownloader auswählen"
+  },
+  "target_jdownloader_additionalSettings_deviceID_helptext": {
+    "message": ""
+  },
+  "target_premiumize_name": {
+    "message": "Premiumize.me",
+    "hash": ""
+  },
+  "target_premiumize_description": {
+    "message": "an Premiumize.me senden",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_title": {
+    "message": "Verbindungs-Einstellungen",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_username_title": {
+    "message": "Premiumize.me Customer ID",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_username_subtitle": {
+    "message": "Kann auf der Konto-Seite von premiumize.me gefunden werden",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_username_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_username_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_password_title": {
+    "message": "Premiumize.me API-Key",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_password_subtitle": {
+    "message": "Kann auf der Konto-Seite von premiumize.me gefunden werden",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_password_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_password_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_premiumize_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_name": {
+    "message": "SABnzbd",
+    "hash": ""
+  },
+  "target_sabnzbd_description": {
+    "message": "an SABnzbd senden",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_title": {
+    "message": "Verbindungs-Einstellungen",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_scheme_title": {
+    "message": "Verbindungs-Art",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_scheme_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_scheme_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_scheme_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_scheme_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_scheme_https_text": {
+    "message": "https:// (sichere Verbindung mit SSL-Verschlüsselung)",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_scheme_http_text": {
+    "message": "http:// (normale Verbindung ohne SSL-Verschlüsselung)",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_host_title": {
+    "message": "Host",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_host_subtitle": {
+    "message": "Hostname oder IP-Adresse",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_host_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_host_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_host_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_port_title": {
+    "message": "Port",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_port_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_port_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_port_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_port_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_apiKey_title": {
+    "message": "API- oder NZB-Key*",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_apiKey_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_apiKey_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_apiKey_description": {
+    "message": "*Achtung: wenn Kategorien verwendet werden sollen, muss der SABnzbd API-Key verwendet werden.",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_apiKey_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_basepath_title": {
+    "message": "Reverse Proxy Pfad",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_basepath_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_basepath_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_basepath_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_basepath_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_username_title": {
+    "message": "Benutzername für die HTTP-Authentifizierung",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_username_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_username_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_username_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_password_title": {
+    "message": "Passwort für die HTTP-Authentifizierung ",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_password_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_password_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_password_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_additionalSettings_title": {
+    "message": "Weitere Einstellung",
+    "hash": ""
+  },
+  "target_sabnzbd_additionalSettings_addPaused_title": {
+    "message": "Download-Modus",
+    "hash": ""
+  },
+  "target_sabnzbd_additionalSettings_addPaused_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_additionalSettings_addPaused_caption": {
+    "message": "als \"pausiert\" hinzufügen",
+    "hash": ""
+  },
+  "target_sabnzbd_additionalSettings_addPaused_description": {
+    "message": "Wenn aktiviert, wird die NZB-Datei als \"pausiert\" in die SABnzbd-Warteschlange aufgenommen und der Download muss in SABnzbd manuell gestartet werden.",
+    "hash": ""
+  },
+  "target_sabnzbd_additionalSettings_addPaused_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_category_title": {
+    "message": "Kategorien-Einstellungen",
+    "hash": ""
+  },
+  "target_sabnzbd_category_useCategories_title": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_category_useCategories_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_category_useCategories_caption": {
+    "message": "Verwendung von Kategorien aktivieren",
+    "hash": ""
+  },
+  "target_sabnzbd_category_useCategories_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_sabnzbd_category_useCategories_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_name": {
+    "message": "Synology Diskstation",
+    "hash": ""
+  },
+  "target_synology_description": {
+    "message": "an Synology Diskstation senden",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_title": {
+    "message": "Verbindungs-Einstellungen",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_scheme_title": {
+    "message": "Verbindungs-Art",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_scheme_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_scheme_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_scheme_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_scheme_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_scheme_https_text": {
+    "message": "https:// (sichere Verbindung mit SSL-Verschlüsselung)",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_scheme_http_text": {
+    "message": "http:// (normale Verbindung ohne SSL-Verschlüsselung)",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_host_title": {
+    "message": "Host",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_host_subtitle": {
+    "message": "Hostname oder IP-Adresse",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_host_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_host_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_host_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_port_title": {
+    "message": "Port",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_port_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_port_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_port_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_port_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_username_title": {
+    "message": "Benutzername",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_username_subtitle": {
+    "message": "Dieser Benutzer muss über ausreichende Rechte zur Nutzung der DownloadStation verfügen. 2FA wird nicht unterstützt.",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_username_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_username_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_password_title": {
+    "message": "Passwort",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_password_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_password_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_password_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basepath_title": {
+    "message": "Reverse Proxy Pfad",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basepath_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basepath_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basepath_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basepath_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthUsername_title": {
+    "message": "Benutzername für die HTTP-Authentifizierung",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthUsername_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthUsername_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthUsername_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthUsername_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthPassword_title": {
+    "message": "Passwort für die HTTP-Authentifizierung",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthPassword_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthPassword_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthPassword_description": {
+    "message": "",
+    "hash": ""
+  },
+  "target_synology_connectionSettings_basicAuthPassword_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "target_selection_title": {
+    "message": "Ziel-Auswahl",
+    "hash": ""
+  },
+  "target_selection_message": {
+    "message": "Bitte das NZB-Datei Ziel für \"$TITLE$\" wählen",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "target_success": {
+    "message": "Die NZB-Datei für \"$TITLE$\" erfolgreich an $TARGET$ gesendet",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "target": {
+        "content": "$2"
+      }
+    },
+    "hash": ""
+  },
+  "target_error": {
+    "message": "Fehler beim Sende der NZB-Datei für \"$TITLE$\" an $TARGET$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "target": {
+        "content": "$2"
+      }
+    },
+    "hash": ""
+  },
+  "target_error_nosettings": {
+    "message": "Die Einstellungen für das Ziel fehlen",
+    "hash": ""
+  },
+  "target_error_selectionabortet": {
+    "message": "Die Ziel-Auswahl wurde durch den Benutzer abgebrochen",
+    "hash": ""
+  },
+  "background_initialisation_success": {
+    "message": "NZBDonkey v$VERSION$ erfolgreich initialisiert",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "background_initialisation_error": {
+    "message": "Fehler bei der Initialisierung von NZBDonkey v$VERSION$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "content_initialisation_error": {
+    "message": "Fehler bei der Initialisierung von NZBDonkey v$VERSION$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "content_error": {
+    "message": "Content-Skript-Fehler",
+    "hash": ""
+  },
+  "content_error_unknownrequest": {
+    "message": "Unbekannte Anfrage",
+    "hash": ""
+  },
+  "content_error_novalidnzblnk": {
+    "message": "Der Link ist keine gültiger NZBLNK",
+    "hash": ""
+  },
+  "contextmenu_sendto": {
+    "message": "NZB-Datei senden an",
+    "hash": ""
+  },
+  "contextmenu_analyseselection": {
+    "message": "selektierten Text untersuchen",
+    "hash": ""
+  },
+  "contextmenu_error_novalidnzblnk": {
+    "message": "Der Link ist keine gültiger NZBLNK",
+    "hash": ""
+  },
+  "nzb_error_noheader": {
+    "message": "Header-Information fehlt",
+    "hash": ""
+  },
+  "nzb_error_nosearchresults": {
+    "message": "Keine der Suchmaschinen lieferte ein Ergebnis",
+    "hash": ""
+  },
+  "nzb_error_processing": {
+    "message": "Fehler bei der Prozessierung von \"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "nzb_info_searching": {
+    "message": "Suche nach der NZB-Datei für\"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "nzb_error_incomplete": {
+    "message": "Die NZB-Datei ist unvollständig",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "nzb_error_incomplete_missingfiles": {
+    "message": "$MISSING$ von $TOTAL$ Dateien fehlen",
+    "placeholders": {
+      "missing": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    },
+    "hash": ""
+  },
+  "nzb_error_incomplete_missingsegments": {
+    "message": "$NUMBER$ der Segmente fehlen ($PERCENT$%)",
+    "placeholders": {
+      "number": {
+        "content": "$1"
+      },
+      "percent": {
+        "content": "$2"
+      }
+    },
+    "hash": ""
+  },
+  "nzb_error_incomplete_nofiles": {
+    "message": "es sind keine Dateien enthalten",
+    "hash": ""
+  },
+  "nzb_error_incomplete_nosegments": {
+    "message": "es sind keine Segmente enthalten",
+    "hash": ""
+  },
+  "categories_categorySettings_title": {
+    "message": "Katgorien-Einstellungen",
+    "hash": ""
+  },
+  "categories_categorySettings_type_title": {
+    "message": "Kategorienzuordnung",
+    "hash": ""
+  },
+  "categories_categorySettings_type_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_type_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_type_description": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_type_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_type_automatic_text": {
+    "message": "Automatische Kategorienzuordnung",
+    "hash": ""
+  },
+  "categories_categorySettings_type_manual_text": {
+    "message": "Manuelle Kategorienauswahl",
+    "hash": ""
+  },
+  "categories_categorySettings_type_default_text": {
+    "message": "Standard-Kategorie verwenden",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_title": {
+    "message": "Kategorien",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_description": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_defaultCategory_title": {
+    "message": "Standard",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_defaultCategory_helptext": {
+    "message": "Auswahl der Standard-Kategorie",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_active_title": {
+    "message": "Aktiv",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_active_helptext": {
+    "message": "Nur aktivierte Kategorien werden in der manuellen Kategorienauswahl angezeigt.",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_name_title": {
+    "message": "Name",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_name_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_regex_title": {
+    "message": "Regulärer Ausdruck",
+    "hash": ""
+  },
+  "categories_categorySettings_categories_options_regex_helptext": {
+    "message": "Regulärer Ausdruck für die automatische Kategorienzuordnung.\nEs kann einer in der Liste vorgegebener Ausdruck verwendet werden oder mit der Auswahl \"Eigener\" ein eigener Ausdruck eingegeben werden. Mit der Auswahl \"Aus\" wird die Kategorie bei der automatischen Zuordnung übersprungen.\nDie regulären Ausdrücke der Kategorien werden der Reihe nach geprüft und die erste Übereinstimmung als Kategorie verwendet. Die Reihenfolge der Kategorien und somit die Reihenfolge der Überprüfung der Ausdrücke kann über \"drag&drop\" (mit dem 1. Button) angepasst werden.",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_title": {
+    "message": "Alternative Kategorienauswahl",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_description": {
+    "message": "Diese alternative Kategorieauswahl wird verwendet, wenn die automatische Kategorienzuordnung fehlschlägt.",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_manual_text": {
+    "message": "Manuelle Kategorienauswahl",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_default_text": {
+    "message": "Standard-Kategorie verwenden",
+    "hash": ""
+  },
+  "categories_categorySettings_fallbackType_none_text": {
+    "message": "Keine Kategorie",
+    "hash": ""
+  },
+  "categories_regex_tv": {
+    "message": "TV-Serien",
+    "hash": ""
+  },
+  "categories_regex_movie": {
+    "message": "Filme",
+    "hash": ""
+  },
+  "categories_regex_own": {
+    "message": "Eigener",
+    "hash": ""
+  },
+  "categories_regex_off": {
+    "message": "Aus",
+    "hash": ""
+  },
+  "categories_select": {
+    "message": "Kategorie-Auswahl",
+    "hash": ""
+  },
+  "categories_select_nocategory": {
+    "message": "Keine Kategorie",
+    "hash": ""
+  },
+  "validator_required": {
+    "message": "Diese Angabe ist zwingend",
+    "hash": ""
+  },
+  "validator_host": {
+    "message": "Das ist keine gültiger Hostname oder keine gültige IP-Adresse",
+    "hash": ""
+  },
+  "validator_port": {
+    "message": "Das ist keine gültige Port-Nummer",
+    "hash": ""
+  },
+  "validator_relativepath": {
+    "message": "Das ist kein gültiger, relativer Pfad",
+    "hash": ""
+  },
+  "validator_url": {
+    "message": "Das ist keine gültige URL",
+    "hash": ""
+  },
+  "validator_number": {
+    "message": "Das ist keine gültige Nummer",
+    "hash": ""
+  },
+  "validator_percent": {
+    "message": "Das ist kein gültige Prozent-Zahl",
+    "hash": ""
+  },
+  "validator_regex": {
+    "message": "Das ist kein gültiger Regulärer Ausdruck",
+    "hash": ""
+  },
+  "validator_urlID": {
+    "message": "Der Platzhalter \"%s\" fehlt",
+    "hash": ""
+  },
+  "validator_basedomain": {
+    "message": "Das ist keine gültige Basis-Domäne",
+    "hash": ""
+  },
+  "error_timeout": {
+    "message": "Zeitüberschreitung",
+    "hash": ""
+  },
+  "error_network": {
+    "message": "Netzwerkfehler",
+    "hash": ""
+  },
+  "error_novalidurl": {
+    "message": "ungültige URL",
+    "hash": ""
+  },
+  "error_novalidjson": {
+    "message": "Kein gültiges JSON-Format",
+    "hash": ""
+  },
+  "error_novalidxml": {
+    "message": "Kein gültiges XML-Format",
+    "hash": ""
+  },
+  "error_novalidnzb": {
+    "message": "Keine gültige NZB-Datei",
+    "hash": ""
+  },
+  "error_errorcode": {
+    "message": "Fehler-Code",
+    "hash": ""
+  },
+  "interception_domainSettings_title": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_domain_title": {
+    "message": "Domäne",
+    "hash": ""
+  },
+  "interception_domainSettings_domain_subtitle": {
+    "message": "Nur die Basisdomäne!",
+    "hash": ""
+  },
+  "interception_domainSettings_domain_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_domain_description": {
+    "message": "Basisdomäne der Seite wo der Download von NZB-Dateien abgefangen werden soll.\nACHTUNG: ohne \"www.\" oder andere Unterdomänen.",
+    "hash": ""
+  },
+  "interception_domainSettings_domain_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_title": {
+    "message": "Verarbeitung von Formular-Daten",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_caption": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_description": {
+    "message": "Legt fest, wie POST-Formular-Daten für diese Domäne verarbeitet werden sollen.\nWenn der Standardwert zu Fehlermeldungen bezüglich ungültiger oder leerer NZB-Dateien führt, eine der anderen Optionen ausprobieren.",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_sendFormDataAsPOST_text": {
+    "message": "Formular-Daten als POST-Parameter senden (Standard)",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_sendFormDataAsPOST_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_sendFormDataAsGET_text": {
+    "message": "Formular-Daten als GET-Parameter senden",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_sendFormDataAsGET_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_sendFormDataAsString_text": {
+    "message": "Formular-Daten als Body-Text senden",
+    "hash": ""
+  },
+  "interception_domainSettings_handling_sendFormDataAsString_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_packedFiles_title": {
+    "message": "Gepackte Dateien",
+    "hash": ""
+  },
+  "interception_domainSettings_packedFiles_subtitle": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_domainSettings_packedFiles_caption": {
+    "message": "den Download gepackter Datein abfangen",
+    "hash": ""
+  },
+  "interception_domainSettings_packedFiles_description": {
+    "message": "Wenn aktiviert, wird auch der Download von gepackten Dateien (z.B. .rar und .zip) abgefangen und wenn diese NZB-Dateien enthalten, werden sie extrahiert und verarbeitet.",
+    "hash": ""
+  },
+  "interception_domainSettings_packedFiles_helptext": {
+    "message": "",
+    "hash": ""
+  },
+  "interception_info": {
+    "message": "Übernehme den Download von \"$FILE$\" von $SOURCE$",
+    "placeholders": {
+      "file": {
+        "content": "$1"
+      },
+      "source": {
+        "content": "$2"
+      }
+    },
+    "hash": ""
+  },
+  "interception_error": {
+    "message": "Fehler beim Download von \"$FILE$\"",
+    "placeholders": {
+      "file": {
+        "content": "$1"
+      }
+    },
+    "hash": ""
+  },
+  "interception_error_nonzb": {
+    "message": "Keine NZB-Datei gefunden",
+    "hash": ""
+  },
+  "nzbDialog_loadingtext": {
+    "message": "Lade..",
+    "hash": ""
+  },
+  "nzbdialog_error_aborted": {
+    "message": "Der Vorgang wurde vom Benutzer abgebrochen",
+    "hash": ""
+  },
+  "popup_menu_quicksettings": {
+    "message": "Schnelleinstellungen"
+  },
+  "popup_menu_log": {
+    "message": "Protokolle"
+  },
+  "popup_menu_nzblog": {
+    "message": "NZB-Datei-Protokoll"
+  },
+  "popup_menu_debuglog": {
+    "message": "Debug-Protokoll"
+  },
+  "__WET_LOCALE__": {
+    "message": "de"
+  },
+  "test": {
+    "message": "DE Test"
+  },
+  "contentnzbdonkey": {
+    "message": ""
+  }
+}

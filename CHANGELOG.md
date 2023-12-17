@@ -1,3 +1,15 @@
+#### v1.0.0 alpha
+* Complete rewrite of the code
+* New feature: Option to search the search engines in parallel or sequential, with option to change the order with drag&drop
+* New feature: Option to define several targets and option to either set a default target or to chose the target in a pop-up window for each NZB file
+* New feature: Guided option dialog for setting the targets including an automatic connection test
+* New feature: Category options can now be set individually for each target (if supported by the target)
+* New feature: Option to choose the target in the context menu with right click on an NZBLNK
+* New feature: Option to display a NZBDonkey dialog when clicking on a NZBLNK to set/edit the information before performing the search
+* New feature: Option for support for packed files (i.e. rar, zip) for the nzb file download interception, can be set for each domain individually
+* New feature: Support for jDownloader
+* Bug fix: Finally fixed the connection routine for Synology Diskstation DSM v7.0 (_sid obviously is no longer accepted as a POST parameter but must be an URL parameter)
+
 #### v0.7.7
 * Bug fix: Hopefully the final fix for connection to the Synology DownloadStation on DSM 7.x and upwards.
 * Premiumize.me: Updated to new API with API key instead of custommer number and PIN.

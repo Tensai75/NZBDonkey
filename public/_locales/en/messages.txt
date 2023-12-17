@@ -1,0 +1,2502 @@
+{
+  "extension_name": {
+    "message": "NZBDonkey",
+    "hash": "34d92a96687390ada528c0eb4bf670e7"
+  },
+  "extension_description": {
+    "message": "The ultimate NZB file donwloader addon",
+    "hash": "0f4328b01f15104c0ae4bf8e387d6250"
+  },
+  "settings_title": {
+    "message": "Settings",
+    "hash": "e0be4cfbbba7e8f54f508c86109649e8"
+  },
+  "settings_loadingtext": {
+    "message": "Loading settings...",
+    "hash": "310c3515ef195f6003ac7dd32a2db1df"
+  },
+  "settings_clear": {
+    "message": "Reset settings",
+    "hash": "df6e5d70ca35fd3a6e1c8c0ad7c46634"
+  },
+  "settings_clear_description": {
+    "message": "Do your really want to reset the settings back to the default values?",
+    "hash": "8c5201f6ca573f1e5949b33b65f9c9d5"
+  },
+  "settings_target_title": {
+    "message": "NZB file target",
+    "hash": "748dfa20379d99c8a41c1c2488433b89"
+  },
+  "settings_target_allowMultipleTargets_title": {
+    "message": "Target selection settings",
+    "hash": "b8e9be1764839b026fb24e0e7b81c4b7"
+  },
+  "settings_target_allowMultipleTargets_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_allowMultipleTargets_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_allowMultipleTargets_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_allowMultipleTargets_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_allowMultipleTargets_false_text": {
+    "message": "Send the NZB file to the default target",
+    "hash": "7878f47908c3d394e511f0bf4c36ca3f"
+  },
+  "settings_target_allowMultipleTargets_false_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_allowMultipleTargets_true_text": {
+    "message": "Show a selection dialog to select the NZB file target",
+    "hash": "c0da5c13b58b88c6e6015650b96c4228"
+  },
+  "settings_target_allowMultipleTargets_true_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_showTargetsInContextMenu_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_showTargetsInContextMenu_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_showTargetsInContextMenu_caption": {
+    "message": "Show target selection in context menu and the NZBDonkey dialog",
+    "hash": "163710053fc9f9ac36f9252a7ceaffa0"
+  },
+  "settings_target_showTargetsInContextMenu_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_showTargetsInContextMenu_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_targets_title": {
+    "message": "NZB file targets",
+    "hash": "617163bdce5e108c9b87adbf9c5d971f"
+  },
+  "settings_target_targets_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_targets_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_targets_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_targets_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_target_targets_options_active_title": {
+    "message": "Enabled",
+    "hash": "c9f52343a21e4d7204551c3fa93007e1"
+  },
+  "settings_target_targets_options_active_helptext": {
+    "message": "Only enabled NZB file targets are available in the target selection dialog",
+    "hash": "83158040f8aa4bbcc24e89394ffe699b"
+  },
+  "settings_target_targets_options_defaultTarget_title": {
+    "message": "Target",
+    "hash": "65187546825477700be2e47e19b2623c"
+  },
+  "settings_target_targets_options_defaultTarget_helptext": {
+    "message": "Selection of the default target",
+    "hash": "4b7577fcad4c78ef032231e9c873dbf1"
+  },
+  "settings_target_targets_options_type_title": {
+    "message": "Type",
+    "hash": "fbad195d4c587fffd5ecf24f5240e966"
+  },
+  "settings_target_targets_options_name_title": {
+    "message": "Name",
+    "hash": "ea749f1f2741f75bc9964303625ad41f"
+  },
+  "settings_target_targets_options_name_helptext": {
+    "message": "Name of the NZB file target (i.e. for the target selection dialog)",
+    "hash": "418bc6f012ca8f6252f10325392a957f"
+  },
+  "settings_target_addtarget": {
+    "message": "Add NZB file target",
+    "hash": "f1aacc3ec48ab4baabb0a1e2592df557"
+  },
+  "settings_target_deletetarget": {
+    "message": "Delete NZB file target",
+    "hash": "41b48e32b3d05407b5b8153e514dc14d"
+  },
+  "settings_target_deletetargetdescription": {
+    "message": "Do you really want to delete this NZB file target?",
+    "hash": "021534f1d2c960da8733c836c11c9fe1"
+  },
+  "settings_target_selecttarget": {
+    "message": "Select the NZB file target",
+    "hash": "07f2bb821c29dc2016656ddec54c571b"
+  },
+  "settings_target_hasnotargetcategories": {
+    "message": "No categories found!\n\nThis feature can only be used if categories are defined in the $TARGET$ settings.",
+    "placeholders": {
+      "target": {
+        "content": "$1"
+      }
+    },
+    "hash": "81af60e212509638bfde0de5c8c5bace"
+  },
+  "settings_target_testconnection": {
+    "message": "Connection test",
+    "hash": "555caf8f17a954fdad1199a7730aab8f"
+  },
+  "settings_target_testconnection_successinfo": {
+    "message": "Connection test successful!",
+    "hash": "07049ad7b652175f097590450d3adc63"
+  },
+  "settings_target_testconnection_errorinfo": {
+    "message": "Error during connection test!",
+    "hash": "790b16034bfbbdc30bfaad722de9fae8"
+  },
+  "settings_searchengines_title": {
+    "message": "Search engines",
+    "hash": "07bee031e744f2c6c198124abb9dc897"
+  },
+  "settings_searchengines_searchOrder_title": {
+    "message": "Search order",
+    "hash": "15b81fd8491d3126a5ab19f58d60718d"
+  },
+  "settings_searchengines_searchOrder_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_searchOrder_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_searchOrder_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_searchOrder_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_searchOrder_parallel_text": {
+    "message": "Search in all search engines simultaneously",
+    "hash": "421fd7dad5f92d44663eb3474d608de0"
+  },
+  "settings_searchengines_searchOrder_parallel_helptext": {
+    "message": "Searches simultaneously in all enabled search engines.\nThe NZB file of the search engine is used who is the fastest to provide a valid result.",
+    "hash": "b8018261f738c47a21fe31b76a4159d5"
+  },
+  "settings_searchengines_searchOrder_sequential_text": {
+    "message": "Search the search engines sequentially",
+    "hash": "c0eda70a94161fe1531a24ff3633e912"
+  },
+  "settings_searchengines_searchOrder_sequential_helptext": {
+    "message": "Searches all enabled search engines in sequential order.\nThe NZB file of the first search engine is used that returns a valid result. The order of the search engines can be changed by \"drag & drop\".",
+    "hash": "cf6b436609a368a1fea3954b7cc7f275"
+  },
+  "settings_searchengines_engines_title": {
+    "message": "Search engines",
+    "hash": "07bee031e744f2c6c198124abb9dc897"
+  },
+  "settings_searchengines_engines_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_engines_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_engines_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_engines_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_engines_options_active_title": {
+    "message": "Enabled",
+    "hash": "c9f52343a21e4d7204551c3fa93007e1"
+  },
+  "settings_searchengines_engines_options_active_helptext": {
+    "message": "Only enabled search engines are used for the NZB file search",
+    "hash": "09463d7e45df0a7596deb8e7f6e099b5"
+  },
+  "settings_searchengines_engines_options_name_title": {
+    "message": "Search engine name",
+    "hash": "9311e18b53bd7b358fd7c5a19c6da52f"
+  },
+  "settings_searchengines_engines_options_name_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_searchengines_add": {
+    "message": "Add search engine",
+    "hash": "5ae9b819ba191d2db45c48c10f0b019e"
+  },
+  "settings_searchengines_edit": {
+    "message": "Edit search engine",
+    "hash": "a24234039aca2a2906e792e26c4183fd"
+  },
+  "settings_searchengines_test": {
+    "message": "Search engine test",
+    "hash": "16ebfef2e54051cebacfe4af17156262"
+  },
+  "settings_searchengines_test_header": {
+    "message": "Test header",
+    "hash": "376739ca4f0361b98aa1278366506f9c"
+  },
+  "settings_searchengines_test_header_helptext": {
+    "message": "The test header must be one that is known to return a result in that search engine with 100% certainty.",
+    "hash": "d1b16f16454414bd521b8f5caf2ab28c"
+  },
+  "settings_searchengines_test_run": {
+    "message": "Run test",
+    "hash": "062189ab9018576e6e9c86dbfb9f00a4"
+  },
+  "settings_searchengines_test_searchtest": {
+    "message": "Connection to the search engine",
+    "hash": "273d6c0d6acf48954446473a2864ed87"
+  },
+  "settings_searchengines_test_scrapingtest": {
+    "message": "Evaluation of the search result",
+    "hash": "cdbf3c394f48e73d4aa1aaa53c42df70"
+  },
+  "settings_searchengines_test_downloadtest": {
+    "message": "Download of the NZB file",
+    "hash": "f927b8e19a2be5abbaefb85ca138f44c"
+  },
+  "settings_searchengines_test_successinfo": {
+    "message": "Search engine test successful!",
+    "hash": "209986936c8ae29929ccddaf176a4694"
+  },
+  "settings_engineSettings_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_name_title": {
+    "message": "Search engine name",
+    "hash": "9311e18b53bd7b358fd7c5a19c6da52f"
+  },
+  "settings_engineSettings_name_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_name_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_name_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_name_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchURL_title": {
+    "message": "Search URL",
+    "hash": "e0d90987f60e61943d9cec473c584aff"
+  },
+  "settings_engineSettings_searchURL_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchURL_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchURL_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchURL_helptext": {
+    "message": "URL used for the header search. For the search string the placeholder \"%s\" must be set.",
+    "hash": "97af9101d07fb855d2a4c6d0dec82273"
+  },
+  "settings_engineSettings_setIntoQuotes_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_setIntoQuotes_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_setIntoQuotes_caption": {
+    "message": "Place search string in quotes",
+    "hash": "55afeec898100025ded5074de15349f4"
+  },
+  "settings_engineSettings_setIntoQuotes_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_setIntoQuotes_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeUnderscore_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeUnderscore_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeUnderscore_caption": {
+    "message": "Remove underscores",
+    "hash": "85f9127f67457be8a8a6b5af64a37bc5"
+  },
+  "settings_engineSettings_removeUnderscore_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeUnderscore_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeHyphen_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeHyphen_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeHyphen_caption": {
+    "message": "Remove hyphens",
+    "hash": "6353c93dc4ee472c87f96dff0a5b3bcf"
+  },
+  "settings_engineSettings_removeHyphen_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_removeHyphen_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_responseType_title": {
+    "message": "Response type",
+    "hash": "48fdb3e4ab2ecac698e5398da7e2de8c"
+  },
+  "settings_engineSettings_responseType_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_responseType_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_responseType_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_responseType_helptext": {
+    "message": "Type of response sent back from the search engine. Can be either a HTML page or a JSON response",
+    "hash": "2245aade469bfd0b8eff89b37ff5fb35"
+  },
+  "settings_engineSettings_responseType_html_text": {
+    "message": "HTML page",
+    "hash": "792ab6c8588653487287f136fb071a59"
+  },
+  "settings_engineSettings_responseType_html_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_responseType_json_text": {
+    "message": "JSON response",
+    "hash": "2dc1d821b5918cb434903e384bf4f62c"
+  },
+  "settings_engineSettings_responseType_json_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_jsonPath_title": {
+    "message": "JSON object path",
+    "hash": "8b4a9e42051299a3de0d207796a48180"
+  },
+  "settings_engineSettings_jsonPath_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_jsonPath_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_jsonPath_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_jsonPath_helptext": {
+    "message": "Object path for the NZB file ID in a JSON response.\nExample:\n { results: [ { id: 'NZB-ID' } ] } \n=> results[0].id",
+    "hash": "f21381001e7654ea2efc0c98e9927aaf"
+  },
+  "settings_engineSettings_searchPattern_title": {
+    "message": "Regular expression",
+    "hash": "163eac0257290d8ceafff0eab979cc11"
+  },
+  "settings_engineSettings_searchPattern_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchPattern_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchPattern_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchPattern_helptext": {
+    "message": "Regular expression to be used to search in the HTML search results page for the NZB file ID. The NZB file ID has to be in a capturing group ().",
+    "hash": "81d4baf7ed395dbb54680023d8ffb068"
+  },
+  "settings_engineSettings_searchGroup_title": {
+    "message": "Group no.",
+    "hash": "5945be2b89397ee7adfe32f6e9567fcc"
+  },
+  "settings_engineSettings_searchGroup_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchGroup_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchGroup_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_searchGroup_helptext": {
+    "message": "Number of the capturing group in the regex expression that contains the NZB file ID.",
+    "hash": "fb4c2b4096d0b23bba95331717548af3"
+  },
+  "settings_engineSettings_downloadURL_title": {
+    "message": "URL for the NZB file download",
+    "hash": "db33287bb24708e6a25296a421813049"
+  },
+  "settings_engineSettings_downloadURL_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_downloadURL_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_downloadURL_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_engineSettings_downloadURL_helptext": {
+    "message": "URL used for the NZB file download. For the NZB file ID the placeholder \"%s\" must be set.",
+    "hash": "3f4970b74ceae8b86ed782d1f527b2c0"
+  },
+  "settings_interception_title": {
+    "message": "Download interception",
+    "hash": "0bd339c082782d82c3f1ff5a86308f31"
+  },
+  "settings_interception_enabled_title": {
+    "message": "Interception of NZB file downloads",
+    "hash": "882f5a29d06a851b83defe73dfb1c675"
+  },
+  "settings_interception_enabled_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_enabled_caption": {
+    "message": "Intercept NZB file downloads",
+    "hash": "5a9ba6b4cc34a92e8904d8777f7728f4"
+  },
+  "settings_interception_enabled_description": {
+    "message": "If enabled, NZB file downloads will be intercepted on the domains specified below and the NZB files will be processed by NZBDonkey.",
+    "hash": "7ae26030234b567f9f06f8da07150ff3"
+  },
+  "settings_interception_enabled_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_showDialog_title": {
+    "message": "NZBDonkey dialog",
+    "hash": "a5607e6c43c210780de6f6bb43c283a7"
+  },
+  "settings_interception_showDialog_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_showDialog_caption": {
+    "message": "Show NZBDonkey dialog for all intercepted downloads",
+    "hash": "910da64eed05798787a529cb73aa8f81"
+  },
+  "settings_interception_showDialog_description": {
+    "message": "If enabled, a dialog window will be displayed for intercepted NZB files where the information can be edited befor sendig the file to the target",
+    "hash": "86660aeb4098aeaea9a792a40ab96e85"
+  },
+  "settings_interception_showDialog_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_domains_title": {
+    "message": "Domains",
+    "hash": "42e1c61722a5e5e5a4dc613dca42a17a"
+  },
+  "settings_interception_domains_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_domains_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_domains_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_domains_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_domains_options_active_title": {
+    "message": "Enabled",
+    "hash": "c9f52343a21e4d7204551c3fa93007e1"
+  },
+  "settings_interception_domains_options_active_helptext": {
+    "message": "Download interception is performed only on enabled domains",
+    "hash": "a05cd21b12fa964a6d288cd9d6d313ff"
+  },
+  "settings_interception_domains_options_domain_title": {
+    "message": "Domain",
+    "hash": "485d96c6ec4ecb75e6dd36d16bc96a24"
+  },
+  "settings_interception_domains_options_domain_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_interception_adddomain": {
+    "message": "Add domain",
+    "hash": "d94b9a9095dedaeaedd1b7aae233e781"
+  },
+  "settings_interception_deletedomain": {
+    "message": "Delete domain",
+    "hash": "0a45ccf108824509f7af9bed4a029c0d"
+  },
+  "settings_interception_deletedomaindescription": {
+    "message": "Do you really want to delete this domain?",
+    "hash": "bb34deab881d622845cfac9ba4a2cd08"
+  },
+  "settings_completeness_title": {
+    "message": "NZB file completeness check",
+    "hash": "2ca8c9ff94e0323858fe0e14f8c5635a"
+  },
+  "settings_completeness_fileCheck_title": {
+    "message": "Files",
+    "hash": "482e3bc6701d8b67b934efc414c86914"
+  },
+  "settings_completeness_fileCheck_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_fileCheck_caption": {
+    "message": "Check number of files",
+    "hash": "ba3868fcb4551404e352fa578a01b451"
+  },
+  "settings_completeness_fileCheck_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_fileCheck_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_fileCheckThreshold_title": {
+    "message": "Number of allowed missing files",
+    "hash": "c4594567e10dacc2b0ac4af7f21ffc23"
+  },
+  "settings_completeness_fileCheckThreshold_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_fileCheckThreshold_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_fileCheckThreshold_description": {
+    "message": "NZB files with more missing files than this value will be rejected.",
+    "hash": "2449f3548918a3ae8cb2b2a647d473c0"
+  },
+  "settings_completeness_fileCheckThreshold_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_segmentCheck_title": {
+    "message": "Segments",
+    "hash": "863bf8ca389a635dbc9a11c156afd476"
+  },
+  "settings_completeness_segmentCheck_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_segmentCheck_caption": {
+    "message": "Check number of segments",
+    "hash": "36f7bb261358a074f2fa6800ffda34c7"
+  },
+  "settings_completeness_segmentCheck_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_segmentCheck_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_segmentCheckThreshold_title": {
+    "message": "Number of allowed missing segments in %.",
+    "hash": "2b3d93fb315fa7a4879d0de527d0fc88"
+  },
+  "settings_completeness_segmentCheckThreshold_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_segmentCheckThreshold_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_completeness_segmentCheckThreshold_description": {
+    "message": "NZB files with more missing segments than this percentage value will be rejected.",
+    "hash": "288fbe64b7cdb9d86bf42ddb97c7f586"
+  },
+  "settings_completeness_segmentCheckThreshold_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_title": {
+    "message": "NZB file processing",
+    "hash": "7ac076f0dfa7057241f67cb01b4e767c"
+  },
+  "settings_processing_processTitle_title": {
+    "message": "NZB file name processing",
+    "hash": "bcb82519a3d29a2ab918ad28191705e8"
+  },
+  "settings_processing_processTitle_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitle_caption": {
+    "message": "Process the NZB file name",
+    "hash": "8cc3adea45506047d49bb5c695b1f2b4"
+  },
+  "settings_processing_processTitle_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitle_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitleType_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitleType_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitleType_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitleType_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitleType_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitleType_spaces_text": {
+    "message": "Convert spaces to periods",
+    "hash": "9fd35486776aca4d39c38757821d958a"
+  },
+  "settings_processing_processTitleType_spaces_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_processTitleType_periods_text": {
+    "message": "Convert periods to spaces",
+    "hash": "d6cbad39b22f05090318ae1db6c5b3a5"
+  },
+  "settings_processing_processTitleType_periods_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addTitle_title": {
+    "message": "NZB file meta data processing",
+    "hash": "5e3a596dbd3bcdc7ba0b07750ab050b7"
+  },
+  "settings_processing_addTitle_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addTitle_caption": {
+    "message": "add the title as meta tag to the NZB file",
+    "hash": "14a8211515e460e998d05fed7479ee19"
+  },
+  "settings_processing_addTitle_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addTitle_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addPassword_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addPassword_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addPassword_caption": {
+    "message": "add the password as meta tag to the NZB file",
+    "hash": "35fda7bf59817d56286a43e73c0a9efa"
+  },
+  "settings_processing_addPassword_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addPassword_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addCategory_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addCategory_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addCategory_caption": {
+    "message": "add the category as meta tag to the NZB file",
+    "hash": "346c02a161ab4ffa8bbef9926897572c"
+  },
+  "settings_processing_addCategory_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_processing_addCategory_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_title": {
+    "message": "General settings",
+    "hash": "a9da903b36f152bf815358d9fe9641d4"
+  },
+  "settings_general_catchLinks_title": {
+    "message": "NZBLNK links",
+    "hash": "94371b24d135f4f597abb0cc4f4f03eb"
+  },
+  "settings_general_catchLinks_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_catchLinks_caption": {
+    "message": "Process NZBLNK links",
+    "hash": "bc7a9fa0a1da8d0ec07e1d218e3247d0"
+  },
+  "settings_general_catchLinks_description": {
+    "message": "If enabled, NZBDonkey will catch and handle left mouse clicks on NZBLNK links.",
+    "hash": "058ed02df28ac260c21e7d455a23d9ff"
+  },
+  "settings_general_catchLinks_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_catchLinksShowDialog_title": {
+    "message": "NZBDonkey dialog",
+    "hash": "a5607e6c43c210780de6f6bb43c283a7"
+  },
+  "settings_general_catchLinksShowDialog_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_catchLinksShowDialog_caption": {
+    "message": "Show the NZBDonkey dialog",
+    "hash": "afb17c061f2101a1d44ca37a6ffeaa18"
+  },
+  "settings_general_catchLinksShowDialog_description": {
+    "message": "When enabled, clicking on an NZBLNK link will display a dialog window where the information can be edited before processing by NZBDonkey begins.",
+    "hash": "e58ca9a99ca87f64532977fba2023f80"
+  },
+  "settings_general_catchLinksShowDialog_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_syncsettings_title": {
+    "message": "Settings synchronization",
+    "hash": "b0375c99a6528a3376765c796d817b58"
+  },
+  "settings_general_syncsettings_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_syncsettings_caption": {
+    "message": "Synchronize settings",
+    "hash": "3abfd5050a7b315c3854de291b988dfa"
+  },
+  "settings_general_syncsettings_description": {
+    "message": "If enabled, the settings will be synchronized with all browsers where you are logged in with the same browser account.",
+    "hash": "87293a31cad20bf094fe1236027168b2"
+  },
+  "settings_general_syncsettings_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_notifications_title": {
+    "message": "Notifications",
+    "hash": "706a690098755e79828b978549071263"
+  },
+  "settings_general_notifications_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_notifications_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_notifications_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_notifications_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_notifications_0_text": {
+    "message": "show all notifications",
+    "hash": "7b741f60f1d263d5b6fe4f4807571da9"
+  },
+  "settings_general_notifications_0_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_notifications_1_text": {
+    "message": "only show success and error notifications",
+    "hash": "5836032e061e8066f4f7c5f8bc6b762f"
+  },
+  "settings_general_notifications_1_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_notifications_3_text": {
+    "message": "only show error notifications",
+    "hash": "db1640dfbcb730c448121ed9082408db"
+  },
+  "settings_general_notifications_3_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_language_title": {
+    "message": "Language selection",
+    "hash": "b24f62bb4e77a8849741d3bdcaa323d9"
+  },
+  "settings_general_language_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_language_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_language_description": {
+    "message": "Sets the language of NZBDonkey.\n(A change requires a browser restart to become fully enabled).",
+    "hash": "12b7c8896ccd0f7fa56f6ea621500517"
+  },
+  "settings_general_language_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_language_de_text": {
+    "message": "German",
+    "hash": "c251da9c275fa87107d69fa5f5222784"
+  },
+  "settings_general_language_de_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_language_en_text": {
+    "message": "English",
+    "hash": "648e324401faf8ae90395ce21e894596"
+  },
+  "settings_general_language_en_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_debug_title": {
+    "message": "Debug mode",
+    "hash": "488c7481e7aad91777b8b1ca174603b5"
+  },
+  "settings_general_debug_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_debug_caption": {
+    "message": "Enable debug mode",
+    "hash": "84248816002122df6125ab2f51988a10"
+  },
+  "settings_general_debug_description": {
+    "message": "If enabled, NZBDonkey will issue debug information in the console and log it to the debug log",
+    "hash": "b0f9ac310d8e91093e23c38627ca0fa8"
+  },
+  "settings_general_debug_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "settings_general_debuglog_title": {
+    "message": "Debug log",
+    "hash": "53ddd877a8baf33cfcd0316590196bd2"
+  },
+  "settings_general_debuglog_show": {
+    "message": "Show debug log",
+    "hash": "fe54d48d5084b4b9ed3b0fb245a9dec7"
+  },
+  "settings_general_debuglog_clear": {
+    "message": "Clear debug log",
+    "hash": "34fa5eaa206c274c576f6d84e149163d"
+  },
+  "settings_general_debuglog_copy": {
+    "message": "Copy the debug log to the clipboard",
+    "hash": "f3347e1637a5eb8a991521e307431b11"
+  },
+  "settings_general_debuglog_save": {
+    "message": "Save debug log to a csv file",
+    "hash": "910da3dac39464b07da0197f2e692c14"
+  },
+  "settings_general_debuglog_date": {
+    "message": "Date/time",
+    "hash": "ffb54cfb3d308a8add3b571e17e042b7"
+  },
+  "settings_general_debuglog_type": {
+    "message": "Type",
+    "hash": "fbad195d4c587fffd5ecf24f5240e966"
+  },
+  "settings_general_debuglog_text": {
+    "message": "Log entry",
+    "hash": "93d5f198cb69fb4168a76e6cd3f19c1e"
+  },
+  "information_title": {
+    "message": "Information",
+    "hash": "c1ad5a4fd3c1bc8371e3f5ddf60929bd"
+  },
+  "information_about_title": {
+    "message": "About NZBDonkey",
+    "hash": "63e12fda838f9581c82dd5d21c8fb121"
+  },
+  "information_license_title": {
+    "message": "License",
+    "hash": "19ea580f964cc801aa6d0c57c2ed7c5d"
+  },
+  "information_changelog_title": {
+    "message": "Change log",
+    "hash": "2f0ef6f8ae24dfd332027a7adece12c1"
+  },
+  "information_credits_title": {
+    "message": "Credits",
+    "hash": "559c67250caa4419edf15146f02f86de"
+  },
+  "common_advancedsettingshide": {
+    "message": "Hide advanced settings",
+    "hash": "a0c2ecafe4c3a95d6196d79895b900b1"
+  },
+  "common_advancedsettingsshow": {
+    "message": "Show advanced settings",
+    "hash": "dfd368dd797a8dc3497b2141712dafc6"
+  },
+  "common_cancel": {
+    "message": "Cancel",
+    "hash": "18e8e154efe876690ee96bbe06a7e364"
+  },
+  "common_confirm": {
+    "message": "Confirm",
+    "hash": "3235cf89c65fe3382f015a55fd44a67a"
+  },
+  "common_close": {
+    "message": "Close",
+    "hash": "40f8e14ea14f5fe6c94c24bcd6f1fce8"
+  },
+  "common_back": {
+    "message": "Back",
+    "hash": "20a4d2e67e0152cfb81efc961f3ccc56"
+  },
+  "common_next": {
+    "message": "Next",
+    "hash": "f14f125a0eeb011e4e26d6a6826cdaa6"
+  },
+  "common_save": {
+    "message": "Save",
+    "hash": "7d0c7803fe0813d09b9f196ae028d18b"
+  },
+  "common_error": {
+    "message": "ERROR",
+    "hash": "f1bfb61fddfe47a2c656ee124e952dd8"
+  },
+  "common_uncoughterror": {
+    "message": "Unexpected error",
+    "hash": "3bea72b24f20f990749e48a17cbeaa7f"
+  },
+  "common_testconnection": {
+    "message": "Test connection",
+    "hash": "5bdeb2c6b8396c5c013518fd85ee7dd3"
+  },
+  "common_unknownerror": {
+    "message": "Unknown error",
+    "hash": "bf40b7a833887f5301ff85447070627d"
+  },
+  "common_title": {
+    "message": "Title",
+    "hash": "5ebb0a9b56962fd20ec2b34724d0b4d5"
+  },
+  "common_header": {
+    "message": "Header",
+    "hash": "d58b8639a82ac4db7142550a78397448"
+  },
+  "common_password": {
+    "message": "Password",
+    "hash": "4078a834d3c762f452d5849d20439a51"
+  },
+  "common_selectedText": {
+    "message": "Selected text",
+    "hash": "4ab3106f823e2be89dffdc70a0ddaa7e"
+  },
+  "common_target": {
+    "message": "NZB file target",
+    "hash": "748dfa20379d99c8a41c1c2488433b89"
+  },
+  "common_category": {
+    "message": "Category",
+    "hash": "4977d1a9e5cadb630d435241aad306bd"
+  },
+  "common_nocategory": {
+    "message": "No category",
+    "hash": "01d4922a8d8729d3401827d080c08b76"
+  },
+  "common_opensettings": {
+    "message": "Open settings..."
+  },
+  "common_doTheDonkey": {
+    "message": "Do the Donkey...",
+    "hash": "419ad0765cca48bdb1cdeabc7a69ba8e"
+  },
+  "searchengine_error_novalidnzb": {
+    "message": "The response from search engine \"$ENGINE$\" is not a valid NZB file",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": "380f0dc881510c9fdd9cb276abbb18d8"
+  },
+  "searchengine_error_novalidsearchtype": {
+    "message": "The search type for search engine \"$ENGINE$\" is invalid",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": "ea18fb0cb862797a81012368ab71dc18"
+  },
+  "searchengine_error_novalidregex": {
+    "message": "The regular expression for search engine \"$ENGINE$\" is invalid",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": "9e8eeb9d7f8335802b36dad00e210268"
+  },
+  "searchengine_error_nonzbidfound": {
+    "message": "No NZB ID found in the response from serach engine \"$ENGINE$\"",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": "017b66db1ca6a31d10055dd792fd942d"
+  },
+  "searchengine_error_novalidjson": {
+    "message": "The response from search engine \"$ENGINE$\" is nono valid JSON format",
+    "placeholders": {
+      "engine": {
+        "content": "$1"
+      }
+    },
+    "hash": "88bd1a897d83b0efe63f965681f2335f"
+  },
+  "settings_error_nostorage": {
+    "message": "Settings cannot be saved: the browser does not support storage.sync nor storage.local",
+    "hash": "568fff11daab5d047dc4461f35438c6c"
+  },
+  "target_download_name": {
+    "message": "Download",
+    "hash": "6543945aec0bc009457c6cc5bf3958a4"
+  },
+  "target_download_description": {
+    "message": "save to download folder",
+    "hash": "ae6557b392e20ef445df2282797adfbf"
+  },
+  "target_download_additionalSettings_title": {
+    "message": "General settings",
+    "hash": "a9da903b36f152bf815358d9fe9641d4"
+  },
+  "target_download_additionalSettings_defaultPath_title": {
+    "message": "Subfolder for NZB files",
+    "hash": "c4dd32418c20e3de67692682c85fe846"
+  },
+  "target_download_additionalSettings_defaultPath_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_additionalSettings_defaultPath_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_additionalSettings_defaultPath_description": {
+    "message": "(only relative folder paths are possible)",
+    "hash": "e5ffd81d02031a4d1c34449c64934572"
+  },
+  "target_download_additionalSettings_defaultPath_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_additionalSettings_saveAs_title": {
+    "message": "\"Save as...\"",
+    "hash": "9573589dc3ea05b74a71231b56abdc31"
+  },
+  "target_download_additionalSettings_saveAs_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_additionalSettings_saveAs_caption": {
+    "message": "show \"Saves as...\" dialog",
+    "hash": "e4950a7ed8474dcf4507bcf8b626a136"
+  },
+  "target_download_additionalSettings_saveAs_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_additionalSettings_saveAs_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_category_title": {
+    "message": "Categories",
+    "hash": "b85a246384f622665cc2ad4394f82eef"
+  },
+  "target_download_category_useCategories_title": {
+    "message": "Category subfolders",
+    "hash": "ef337d6f2a29bffcfe6385192d410bf8"
+  },
+  "target_download_category_useCategories_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_category_useCategories_caption": {
+    "message": "save the NZB files in category subfolders",
+    "hash": "3bda10a15f542bd80cfb79688dce1516"
+  },
+  "target_download_category_useCategories_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_category_useCategories_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_download_success": {
+    "message": "The NZB file for \"$TITLE$\" was successfully downloaded",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": "d4e701e6a45042e2ee2d3b0c34592142"
+  },
+  "target_download_error": {
+    "message": "Error while downloading the NZB file for \"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": "ecd77749da1eefa00e07ead30e2f810a"
+  },
+  "target_download_error_aborted": {
+    "message": "Download was canceled by the user",
+    "hash": "7e9571c91ba068ed5c4dcba366f4c613"
+  },
+  "target_download_error_save": {
+    "message": "The file could not be saved",
+    "hash": "0f399c717b33c551dec9cc5b88ab0ae2"
+  },
+  "target_nzbget_name": {
+    "message": "NZBGet",
+    "hash": "28219e2a41c2100278139ebf0e7808ec"
+  },
+  "target_nzbget_description": {
+    "message": "push to NZBGet",
+    "hash": "000976ea76cd6d4bc79d6762348702bf"
+  },
+  "target_nzbget_connectionSettings_title": {
+    "message": "Connection settings",
+    "hash": "153ea44dd08cce7e71f87d52ad2a523a"
+  },
+  "target_nzbget_connectionSettings_scheme_title": {
+    "message": "Connection scheme",
+    "hash": "c332d93e060b98e759726a93e1dd05c5"
+  },
+  "target_nzbget_connectionSettings_scheme_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_scheme_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_scheme_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_scheme_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_scheme_https_text": {
+    "message": "https:// (secure SSL connection)",
+    "hash": "2ad7bd9e368297d3b6a36bd84d15c310"
+  },
+  "target_nzbget_connectionSettings_scheme_http_text": {
+    "message": "http:// (normal unsecure connection)",
+    "hash": "401285a3b784e89991045fc32a3529a8"
+  },
+  "target_nzbget_connectionSettings_host_title": {
+    "message": "Host",
+    "hash": "f7eef1219fc8f8121c018636b0fc91c7"
+  },
+  "target_nzbget_connectionSettings_host_subtitle": {
+    "message": "Host name or IP address",
+    "hash": "9a38dc6d5289a2db7cf7b735fd9cb2e9"
+  },
+  "target_nzbget_connectionSettings_host_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_host_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_host_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_port_title": {
+    "message": "Port",
+    "hash": "86dc4613628ec2081b85a5f2752a3769"
+  },
+  "target_nzbget_connectionSettings_port_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_port_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_port_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_port_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_username_title": {
+    "message": "Username",
+    "hash": "430f84ee5574cccfdbbfba8280c197fe"
+  },
+  "target_nzbget_connectionSettings_username_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_username_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_username_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_password_title": {
+    "message": "Password",
+    "hash": "4078a834d3c762f452d5849d20439a51"
+  },
+  "target_nzbget_connectionSettings_password_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_password_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_password_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_basepath_title": {
+    "message": "Reverse proxy path",
+    "hash": "13095f3fe3945262e9061a7ae89a455b"
+  },
+  "target_nzbget_connectionSettings_basepath_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_basepath_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_basepath_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_connectionSettings_basepath_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_additionalSettings_title": {
+    "message": "Additional settings",
+    "hash": "3436a92abdaeaf044341e13fcdda71ef"
+  },
+  "target_nzbget_additionalSettings_addPaused_title": {
+    "message": "Add as paused",
+    "hash": "8b574104eab073c06f18d75a6c0a3a05"
+  },
+  "target_nzbget_additionalSettings_addPaused_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_additionalSettings_addPaused_caption": {
+    "message": "add NZB file in paused mode",
+    "hash": "01947e348708f19efb21eb3ed71489e6"
+  },
+  "target_nzbget_additionalSettings_addPaused_description": {
+    "message": "If enabled, the NZB file will be added to the NZBGet queue as \"paused\" and the download must be started manually in NZBGet.",
+    "hash": "d70a7d0d2c5b11e32cea5912ad0a54e6"
+  },
+  "target_nzbget_additionalSettings_addPaused_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_additionalSettings_dupeMode_title": {
+    "message": "Duplicate mode",
+    "hash": "0ab8055c31963e4e519c6cd224764638"
+  },
+  "target_nzbget_additionalSettings_dupeMode_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_additionalSettings_dupeMode_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_additionalSettings_dupeMode_description": {
+    "message": "See https://nzbget.net/rss for explanation. Default is \"Score\"",
+    "hash": "9d908b0d2fdc909956abfae8741218e4"
+  },
+  "target_nzbget_additionalSettings_dupeMode_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_additionalSettings_dupeMode_Score_text": {
+    "message": "Score",
+    "hash": "451d339e0c01f373bad805b13a4306d1"
+  },
+  "target_nzbget_additionalSettings_dupeMode_All_text": {
+    "message": "All",
+    "hash": "284b8fd170c2a405a6f5eb56b485d695"
+  },
+  "target_nzbget_additionalSettings_dupeMode_Force_text": {
+    "message": "Force",
+    "hash": "8882733d7ea830fb196e999cebd2ced9"
+  },
+  "target_nzbget_category_title": {
+    "message": "Categories",
+    "hash": "96007327e67a4d1e992247d7ebb9df49"
+  },
+  "target_nzbget_category_useCategories_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_category_useCategories_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_category_useCategories_caption": {
+    "message": "Enable usage of categories",
+    "hash": "4c713479ec2fc7bdc164ee2dec28dac2"
+  },
+  "target_nzbget_category_useCategories_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_nzbget_category_useCategories_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_jdownloader_name": {
+    "message": "JDownloader"
+  },
+  "target_jdownloader_description": {
+    "message": "push to JDownloader"
+  },
+  "target_jdownloader_connectionSettings_title": {
+    "message": "Connection settings"
+  },
+  "target_jdownloader_connectionSettings_username_title": {
+    "message": "Username"
+  },
+  "target_jdownloader_connectionSettings_username_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_title": {
+    "message": "Password"
+  },
+  "target_jdownloader_connectionSettings_password_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_title": {
+    "message": "Additional settings"
+  },
+  "target_jdownloader_additionalSettings_addPaused_title": {
+    "message": "Add as paused"
+  },
+  "target_jdownloader_additionalSettings_addPaused_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_addPaused_caption": {
+    "message": "add NZB file in paused mode"
+  },
+  "target_jdownloader_additionalSettings_addPaused_description": {
+    "message": "If enabled, the NZB file will be added to the JDownloader queue as \"paused\" and the download must be started manually in JDownloader."
+  },
+  "target_jdownloader_additionalSettings_addPaused_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_title": {
+    "message": "Device selection"
+  },
+  "target_jdownloader_additionalSettings_deviceID_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_caption": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_description": {
+    "message": "Please select the target device for JDownloader"
+  },
+  "target_jdownloader_additionalSettings_deviceID_helptext": {
+    "message": ""
+  },
+  "target_premiumize_name": {
+    "message": "Premiumize.me",
+    "hash": "867e1fe679b72d9356f9067bf9a5a49e"
+  },
+  "target_premiumize_description": {
+    "message": "push to premiumize.me",
+    "hash": "291fb8eb59a89e851652473e52d0f03c"
+  },
+  "target_premiumize_connectionSettings_title": {
+    "message": "Connection settings",
+    "hash": "153ea44dd08cce7e71f87d52ad2a523a"
+  },
+  "target_premiumize_connectionSettings_username_title": {
+    "message": "Premiumize.me customer ID",
+    "hash": "517f21564dd65fcbcbf4417d2b80687a"
+  },
+  "target_premiumize_connectionSettings_username_subtitle": {
+    "message": "can be found on your premiumize.me account page",
+    "hash": "d92958db2ef9a7f43f9d6454607b726a"
+  },
+  "target_premiumize_connectionSettings_username_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_premiumize_connectionSettings_username_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_premiumize_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_premiumize_connectionSettings_password_title": {
+    "message": "Premiumize.me PIN",
+    "hash": "98f5dc6e7a528cb0127c73ce06e25310"
+  },
+  "target_premiumize_connectionSettings_password_subtitle": {
+    "message": "can be found on your premiumize.me account page",
+    "hash": "d92958db2ef9a7f43f9d6454607b726a"
+  },
+  "target_premiumize_connectionSettings_password_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_premiumize_connectionSettings_password_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_premiumize_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_name": {
+    "message": "SABnzbd",
+    "hash": "dc76a68a48777ec940fa155ca0dd5b16"
+  },
+  "target_sabnzbd_description": {
+    "message": "push to SABnzbd",
+    "hash": "b9192893a23d64a3b2ce29945b24458a"
+  },
+  "target_sabnzbd_connectionSettings_title": {
+    "message": "Connection settings",
+    "hash": "153ea44dd08cce7e71f87d52ad2a523a"
+  },
+  "target_sabnzbd_connectionSettings_scheme_title": {
+    "message": "Connection scheme",
+    "hash": "c332d93e060b98e759726a93e1dd05c5"
+  },
+  "target_sabnzbd_connectionSettings_scheme_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_scheme_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_scheme_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_scheme_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_scheme_https_text": {
+    "message": "https:// (secure SSL connection)",
+    "hash": "2ad7bd9e368297d3b6a36bd84d15c310"
+  },
+  "target_sabnzbd_connectionSettings_scheme_http_text": {
+    "message": "http:// (normal unsecure connection)",
+    "hash": "401285a3b784e89991045fc32a3529a8"
+  },
+  "target_sabnzbd_connectionSettings_host_title": {
+    "message": "Host",
+    "hash": "f7eef1219fc8f8121c018636b0fc91c7"
+  },
+  "target_sabnzbd_connectionSettings_host_subtitle": {
+    "message": "Host name or IP address",
+    "hash": "9a38dc6d5289a2db7cf7b735fd9cb2e9"
+  },
+  "target_sabnzbd_connectionSettings_host_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_host_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_host_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_port_title": {
+    "message": "Port",
+    "hash": "86dc4613628ec2081b85a5f2752a3769"
+  },
+  "target_sabnzbd_connectionSettings_port_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_port_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_port_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_port_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_apiKey_title": {
+    "message": "API or NZB key*",
+    "hash": "3b8836ceb74e530432e28997c0ebb514"
+  },
+  "target_sabnzbd_connectionSettings_apiKey_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_apiKey_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_apiKey_description": {
+    "message": "*Caution: if you want to enable categories you must provide the SABnzbd API Key.",
+    "hash": "c32d286e31a75ae13f505ac40380cfcf"
+  },
+  "target_sabnzbd_connectionSettings_apiKey_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_basepath_title": {
+    "message": "Reverse proxy path",
+    "hash": "13095f3fe3945262e9061a7ae89a455b"
+  },
+  "target_sabnzbd_connectionSettings_basepath_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_basepath_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_basepath_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_basepath_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_username_title": {
+    "message": "Basic HTTP authentication username",
+    "hash": "bb2f968cef24cf7b103d1d182e43b074"
+  },
+  "target_sabnzbd_connectionSettings_username_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_username_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_username_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_password_title": {
+    "message": "Basic HTTP authentication password",
+    "hash": "376681187152db87ede7d971d506c6f3"
+  },
+  "target_sabnzbd_connectionSettings_password_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_password_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_password_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_additionalSettings_title": {
+    "message": "Additional settings",
+    "hash": "76d196d0cf8c12388d1e4a873e0ab4ff"
+  },
+  "target_sabnzbd_additionalSettings_addPaused_title": {
+    "message": "Add as paused",
+    "hash": "8b574104eab073c06f18d75a6c0a3a05"
+  },
+  "target_sabnzbd_additionalSettings_addPaused_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_additionalSettings_addPaused_caption": {
+    "message": "add NZB file in paused mode",
+    "hash": "01947e348708f19efb21eb3ed71489e6"
+  },
+  "target_sabnzbd_additionalSettings_addPaused_description": {
+    "message": "If enabled, the NZB file will be added to the SABnzbd queue as \"paused\" and the download must be started manually in SABnzbd.",
+    "hash": "8304635bd6b6e65ad56a0b916a4d5dce"
+  },
+  "target_sabnzbd_additionalSettings_addPaused_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_category_title": {
+    "message": "Category settings",
+    "hash": "96007327e67a4d1e992247d7ebb9df49"
+  },
+  "target_sabnzbd_category_useCategories_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_category_useCategories_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_category_useCategories_caption": {
+    "message": "Enable usage of categories",
+    "hash": "4c713479ec2fc7bdc164ee2dec28dac2"
+  },
+  "target_sabnzbd_category_useCategories_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_sabnzbd_category_useCategories_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_name": {
+    "message": "Synology Diskstation",
+    "hash": "22cb6b9d7a345e32f9d2d870fc73e973"
+  },
+  "target_synology_description": {
+    "message": "push to Synology Diskstation",
+    "hash": "6c558a7b41e8c3f170f1f2df2b1519ac"
+  },
+  "target_synology_connectionSettings_title": {
+    "message": "Connection settings",
+    "hash": "153ea44dd08cce7e71f87d52ad2a523a"
+  },
+  "target_synology_connectionSettings_scheme_title": {
+    "message": "Connection scheme",
+    "hash": "c332d93e060b98e759726a93e1dd05c5"
+  },
+  "target_synology_connectionSettings_scheme_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_scheme_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_scheme_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_scheme_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_scheme_https_text": {
+    "message": "https:// (secure SSL connection)",
+    "hash": "2ad7bd9e368297d3b6a36bd84d15c310"
+  },
+  "target_synology_connectionSettings_scheme_http_text": {
+    "message": "http:// (normal unsecure connection)",
+    "hash": "401285a3b784e89991045fc32a3529a8"
+  },
+  "target_synology_connectionSettings_host_title": {
+    "message": "Host",
+    "hash": "f7eef1219fc8f8121c018636b0fc91c7"
+  },
+  "target_synology_connectionSettings_host_subtitle": {
+    "message": "Host name or IP address",
+    "hash": "9a38dc6d5289a2db7cf7b735fd9cb2e9"
+  },
+  "target_synology_connectionSettings_host_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_host_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_host_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_port_title": {
+    "message": "Port",
+    "hash": "86dc4613628ec2081b85a5f2752a3769"
+  },
+  "target_synology_connectionSettings_port_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_port_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_port_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_port_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_username_title": {
+    "message": "Username",
+    "hash": "430f84ee5574cccfdbbfba8280c197fe"
+  },
+  "target_synology_connectionSettings_username_subtitle": {
+    "message": "This user needs to have sufficient rights to use the DownloadStation. 2FA is not supportet.",
+    "hash": "4428c969335b1386200bae4e7842ade0"
+  },
+  "target_synology_connectionSettings_username_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_username_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_username_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_password_title": {
+    "message": "Password",
+    "hash": "4078a834d3c762f452d5849d20439a51"
+  },
+  "target_synology_connectionSettings_password_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_password_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_password_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_password_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basepath_title": {
+    "message": "Reverse proxy path",
+    "hash": "13095f3fe3945262e9061a7ae89a455b"
+  },
+  "target_synology_connectionSettings_basepath_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basepath_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basepath_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basepath_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthUsername_title": {
+    "message": "Basic HTTP authentication username",
+    "hash": "bb2f968cef24cf7b103d1d182e43b074"
+  },
+  "target_synology_connectionSettings_basicAuthUsername_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthUsername_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthUsername_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthUsername_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthPassword_title": {
+    "message": "Basic HTTP authentication password",
+    "hash": "67ce09f5509a3df1ec740781a604bde6"
+  },
+  "target_synology_connectionSettings_basicAuthPassword_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthPassword_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthPassword_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_synology_connectionSettings_basicAuthPassword_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "target_selection_title": {
+    "message": "Target selection",
+    "hash": "4ce5cac600255f530bbb9321016ec525"
+  },
+  "target_selection_message": {
+    "message": "Please select the NZB file target for \"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": "80a60eded827afdba2c62e09eaefe29d"
+  },
+  "target_success": {
+    "message": "The NZB file for \"$TITLE$\" successfully pushed to $TARGET$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "target": {
+        "content": "$2"
+      }
+    },
+    "hash": "34b8b04a3bab4499694525687679a34a"
+  },
+  "target_error": {
+    "message": "Error while pushing the NZB file for \"$TITLE$\" to $TARGET$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "target": {
+        "content": "$2"
+      }
+    },
+    "hash": "b2e45e9fed2f42a284638d2653b842e9"
+  },
+  "target_error_nosettings": {
+    "message": "No target selected",
+    "hash": "2536140df1ffc550abd26138d1d88440"
+  },
+  "target_error_selectionabortet": {
+    "message": "The target selection was canceled by the user",
+    "hash": "5e2fec5a6dd021bab462665a82fa89fd"
+  },
+  "background_initialisation_success": {
+    "message": "NZBDonkey v$VERSION$ successfully initialised",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    },
+    "hash": "f83f72618ff5688ead2eb354e6f19612"
+  },
+  "background_initialisation_error": {
+    "message": "Error while initialising NZBDonkey v$VERSION$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    },
+    "hash": "31c66b920caa76024ffd10dd6d9fa48d"
+  },
+  "content_initialisation_error": {
+    "message": "Error while initialising NZBDonkey v$VERSION$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    },
+    "hash": "31c66b920caa76024ffd10dd6d9fa48d"
+  },
+  "content_error": {
+    "message": "Conten script error",
+    "hash": "b4d6a53e17a87e8ce3841479d95b4975"
+  },
+  "content_error_unknownrequest": {
+    "message": "Unknown request",
+    "hash": "3da5545dc7507a849cf3049b17f649f1"
+  },
+  "content_error_novalidnzblnk": {
+    "message": "The link is not a valid NZBLNK",
+    "hash": "656ef0b8a63d13e4f522a02d6f4b2d2e"
+  },
+  "contextmenu_sendto": {
+    "message": "push NZB file to",
+    "hash": "49f8db5c54f458f927c2b27c7b219bf4"
+  },
+  "contextmenu_analyseselection": {
+    "message": "analyse selected text",
+    "hash": "0a43c067b6a215aa1cedf1b47d947020"
+  },
+  "contextmenu_error_novalidnzblnk": {
+    "message": "The link is not a valid NZBLNK",
+    "hash": "656ef0b8a63d13e4f522a02d6f4b2d2e"
+  },
+  "nzb_error_noheader": {
+    "message": "Header is missing",
+    "hash": "17aca1809c618b37c1317c7f9d7c653f"
+  },
+  "nzb_error_nosearchresults": {
+    "message": "No search engine returned a result",
+    "hash": "2072acb212befd14de0479e3771c54bf"
+  },
+  "nzb_error_processing": {
+    "message": "Error while processing \"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": "ddbede9f01f174509918d492d71c784d"
+  },
+  "nzb_info_searching": {
+    "message": "Searching for the NZB file for \"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": "db8c6149a392da32bdabc22f12e205b1"
+  },
+  "nzb_error_incomplete": {
+    "message": "The NZB file is incomplete",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    },
+    "hash": "a41ac98bd5f175643da02f7bf5932fd6"
+  },
+  "nzb_error_incomplete_missingfiles": {
+    "message": "$MISSING$ of $TOTAL$ files are missing",
+    "placeholders": {
+      "missing": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    },
+    "hash": "95a56d911c2398636a9fda8636dcbf71"
+  },
+  "nzb_error_incomplete_missingsegments": {
+    "message": "$NUMBER$ segments are missing ($PERCENT$%)",
+    "placeholders": {
+      "number": {
+        "content": "$1"
+      },
+      "percent": {
+        "content": "$2"
+      }
+    },
+    "hash": "831dd39f84c5720e5ed22f5b69923c68"
+  },
+  "nzb_error_incomplete_nofiles": {
+    "message": "there are no files",
+    "hash": "f456bb8b5f9665d7607be0affbe7a14e"
+  },
+  "nzb_error_incomplete_nosegments": {
+    "message": "there are no segments",
+    "hash": "6a6578b73a32a9ed07014d453466686f"
+  },
+  "categories_categorySettings_title": {
+    "message": "Category settings",
+    "hash": "367c1d87e16cbdc6a43e52efb151815b"
+  },
+  "categories_categorySettings_type_title": {
+    "message": "Category assignment",
+    "hash": "3e1d5fa06016b5c447ee08e99007c25d"
+  },
+  "categories_categorySettings_type_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_type_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_type_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_type_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_type_automatic_text": {
+    "message": "Automatic category assignment",
+    "hash": "e564a5508b982d5fd1ab8697f6dd33dd"
+  },
+  "categories_categorySettings_type_manual_text": {
+    "message": "Manual category selection",
+    "hash": "7271b79652ef5ed9edf9a06b9f45525e"
+  },
+  "categories_categorySettings_type_default_text": {
+    "message": "Use default category",
+    "hash": "acda7712fd7b9845d197117a4f21d009"
+  },
+  "categories_categorySettings_categories_title": {
+    "message": "Categories",
+    "hash": "b85a246384f622665cc2ad4394f82eef"
+  },
+  "categories_categorySettings_categories_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_categories_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_categories_description": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_categories_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_categories_options_defaultCategory_title": {
+    "message": "Default",
+    "hash": "1fefe6c3b8c6dce8fc83609cff11a2fa"
+  },
+  "categories_categorySettings_categories_options_defaultCategory_helptext": {
+    "message": "Default category selection",
+    "hash": "d869f119d12f25a7c105ebb7949960de"
+  },
+  "categories_categorySettings_categories_options_active_title": {
+    "message": "Enabled",
+    "hash": "c9f52343a21e4d7204551c3fa93007e1"
+  },
+  "categories_categorySettings_categories_options_active_helptext": {
+    "message": "Only enabled categories are displayed in the manual category selection.",
+    "hash": "0a2c7e4db09fd40c608baea99600113d"
+  },
+  "categories_categorySettings_categories_options_name_title": {
+    "message": "Name",
+    "hash": "ea749f1f2741f75bc9964303625ad41f"
+  },
+  "categories_categorySettings_categories_options_name_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_categories_options_regex_title": {
+    "message": "Regular expression",
+    "hash": "163eac0257290d8ceafff0eab979cc11"
+  },
+  "categories_categorySettings_categories_options_regex_helptext": {
+    "message": "Regular expression for the automatic category assignment.\nEither a predefined expression from the selection list can be used or with the selection \"Own\" an own expression can be entered. If you select \"Off\", the category will be skipped during automatic assignment.\nThe regular expressions are checked in order and the first match is used as the category. The order of the categories and thus the order of checking the expressions can be adjusted via \"drag&drop\" (with the first button).",
+    "hash": "6793a185ca12cada2264b528208196d7"
+  },
+  "categories_categorySettings_fallbackType_title": {
+    "message": "Fallback caterogy selection",
+    "hash": "7083717e017fb7fe1b13a14dfd0603f7"
+  },
+  "categories_categorySettings_fallbackType_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_fallbackType_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_fallbackType_description": {
+    "message": "This alternative category assignment is used when the automatic category assignment fails.",
+    "hash": "ca479efaa020a99b9d873013763fb973"
+  },
+  "categories_categorySettings_fallbackType_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "categories_categorySettings_fallbackType_manual_text": {
+    "message": "Manual category selection",
+    "hash": "7271b79652ef5ed9edf9a06b9f45525e"
+  },
+  "categories_categorySettings_fallbackType_default_text": {
+    "message": "Default category selection",
+    "hash": "acda7712fd7b9845d197117a4f21d009"
+  },
+  "categories_categorySettings_fallbackType_none_text": {
+    "message": "No category",
+    "hash": "01d4922a8d8729d3401827d080c08b76"
+  },
+  "categories_regex_tv": {
+    "message": "TV series",
+    "hash": "b5f6b4e4142cb5b9149d2d8afd7043ac"
+  },
+  "categories_regex_movie": {
+    "message": "Movies",
+    "hash": "8912d14bb7411cc0a22aae6d1fdbcfa1"
+  },
+  "categories_regex_own": {
+    "message": "Own",
+    "hash": "fe42ff3a6651b8c1dea8a8115ae34caf"
+  },
+  "categories_regex_off": {
+    "message": "Off",
+    "hash": "c0f201ddcaddc9e580b7767d8427370c"
+  },
+  "categories_select": {
+    "message": "Category selection",
+    "hash": "eaa8609f2b60e501cb972f39a89e03fe"
+  },
+  "categories_select_nocategory": {
+    "message": "No category",
+    "hash": "01d4922a8d8729d3401827d080c08b76"
+  },
+  "validator_required": {
+    "message": "This information is required",
+    "hash": "d2b4c6c9e7725a6a518a4666c9d69282"
+  },
+  "validator_host": {
+    "message": "This is not a valid host name or IP address",
+    "hash": "1fcf5f2f98bfb33a99a8af068a492534"
+  },
+  "validator_port": {
+    "message": "This is not a valid port number",
+    "hash": "d5d5109d12e608be89a41f75c4cb7c9a"
+  },
+  "validator_relativepath": {
+    "message": "This is not a valid relative path",
+    "hash": "6a24348d7fae74e801627cc301d03754"
+  },
+  "validator_url": {
+    "message": "This is not a valid URL",
+    "hash": "400aed2695ae2a015c9ad446e72a987f"
+  },
+  "validator_number": {
+    "message": "This is not a valid number",
+    "hash": "8be37b5c80ddbcecf70e4fffd8d6f5cd"
+  },
+  "validator_percent": {
+    "message": "This is not a valid percentage value",
+    "hash": "f665c54750d16346b70c67e9c2a7b35e"
+  },
+  "validator_regex": {
+    "message": "This is not a valid regular expression",
+    "hash": "965224f0542570d058748f878674981d"
+  },
+  "validator_urlID": {
+    "message": "The placeholder \"%s\" is missing",
+    "hash": "ce8cd11c39772c2f0e29f40993a44d17"
+  },
+  "validator_basedomain": {
+    "message": "This is not a valid base domain",
+    "hash": "ad94ce77dda9400707f59f667839126b"
+  },
+  "error_timeout": {
+    "message": "timeout error",
+    "hash": "756e6859942fcc9d272f1e503a66230d"
+  },
+  "error_network": {
+    "message": "network error",
+    "hash": "9202fa7a80c99a21cab3500d059f871d"
+  },
+  "error_novalidurl": {
+    "message": "invalid URL",
+    "hash": "c97cbb525033d24dbb131665a5eb54f8"
+  },
+  "error_novalidjson": {
+    "message": "no valid JSON format",
+    "hash": "f7c83b930ff27eb072d81d42644bc507"
+  },
+  "error_novalidxml": {
+    "message": "no valid XML format",
+    "hash": "e019fad7eadc293d13b5eb630e766ca6"
+  },
+  "error_novalidnzb": {
+    "message": "no valid NZB file",
+    "hash": "68e2a4c95635d69a656e76c0a510453f"
+  },
+  "error_errorcode": {
+    "message": "Error code",
+    "hash": "54f53f1b079e1dfe17332f7b591434eb"
+  },
+  "interception_domainSettings_title": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_domain_title": {
+    "message": "Domain",
+    "hash": "485d96c6ec4ecb75e6dd36d16bc96a24"
+  },
+  "interception_domainSettings_domain_subtitle": {
+    "message": "Base domain only!",
+    "hash": "3fd6093dc5c0be014cc3162e94b283a5"
+  },
+  "interception_domainSettings_domain_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_domain_description": {
+    "message": "Base domain where you want to intercept NZB file downloads.\nCAUTION: do not add \"www\" or any other subdomains.",
+    "hash": "1f5a7ff70dc30c7c9d0597df6ad79442"
+  },
+  "interception_domainSettings_domain_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_handling_title": {
+    "message": "Handling of Form Data",
+    "hash": "2b1c2c118729952e3d02fd34528c51e1"
+  },
+  "interception_domainSettings_handling_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_handling_caption": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_handling_description": {
+    "message": "Determins how POST form data should be handled for this domain.\nIf the default value is resulting in constant error messages regarding invalid or empty NZB files, try one of the other options.",
+    "hash": "439f9c4e452f218c8e99f06cf49754cd"
+  },
+  "interception_domainSettings_handling_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_handling_sendFormDataAsPOST_text": {
+    "message": "Send form data as POST parameters (default)",
+    "hash": "13e00fe29ed1dd47d756cd102d924473"
+  },
+  "interception_domainSettings_handling_sendFormDataAsPOST_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_handling_sendFormDataAsGET_text": {
+    "message": "Send form data as GET parameters",
+    "hash": "e8ea9aef44b821a1461048a2a13685b0"
+  },
+  "interception_domainSettings_handling_sendFormDataAsGET_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_handling_sendFormDataAsString_text": {
+    "message": "Send form data as body text ",
+    "hash": "683554150487023de33c295cc216f85f"
+  },
+  "interception_domainSettings_handling_sendFormDataAsString_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_packedFiles_title": {
+    "message": "Packed files",
+    "hash": "b403ce7a0e1514cfb668ade217ce1422"
+  },
+  "interception_domainSettings_packedFiles_subtitle": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_domainSettings_packedFiles_caption": {
+    "message": "intercept the download of packed files",
+    "hash": "b2cc03a83120513d420da4c85475b46b"
+  },
+  "interception_domainSettings_packedFiles_description": {
+    "message": "If enabled, the download of packed files (e.g. .rar and .zip) will also be intercepted and if they contain NZB files, they will be extracted and processed.",
+    "hash": "669af88815f3f0eb094773795e39d405"
+  },
+  "interception_domainSettings_packedFiles_helptext": {
+    "message": "",
+    "hash": "00000000000000000000000000000000"
+  },
+  "interception_info": {
+    "message": "Intercepting download of \"$FILE$\" from $SOURCE$",
+    "placeholders": {
+      "file": {
+        "content": "$1"
+      },
+      "source": {
+        "content": "$2"
+      }
+    },
+    "hash": "3f4ee5e0a7832f88278a460fd7092bd3"
+  },
+  "interception_error": {
+    "message": "Error while downloading \"$FILE$\"",
+    "placeholders": {
+      "file": {
+        "content": "$1"
+      }
+    },
+    "hash": "ba7f52096e5d2c451ca4b49caacad540"
+  },
+  "interception_error_nonzb": {
+    "message": "No NZB file found",
+    "hash": "bca021993b735b872a2b1f20ae540b10"
+  },
+  "nzbDialog_loadingtext": {
+    "message": "Loading..",
+    "hash": "5f94978b69cb9950e0a30ba2ed4385f8"
+  },
+  "nzbdialog_error_aborted": {
+    "message": "The process was canceled by the user",
+    "hash": "40155500023ac123f6618a2d73d19c6a"
+  },
+  "popup_menu_quicksettings": {
+    "message": "Quick settings"
+  },
+  "popup_menu_log": {
+    "message": "Logs"
+  },
+  "popup_menu_nzblog": {
+    "message": "NZB file log"
+  },
+  "popup_menu_debuglog": {
+    "message": "Debug log"
+  },
+  "__WET_LOCALE__": {
+    "message": "en"
+  },
+  "test": {
+    "message": "EN Test"
+  },
+  "contentnzbdonkey": {
+    "message": "NZBDonkey"
+  }
+}

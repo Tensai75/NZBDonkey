@@ -1,0 +1,323 @@
+{
+  "error_noHeader": {
+    "message": "Fehlender Header!"
+  },
+  "error_noTitle": {
+    "message": "Fehlender Titel!"
+  },
+  "info_searchingNzbFileFor": {
+    "message": "Suche nach der NZB-Datei für \"$1\""
+  },
+  "error_noActiveSearchEngines": {
+    "message": "Es gibt keine aktive Suchmaschine. Bitte die Einstellungen überprüfen."
+  },
+  "debug_searchModeSequential": {
+    "message": "Der Suchmodus ist auf sequentiell eingestellt"
+  },
+  "debug_ignoringResultFromSearchEngine": {
+    "message": "Das Ergebnis der Suchmaschine \"$1\" wird ignoriert"
+  },
+  "error_noSearchEngineReturnedAResult": {
+    "message": "Keine Suchmaschine lieferte ein Ergebnis"
+  },
+  "debug_usingTheNzbFileFromSearchEngine": {
+    "message": "NZB-Datei der Suchmaschine \"$1\" wird verwendet"
+  },
+  "error_whileSearchingNzbFile": {
+    "message": "Fehler bei der Suche nach der NZB-Datei für \"$1\": $2"
+  },
+  "debug_checkingTheNzbFileForCompleteness": {
+    "message": "Die NZB-Datei der Suchmaschine \"$1\" wird auf Vollständigkeit geprüft"
+  },
+  "debug_completnessCheckResults": {
+    "message": "Ergebnisse der Vollständigkeitsprüfung für die Suchmaschine \"$1\""
+  },
+  "general_files": {
+    "message": "Dateien"
+  },
+  "general_segments": {
+    "message": "Segmente"
+  },
+  "debug_searchEngineReturnedACompleteNzbFile": {
+    "message": "Die Suchmaschine \"$1\" hat eine vollständige NZB-Datei zurückgegeben"
+  },
+  "debug_errorWhileCheckingForCompleteness": {
+    "message": "Fehler bei der Vollständigkeitsprüfung der NZB-Datei von Suchmaschine \"$1\": $2"
+  },
+  "debug_completenessCheckDisabled": {
+    "message": "Vollständigkeitsüberprüfung ist deaktiviert"
+  },
+  "debug_settingTheTargetForNzbFile": {
+    "message": "Das Ziel für die NZB-Datei wird bestimmt"
+  },
+  "debug_targetForNzbFileSetTo": {
+    "message": "Das Ziel für die NZB-Datei ist: $1"
+  },
+  "error_whileSettingTheTarget": {
+    "message": "Fehler beim Festlegen des Ziels für die NZB-Datei \"$1\": $2"
+  },
+  "debug_settingTheCategoryForNzbFile": {
+    "message": "Die Kategorie für die NZB-Datei wird bestimmt"
+  },
+  "debug_categoryForNzbFileSetTo": {
+    "message": "Die Kategorie für die NZB-Datei ist: \"$1\""
+  },
+  "error_whileSettingTheCategory": {
+    "message": "Fehler beim Festlegen der Kategorie für die NZB-Datei: $1"
+  },
+  "debug_processingTheTitleForNzbFile": {
+    "message": "Bearbeitung des Titels für die NZB-Datei \"$1\""
+  },
+  "error_whileProcessingTitleForNzbFile": {
+    "message": "Fehler bei der Verarbeitung des Titels für die NZB-Datei \"$1\": $2"
+  },
+  "debug_processingThePasswordForNzbFile": {
+    "message": "Verarbeitung des Passworts für die NZB-Datei \"$1\""
+  },
+  "error_whileProcessingThePasswordForNzbFile": {
+    "message": "Fehler beim Verarbeiten des Passworts für die NZB-Datei \"$1\": $2"
+  },
+  "debug_addingMetaDataToNzbFile": {
+    "message": "Die Metadaten werden der NZB-Datei hinzugefügt"
+  },
+  "debug_addingTitleToMetaData": {
+    "message": "Der Titel wird zu den Metadaten der NZB-Datei hinzugefügt"
+  },
+  "debug_errorWhileAddingTheMetaData": {
+    "message": "Fehler beim Hinzufügen der Metadaten zur NZB-Datei \"$1\": $2"
+  },
+  "debug_addingPasswordToMetaData": {
+    "message": "Das Passwort wird zu den Metadaten der NZB-Datei hinzugefügt"
+  },
+  "debug_addingCategoryToTheMetaData": {
+    "message": "Die Kategorie wird zu den Metadaten der NZB-Datei hinzugefügt"
+  },
+  "debug_generatingFinalNzbFile": {
+    "message": "Die fertige NZB-Datei für \"$1\" wird erstellt"
+  },
+  "error_whileGeneratingFinalNzbFile": {
+    "message": "Fehler beim Erstellen der finalen NZB-Datei für \"$1\": $2"
+  },
+  "info_pushingNzbFileToTarget": {
+    "message": "Die NZB-Datei für \"$1\" wird an das Ziel \"$2\" übergeben"
+  },
+  "info_nzbFileSuccesfullyPushedToTarget": {
+    "message": "Die NZB-Datei für \"$1\" wurde erfolgreich an das Ziel \"$2\" übergeben"
+  },
+  "error_whileProcessingTitle": {
+    "message": "Fehler bei der Verarbeitung von \"$1\""
+  },
+  "error_whileProcessing": {
+    "message": "Fehler bei der Verarbeitung"
+  },
+  "debug_initialisingContenScriptListener": {
+    "message": "Initialisierung des Content-Skript Message-Listener"
+  },
+  "debug_developmentModeOn": {
+    "message": "Entwicklungsmodus aktiviert"
+  },
+  "debug_ScriptVersion": {
+    "message": "$1-Skript v$2"
+  },
+  "debug_searchInformationReceivedFromContentScript": {
+    "message": "Suchinformationen erhalten vom Content Script"
+  },
+  "error_contentScriptListenerError": {
+    "message": "Fehler im Content-Skript Message-Listener: $1"
+  },
+  "debug_contentScriptMessageListenersSuccessfullyInitialised": {
+    "message": "Content-Skript Message-Listener erfolgreich initialisiert"
+  },
+  "debug_initialisingBackgroundScript": {
+    "message": "Initialisierung des Background-Skripts"
+  },
+  "debug_backgroundScriptSuccessfullyInitialised": {
+    "message": "Background-Skript erfolgreich initialisiert"
+  },
+  "info_donkeySuccessfullyInitialised": {
+    "message": "NZBDonkey v$1 erfolgreich initialisiert"
+  },
+  "error_initialisingBackgroundScript": {
+    "message": "Fehler bei der Initialisierung des Background-Skripts: $1"
+  },
+  "error_initialisingNzbdonkeyVersion": {
+    "message": ""
+  },
+  "error_initialisingDonkeyVersion": {
+    "message": "Fehler bei der Initialisierung von NZBDonkey v$1: $2"
+  },
+  "debug_initialisingContextMenu": {
+    "message": "Initialisierung des Kontextmenüs"
+  },
+  "debug_contextMenuSuccessfullyInitialised": {
+    "message": "Kontextmenü erfolgreich initialisiert"
+  },
+  "error_whileInitialisingContextMenu": {
+    "message": "Fehler beim Initialisieren des Kontextmenüs: $1"
+  },
+  "debug_settingContextMenu": {
+    "message": "Das Kontextmenü wird eingerichtet"
+  },
+  "contextmenu_nzbdonkeySendTo": {
+    "message": "NZBDonkey 🠖 senden an"
+  },
+  "contextmenu_nzbdonkeyAnalyseSelection": {
+    "message": "NZBDonkey 🠖 Textauswahl analysieren"
+  },
+  "debug_contextMenuSuccessfullySet": {
+    "message": "Kontextmenü erfolgreich eingerichtet"
+  },
+  "error_whileSettingContextMenu": {
+    "message": "Fehler beim Einrichten des Kontextmenüs: $1"
+  },
+  "debug_contextMenuClickOnLinkDetected": {
+    "message": "Kontextmenü-Klick auf einen Link wurde erkannt -> Link wird analysiert"
+  },
+  "debug_validNzblnkDetected": {
+    "message": "Gültiger NZBLNK erkannt -> let's do the donkey..."
+  },
+  "debug_noValidNzblnkDetected": {
+    "message": "Keine gültiger NZBLNK erkannt"
+  },
+  "debug_clickOnTextSelectionDetected": {
+    "message": "Kontextmenü-Klick auf eine Textauswahl wurde erkannt -> Aktivierung des Content-Skripts"
+  },
+  "error_whileProcessingUserInteraction": {
+    "message": "Fehler bei der Verarbeitung einer Benutzerinteraktion: $1"
+  },
+  "general_extensionName": {
+    "message": "NZBDonkey"
+  },
+  "debug_sendingNotification": {
+    "message": "Desktop-Benachrichtigung wird gesendet: $1"
+  },
+  "error_nzbfileIncomplete": {
+    "message": "Die NZB-Datei ist unvollständig"
+  },
+  "error_missingFiles": {
+    "message": "fehlende Dateien"
+  },
+  "error_noSegments": {
+    "message": "Die NZB-Datei enthält keine Segmente"
+  },
+  "general_and": {
+    "message": "und"
+  },
+  "error_missingSegments": {
+    "message": "fehlende Segmente"
+  },
+  "error_noFiles": {
+    "message": "Die NZB-Datei enthält keine Dateien"
+  },
+  "general_error": {
+    "message": "FEHLER"
+  },
+  "popup_menuQuicksettings": {
+    "message": "Schnelleinstellungen"
+  },
+  "popup_menuLogs": {
+    "message": "Protokolle"
+  },
+  "popup_menuNzblog": {
+    "message": "NZB-Datei Protokoll"
+  },
+  "popup_menuDebuglog": {
+    "message": "Debug Protokoll"
+  },
+  "settings_targetTitle": {
+    "message": "NZB-Datei Ziele"
+  },
+  "settings_searchenginesTitle": {
+    "message": "Suchmaschinen"
+  },
+  "settings_interceptionTitle": {
+    "message": "Download Überwachung"
+  },
+  "settings_generalTitle": {
+    "message": "Allgemein"
+  },
+  "general_close": {
+    "message": "Schliessen"
+  },
+  "general_openSettings": {
+    "message": "Einstellungen öffnen"
+  },
+  "target_jdownloader_name": {
+    "message": "JDownloader"
+  },
+  "target_jdownloader_description": {
+    "message": "an JDownloader senden"
+  },
+  "target_jdownloader_connectionSettings_title": {
+    "message": "Verbindungs-Einstellungen"
+  },
+  "target_jdownloader_connectionSettings_username_title": {
+    "message": "Benutzername"
+  },
+  "target_jdownloader_connectionSettings_username_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_username_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_title": {
+    "message": "Passwort"
+  },
+  "target_jdownloader_connectionSettings_password_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_caption": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_description": {
+    "message": ""
+  },
+  "target_jdownloader_connectionSettings_password_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_title": {
+    "message": "Weitere Einstellungen"
+  },
+  "target_jdownloader_additionalSettings_addPaused_title": {
+    "message": "Download-Modus"
+  },
+  "target_jdownloader_additionalSettings_addPaused_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_addPaused_caption": {
+    "message": "als \"pausiert\" hinzufügen"
+  },
+  "target_jdownloader_additionalSettings_addPaused_description": {
+    "message": "Wenn aktiviert, wird die NZB-Datei als \"pausiert\" in die JDownloader-Warteschlange aufgenommen und der Download muss in JDownloader manuell gestartet werden."
+  },
+  "target_jdownloader_additionalSettings_addPaused_helptext": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_title": {
+    "message": "Geräte-Auswahl"
+  },
+  "target_jdownloader_additionalSettings_deviceID_subtitle": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_caption": {
+    "message": ""
+  },
+  "target_jdownloader_additionalSettings_deviceID_description": {
+    "message": "Bitte das Ziel-Gerät für JDownloader auswählen"
+  },
+  "target_jdownloader_additionalSettings_deviceID_helptext": {
+    "message": ""
+  },
+  "general_testconnection": {
+    "message": "Verbindung prüfen..."
+  },
+  "general_save": {
+    "message": "Speichern"
+  }
+}
