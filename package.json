@@ -2,7 +2,7 @@
   "name": "nzbdonkey",
   "description": "The ultimate NZB file downloader webextension.",
   "private": true,
-  "version": "0.7.7",
+  "version": "1.0.0",
   "type": "module",
   "eslintIgnore": [
     "src/services/interception/libarchive-wasm/**"
