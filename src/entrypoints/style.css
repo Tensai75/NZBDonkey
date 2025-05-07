@@ -1,0 +1,197 @@
+/* Use @import */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import '@/assets/primevue/tailwind.css';
+@import 'tailwindcss/utilities';
+@import 'primeicons/primeicons.css';
+
+/* Primary and Surface Palettes */
+:root {
+  --p-primary-50: #ecfdf5;
+  --p-primary-100: #d1fae5;
+  --p-primary-200: #a7f3d0;
+  --p-primary-300: #6ee7b7;
+  --p-primary-400: #34d399;
+  --p-primary-500: #10b981;
+  --p-primary-600: #059669;
+  --p-primary-700: #047857;
+  --p-primary-800: #065f46;
+  --p-primary-900: #064e3b;
+  --p-primary-950: #022c22;
+  --p-surface-0: #ffffff;
+  --p-surface-50: #fafafa;
+  --p-surface-100: #f4f4f5;
+  --p-surface-200: #e4e4e7;
+  --p-surface-300: #d4d4d8;
+  --p-surface-400: #a1a1aa;
+  --p-surface-500: #71717a;
+  --p-surface-600: #52525b;
+  --p-surface-700: #3f3f46;
+  --p-surface-800: #27272a;
+  --p-surface-900: #18181b;
+  --p-surface-950: #09090b;
+  --p-content-border-radius: 5px;
+}
+
+/* Light */
+:root {
+  --p-primary-color: var(--p-primary-500);
+  --p-primary-contrast-color: var(--p-surface-0);
+  --p-primary-hover-color: var(--p-primary-600);
+  --p-primary-active-color: var(--p-primary-700);
+  --p-content-border-color: var(--p-surface-200);
+  --p-content-hover-background: var(--p-surface-100);
+  --p-content-hover-color: var(--p-surface-800);
+  --p-highlight-background: var(--p-primary-50);
+  --p-highlight-color: var(--p-primary-700);
+  --p-highlight-focus-background: var(--p-primary-100);
+  --p-highlight-focus-color: var(--p-primary-800);
+  --p-text-color: var(--p-surface-700);
+  --p-text-hover-color: var(--p-surface-800);
+  --p-text-muted-color: var(--p-surface-500);
+  --p-text-hover-muted-color: var(--p-surface-600);
+}
+
+/* 
+ * Dark Mode
+ * Defaults to system, change the selector to match the darkMode in tailwind.config.
+ * For example; 
+ * darkMode: ['selector', '[class*="app-dark"]'] 
+ * should be;
+ * :root[class="app-dark"] {
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --p-primary-color: var(--p-primary-400);
+    --p-primary-contrast-color: var(--p-surface-900);
+    --p-primary-hover-color: var(--p-primary-300);
+    --p-primary-active-color: var(--p-primary-200);
+    --p-content-border-color: var(--p-surface-700);
+    --p-content-hover-background: var(--p-surface-800);
+    --p-content-hover-color: var(--p-surface-0);
+    --p-highlight-background: color-mix(in srgb, var(--p-primary-400), transparent 84%);
+    --p-highlight-color: rgba(255, 255, 255, 0.87);
+    --p-highlight-focus-background: color-mix(in srgb, var(--p-primary-400), transparent 76%);
+    --p-highlight-focus-color: rgba(255, 255, 255, 0.87);
+    --p-text-color: var(--p-surface-0);
+    --p-text-hover-color: var(--p-surface-0);
+    --p-text-muted-color: var(--p-surface-400);
+    --p-text-hover-muted-color: var(--p-surface-300);
+  }
+}
+
+@layer base {
+  h1 {
+    @apply text-xl;
+  }
+  h2 {
+    @apply text-base;
+  }
+  h3 {
+    @apply text-sm;
+  }
+  /* ... */
+}
+
+/* Corrections */
+
+.p-accordioncontent {
+  margin-top: -16px;
+}
+
+.p-select-label {
+  padding: 6px !important;
+}
+
+.p-togglebutton-sm {
+  padding: 0 10px !important;
+}
+
+.p-tag {
+  padding: 0 4px !important;
+}
+
+.p-button-sm {
+  /*  height: 0px !important; */
+  /*  width: 0px !important; */
+  padding: 6px 12px 6px 12px !important;
+}
+
+.p-listbox {
+  max-width: fit-content;
+  border: 0px !important;
+  background-color: initial !important;
+}
+.p-listbox-list {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  flex-direction: row !important;
+  width: min-content !important;
+}
+.p-listbox-option {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  width: 100px !important;
+  padding: 0px !important;
+}
+.p-listbox-option:hover,
+.p-listbox-option-selected,
+.p-listbox-option.p-focus {
+  background-color: initial !important;
+}
+.p-listbox.p-disabled * {
+  color: var(--p-listbox-disabled-color) !important;
+}
+.p-listbox-option-blank-icon,
+.p-listbox-option-check-icon {
+  width: 20px !important;
+  height: 20px !important;
+  padding: 2px;
+  border: 1px solid !important;
+  border-radius: 2px !important;
+  margin-right: 1rem !important;
+  margin-inline-start: 0px !important;
+}
+
+.p-confirmdialog {
+  max-width: 360px;
+}
+.p-confirmdialog-message {
+  font-size: 120%;
+}
+
+.p-message-text {
+  font-size: 100% !important;
+}
+
+.p-datatable-column-filter-button {
+  border-radius: 0px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.p-datatable-filter-constraint-dropdown {
+  display: none !important;
+}
+
+html,
+:host,
+:root {
+  font-size: 16px !important;
+  --p-form-field-sm-padding-y: 0.275rem !important;
+}
+body {
+  font-size: 12px !important;
+}
+.license > * {
+  margin-bottom: 10px;
+}
+.license h2:nth-child(n + 2) {
+  margin-top: 30px !important;
+}
+.license ul {
+  list-style: outside circle;
+}
+.license ul li {
+  margin-left: 1.5rem;
+}

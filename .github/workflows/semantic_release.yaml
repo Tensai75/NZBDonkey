@@ -1,0 +1,44 @@
+name: Semantic Release
+
+on:
+  push:
+    branches:
+      - beta
+      - rc
+      - master
+    paths:
+      - 'src/**'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all commits for changelog
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/npm
+            @semantic-release/git
+            @semantic-release/exec
+            @semantic-release/github
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          WXT_REPOSITORY_NAME: ${{ github.repository }}
+          WXT_BRANCH_NAME: ${{ github.ref_name }}

@@ -1,0 +1,68 @@
+{
+  "name": "nzbdonkey",
+  "description": "The ultimate NZB file downloader webextension.",
+  "private": true,
+  "version": "0.7.7",
+  "type": "module",
+  "eslintIgnore": [
+    "src/services/interception/libarchive-wasm/**"
+  ],
+  "prettierIgnore": [
+    "src/services/interception/libarchive-wasm/**"
+  ],
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build --mv3 -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip --mv3 -b firefox",
+    "compile": "vue-tsc --noEmit",
+    "postinstall": "wxt prepare",
+    "lint": "eslint ./src/**/* ./*.{js,ts,vue} --ext .js,.ts,.vue --fix",
+    "format": "prettier --write \"./src/**/*.{js,ts,vue,json}\" \"./*.{js,ts,vue,json}\""
+  },
+  "dependencies": {
+    "@primeuix/themes": "^1.0.0",
+    "@primevue/forms": "^4.2.5",
+    "@types/html-to-text": "^9.0.4",
+    "@vueuse/core": "^12.5.0",
+    "@webext-core/messaging": "^2.2.0",
+    "@wxt-dev/i18n": "^0.2.3",
+    "dexie": "^4.0.11",
+    "fast-xml-parser": "^4.5.1",
+    "floating-vue": "^5.2.2",
+    "html-to-text": "^9.0.5",
+    "jsonpath": "^1.1.1",
+    "libarchive-wasm": "^1.1.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.2.5",
+    "tailwindcss-primeui": "^0.4.0",
+    "vue": "^3.5.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@types/chrome": "^0.0.280",
+    "@types/firefox-webext-browser": "^120.0.4",
+    "@types/jsonpath": "^0.2.4",
+    "@wxt-dev/module-vue": "^1.0.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.20.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-vue": "^9.32.0",
+    "globals": "^15.14.0",
+    "postcss": "^8.5.1",
+    "postcss-import": "^16.1.0",
+    "prettier": "^3.5.3",
+    "sass-embedded": "^1.85.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.23.0",
+    "vite-plugin-md-to-html": "^0.0.18",
+    "vite-plugin-plain-text": "^1.4.2",
+    "vue-tsc": "^2.1.10",
+    "wxt": "^0.20.0"
+  }
+}

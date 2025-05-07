@@ -1,50 +1,37 @@
-![alt text](https://raw.githubusercontent.com/Tensai75/NZBDonkey/master/icons/NZBDonkey_128.png "NZBDonkey Logo")
+[![Chrome users](https://img.shields.io/chrome-web-store/users/edkhpdceeinkcacjdgebjehipmnbomce?style=plastic&label=Chrome%20users)](https://chrome.google.com/webstore/detail/nzbdonkey/edkhpdceeinkcacjdgebjehipmnbomce)
+[![Firefox users](https://img.shields.io/amo/users/nzbdonkey?style=plastic&label=Firefox%20users)](https://addons.mozilla.org/de/firefox/addon/nzbdonkey/)
+[![Latest release](https://img.shields.io/github/v/release/Tensai75/NZBDonkey?include_prereleases&display_name=tag&logo=github&label=latest%20release&style=plastic)](https://github.com/Tensai75/NZBDonkey/releases/latest)
+[![Latest stable release](https://img.shields.io/github/v/release/Tensai75/NZBDonkey?display_name=tag&logo=github&label=latest%20stable%20release&style=plastic)](https://github.com/Tensai75/NZBDonkey/releases/latest)
+[![Workflow status](https://img.shields.io/github/actions/workflow/status/Tensai75/NZBDonkey/semantic_release.yaml?style=plastic)](https://github.com/Tensai75/NZBDonkey/actions/workflows/semantic_release.yaml)
+
+![NZBDonkey logo](https://raw.githubusercontent.com/Tensai75/NZBDonkey/master/icons/NZBDonkey_128.png 'NZBDonkey Logo')
 
 # NZBDonkey
 
 ### The ultimate NZB file downloader extension for Chrome and Firefox
 
 ## Download
-Download for Chrome: [Chrome Webstore](https://chrome.google.com/webstore/detail/nzbdonkey/edkhpdceeinkcacjdgebjehipmnbomce)
 
-Download for Firefox: [Firefox Add-on](https://addons.mozilla.org/de/firefox/addon/nzbdonkey/)
+[![Chrome Webstore](https://img.shields.io/chrome-web-store/v/edkhpdceeinkcacjdgebjehipmnbomce?style=for-the-badge&logo=googlechrome&label=Chrome%20Webstore)](https://chrome.google.com/webstore/detail/nzbdonkey/edkhpdceeinkcacjdgebjehipmnbomce)
+
+[![Firefox Webstore](https://img.shields.io/amo/v/nzbdonkey?style=for-the-badge&logo=firefox&label=Mozilla%20Webstore)](https://addons.mozilla.org/de/firefox/addon/nzbdonkey/)
 
 ## Description
-Add-on to automatically download NZB files or send them to NZBGet, SABnzbd, Synology DownloadStation or to the premiumize.me download service.
-* Works either with NZBlnk links or with header, password and title information provided as plain text.
-* Searches simultaneously in different NZB search engines
-* Possibility to intercept NZB file downloads from any web site
-* Highly configurable
-  * Target for the NZB file:
-    * download to the browsers download folder
-    * directly send to SABnzbd, NZBGet, Synology DownloadStation or premiumize.me Downloader
-  * Category for the NZB file
-    * automatically set a category based on the NZB file (with fallback option)
-    * set a standard category for all NZB files
-    * choose the category manually from the categories set in NZBGet or SABnzbd
-  * de-/activate the completeness check of the NZB file with separate thresholds for file and segment completeness
-  * set up additional NZB search engines
-  * and more...
 
-__Caution:__ this add-on is currently still in beta testing.
+Add-on to automatically download NZB files or send them to NZBGet, SABnzbd, Synology DownloadStation, JDwonloader or to the premiumize.me download service.
 
-## How to use this add-on
-### NZBlnk
-Just left click on a NZBlnk link and NZBDonkey will take over and search for the NZB file. Or right click on a NZBlnk link and choose "Get NZB file".
-Catching left mouse clicks on a NZBlnk link can be deactivated in the settings, e.g. if you would like to use NZBMonkey in parallel
-
-### Header, password and title information provided as plain text
-If no NZBlnk link is provided, select title, header and password, then right click on the selected text and choose "Get NZB file".
-An overlay window will appear showing the extracted title, header and password. If automatic parsing of the selected text did not work correctly you can now manually enter or correct the title, header or password. For your convenience the selected text is shown as well to facilitate to copy and paste the required information.
-If the title, header and password information is correct select "Get NZB file" and NZBDonkey will take over and search for the NZB file.
-
-#### Best practice for text selection
-![alt text](https://raw.githubusercontent.com/Tensai75/NZBDonkey/master/screenshots/text_selection_best_practice.jpg "Best practice for text selection")
-
-1. Make sure the title information is in the first line of your selected text. If no other title information was found, the first line will automatically become the title information.
-2. If the NZB filename information in the format “title{{password}}.nzb” is provided, make sure to include this information into your text selection. Title and password information will directly be extracted from this information.
-
-### NZB file download interception
-Just add the domain of the web site where you would like the download of NZB file to be handled with NZBDonkey to the list of custom domains in the "NZB download interception" settings page and set "Handling of Form Data" to default.
-NZBDonkey will then capture any NZB file download from this web site and process it according to your settings (e.g. send it to the NZB file target). If there is always the error "this is not a valid nzb file" try to set one of the other options for "Handling of Form Data".
-If no option is working for this web site please open an issue on github providing as much information about this web site as possible.
+- Works either with NZBLNK links or with header, password and title information provided as plain text.
+- Searches sequentially or simultaneously in different NZB search engines
+- Provides the ability to intercept and process NZB file downloads from any website
+- Highly configurable
+  - Multiple target applications can be configured for the NZB file:
+    - Download to the download folder of the browser
+    - Send directly to SABnzbd, NZBGet, Synology DownloadStation, JDownloader or premiumize.me Downloader
+  - Support for categories (if supported by the target application)
+    - The categories can be freely configured for each target application with various options:
+      - Automatic setting of a category based on the title or file name of the NZB file (with fallback option)
+      - Set a default category for all NZB files
+      - Manual selection of the category from the categories of the target application
+  - Enable/disable the NZB file completeness check with separate thresholds for file and segment completeness
+  - NZB search engines can be set up from existing templates or completely freely
+  - and more...

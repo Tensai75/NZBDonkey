@@ -1,0 +1,385 @@
+{
+  "extension": {
+    "name": "NZBDonkey",
+    "description": "The ultimate NZB file download tool!"
+  },
+  "menu": {
+    "settings": {
+      "title": "Settings",
+      "general": "General settings",
+      "nzbFileTargets": "NZB file targets",
+      "searchEngines": "Search engines",
+      "interception": "NZB file download interception",
+      "nzbFile": "NZB file processing"
+    },
+    "license": "License",
+    "privacyPolicy": "Privacy Policy",
+    "changelog": "Change log",
+    "about": "About NZBDonkey",
+    "credits": "Credits",
+    "logger": {
+      "nzbLog": {
+        "title": "NZB file log"
+      },
+      "debugLog": {
+        "title": "Debug log"
+      },
+      "title": "Logs"
+    }
+  },
+  "settings": {
+    "general": {
+      "catchLinks": {
+        "title": "NZBLNK links",
+        "description": "Catch left mouse clicks on NZBLNK links and process the NZBLNK link"
+      },
+      "catchLinksShowDialog": {},
+      "notifications": {
+        "title": "Notifications",
+        "description": "Choose the level of notifications to be shown",
+        "showAll": "show all notifications",
+        "showSuccess": "only show success and error notifications",
+        "showError": "only show error notifications",
+        "showNothing": "don't show any notifications"
+      },
+      "logs": {
+        "title": "Logs",
+        "debugLog": "activate debug log",
+        "nzbLog": "activate NZB file log"
+      },
+      "showNzbDialog": {
+        "description": "Show the settings dialog to set the title, password, target and other options for each NZB file.",
+        "title": "NZB file settings dialog"
+      },
+      "selectText": {
+        "enterSearchKey": "Enter search term",
+        "searchKeyTitel": "Custom search terms for text selection"
+      }
+    },
+    "nzbFileTargets": {
+      "allowMultipleTargets": {
+        "title": "Multiple targets",
+        "description": "allow multiple targets",
+        "enabled": "The NZB file is sent to all active targets",
+        "disabled": "The NZB file is sent to the selected target"
+      },
+      "defaultTarget": {
+        "title": "Default target",
+        "description": "Choose the standard target to use"
+      },
+      "showTargetsInContextMenu": {
+        "title": "Show targets in context menu",
+        "description": "show the targets in the context menu to choose which target to use"
+      },
+      "active": "Active",
+      "name": "Name",
+      "type": "Type",
+      "download": {
+        "path": "Relative download path",
+        "saveAs": {
+          "title": "Save as",
+          "description": "show the \"Save as...\" dialog"
+        }
+      },
+      "confirmDelete": {
+        "header": "Delete NZB file target",
+        "message": "Do you really want to delete the NZB file target $1?"
+      },
+      "addDialog": "Add new NZB file target",
+      "editDialog": "Edit NZB file target",
+      "categories": {
+        "useCategories": {
+          "title": "Use categories",
+          "description": "use categories for this NZB file target"
+        },
+        "noCategoriesDefinedInTarget": "no categories are defined in $1",
+        "pleaseDefineCategoriesInTarget": "you need to define the categories in $1 before you can use this feature",
+        "categorySelection": {
+          "title": "Category selection",
+          "automatic": "automatical",
+          "manual": "manual",
+          "fixed": "fixed category",
+          "none": "no category"
+        },
+        "category": {
+          "confirmDelete": {
+            "message": "Do you really want to delete category $1?",
+            "header": "Delete category"
+          },
+          "name": "Category",
+          "editCategory": "Edit category",
+          "addCategory": "Add category",
+          "active": "Active",
+          "isDefault": "Fixed category"
+        },
+        "regexp": "RegExp",
+        "noRegexp": "Caution: no RegExp defined",
+        "reorder": "The order in which the categories are tested can be modified using drag & drop",
+        "fallbackCategorySelection": "Fallback for category selection",
+        "regexpList": "Predefined RexExp",
+        "loadingKategories": "loading the categories from $1",
+        "loadingError": "error while loading the categories from $1",
+        "noCategoriesDefined": "No categories defined yet!",
+        "addNewCategory": "add new category",
+        "selectCategory": "Select a category"
+      },
+      "testConnection": "Test conncetion",
+      "addNewTarget": "add a new target",
+      "title": "NZB file targets"
+    },
+    "processing": {
+      "processTitle": {
+        "description": "edit the NZB file name",
+        "spaces": "Convert all spaces to dots",
+        "dots": "Convert all dots to spaces"
+      },
+      "addPasswordToFilename": "add the password to the filename in curly brackets",
+      "addTitle": "add the title to the NZB file meta data",
+      "addPassword": "add the password to the NZB file meta data",
+      "addCategory": "add the category to the NZB file meta data",
+      "completeness": {
+        "title": "NZB file completeness settings",
+        "fileCheck": "check NZB file for file completeness",
+        "segmentCheck": "check NZB file for segment completeness",
+        "fileCheckThreshold": "maximum amount of allowed missing files",
+        "segmentCheckThreshold": "maximum amount of allowed missing segment (in percent)"
+      }
+    },
+    "searchEngines": {
+      "searchOrder": {
+        "title": "Search order",
+        "parallel": "search in all active search engines in parallel",
+        "sequential": "search the active search engines in sequential order"
+      },
+      "engines": {
+        "title": "Search engines",
+        "engine": {
+          "title": "Name",
+          "active": "Active",
+          "searchURL": "Search URL",
+          "responseType": "Response type",
+          "searchPattern": {
+            "json": "JSON object path",
+            "html": "Regexp serach pattern"
+          },
+          "searchGroup": "Regexp search group",
+          "downloadURL": "Download URL",
+          "additionalSettings": {
+            "title": "Additional settings",
+            "removeUndersore": "replace underscores with spaces",
+            "removeHyphen": "replace hyphens with spaces",
+            "setIntoQuotes": "set search string into quotes"
+          }
+        }
+      },
+      "reorder": "Reorder the order of the search engines with drag & drop ",
+      "confirmDelete": {
+        "header": "Delete search engine",
+        "message": "Do you really want to delete $1?"
+      },
+      "editDialog": "Edit search engine",
+      "addDialog": "Add new search engine",
+      "searchEnginesList": "Predefined search engines",
+      "addNewSearchEngine": "add new search engine",
+      "noSearchEnginesDefined": "No search engines defined yet!"
+    },
+    "interception": {
+      "confirmDelete": {
+        "header": "Delete domain",
+        "message": "Do you really want to delete the domain $1?"
+      },
+      "editDialog": "Edit domain",
+      "addDialog": "Add new domain",
+      "enabled": {
+        "title": "Download interception",
+        "description": "enable the NZB file download interception"
+      },
+      "domains": {
+        "title": "Domains",
+        "domain": {
+          "title": "Domain",
+          "active": "Active",
+          "requiresPostDataHandling": {
+            "title": "POST data handling",
+            "description": "process the POST data from this site"
+          },
+          "postDataHandling": {
+            "sendAsFormData": "handle POST data as FormData",
+            "sendAsURLSearchParams": "handle POST data as URLSearchParams"
+          },
+          "interceptArchiveFiles": {
+            "title": "Include archive files",
+            "description": "also intercept the download of archive files"
+          },
+          "showNzbDialog": {
+            "title": "NZB settings dialog",
+            "description": "show a dialog to set titel, password, and other options"
+          },
+          "pathRegExp": "RegExp for the download path"
+        },
+        "domainsList": "Predefined domains",
+        "addNewDomain": "add new domain",
+        "noDomainsDefined": "No domains defined yet!"
+      }
+    },
+    "common": {
+      "confirmAdvancedSettings": {
+        "header": "Advanced settings",
+        "message": "The advanced settings are only required under special circumstances, e.g. if your NZB file target is behind a reverse proxy. ",
+        "hide": "Hide advanced settings",
+        "show": "Show advanced settings"
+      },
+      "name": "Name"
+    },
+    "targets": {
+      "noTargetsDefined": "No NZB file targets defined yet!"
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "save": "Save",
+    "back": "Back",
+    "settings": {
+      "host": "Host name or IP address",
+      "addAsPaused": {
+        "title": "Add as paused",
+        "description": "add the NZB file to the queue as paused"
+      },
+      "port": "Port number",
+      "scheme": "Connection scheme",
+      "basepath": "Path",
+      "password": "Password",
+      "username": "User name",
+      "apiKey": "API key",
+      "device": "Target device",
+      "email": "Email",
+      "dupeMode": {
+        "title": "Duplicate check mode"
+      }
+    },
+    "ok": "OK",
+    "next": "Next",
+    "connectionSuccessfull": "connection successfull",
+    "searchEngineTestSuccessfull": "Search engine tested successfully",
+    "testSearchEngine": "Test search engine",
+    "reset": "Reset",
+    "header": "Header",
+    "password": "Password",
+    "title": "Title",
+    "selection": "Selected text",
+    "abortedByUser": "aborted by user",
+    "and": "and",
+    "close": "Close",
+    "openSettings": "Open settings",
+    "date": "Date",
+    "text": "Text",
+    "source": "Source",
+    "time": "Time",
+    "creditsDisclaimer": "NZBDonkey makes use of the following packages under their corresponding license",
+    "information": "Information",
+    "status": "Status",
+    "searchEngine": "Search engine",
+    "initiated": "NZBDonkey initiated",
+    "searching": "Searching",
+    "fetched": "NZB file fetched",
+    "success": "Success",
+    "warn": "Warning",
+    "error": "Error",
+    "inactive": "Inactive",
+    "copyXtoClipboard": "Copy $1 to clipboard",
+    "caution": "Caution",
+    "extensionMustBeConfiguredFirst": "The extension must first be configured for use.",
+    "noCategory": "No category",
+    "extensionWasUpdated": "The extension was updated"
+  },
+  "validation": {
+    "isRequired": "$1 is required",
+    "atLeastOneOptionRequired": "At least one option is required",
+    "noBaseDomain": "Please only enter a base domain name, no subdomain, and without http(s)",
+    "noValidURL": "Please provide a valid URL",
+    "noReplacementString": "The URL must contain the string %s as placeholder",
+    "noValidRegexp": "Please provide a valid regular expression",
+    "noValidJSONPath": "Please provide a valid JSON path",
+    "noRelativePath": "please provide a relative path",
+    "noValidHostOrIp": "please provide a valid host name or IP address",
+    "noValidPort": "please provide a valid port number",
+    "noJDDevices": "no target devices configured",
+    "nzbFileIncomplete": "incomplete nzb file",
+    "missingFiles": "$1 missing file(s)",
+    "noSegments": "the nzb file has no segments",
+    "missingSegments": "$1 missing segment(s)",
+    "noFiles": "the nzb file has no files"
+  },
+  "interception": {
+    "fetchError": "NZB download interception: error loading from url $1: $2",
+    "fetchSuccess": "NZB download interception: file \"$1\" successfully loaded from $2",
+    "fetchResponseProcessingError": "error while processing file \"$1\" intercepted from $2: $3",
+    "success": "NZB file \"$1\" was intercepted successfully"
+  },
+  "targets": {
+    "download": {
+      "description": "save in the browser's download folder"
+    },
+    "jdownloader": {
+      "description": "send to JDownloader"
+    },
+    "nzbget": {
+      "description": "send to NZBGet"
+    },
+    "premiumize": {
+      "description": "send to Premiumize.me"
+    },
+    "sabnzbd": {
+      "description": "send to SABnzbd"
+    },
+    "synology": {
+      "description": "send to Synology Downloadstation"
+    }
+  },
+  "contextMenu": {
+    "sendToSeveralTarget": "send to",
+    "sendToSingelTarget": "send to $1",
+    "analyseSelection": "analyse selected text"
+  },
+  "nzbsearch": {
+    "searchNzb": "Search for NZB file",
+    "success": "searching for header \"$1\" was successfull"
+  },
+  "logger": {
+    "loadingLogs": "Loading log.",
+    "noEntries": "No entries found.",
+    "debugLog": {
+      "confirmDeleteDebuglog": {
+        "header": "Delete debug log",
+        "message": "Do you really want to delete the debug log?"
+      },
+      "type": "Type"
+    },
+    "exportCSV": "Export to CSV",
+    "clearLog": "Clear log",
+    "nzbLog": {
+      "confirmDeleteNzblog": {
+        "message": "Do you really want to delete the NZB file log?",
+        "header": "Delete NZB file log"
+      }
+    }
+  },
+  "errors": {
+    "notImplemented": "not implemented",
+    "unknownError": "unknown error",
+    "noSearchResults": "no search engine returned a search results ",
+    "errorWhileSearching": "error while searching for header \"$1\": $2",
+    "skippedByUser": "processing skipped by user",
+    "errorWhileProcessing": "error while processing nzb file: $1",
+    "noActiveTargets": "no active nzb file targets",
+    "errorWhilePushingToTarget": "error while pushing the nzb file to an nzb file target",
+    "pushingToAllTargetsFailed": "pushing the nzb file failed for all nzb file targets",
+    "errorWhileProcessingNzblnk": "error while processing NZBLNK: $1",
+    "noFilename": "no filename or title set",
+    "noActiveSearchEngines": "no active search engines",
+    "errorWhileProcessingContextMenuCLick": "error while processing context menu click: $1",
+    "invalidNzblnkLink": "invalid NZBLNK",
+    "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and/or there are new options."
+  }
+}

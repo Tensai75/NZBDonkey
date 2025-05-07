@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "data": [
+    {
+      "isActive": true,
+      "domain": "nzbindex.com",
+      "pathRegExp": "^/download/.*.nzb$",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": true,
+      "postDataHandling": "sendAsURLSearchParams",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": [],
+      "icon": "https://nzbindex.com/favicon.ico"
+    },
+    {
+      "isActive": true,
+      "domain": "binsearch.info",
+      "pathRegExp": "^/nzb",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": [],
+      "icon": "https://binsearch.info/favicon.ico"
+    },
+    {
+      "isActive": true,
+      "domain": "nzbking.com",
+      "pathRegExp": "^/nzb.*",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": true,
+      "postDataHandling": "sendAsURLSearchParams",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": ["zip"],
+      "icon": "https://www.nzbking.com/static/favicon.ico"
+    },
+    {
+      "isActive": true,
+      "domain": "scenenzbs.com",
+      "pathRegExp": "/getnzb.*",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": ["zip"],
+      "icon": "https://cdn.scenenzbs.com/templates/scenenzbs/images/favicon.ico"
+    },
+    {
+      "isActive": true,
+      "domain": "house-of-usenet.com",
+      "pathRegExp": "^/attachments/.*(nzb|zip|rar).*",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "icon": "https://cdn.house-of-usenet.com/styles/custom/favicon.png"
+    },
+    {
+      "isActive": true,
+      "domain": "newzbay.cc",
+      "pathRegExp": "/getnzb.*",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": ["zip"],
+      "icon": "https://newzbay.cc/templates/index/favicon/apple-touch-icon.png"
+    },
+    {
+      "isActive": true,
+      "domain": "fileleechers.com",
+      "pathRegExp": "^.*&nzbID=.*$",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": [],
+      "icon": "https://fileleechers.com/board/images/favicon/36.apple-touch-icon.png"
+    }
+  ]
+}

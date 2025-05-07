@@ -1,0 +1,385 @@
+{
+  "extension": {
+    "name": "NZBDonkey",
+    "description": "Das ultimative NZB-Datei Download-Tool!"
+  },
+  "menu": {
+    "settings": {
+      "title": "Einstellungen",
+      "general": "Allgemeine Einstellungen",
+      "nzbFileTargets": "NZB-Datei Ziele",
+      "searchEngines": "Suchmaschinen",
+      "interception": "NZB-Datei Download-Überwachung",
+      "nzbFile": "NZB-Datei-Verarbeitung"
+    },
+    "license": "Lizenz",
+    "privacyPolicy": "Datenschutz-Richtlinien",
+    "changelog": "Änderungs-Historie",
+    "about": "Über NZBDonkey",
+    "credits": "Credits",
+    "logger": {
+      "nzbLog": {
+        "title": "NZB-Datei-Protokoll"
+      },
+      "debugLog": {
+        "title": "Debug-Protokoll"
+      },
+      "title": "Protokolle"
+    }
+  },
+  "settings": {
+    "general": {
+      "catchLinks": {
+        "title": "NZBLNK-Links",
+        "description": "Klicks mit der linken Maustaste auf NZBLNK-Links abfangen und bearbeiten"
+      },
+      "catchLinksShowDialog": {},
+      "notifications": {
+        "title": "Benachrichtigungen",
+        "description": "Auswahl der anzuzeigenden Benachrichtigungen",
+        "showAll": "alle Benachrichtigungen anzeigen",
+        "showSuccess": "nur Erfolgs- und Fehler-Benachrichtigungen anzeigen",
+        "showError": "nur Fehler-Benachrichtigungen anzeigen",
+        "showNothing": "keine Benachrichtigungen anzeigen"
+      },
+      "logs": {
+        "title": "Protokolle",
+        "debugLog": "Debug-Protokoll aktivieren",
+        "nzbLog": "NZB-Datei-Protokoll aktivieren"
+      },
+      "showNzbDialog": {
+        "description": "Für jede NZB-Datei den Einstellungsdialog anzeigen, um den Titel, das Passwort, das Ziel und weitere Optionen anzupassen",
+        "title": "NZB-Datei Einstellungsdialog"
+      },
+      "selectText": {
+        "enterSearchKey": "Suchbegriff eingeben",
+        "searchKeyTitel": "Benutzerdefinierte Suchbegriffe für die Textauswahl"
+      }
+    },
+    "nzbFileTargets": {
+      "allowMultipleTargets": {
+        "title": "Mehrere Ziele",
+        "description": "mehrere Ziele erlauben",
+        "enabled": "Die NZB-Datei wird an alle aktiven Ziele gesendet",
+        "disabled": "Die NZB-Datei wird an das ausgewählte Ziel gesendet"
+      },
+      "defaultTarget": {
+        "title": "Standard-Ziel",
+        "description": "Auswahl des Standard-Zieles"
+      },
+      "showTargetsInContextMenu": {
+        "title": "Ziele im Kontextmenü anzeigen",
+        "description": "die Ziele im Kontextmenü anzeigen um das Ziel auszuwählen"
+      },
+      "active": "Aktiv",
+      "name": "Name",
+      "type": "Typ",
+      "download": {
+        "path": "Relativer Download-Ordner",
+        "saveAs": {
+          "title": "Speichern unter",
+          "description": "den \"Speichern unter...\"-Dialog anzeigen"
+        }
+      },
+      "confirmDelete": {
+        "header": "NZB Datei-Ziel löschen",
+        "message": "NZB-Dateiziel $1 wirklich löschen?"
+      },
+      "addDialog": "NZB-Dateiziel hinzufügen",
+      "editDialog": "NZB-Dateiziel bearbeiten",
+      "categories": {
+        "useCategories": {
+          "title": "Kategorien verwenden",
+          "description": "für dieses NZB-Dateiziel Kategorien verwenden"
+        },
+        "noCategoriesDefinedInTarget": "in $1 sind keine Kategorien definiert",
+        "pleaseDefineCategoriesInTarget": "um diese Funktion zu verwenden, müssen in $1 zuerst die Kategorien definiert werden",
+        "categorySelection": {
+          "title": "Kategorie-Auswahl",
+          "automatic": "automatisch",
+          "manual": "manuell",
+          "fixed": "fixe Kategorie",
+          "none": "keine Kategorie"
+        },
+        "category": {
+          "confirmDelete": {
+            "message": "Kategorie $1 wirklich löschen?",
+            "header": "Kategorie löschen"
+          },
+          "name": "Kategorie",
+          "editCategory": "Kategorie bearbeiten",
+          "addCategory": "Kategorie hinzufügen",
+          "active": "Aktiv",
+          "isDefault": "Fixe Kategorie"
+        },
+        "regexp": "RegExp",
+        "noRegexp": "Achtung: keine RegExp definiert",
+        "reorder": "Die Reihenfolge in der die Kategorien getestet werden, kann mittels drag & drop angepasst werden",
+        "fallbackCategorySelection": "Alternative Kategorien-Auswahl",
+        "regexpList": "Vordefinierte RegExp",
+        "loadingKategories": "Lade die Kategorien von $1",
+        "loadingError": "Fehler beim Laden der Kategorien von $1",
+        "noCategoriesDefined": "Es sind noch keine Kategorien definiert!",
+        "addNewCategory": "neue Kategorie hinzufügen",
+        "selectCategory": "Kategorie auswählen"
+      },
+      "testConnection": "Verbindung prüfen",
+      "addNewTarget": "neues Ziel hinzufügen",
+      "title": "NZB-Dateiziele"
+    },
+    "processing": {
+      "processTitle": {
+        "description": "den NZB-Dateinamen bearbeiten",
+        "spaces": "Alle Leerzeichen zu Punkten konvertieren",
+        "dots": "Alle Punkte in Leerzeichen konvertieren"
+      },
+      "addPasswordToFilename": "das Passwort dem Dateiname in geschweiften klammern hinzufügen",
+      "addTitle": "den Titel den Metadaten der NZB-Datei hinzufügen",
+      "addPassword": "das Passwort den Metadaten der NZB-Datei hinzufügen",
+      "completeness": {
+        "title": "NZB-Datei Vollständigkeits-Einstellungen",
+        "fileCheck": "die NZB-Datei auf Vollständigkeit der Dateien überprüfen",
+        "segmentCheck": "die NZB-Datei auf Vollständigkeit der Segmente überprüfen",
+        "fileCheckThreshold": "maximal erlaubte Anzahl fehlender Dateien",
+        "segmentCheckThreshold": "maximal erlaubte Anzahl fehlender Segmente (in Prozent)"
+      },
+      "addCategory": "die Kategorie den Metadaten der NZB-Datei hinzufügen"
+    },
+    "searchEngines": {
+      "searchOrder": {
+        "title": "Suchreihenfolge",
+        "parallel": "in allen aktiven Suchmaschinen gleichzeitig suchen",
+        "sequential": "die aktiven Suchmaschinen der Reihe nach absuchen"
+      },
+      "engines": {
+        "title": "Suchmaschinen",
+        "engine": {
+          "title": "Name",
+          "active": "Aktiv",
+          "searchURL": "Such-URL",
+          "responseType": "Antwort-Typ",
+          "searchPattern": {
+            "json": "JSON Objekt-Pfad",
+            "html": "RegExp Such-Muster"
+          },
+          "searchGroup": "RegExp Such-Gruppe",
+          "downloadURL": "Download-URL",
+          "additionalSettings": {
+            "title": "Zusätzliche Einstellungen",
+            "removeUndersore": "Unterstriche durch Leerzeichen ersetzen",
+            "removeHyphen": "Bindestriche mit Leerzeichen ersetzen",
+            "setIntoQuotes": "Suchbegriff in Anführungszeichen setzen"
+          }
+        }
+      },
+      "reorder": "Die Reihenfolge der Suchmaschinen kann mittels drag & drop angepasst werden",
+      "confirmDelete": {
+        "header": "Suchmaschine löschen",
+        "message": "$1 wirklich löschen?"
+      },
+      "editDialog": "Suchmaschine bearbeiten",
+      "addDialog": "Suchmaschine hinzufügen",
+      "searchEnginesList": "Vordefinierte Suchmaschinen",
+      "addNewSearchEngine": "neue Suchmaschine hinzufügen",
+      "noSearchEnginesDefined": "Es sind noch keine Suchmaschinen definiert!"
+    },
+    "interception": {
+      "confirmDelete": {
+        "header": "Domäne löschen",
+        "message": "Domäne $1 wirklich löschen?"
+      },
+      "editDialog": "Domäne bearbeiten",
+      "addDialog": "Domäne hinzufügen",
+      "enabled": {
+        "title": "Download-Überwachung",
+        "description": "die NZB-Datei Download-Überwachung aktivieren "
+      },
+      "domains": {
+        "title": "Domänen",
+        "domain": {
+          "title": "Domäne",
+          "active": "Aktiv",
+          "requiresPostDataHandling": {
+            "title": "POST-Daten Verarbeitung",
+            "description": "POST-Daten dieser Seite verarbeiten"
+          },
+          "postDataHandling": {
+            "sendAsFormData": "POST-Daten als FormData verarbeiten",
+            "sendAsURLSearchParams": "POST-Daten als URLSearchParams verarbeiten"
+          },
+          "interceptArchiveFiles": {
+            "title": "Archiv-Dateien einschliessen",
+            "description": "Archiv-Datein in die Überwachung miteinschliessen"
+          },
+          "showNzbDialog": {
+            "title": "NZB-Einstellungsdialog",
+            "description": "einen Dialog anzeigen um Titel, Passwort und andere Einstellungen anzupassen"
+          },
+          "pathRegExp": "RegExp für den Download-Pfad"
+        },
+        "domainsList": "Vordefinierte Domänen",
+        "addNewDomain": "neue Domäne hinzufügen",
+        "noDomainsDefined": "Es wurden noch keine Domänen definiert!"
+      }
+    },
+    "common": {
+      "confirmAdvancedSettings": {
+        "header": "Erweiterte Einstellungen",
+        "message": "Die erweiterten Einstellungen werden nur in speziellen Situationen benötigt, z.B. wenn das NZB-Dateiziel hinter einem Reverse Proxy liegt.",
+        "hide": "Erweiterte Einstellungen ausblenden",
+        "show": "Erweiterte Einstellungen anzeigen"
+      },
+      "name": "Name"
+    },
+    "targets": {
+      "noTargetsDefined": "Es sind noch keine NZB-Datei-Ziele definiert!"
+    }
+  },
+  "common": {
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "save": "Speichern",
+    "back": "Zurück",
+    "settings": {
+      "host": "Host-Name oder IP-Adresse",
+      "addAsPaused": {
+        "title": "Als pausiert hinzufügen",
+        "description": "die NZB-Datei der Warteschlange als pausiert hinzufügen"
+      },
+      "port": "Port-Nummer",
+      "scheme": "Verbindungsart",
+      "basepath": "Pfad",
+      "password": "Passwort",
+      "username": "Benutzer-Name",
+      "apiKey": "API-Schlüssel",
+      "device": "Ziel-Gerät",
+      "email": "E-Mail",
+      "dupeMode": {
+        "title": "Modus für die Duplikatprüfung"
+      }
+    },
+    "ok": "OK",
+    "next": "Weiter",
+    "connectionSuccessfull": "Verbindung erfolgreich",
+    "searchEngineTestSuccessfull": "Suchmaschine erfolgreich getestet",
+    "testSearchEngine": "Suchmaschine testen",
+    "reset": "Zurücksetzen",
+    "header": "Header",
+    "password": "Passwort",
+    "title": "Titel",
+    "selection": "Selektierter Text",
+    "abortedByUser": "Abbruch durch den Benutzer",
+    "and": "und",
+    "close": "Schliessen",
+    "openSettings": "Einstellungen öffnen",
+    "date": "Datum",
+    "text": "Text",
+    "source": "Quelle",
+    "time": "Zeit",
+    "creditsDisclaimer": "NZBDonkey verwendet die folgenden Pakete unter der entsprechenden Lizenz",
+    "information": "Information",
+    "status": "Status",
+    "searchEngine": "Suchmaschine",
+    "initiated": "NZBDonkey gestartet",
+    "searching": "Am Suchen",
+    "fetched": "NZB-Datei heruntergeladen",
+    "success": "Erfolgreich",
+    "warn": "Warnung",
+    "error": "Fehler",
+    "inactive": "Inaktiv",
+    "copyXtoClipboard": "$1 in die Zwischenablage kopieren",
+    "caution": "Achtung",
+    "extensionMustBeConfiguredFirst": "Die Erweiterung muss für die Verwendung zuerst konfiguriert werden.",
+    "noCategory": "Keine Kategorie",
+    "extensionWasUpdated": "Die Erweiterung wurde aktualisiert"
+  },
+  "validation": {
+    "isRequired": "$1 ist ein Pflichtfeld",
+    "atLeastOneOptionRequired": "Mindestens eine Option muss ausgewählt werden",
+    "noBaseDomain": "Bitte nur die Basis-Domäne angeben, ohne Subdomäne und ohne http(s)!",
+    "noValidURL": "Bitte eine gültige URL angeben",
+    "noReplacementString": "Die URL muss die Zeichenfolge %s als Platzhalter enthalten",
+    "noValidRegexp": "Bitte einen gültigen RegExp-Ausdruck angeben",
+    "noValidJSONPath": "Bitte einen gültigen JSON-Pfad angeben",
+    "noRelativePath": "bitte einen relativen Pfad angeben",
+    "noValidHostOrIp": "bitte einen gültigen Host-Namen oder eine gültig IP-Adresse angeben",
+    "noValidPort": "bitte eine gültige Port-Nummer angeben",
+    "noJDDevices": "es sind keine Ziel-Geräte konfiguriert",
+    "nzbFileIncomplete": "unvollständige NZB-Datei",
+    "missingFiles": "$1 fehlende Datei(en)",
+    "noSegments": "die NZB-Datei enthält keine Segmente",
+    "missingSegments": "$1 fehlende(s) Segment(e)",
+    "noFiles": "die NZB-Datei enthält keine Dateien"
+  },
+  "interception": {
+    "fetchError": "NZB Download-Überwachung: Fehler beim laden von $1: $2",
+    "fetchSuccess": "NZB Donwload-Überwachung: Datei  \"$1\" erfolgreich geladen von $2",
+    "fetchResponseProcessingError": "Fehler bei der Bearbeitung der Datei \"$1\", abgefangen von $2: $3",
+    "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen"
+  },
+  "targets": {
+    "download": {
+      "description": "im Download-Ordner des Browsers speichern"
+    },
+    "jdownloader": {
+      "description": "an JDownloader senden"
+    },
+    "nzbget": {
+      "description": "an NZBGet senden"
+    },
+    "premiumize": {
+      "description": "an Premiumize.me senden"
+    },
+    "sabnzbd": {
+      "description": "an SABnzbd senden"
+    },
+    "synology": {
+      "description": "an Synology Downloadstation senden"
+    }
+  },
+  "contextMenu": {
+    "sendToSeveralTarget": "senden an",
+    "sendToSingelTarget": "an $1 senden",
+    "analyseSelection": "selektierter Text analysieren"
+  },
+  "nzbsearch": {
+    "searchNzb": "NZB-Datei suchen",
+    "success": "die Suche nach Header \"$1\" war erfolgreich"
+  },
+  "logger": {
+    "loadingLogs": "Protokoll wird geladen.",
+    "noEntries": "Keine Einträge gefunden.",
+    "debugLog": {
+      "confirmDeleteDebuglog": {
+        "header": "Debug-Protokoll löschen",
+        "message": "Das Debug-Protokoll wirklich löschen?"
+      },
+      "type": "Typ"
+    },
+    "exportCSV": "Als CSV exportieren",
+    "clearLog": "Protokoll löschen",
+    "nzbLog": {
+      "confirmDeleteNzblog": {
+        "message": "Das NZB-Datei-Protokoll wirklich löschen?",
+        "header": "NZB-Datei-Protokoll löschen"
+      }
+    }
+  },
+  "errors": {
+    "notImplemented": "nicht implementiert",
+    "unknownError": "unbekannter Fehler",
+    "noSearchResults": "keine Suchmaschine lieferte ein Resultat",
+    "errorWhileSearching": "Fehler bei der Suche nach Header \"$1\": $2 ",
+    "skippedByUser": "Bearbeitung durch Benutzer übersprungen",
+    "errorWhileProcessing": "Fehler während der Bearbeitung der NZB-Datei: $1",
+    "noActiveTargets": "keine aktiven NZB-Dateiziele",
+    "errorWhilePushingToTarget": "Fehler beim senden der NZB-Datei an eines der NZB-Dateiziele",
+    "pushingToAllTargetsFailed": "das Senden der NZB-Datei ist bei allen NZB-Dateiziele fehlgeschlagen",
+    "errorWhileProcessingNzblnk": "Fehler während der Bearbeitung des NZBLNK: $1",
+    "noFilename": "kein Dateiname oder Titel gesetzt",
+    "noActiveSearchEngines": "keine aktiven Suchmaschinen",
+    "errorWhileProcessingContextMenuCLick": "Fehler während der Bearbeitung eines Kontextmenü-Klicks: $1",
+    "invalidNzblnkLink": "ungültiger NZBLNK",
+    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "data": [
+    {
+      "name": "Movies",
+      "regexp": "([hx].?26[45]|xvid|hevc|(dvd|bd)rip|bluray|(720|1080|2160)p|uhd|hdr)"
+    },
+    {
+      "name": "TV",
+      "regexp": "((staffel|season|folge|episode).{0,3}\\d|[e|s]\\d+)"
+    }
+  ]
+}
