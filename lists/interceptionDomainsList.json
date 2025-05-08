@@ -108,6 +108,18 @@
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
       "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzbplanet.net",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://nzbplanet.net/views/images/favicon.ico"
     }
   ]
 }
