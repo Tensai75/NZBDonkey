@@ -96,6 +96,18 @@
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
       "icon": "https://nzbgeek.info/favicon.ico"
+    },
+    {
+      "isActive": true,
+      "domain": "drunkenslug.com",
+      "pathRegExp": "/getnzb.*",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": [],
+      "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico"
     }
   ]
 }
