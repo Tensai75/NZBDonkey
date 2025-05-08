@@ -120,6 +120,18 @@
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
       "icon": "https://nzbplanet.net/views/images/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzb.su",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "hhttps://nzb.su/templates/light/images/icons/favicon.ico"
     }
   ]
 }
