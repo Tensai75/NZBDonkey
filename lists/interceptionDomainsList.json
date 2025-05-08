@@ -84,6 +84,30 @@
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
       "icon": "https://fileleechers.com/board/images/favicon/36.apple-touch-icon.png"
+    },
+    {
+      "isActive": true,
+      "domain": "nzbgeek.info",
+      "pathRegExp": "/api\\?t=get&id=.*",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": [],
+      "icon": "https://nzbgeek.info/favicon.ico"
+    },
+    {
+      "isActive": true,
+      "domain": "drunkenslug.com",
+      "pathRegExp": "/getnzb.*",
+      "isDefault": true,
+      "showNzbDialog": true,
+      "requiresPostDataHandling": false,
+      "postDataHandling": "sendAsFormData",
+      "fetchOrigin": "background",
+      "archiveFileExtensions": [],
+      "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico"
     }
   ]
 }
