@@ -51,7 +51,7 @@ export default defineContentScript({
       keepInDom: true,
     })
       .then(() => {
-        log.info('injecting the interception injection script successfull')
+        log.info('injecting the interception injection script successful')
       })
       .catch((e: Error) => {
         log.error('error while injecting the interception injection script', e)

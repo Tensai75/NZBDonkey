@@ -54,7 +54,7 @@ async function registerContextMenu(): Promise<void> {
             }
           browser.contextMenus.create(createOptions)
         })
-        log.info('registering of the sendto context menu successfull')
+        log.info('registering of the sendto context menu successful')
       }
     )
   }

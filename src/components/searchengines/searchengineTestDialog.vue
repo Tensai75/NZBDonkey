@@ -56,7 +56,7 @@ const close = () => {
           ></i>
           <div v-if="error != ''" style="font-size: 120%">{{ error }}</div>
           <div v-if="error === ''" style="font-size: 120%">
-            {{ generateErrorString(i18n.t('common.searchEngineTestSuccessfull')) }}
+            {{ generateErrorString(i18n.t('common.searchEngineTestSuccessful')) }}
           </div>
         </div>
         <div class="flex justify-end gap-2">

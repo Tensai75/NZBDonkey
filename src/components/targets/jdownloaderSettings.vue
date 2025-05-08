@@ -12,7 +12,7 @@ const targetSettings = defineModel('targetSettings') as Ref<
   targets.TargetSettings & { settings: targets.jdownloader.Settings }
 >
 const showTestConnectionDialog = defineModel('testConnection') as Ref<boolean>
-const connectionSuccessfull = defineModel('connectionSuccessfull') as Ref<boolean>
+const connectionSuccessful = defineModel('connectionSuccessful') as Ref<boolean>
 defineModel('showAdvancedSettings') as Ref<boolean>
 const emit = defineEmits(['rerender'])
 const deviceIDs = ref(new Array<string>())
@@ -20,7 +20,7 @@ getDeviceIDs()
 
 function deviceListResolver({ name, value }: { name?: string; value?: string }) {
   const errors = []
-  if (connectionSuccessfull.value) {
+  if (connectionSuccessful.value) {
     if (targetSettings.value.settings.devices.length > 0) {
       errors.push(...requiredResolver({ name, value }).errors)
     } else {
@@ -37,9 +37,9 @@ async function getJDownlaoderDevices(value: boolean) {
     if (!targetSettings.value.settings.devices.find((device) => device.id === targetSettings.value.settings.device)) {
       targetSettings.value.settings.device = ''
     }
-    connectionSuccessfull.value = value
+    connectionSuccessful.value = value
   } else {
-    connectionSuccessfull.value = value
+    connectionSuccessful.value = value
   }
 }
 
@@ -71,7 +71,7 @@ function getDeviceIDs() {
         size="small"
         autocomplete="off"
         type="text"
-        @change="connectionSuccessfull = false"
+        @change="connectionSuccessful = false"
       />
       <Message v-if="$field?.invalid" severity="error" size="small" variant="simple" class="flex-auto">{{
         $field.error?.message
@@ -95,7 +95,7 @@ function getDeviceIDs() {
         size="small"
         autocomplete="off"
         type="text"
-        @change="connectionSuccessfull = false"
+        @change="connectionSuccessful = false"
       />
       <Message v-if="$field?.invalid" severity="error" size="small" variant="simple" class="flex-auto">{{
         $field.error?.message
@@ -133,7 +133,7 @@ function getDeviceIDs() {
         v-model="targetSettings.settings.device"
         :options="deviceIDs"
         option-label="device"
-        :disabled="!connectionSuccessfull && targetSettings.settings.devices.length === 0"
+        :disabled="!connectionSuccessful && targetSettings.settings.devices.length === 0"
         class="w-64 md:w-100 max-w-64 md:max-w-min m-0 p-0"
         style="height: 40px; font-size: 14px; line-height: 24px; min-width: 100px"
       >

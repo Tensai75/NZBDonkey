@@ -12,14 +12,14 @@ const targetSettings = defineModel('targetSettings') as Ref<
   targets.TargetSettings & { settings: targets.premiumize.Settings }
 >
 const showTestConnectionDialog = defineModel('testConnection') as Ref<boolean>
-const connectionSuccessfull = defineModel('connectionSuccessfull') as Ref<boolean>
+const connectionSuccessful = defineModel('connectionSuccessful') as Ref<boolean>
 defineModel('showAdvancedSettings') as Ref<boolean>
 
 watch(
   targetSettings.value.settings,
   () => {
-    if (connectionSuccessfull.value) {
-      connectionSuccessfull.value = false
+    if (connectionSuccessful.value) {
+      connectionSuccessful.value = false
     }
   },
   { deep: true }
@@ -55,6 +55,6 @@ watch(
   <TestConnectionDialog
     v-model:show-test-connection-dialog="showTestConnectionDialog"
     v-model:target-settings="targetSettings"
-    @success="(value) => (connectionSuccessfull = value)"
+    @success="(value) => (connectionSuccessful = value)"
   />
 </template>

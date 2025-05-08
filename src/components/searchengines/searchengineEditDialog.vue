@@ -37,12 +37,12 @@ if (props.engines[props.index]) {
 
 const rerenderKey = ref(0)
 const showTestSearchEngineDialog = ref(false)
-const searchEngineTestSuccessfull = ref(false)
+const searchEngineTestSuccessful = ref(false)
 
 watch(
   engine,
   () => {
-    searchEngineTestSuccessfull.value = false
+    searchEngineTestSuccessful.value = false
   },
   { deep: true }
 )
@@ -97,14 +97,14 @@ function reset() {
             ></Button>
             <Button type="button" :label="i18n.t('common.cancel')" severity="secondary" @click="emit('close')"></Button>
             <Button
-              v-if="!searchEngineTestSuccessfull && (isAdd || !engine.isDefault)"
+              v-if="!searchEngineTestSuccessful && (isAdd || !engine.isDefault)"
               type="button"
               :label="i18n.t('common.testSearchEngine')"
               :disabled="!$form.valid"
               @click="showTestSearchEngineDialog = true"
             ></Button>
             <Button
-              v-if="searchEngineTestSuccessfull && (isAdd || !engine.isDefault)"
+              v-if="searchEngineTestSuccessful && (isAdd || !engine.isDefault)"
               type="button"
               :label="i18n.t('common.save')"
               :disabled="!$form.valid"
@@ -118,7 +118,7 @@ function reset() {
   <TestSearchEngineDialog
     v-model:show-test-search-engine-dialog="showTestSearchEngineDialog"
     v-model:engine-settings="engine"
-    @success="searchEngineTestSuccessfull = true"
+    @success="searchEngineTestSuccessful = true"
     @close="showTestSearchEngineDialog = false"
   />
   <PredefinedSearchEnginesDialog
