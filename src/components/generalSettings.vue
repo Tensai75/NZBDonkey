@@ -74,7 +74,7 @@ const notificationNames = [
       </Fieldset>
     </div>
     <div class="mb-4">
-      <Fieldset :legend="i18n.t('settings.general.selectText.searchKeyTitel')" class="flex align-middle">
+      <Fieldset :legend="i18n.t('settings.general.selectText.searchKeyTitle')" class="flex align-middle">
         <div class="flex items-center taginput">
           <label class="label-text mr-4">
             {{ i18n.t('common.title') }}

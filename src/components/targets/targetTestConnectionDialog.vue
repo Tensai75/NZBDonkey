@@ -59,7 +59,7 @@ const close = () => {
           ></i>
           <div v-if="error != ''" style="font-size: 120%">{{ error }}</div>
           <div v-if="error === ''" style="font-size: 120%">
-            {{ generateErrorString(i18n.t('common.connectionSuccessfull')) }}
+            {{ generateErrorString(i18n.t('common.connectionSuccessful')) }}
           </div>
         </div>
         <div class="flex justify-end gap-2">

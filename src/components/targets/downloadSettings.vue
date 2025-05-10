@@ -11,7 +11,7 @@ const targetSettings = defineModel('targetSettings') as Ref<
   targets.TargetsSettings & { settings: targets.download.Settings }
 >
 defineModel('testConnection') as Ref<boolean>
-defineModel('connectionSuccessfull') as Ref<boolean>
+defineModel('connectionSuccessful') as Ref<boolean>
 defineModel('showAdvancedSettings') as Ref<boolean>
 </script>
 

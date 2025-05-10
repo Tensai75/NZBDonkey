@@ -37,7 +37,7 @@ async function registerContextMenu(): Promise<void> {
       id: CONTEXT_MENU_ID,
     },
     () => {
-      log.info('registering of the select context menu successfull')
+      log.info('registering of the select context menu successful')
     }
   )
 }

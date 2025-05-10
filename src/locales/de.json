@@ -53,7 +53,7 @@
       },
       "selectText": {
         "enterSearchKey": "Suchbegriff eingeben",
-        "searchKeyTitel": "Benutzerdefinierte Suchbegriffe für die Textauswahl"
+        "searchKeyTitle": "Benutzerdefinierte Suchbegriffe für die Textauswahl"
       }
     },
     "nzbFileTargets": {
@@ -117,7 +117,7 @@
         "reorder": "Die Reihenfolge in der die Kategorien getestet werden, kann mittels drag & drop angepasst werden",
         "fallbackCategorySelection": "Alternative Kategorien-Auswahl",
         "regexpList": "Vordefinierte RegExp",
-        "loadingKategories": "Lade die Kategorien von $1",
+        "loadingCategories": "Lade die Kategorien von $1",
         "loadingError": "Fehler beim Laden der Kategorien von $1",
         "noCategoriesDefined": "Es sind noch keine Kategorien definiert!",
         "addNewCategory": "neue Kategorie hinzufügen",
@@ -133,7 +133,7 @@
         "spaces": "Alle Leerzeichen zu Punkten konvertieren",
         "dots": "Alle Punkte in Leerzeichen konvertieren"
       },
-      "addPasswordToFilename": "das Passwort dem Dateiname in geschweiften klammern hinzufügen",
+      "addPasswordToFilename": "das Passwort dem Dateiname in geschweiften Klammern hinzufügen",
       "addTitle": "den Titel den Metadaten der NZB-Datei hinzufügen",
       "addPassword": "das Passwort den Metadaten der NZB-Datei hinzufügen",
       "completeness": {
@@ -209,7 +209,7 @@
           },
           "interceptArchiveFiles": {
             "title": "Archiv-Dateien einschliessen",
-            "description": "Archiv-Datein in die Überwachung miteinschliessen"
+            "description": "Archiv-Dateien in die Überwachung miteinschliessen"
           },
           "showNzbDialog": {
             "title": "NZB-Einstellungsdialog",
@@ -260,8 +260,8 @@
     },
     "ok": "OK",
     "next": "Weiter",
-    "connectionSuccessfull": "Verbindung erfolgreich",
-    "searchEngineTestSuccessfull": "Suchmaschine erfolgreich getestet",
+    "connectionSuccessful": "Verbindung erfolgreich",
+    "searchEngineTestSuccessful": "Suchmaschine erfolgreich getestet",
     "testSearchEngine": "Suchmaschine testen",
     "reset": "Zurücksetzen",
     "header": "Header",
@@ -344,7 +344,8 @@
   },
   "nzbsearch": {
     "searchNzb": "NZB-Datei suchen",
-    "success": "die Suche nach Header \"$1\" war erfolgreich"
+    "success": "die Suche nach Header \"$1\" war erfolgreich",
+    "searching": "Suche nach Header „$1“"
   },
   "logger": {
     "loadingLogs": "Protokoll wird geladen.",

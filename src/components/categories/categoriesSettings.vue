@@ -156,7 +156,7 @@ const showAddDialog = () => {
         <ProgressSpinner style="width: 60px; height: 60px" stroke-width="3" />
         <div class="text-center" style="font-size: 120%; width: 75%">
           {{
-            generateErrorString(i18n.t('settings.nzbFileTargets.categories.loadingKategories', [targetSettings.name]))
+            generateErrorString(i18n.t('settings.nzbFileTargets.categories.loadingCategories', [targetSettings.name]))
           }}
         </div>
       </div>

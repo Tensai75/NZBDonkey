@@ -53,7 +53,7 @@
       },
       "selectText": {
         "enterSearchKey": "Enter search term",
-        "searchKeyTitel": "Custom search terms for text selection"
+        "searchKeyTitle": "Custom search terms for text selection"
       }
     },
     "nzbFileTargets": {
@@ -96,7 +96,7 @@
         "pleaseDefineCategoriesInTarget": "you need to define the categories in $1 before you can use this feature",
         "categorySelection": {
           "title": "Category selection",
-          "automatic": "automatical",
+          "automatic": "automatic",
           "manual": "manual",
           "fixed": "fixed category",
           "none": "no category"
@@ -116,14 +116,14 @@
         "noRegexp": "Caution: no RegExp defined",
         "reorder": "The order in which the categories are tested can be modified using drag & drop",
         "fallbackCategorySelection": "Fallback for category selection",
-        "regexpList": "Predefined RexExp",
-        "loadingKategories": "loading the categories from $1",
+        "regexpList": "Predefined RegExp",
+        "loadingCategories": "loading the categories from $1",
         "loadingError": "error while loading the categories from $1",
         "noCategoriesDefined": "No categories defined yet!",
         "addNewCategory": "add new category",
         "selectCategory": "Select a category"
       },
-      "testConnection": "Test conncetion",
+      "testConnection": "Test connection",
       "addNewTarget": "add a new target",
       "title": "NZB file targets"
     },
@@ -160,7 +160,7 @@
           "responseType": "Response type",
           "searchPattern": {
             "json": "JSON object path",
-            "html": "Regexp serach pattern"
+            "html": "Regexp search pattern"
           },
           "searchGroup": "Regexp search group",
           "downloadURL": "Download URL",
@@ -172,7 +172,7 @@
           }
         }
       },
-      "reorder": "Reorder the order of the search engines with drag & drop ",
+      "reorder": "Reorder the search engines with drag & drop ",
       "confirmDelete": {
         "header": "Delete search engine",
         "message": "Do you really want to delete $1?"
@@ -213,7 +213,7 @@
           },
           "showNzbDialog": {
             "title": "NZB settings dialog",
-            "description": "show a dialog to set titel, password, and other options"
+            "description": "show a dialog to set title, password, and other options"
           },
           "pathRegExp": "RegExp for the download path"
         },
@@ -260,8 +260,8 @@
     },
     "ok": "OK",
     "next": "Next",
-    "connectionSuccessfull": "connection successfull",
-    "searchEngineTestSuccessfull": "Search engine tested successfully",
+    "connectionSuccessful": "connection successful",
+    "searchEngineTestSuccessful": "Search engine tested successfully",
     "testSearchEngine": "Test search engine",
     "reset": "Reset",
     "header": "Header",
@@ -344,7 +344,8 @@
   },
   "nzbsearch": {
     "searchNzb": "Search for NZB file",
-    "success": "searching for header \"$1\" was successfull"
+    "success": "searching for header \"$1\" was successful",
+    "searching": "Searching for header \"$1\""
   },
   "logger": {
     "loadingLogs": "Loading log.",
