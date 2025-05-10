@@ -143,6 +143,11 @@
         "segmentCheck": "check NZB file for segment completeness",
         "fileCheckThreshold": "maximum amount of allowed missing files",
         "segmentCheckThreshold": "maximum amount of allowed missing segment (in percent)"
+      },
+      "filesToBeRemoved": {
+        "description": "Files containing the above search terms in the file name are removed from the NZB file.",
+        "enterSearchKey": "Enter search term",
+        "title": "File filtering"
       }
     },
     "searchEngines": {

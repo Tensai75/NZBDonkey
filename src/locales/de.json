@@ -143,7 +143,12 @@
         "fileCheckThreshold": "maximal erlaubte Anzahl fehlender Dateien",
         "segmentCheckThreshold": "maximal erlaubte Anzahl fehlender Segmente (in Prozent)"
       },
-      "addCategory": "die Kategorie den Metadaten der NZB-Datei hinzufügen"
+      "addCategory": "die Kategorie den Metadaten der NZB-Datei hinzufügen",
+      "filesToBeRemoved": {
+        "description": "Dateien, die die oben genannten Suchbegriffe im Dateinamen enthalten, werden aus der NZB-Datei entfernt.",
+        "enterSearchKey": "Suchbegriff eingeben",
+        "title": "Dateien-Filterung"
+      }
     },
     "searchEngines": {
       "searchOrder": {
