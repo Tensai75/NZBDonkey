@@ -344,7 +344,8 @@
   },
   "nzbsearch": {
     "searchNzb": "NZB-Datei suchen",
-    "success": "die Suche nach Header \"$1\" war erfolgreich"
+    "success": "die Suche nach Header \"$1\" war erfolgreich",
+    "searching": "Suche nach Header „$1“"
   },
   "logger": {
     "loadingLogs": "Protokoll wird geladen.",

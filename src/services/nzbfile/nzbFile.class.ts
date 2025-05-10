@@ -132,6 +132,7 @@ export class NZBFileObject {
         browser.tabs.create({ url: browser.runtime.getURL('/nzbdonkey.html#NOACTIVEENGINE' as PublicPath) })
         throw new Error(i18n.t('errors.noActiveSearchEngines'))
       }
+      notifications.info(i18n.t('nzbsearch.searching', [this.header]))
       const searches = []
       for (const engine of engines) {
         const f = async (): Promise<{ nzbFile: NZBObject; engine: string }> => {
