@@ -108,7 +108,7 @@ export default async function (): Promise<void> {
     await updateVersionInStorage()
     openInfoPage()
   } catch (error) {
-    handleMigrationError(error)
+    await handleMigrationError(error)
   }
 }
 
@@ -124,13 +124,12 @@ function openInfoPage(): void {
   log.info('opened info page')
 }
 
-function handleMigrationError(error: unknown): void {
+async function handleMigrationError(error: unknown): Promise<void> {
   log.error('error migrating settings:', error instanceof Error ? error : new Error(String(error)))
   log.info('clearing settings and opening info page')
-  browser.storage.sync.clear().then(async () => {
-    await updateVersionInStorage()
-    openInfoPage()
-  })
+  await browser.storage.sync.clear()
+  await updateVersionInStorage()
+  openInfoPage()
 }
 
 async function migrateGeneralSettings(oldSettings: OldSettings) {
