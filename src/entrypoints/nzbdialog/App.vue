@@ -129,6 +129,8 @@ watch(loaded, () => {
                 size="small"
                 autocomplete="off"
                 type="text"
+                autofocus
+                @focus="$event.target.select()"
                 @keyup="updateCategories()"
                 @change="updateCategories()"
               />
