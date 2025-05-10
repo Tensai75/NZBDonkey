@@ -215,7 +215,11 @@
             "title": "NZB-Einstellungsdialog",
             "description": "einen Dialog anzeigen um Titel, Passwort und andere Einstellungen anzupassen"
           },
-          "pathRegExp": "RegExp für den Download-Pfad"
+          "pathRegExp": "RegExp für den Download-Pfad",
+          "doubleCountDownloads": "Doppelt zählende Downloads",
+          "allowDoubleCountDownloads": "das Abfangen von Downloads erlauben, die auf Seiten mit einem Download-Zähler möglicherweise doppelt gezählt werden",
+          "doubleCountDownloadsWarning": "Warnung vor doppelt gezählten Downloads",
+          "ignoreDoubleCountDownloadsWarning": "die Warnung vor doppelt gezählten Downloads nicht mehr anzeigen"
         },
         "domainsList": "Vordefinierte Domänen",
         "addNewDomain": "neue Domäne hinzufügen",
@@ -315,7 +319,9 @@
     "fetchError": "NZB Download-Überwachung: Fehler beim laden von $1: $2",
     "fetchSuccess": "NZB Donwload-Überwachung: Datei  \"$1\" erfolgreich geladen von $2",
     "fetchResponseProcessingError": "Fehler bei der Bearbeitung der Datei \"$1\", abgefangen von $2: $3",
-    "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen"
+    "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen",
+    "doubleCountDownloadInformation": "Dieser Download von $1 hätte von NZBDonkey abgefangen werden können. Wenn $1 jedoch einen Download-Zähler hat, könnte es sein, dass dieser Download dann doppelt gezählt wird.",
+    "doubleCountDownloadWarning": "Falls $1 einen Download-Zähler hat, wird dieser Download möglicherweise doppelt gezählt."
   },
   "targets": {
     "download": {

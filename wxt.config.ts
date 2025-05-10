@@ -11,7 +11,7 @@ const getManifest: (env: ConfigEnv) => Partial<Browser.runtime.Manifest> = (env)
     name: '__MSG_extension_name__',
     description: '__MSG_extension_description__',
     default_locale: 'en',
-    permissions: ['storage', 'scripting', 'notifications', 'downloads', 'contextMenus', 'clipboardWrite'],
+    permissions: ['storage', 'scripting', 'notifications', 'downloads', 'contextMenus', 'clipboardWrite', 'webRequest'],
     host_permissions: ['<all_urls>'],
     web_accessible_resources: [
       {

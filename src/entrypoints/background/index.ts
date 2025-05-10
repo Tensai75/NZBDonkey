@@ -1,6 +1,6 @@
 import { PublicPath } from 'wxt/browser'
 
-import { defineBackground } from '#imports'
+import { browser, defineBackground } from '#imports'
 import generalBackground from '@/entrypoints/background/general'
 import interceptionBackground from '@/entrypoints/background/interception'
 import settingsUpdate from '@/entrypoints/background/settingsUpdate'

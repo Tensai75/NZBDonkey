@@ -52,7 +52,9 @@ function reset() {
   >
     <Dialog :visible="true" :closable="false" modal :header="title" style="width: 48rem; max-width: 48rem">
       <div class="flex items-center gap-4 mb-4 flex-auto">
-        <label for="name" class="font-semibold w-24">{{ i18n.t('settings.interception.domains.domain.title') }}</label>
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
+          i18n.t('settings.interception.domains.domain.title')
+        }}</label>
         <FormField
           v-slot="$field"
           :name="i18n.t('settings.interception.domains.domain.title')"
@@ -78,7 +80,7 @@ function reset() {
         </FormField>
       </div>
       <div class="flex items-center gap-4 mb-4">
-        <label for="name" class="font-semibold w-24">{{
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.pathRegExp')
         }}</label>
         <FormField
@@ -106,7 +108,7 @@ function reset() {
         </FormField>
       </div>
       <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold w-24">{{
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.showNzbDialog.title')
         }}</label>
         <FormField
@@ -123,7 +125,41 @@ function reset() {
         </FormField>
       </div>
       <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold w-24">{{
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">
+          {{ i18n.t('settings.interception.domains.domain.doubleCountDownloads') }}
+        </label>
+        <FormField
+          :name="i18n.t('settings.interception.domains.domain.doubleCountDownloads')"
+          :initial-value="domain.allowDownloadInterception"
+          class="grid-row flex-auto"
+        >
+          <div class="flex items-center">
+            <ToggleSwitch v-model="domain.allowDownloadInterception" />
+            <label class="label-text pl-4">
+              {{ i18n.t('settings.interception.domains.domain.allowDoubleCountDownloads') }}
+            </label>
+          </div>
+        </FormField>
+      </div>
+      <div class="flex items-center gap-4 pt-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">
+          {{ i18n.t('settings.interception.domains.domain.doubleCountDownloadsWarning') }}
+        </label>
+        <FormField
+          :name="i18n.t('settings.interception.domains.domain.doubleCountDownloadsWarning')"
+          :initial-value="domain.dontShowDoubleCountWarning"
+          class="grid-row flex-auto"
+        >
+          <div class="flex items-center">
+            <ToggleSwitch v-model="domain.dontShowDoubleCountWarning" />
+            <label class="label-text pl-4">
+              {{ i18n.t('settings.interception.domains.domain.ignoreDoubleCountDownloadsWarning') }}
+            </label>
+          </div>
+        </FormField>
+      </div>
+      <div class="flex items-center gap-4 pt-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.requiresPostDataHandling.title')
         }}</label>
         <FormField
@@ -166,7 +202,7 @@ function reset() {
         </FormField>
       </div>
       <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold w-24">Fetch Origin</label>
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">Fetch Origin</label>
         <FormField name="Fetch Origin" :initial-value="domain.fetchOrigin" class="grid-row flex-auto">
           <div class="flex items-center">
             <div class="flex items-center gap-2">
@@ -193,7 +229,7 @@ function reset() {
         </FormField>
       </div>
       <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold w-24">{{
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.interceptArchiveFiles.title')
         }}</label>
         <FormField

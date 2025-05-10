@@ -215,7 +215,11 @@
             "title": "NZB settings dialog",
             "description": "show a dialog to set titel, password, and other options"
           },
-          "pathRegExp": "RegExp for the download path"
+          "pathRegExp": "RegExp for the download path",
+          "doubleCountDownloads": "Double-counting downloads",
+          "allowDoubleCountDownloads": "allow the interception of downloads that may be counted twice on pages with a download counter",
+          "doubleCountDownloadsWarning": "Warning for double counting downloads",
+          "ignoreDoubleCountDownloadsWarning": "no longer display the warning for double-counting downloads"
         },
         "domainsList": "Predefined domains",
         "addNewDomain": "add new domain",
@@ -315,7 +319,9 @@
     "fetchError": "NZB download interception: error loading from url $1: $2",
     "fetchSuccess": "NZB download interception: file \"$1\" successfully loaded from $2",
     "fetchResponseProcessingError": "error while processing file \"$1\" intercepted from $2: $3",
-    "success": "NZB file \"$1\" was intercepted successfully"
+    "success": "NZB file \"$1\" was intercepted successfully",
+    "doubleCountDownloadInformation": "This download of $1 could have been intercepted by NZBDonkey. However, if $1 has a download counter, it could be that this download is then counted twice.",
+    "doubleCountDownloadWarning": "If $1 has a download counter, this download may be counted twice."
   },
   "targets": {
     "download": {
