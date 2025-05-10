@@ -1,6 +1,7 @@
 import { defineExtensionMessaging, RemoveListenerCallback as RemoveListenerCallbackType } from '@webext-core/messaging'
 
 import { Settings as GeneralSettings } from '@/services/general'
+import { DomainSettings } from '@/services/interception'
 import {
   InterceptionRequest,
   InterceptionRequestFetchError,
@@ -16,6 +17,8 @@ interface ProtocolMap {
   getGeneralSettings(data: boolean): Promise<GeneralSettings>
   searchNzbFile(data: { nzblnk: string; source: string }): void
   nzbFileDialog(data: { windowID: number }): NZBFileObject | NZBFileObject[]
+  doubleCountWarning(data: { tabId: number; domain: DomainSettings }): void
+  doubleCountWarningResponse(data: { domain: DomainSettings }): void
 }
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>()
 export type RemoveListenerCallback = RemoveListenerCallbackType

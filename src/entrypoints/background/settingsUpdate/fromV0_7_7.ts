@@ -101,7 +101,6 @@ export default async function (): Promise<void> {
   try {
     const storedSettings = await browser.storage.sync.get(null)
     const oldSettings = storedSettings as OldSettings
-    console.log('loaded settings:', storedSettings)
     await migrateGeneralSettings(oldSettings)
     await migrateTargetSettings(oldSettings)
     await migrateSearchEnginesSettings(oldSettings)
