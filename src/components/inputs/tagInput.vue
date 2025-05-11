@@ -154,6 +154,7 @@ const inputElId = `tag-input${id}`
 
 <template>
   <label :for="inputElId">
+  <label :for="inputElId" class="nzbdonkeyTagInput">
     <ul
       ref="tagsUl"
       class="tags"
@@ -171,8 +172,18 @@ const inputElId = `tag-input${id}`
           [tagsClass]: true,
         }"
       >
-        {{ tag }}
-        <button class="delete" @click="removeTag(index)">x</button>
+        <span>{{ tag }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="delete" @click="removeTag(index)">
+          <g id="times-circle">
+            <path d="M12,21a9,9,0,1,1,9-9A9,9,0,0,1,12,21ZM12,4.5A7.5,7.5,0,1,0,19.5,12,7.5,7.5,0,0,0,12,4.5Z" />
+            <path
+              d="M9,15.75a.74.74,0,0,1-.53-.22.75.75,0,0,1,0-1.06l6-6a.75.75,0,0,1,1.06,1.06l-6,6A.74.74,0,0,1,9,15.75Z"
+            />
+            <path
+              d="M15,15.75a.74.74,0,0,1-.53-.22l-6-6A.75.75,0,0,1,9.53,8.47l6,6a.75.75,0,0,1,0,1.06A.74.74,0,0,1,15,15.75Z"
+            />
+          </g>
+        </svg>
       </li>
       <div class="tag-input">
         <input
@@ -213,12 +224,24 @@ const inputElId = `tag-input${id}`
   <small v-show="noMatchingTag" class="err">{{ validationMessage }}</small>
 </template>
 
-<style scoped>
-* {
-  box-sizing: border-box;
+<style>
+:root {
+  --nzbdonkeyTagInput-content-border-color: var(--p-surface-400);
+  --nzbdonkeyTagInput-content-hover-color: var(--p-surface-900);
+  --nzbdonkeyTagInput-highlight-focus-color: var(--p-primary-500);
+  --nzbdonkeyTagInput-input-background-color: var(--p-surface-0);
 }
 
-.options {
+@media (prefers-color-scheme: dark) {
+  :root {
+    --nzbdonkeyTagInput-content-border-color: var(--p-surface-600);
+    --nzbdonkeyTagInput-content-hover-color: var(--p-surface-400);
+    --nzbdonkeyTagInput-highlight-focus-color: var(--p-primary-400);
+    --nzbdonkeyTagInput-input-background-color: var(--p-surface-950);
+  }
+}
+
+.nzbdonkeyTagInput .options {
   position: absolute;
   top: 35px;
   list-style-type: none;
@@ -228,105 +251,121 @@ const inputElId = `tag-input${id}`
   overflow: auto;
 }
 
-input:focus ~ .options {
+.nzbdonkeyTagInput input:focus ~ .options {
   visibility: visible;
 }
 
-.options li {
+.nzbdonkeyTagInput .options li {
   padding: 10px;
   background: #333;
   color: #eee;
   cursor: pointer;
 }
 
-.options li:hover,
-.options li.active {
+.nzbdonkeyTagInput .options li:hover,
+.nzbdonkeyTagInput .options li.active {
   background: #555;
 }
 
-.tag-input {
+.nzbdonkeyTagInput .tag-input {
   position: relative;
-  width: 250px;
+  display: flex;
+  align-items: center;
+  height: 28px;
 }
 
-.tags {
-  --tagBgColor: rgb(250, 104, 104);
-  --tagTextColor: white;
+.nzbdonkeyTagInput .tags {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 7px;
-  margin: 0;
-  padding: 10px;
+  margin: 5px 0 5px 0;
+  padding: 6px;
   left: 10px;
-  border-bottom: 1px solid #5558;
+  border: 1px solid var(--nzbdonkeyTagInput-content-border-color);
+  border-radius: 4px;
   cursor: text;
-
-  &.singleLine {
-    flex-wrap: nowrap;
-    overflow: auto;
-  }
-
-  &.focused {
-    border-bottom: 1px solid var(--p-primary-400);
-  }
-
-  &.duplicate {
-    border-bottom: 1px solid rgb(235, 27, 27);
-  }
-
-  &.noMatchingTag {
-    outline: rgb(235, 27, 27);
-    border: 1px solid rgb(235, 27, 27);
-    animation: shake1 0.5s;
-  }
+  background-color: var(--nzbdonkeyTagInput-input-background-color);
+  min-height: 40px;
 }
 
-.tag {
-  background: var(--tagBgColor);
-  padding: 5px;
+.nzbdonkeyTagInput .tags.singleLine {
+  flex-wrap: nowrap;
+  overflow: auto;
+}
+
+.nzbdonkeyTagInput .tags:hover {
+  border: 1px solid var(--nzbdonkeyTagInput-content-hover-color);
+}
+
+.nzbdonkeyTagInput .tags.focused,
+.nzbdonkeyTagInput .tags:focus,
+.nzbdonkeyTagInput .tags:active {
+  border: 2px solid var(--nzbdonkeyTagInput-highlight-focus-color);
+}
+
+.nzbdonkeyTagInput .tags.duplicate {
+  border: 1px solid rgb(235, 27, 27);
+}
+
+.nzbdonkeyTagInput .tags.noMatchingTag {
+  outline: rgb(235, 27, 27);
+  border: 1px solid rgb(235, 27, 27);
+  animation: shake1 0.5s;
+}
+
+.nzbdonkeyTagInput .tag {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  background: var(--p-primary-500);
+  padding: 0px 5px 0px 5px;
   border-radius: 4px;
-  color: var(--tagTextColor);
+  color: var(--p-surface-100);
   white-space: nowrap;
   transition: 0.1s ease background;
+  height: 28px;
+  font-size: 14px;
 }
 
-.del {
+.nzbdonkeyTagInput .del {
   background: red;
 }
 
-.delete {
-  color: var(--tagTextColor);
-  background: none;
-  outline: none;
-  border: none;
+.nzbdonkeyTagInput .delete {
+  fill: var(--p-surface-100);
+  margin-left: 5px;
+  margin-right: 0px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 
-.tag.duplicate {
+.nzbdonkeyTagInput .tag.duplicate {
   background: rgb(235, 27, 27);
   animation: shake 1s;
 }
 
-input {
+.nzbdonkeyTagInput input {
   all: unset;
+  font-size: 14px;
 }
 
-.count {
+.nzbdonkeyTagInput .count {
   font-size: 0.8rem;
   white-space: nowrap;
   flex-grow: 1;
   text-align: end;
 }
 
-.count span {
+.nzbdonkeyTagInput .count span {
   background: #eee;
   padding: 2px;
   border-radius: 2px;
 }
 
-.err {
+.nzbdonkeyTagInput .err {
   color: red;
 }
 
