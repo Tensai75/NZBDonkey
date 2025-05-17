@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<TagInputProps>(), {
   autocompleteItems: () => [],
   validationMessage: 'Invalid tag: custom tags not allowed',
   allowCustom: true,
-  validator: undefined,
+  validator: () => true,
   showCount: false,
   tagTextColor: 'white',
   tagBgColor: 'rgb(120, 54, 10)',
@@ -153,7 +153,6 @@ const inputElId = `tag-input${id}`
 </script>
 
 <template>
-  <label :for="inputElId">
   <label :for="inputElId" class="nzbdonkeyTagInput">
     <ul
       ref="tagsUl"
@@ -202,7 +201,12 @@ const inputElId = `tag-input${id}`
             activeOptionInd = (availableOptions.length + activeOptionInd - 1) % availableOptions.length
           "
           @focus="focused = true"
-          @blur="focused = false"
+          @blur="
+            () => {
+              if (newTag.trim() != '') addTag(newTag)
+              focused = false
+            }
+          "
         />
 
         <ul class="options">
