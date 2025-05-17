@@ -177,8 +177,8 @@ const authenticate = async (settings: Settings): Promise<string | void> => {
       api: 'SYNO.API.Auth',
       version: synoData.data['SYNO.API.Auth'].maxVersion,
       method: 'login',
-      account: encodeURIComponent(settings.username),
-      passwd: encodeURIComponent(settings.password),
+      account: settings.username,
+      passwd: settings.password,
       session: 'DownloadStation',
       format: 'sid',
     }

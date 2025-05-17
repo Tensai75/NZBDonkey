@@ -12,6 +12,7 @@ export const defaultSettings: Settings = {
   fileCheckThreshold: 1,
   segmentCheck: true,
   segmentCheckThreshold: 2,
+  filesToBeRemoved: [],
 }
 
 export type Settings = {
@@ -24,6 +25,7 @@ export type Settings = {
   fileCheckThreshold: number
   segmentCheck: boolean
   segmentCheckThreshold: number
+  filesToBeRemoved: string[]
 }
 
 export const use = async () => useSettings<Settings>({ name, defaults: defaultSettings })

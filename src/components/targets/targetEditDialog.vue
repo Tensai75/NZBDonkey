@@ -42,7 +42,7 @@ const confirm = useConfirm()
 const rerenderKey = ref(0)
 const showAdvancedSettings = ref(false)
 const testConnection = ref(false)
-const connectionSuccessfull = ref(false)
+const connectionSuccessful = ref(false)
 const stage = ref(0)
 const lastStage = ref(0)
 
@@ -57,7 +57,7 @@ function setTargetSettings(settings: targets.TargetSettings) {
   targetHasAdvancedSettings.value = targets[targetSettings.value.type as targets.TargetType].hasAdvancedSettings
   targetHasConnectionTest.value = targets[targetSettings.value.type as targets.TargetType].hasConnectionTest
   targetCanHaveCategories.value = targets[targetSettings.value.type as targets.TargetType].canHaveCategories
-  connectionSuccessfull.value = !targetHasConnectionTest.value
+  connectionSuccessful.value = !targetHasConnectionTest.value
   targetDefaultName.value = targetSettings.value.name
   stage.value++
   rerenderKey.value++
@@ -154,42 +154,42 @@ function confirmAdvancedSettings() {
           v-if="targetSettings.type === 'download'"
           v-model:target-settings="targetSettings"
           v-model:test-connection="testConnection"
-          v-model:connection-successfull="connectionSuccessfull"
+          v-model:connection-successful="connectionSuccessful"
           v-model:show-advanced-settings="showAdvancedSettings"
         />
         <NzbgetSettings
           v-if="targetSettings.type === 'nzbget'"
           v-model:target-settings="targetSettings"
           v-model:test-connection="testConnection"
-          v-model:connection-successfull="connectionSuccessfull"
+          v-model:connection-successful="connectionSuccessful"
           v-model:show-advanced-settings="showAdvancedSettings"
         />
         <SabnzbdSettings
           v-if="targetSettings.type === 'sabnzbd'"
           v-model:target-settings="targetSettings"
           v-model:test-connection="testConnection"
-          v-model:connection-successfull="connectionSuccessfull"
+          v-model:connection-successful="connectionSuccessful"
           v-model:show-advanced-settings="showAdvancedSettings"
         />
         <SynologySettings
           v-if="targetSettings.type === 'synology'"
           v-model:target-settings="targetSettings"
           v-model:test-connection="testConnection"
-          v-model:connection-successfull="connectionSuccessfull"
+          v-model:connection-successful="connectionSuccessful"
           v-model:show-advanced-settings="showAdvancedSettings"
         />
         <PremiumizeSettings
           v-if="targetSettings.type === 'premiumize'"
           v-model:target-settings="targetSettings"
           v-model:test-connection="testConnection"
-          v-model:connection-successfull="connectionSuccessfull"
+          v-model:connection-successful="connectionSuccessful"
           v-model:show-advanced-settings="showAdvancedSettings"
         />
         <JDownloaderSettings
           v-if="targetSettings.type === 'jdownloader'"
           v-model:target-settings="targetSettings"
           v-model:test-connection="testConnection"
-          v-model:connection-successfull="connectionSuccessfull"
+          v-model:connection-successful="connectionSuccessful"
           v-model:show-advanced-settings="showAdvancedSettings"
           @rerender="rerenderKey++"
         />
@@ -244,14 +244,14 @@ function confirmAdvancedSettings() {
             ></Button>
             <Button type="button" :label="i18n.t('common.cancel')" severity="secondary" @click="emit('close')"></Button>
             <Button
-              v-if="!connectionSuccessfull && stage === 1"
+              v-if="!connectionSuccessful && stage === 1"
               type="button"
               :label="i18n.t('settings.nzbFileTargets.testConnection')"
               :disabled="!$form.valid"
               @click="testConnection = true"
             ></Button>
             <Button
-              v-if="(connectionSuccessfull && stage === 1) || stage === 2"
+              v-if="(connectionSuccessful && stage === 1) || stage === 2"
               type="button"
               :label="i18n.t('common.next')"
               :disabled="!$form.valid"

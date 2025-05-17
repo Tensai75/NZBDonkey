@@ -53,7 +53,7 @@
       },
       "selectText": {
         "enterSearchKey": "Suchbegriff eingeben",
-        "searchKeyTitel": "Benutzerdefinierte Suchbegriffe für die Textauswahl"
+        "searchKeyTitle": "Benutzerdefinierte Suchbegriffe für die Textauswahl"
       }
     },
     "nzbFileTargets": {
@@ -117,7 +117,7 @@
         "reorder": "Die Reihenfolge in der die Kategorien getestet werden, kann mittels drag & drop angepasst werden",
         "fallbackCategorySelection": "Alternative Kategorien-Auswahl",
         "regexpList": "Vordefinierte RegExp",
-        "loadingKategories": "Lade die Kategorien von $1",
+        "loadingCategories": "Lade die Kategorien von $1",
         "loadingError": "Fehler beim Laden der Kategorien von $1",
         "noCategoriesDefined": "Es sind noch keine Kategorien definiert!",
         "addNewCategory": "neue Kategorie hinzufügen",
@@ -133,7 +133,7 @@
         "spaces": "Alle Leerzeichen zu Punkten konvertieren",
         "dots": "Alle Punkte in Leerzeichen konvertieren"
       },
-      "addPasswordToFilename": "das Passwort dem Dateiname in geschweiften klammern hinzufügen",
+      "addPasswordToFilename": "das Passwort dem Dateiname in geschweiften Klammern hinzufügen",
       "addTitle": "den Titel den Metadaten der NZB-Datei hinzufügen",
       "addPassword": "das Passwort den Metadaten der NZB-Datei hinzufügen",
       "completeness": {
@@ -143,7 +143,12 @@
         "fileCheckThreshold": "maximal erlaubte Anzahl fehlender Dateien",
         "segmentCheckThreshold": "maximal erlaubte Anzahl fehlender Segmente (in Prozent)"
       },
-      "addCategory": "die Kategorie den Metadaten der NZB-Datei hinzufügen"
+      "addCategory": "die Kategorie den Metadaten der NZB-Datei hinzufügen",
+      "filesToBeRemoved": {
+        "description": "Dateien, die die oben genannten Suchbegriffe im Dateinamen enthalten, werden aus der NZB-Datei entfernt.",
+        "enterSearchKey": "Suchbegriff eingeben",
+        "title": "Dateien-Filterung"
+      }
     },
     "searchEngines": {
       "searchOrder": {
@@ -209,13 +214,17 @@
           },
           "interceptArchiveFiles": {
             "title": "Archiv-Dateien einschliessen",
-            "description": "Archiv-Datein in die Überwachung miteinschliessen"
+            "description": "Archiv-Dateien in die Überwachung miteinschliessen"
           },
           "showNzbDialog": {
             "title": "NZB-Einstellungsdialog",
             "description": "einen Dialog anzeigen um Titel, Passwort und andere Einstellungen anzupassen"
           },
-          "pathRegExp": "RegExp für den Download-Pfad"
+          "pathRegExp": "RegExp für den Download-Pfad",
+          "doubleCountDownloads": "Doppelt zählende Downloads",
+          "allowDoubleCountDownloads": "das Abfangen von Downloads erlauben, die auf Seiten mit einem Download-Zähler möglicherweise doppelt gezählt werden",
+          "doubleCountDownloadsWarning": "Warnung vor doppelt gezählten Downloads",
+          "ignoreDoubleCountDownloadsWarning": "die Warnung vor doppelt gezählten Downloads nicht mehr anzeigen"
         },
         "domainsList": "Vordefinierte Domänen",
         "addNewDomain": "neue Domäne hinzufügen",
@@ -260,8 +269,8 @@
     },
     "ok": "OK",
     "next": "Weiter",
-    "connectionSuccessfull": "Verbindung erfolgreich",
-    "searchEngineTestSuccessfull": "Suchmaschine erfolgreich getestet",
+    "connectionSuccessful": "Verbindung erfolgreich",
+    "searchEngineTestSuccessful": "Suchmaschine erfolgreich getestet",
     "testSearchEngine": "Suchmaschine testen",
     "reset": "Zurücksetzen",
     "header": "Header",
@@ -315,7 +324,9 @@
     "fetchError": "NZB Download-Überwachung: Fehler beim laden von $1: $2",
     "fetchSuccess": "NZB Donwload-Überwachung: Datei  \"$1\" erfolgreich geladen von $2",
     "fetchResponseProcessingError": "Fehler bei der Bearbeitung der Datei \"$1\", abgefangen von $2: $3",
-    "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen"
+    "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen",
+    "doubleCountDownloadInformation": "Dieser Download von $1 hätte von NZBDonkey abgefangen werden können. Wenn $1 jedoch einen Download-Zähler hat, könnte es sein, dass dieser Download dann doppelt gezählt wird.",
+    "doubleCountDownloadWarning": "Falls $1 einen Download-Zähler hat, wird dieser Download möglicherweise doppelt gezählt."
   },
   "targets": {
     "download": {
@@ -344,7 +355,8 @@
   },
   "nzbsearch": {
     "searchNzb": "NZB-Datei suchen",
-    "success": "die Suche nach Header \"$1\" war erfolgreich"
+    "success": "die Suche nach Header \"$1\" war erfolgreich",
+    "searching": "Suche nach Header „$1“"
   },
   "logger": {
     "loadingLogs": "Protokoll wird geladen.",
