@@ -182,6 +182,20 @@
       "icon": "https://g4u.to/favicon.ico",
       "allowDownloadInterception": false,
       "dontShowDoubleCountWarning": false
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzbcore.info",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://nzbcore.info/nnplus/www/templates/bookstrap/images/icons/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     }
   ]
 }
