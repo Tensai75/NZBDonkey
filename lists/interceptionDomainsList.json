@@ -168,6 +168,20 @@
       "icon": "https://omgwtfnzbs.org/favicon.ico",
       "allowDownloadInterception": false,
       "dontShowDoubleCountWarning": false
+    },
+    {
+      "archiveFileExtensions": ["7z", "rar", "zip"],
+      "domain": "g4u.to",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/nzb/.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://g4u.to/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     }
   ]
 }
