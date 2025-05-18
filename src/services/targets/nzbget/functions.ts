@@ -29,9 +29,13 @@ export const push = async (
   log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
   try {
     const options = setOptions(settings)
+    const clonedNZB = Object.assign(new NZBFileObject(), nzb)
+    if (targetSettings.selectedCategory && clonedNZB.settings?.addCategory) {
+      clonedNZB.addMetaInformation('category', targetSettings.selectedCategory)
+    }
     const params = [
       nzb.getFilename(), // Filename
-      b64EncodeUnicode(nzb.getAsTextFile()), // Content (NZB File)
+      b64EncodeUnicode(clonedNZB.getAsTextFile()), // Content (NZB File)
       typeof targetSettings.selectedCategory === 'string' ? targetSettings.selectedCategory : '', // Category
       0, // Priority
       false, // AddToTop

@@ -88,11 +88,15 @@ class download {
 
       log.info(`initiating the download for "${this.filename}"`)
       let url: string
+      const clonedNZBFile = Object.assign(new NZBFileObject(), this.nzbFile)
+      if (this.targetSettings.selectedCategory && clonedNZBFile.settings?.addCategory) {
+        clonedNZBFile.addMetaInformation('category', this.targetSettings.selectedCategory)
+      }
       if (import.meta.env.FIREFOX) {
-        const blob = new Blob([this.nzbFile.getAsTextFile()], { type: 'data:text/nzb;base64' })
+        const blob = new Blob([clonedNZBFile.getAsTextFile()], { type: 'data:text/nzb;base64' })
         url = URL.createObjectURL(blob)
       } else {
-        url = 'data:text/nzb;base64,' + b64EncodeUnicode(this.nzbFile.getAsTextFile())
+        url = 'data:text/nzb;base64,' + b64EncodeUnicode(clonedNZBFile.getAsTextFile())
       }
       const downloadOptions: Browser.downloads.DownloadOptions = {
         filename: this.filename,

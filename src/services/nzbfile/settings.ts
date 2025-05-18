@@ -5,6 +5,7 @@ export const name = 'nzbfileSettings'
 export const defaultSettings: Settings = {
   addPassword: true,
   addTitle: true,
+  addCategory: true,
   addPasswordToFilename: true,
   processTitle: true,
   processTitleType: 'spaces',
@@ -18,6 +19,7 @@ export const defaultSettings: Settings = {
 export type Settings = {
   addPassword: boolean
   addTitle: boolean
+  addCategory: boolean
   addPasswordToFilename: boolean
   processTitle: boolean
   processTitleType: 'spaces' | 'dots'

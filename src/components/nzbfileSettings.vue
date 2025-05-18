@@ -50,9 +50,6 @@ const processTitleNames = {
             </div>
           </template>
         </Select>
-        <!-- label class="label-text pl-4">
-        {{ i18n.t("settings.processing.processTitle.description") }}
-      </label -->
       </div>
 
       <div class="flex items-center mb-4">
@@ -73,6 +70,13 @@ const processTitleNames = {
         <ToggleSwitch v-model="settings.addPassword" />
         <label class="label-text pl-4">
           {{ i18n.t('settings.processing.addPassword') }}
+        </label>
+      </div>
+
+      <div class="flex items-center mb-4">
+        <ToggleSwitch v-model="settings.addCategory" />
+        <label class="label-text pl-4">
+          {{ i18n.t('settings.processing.addCategory') }}
         </label>
       </div>
     </Fieldset>

@@ -22,7 +22,11 @@ export const push = async (
   log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
   try {
     const options = setOptions(settings)
-    const content = new Blob([nzb.getAsTextFile()], {
+    const clonedNZB = Object.assign(new NZBFileObject(), nzb)
+    if (targetSettings.selectedCategory && clonedNZB.settings?.addCategory) {
+      clonedNZB.addMetaInformation('category', targetSettings.selectedCategory)
+    }
+    const content = new Blob([clonedNZB.getAsTextFile()], {
       type: 'text/xml',
     })
     const filename = nzb.getFilename()

@@ -38,5 +38,6 @@ async function migrateInterceptionSettings() {
 async function migrateNzbfileSettings() {
   const settings: nzbfile.Settings = await nzbfile.getSettings()
   settings.filesToBeRemoved = settings.filesToBeRemoved ?? []
+  settings.addCategory = typeof settings.addCategory === 'boolean' ? settings.addCategory : true
   await nzbfile.saveSettings(settings)
 }
