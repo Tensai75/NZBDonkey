@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "data": [
     {
       "isActive": true,
@@ -11,7 +11,9 @@
       "postDataHandling": "sendAsURLSearchParams",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://nzbindex.com/favicon.ico"
+      "icon": "https://nzbindex.com/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -23,7 +25,9 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://binsearch.info/favicon.ico"
+      "icon": "https://binsearch.info/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -35,7 +39,9 @@
       "postDataHandling": "sendAsURLSearchParams",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip"],
-      "icon": "https://www.nzbking.com/static/favicon.ico"
+      "icon": "https://www.nzbking.com/static/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -47,7 +53,9 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip"],
-      "icon": "https://cdn.scenenzbs.com/templates/scenenzbs/images/favicon.ico"
+      "icon": "https://cdn.scenenzbs.com/templates/scenenzbs/images/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -59,7 +67,9 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip", "rar", "7z"],
-      "icon": "https://cdn.house-of-usenet.com/styles/custom/favicon.png"
+      "icon": "https://cdn.house-of-usenet.com/styles/custom/favicon.png",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -71,7 +81,9 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip"],
-      "icon": "https://newzbay.cc/templates/index/favicon/apple-touch-icon.png"
+      "icon": "https://newzbay.cc/templates/index/favicon/apple-touch-icon.png",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -83,7 +95,9 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://fileleechers.com/board/images/favicon/36.apple-touch-icon.png"
+      "icon": "https://fileleechers.com/board/images/favicon/36.apple-touch-icon.png",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -95,7 +109,9 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://nzbgeek.info/favicon.ico"
+      "icon": "https://nzbgeek.info/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "isActive": true,
@@ -107,7 +123,9 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico"
+      "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "archiveFileExtensions": ["zip"],
@@ -119,7 +137,9 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "https://nzbplanet.net/views/images/favicon.ico"
+      "icon": "https://nzbplanet.net/views/images/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     },
     {
       "archiveFileExtensions": ["zip"],
@@ -131,7 +151,9 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "hhttps://nzb.su/templates/light/images/icons/favicon.ico"
+      "icon": "hhttps://nzb.su/templates/light/images/icons/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     }
   ]
 }
