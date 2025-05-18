@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 1,
   "data": [
     {
       "isActive": true,
@@ -11,9 +11,7 @@
       "postDataHandling": "sendAsURLSearchParams",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://nzbindex.com/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://nzbindex.com/favicon.ico"
     },
     {
       "isActive": true,
@@ -25,9 +23,7 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://binsearch.info/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://binsearch.info/favicon.ico"
     },
     {
       "isActive": true,
@@ -39,9 +35,7 @@
       "postDataHandling": "sendAsURLSearchParams",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip"],
-      "icon": "https://www.nzbking.com/static/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://www.nzbking.com/static/favicon.ico"
     },
     {
       "isActive": true,
@@ -53,9 +47,7 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip"],
-      "icon": "https://cdn.scenenzbs.com/templates/scenenzbs/images/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://cdn.scenenzbs.com/templates/scenenzbs/images/favicon.ico"
     },
     {
       "isActive": true,
@@ -67,9 +59,7 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip", "rar", "7z"],
-      "icon": "https://cdn.house-of-usenet.com/styles/custom/favicon.png",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://cdn.house-of-usenet.com/styles/custom/favicon.png"
     },
     {
       "isActive": true,
@@ -81,9 +71,7 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": ["zip"],
-      "icon": "https://newzbay.cc/templates/index/favicon/apple-touch-icon.png",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://newzbay.cc/templates/index/favicon/apple-touch-icon.png"
     },
     {
       "isActive": true,
@@ -95,9 +83,7 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://fileleechers.com/board/images/favicon/36.apple-touch-icon.png",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://fileleechers.com/board/images/favicon/36.apple-touch-icon.png"
     },
     {
       "isActive": true,
@@ -109,9 +95,7 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://nzbgeek.info/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://nzbgeek.info/favicon.ico"
     },
     {
       "isActive": true,
@@ -123,9 +107,7 @@
       "postDataHandling": "sendAsFormData",
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
-      "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico"
     },
     {
       "archiveFileExtensions": ["zip"],
@@ -137,9 +119,7 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "https://nzbplanet.net/views/images/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://nzbplanet.net/views/images/favicon.ico"
     },
     {
       "archiveFileExtensions": ["zip"],
@@ -151,9 +131,7 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "hhttps://nzb.su/templates/light/images/icons/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "hhttps://nzb.su/templates/light/images/icons/favicon.ico"
     },
     {
       "archiveFileExtensions": ["zip"],
@@ -165,9 +143,7 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "https://omgwtfnzbs.org/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://omgwtfnzbs.org/favicon.ico"
     },
     {
       "archiveFileExtensions": ["7z", "rar", "zip"],
@@ -179,9 +155,7 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "https://g4u.to/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://g4u.to/favicon.ico"
     },
     {
       "archiveFileExtensions": ["zip"],
@@ -193,9 +167,7 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "https://nzbcore.info/nnplus/www/templates/bookstrap/images/icons/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://nzbcore.info/nnplus/www/templates/bookstrap/images/icons/favicon.ico"
     },
     {
       "archiveFileExtensions": ["zip", "rar", "7z"],
@@ -207,9 +179,7 @@
       "postDataHandling": "sendAsURLSearchParams",
       "requiresPostDataHandling": true,
       "showNzbDialog": true,
-      "icon": "https://www.jellyfinplex.com/data/assets/logo/4552981.png",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://www.jellyfinplex.com/data/assets/logo/4552981.png"
     },
     {
       "archiveFileExtensions": ["zip"],
@@ -221,9 +191,7 @@
       "postDataHandling": "sendAsFormData",
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
-      "icon": "https://www.usenet-crawler.com/templates/dark/images/favicon.ico",
-      "allowDownloadInterception": false,
-      "dontShowDoubleCountWarning": false
+      "icon": "https://www.usenet-crawler.com/templates/dark/images/favicon.ico"
     }
   ]
 }
