@@ -196,6 +196,20 @@
       "icon": "https://nzbcore.info/nnplus/www/templates/bookstrap/images/icons/favicon.ico",
       "allowDownloadInterception": false,
       "dontShowDoubleCountWarning": false
+    },
+    {
+      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "domain": "jellyfinplex.com",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/attachments/.*/\\?sess=.*",
+      "postDataHandling": "sendAsURLSearchParams",
+      "requiresPostDataHandling": true,
+      "showNzbDialog": true,
+      "icon": "https://www.jellyfinplex.com/data/assets/logo/4552981.png",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     }
   ]
 }
