@@ -1,3 +1,10 @@
+# [1.1.0-beta.2](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2025-05-18)
+
+
+### Features
+
+* add the category to the meta data of the nzb file for targets that support categories ([304aada](https://github.com/Tensai75/NZBDonkey/commit/304aadaa9fb044e5526cc0f1e211f8fcd146eda8))
+
 # [1.1.0-beta.1](https://github.com/Tensai75/NZBDonkey/compare/v1.0.0...v1.1.0-beta.1) (2025-05-17)
 
 
