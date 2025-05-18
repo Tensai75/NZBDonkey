@@ -57,10 +57,9 @@ export const testConnection = async (targetSettings: TargetSettings): Promise<bo
   try {
     const options = setOptions(settings)
     const formData = {
-      mode: 'addurl',
+      mode: 'status',
       output: 'json',
       apikey: settings.apiKey,
-      name: '',
     }
     options.data = generateFormData(formData)
     const response = await connect(options)
@@ -68,12 +67,7 @@ export const testConnection = async (targetSettings: TargetSettings): Promise<bo
       return true
     } else {
       if (response?.error) {
-        // Sabnzbd 3.0.0+ does no longer responde with success=true but if name is empty, the error message will be "expects one parameter"
-        if (response.error == 'expects one parameter') {
-          return true
-        } else {
-          throw new Error(response.error)
-        }
+        throw new Error(response.error)
       } else {
         throw new Error('unknown error')
       }
