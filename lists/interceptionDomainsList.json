@@ -154,6 +154,20 @@
       "icon": "hhttps://nzb.su/templates/light/images/icons/favicon.ico",
       "allowDownloadInterception": false,
       "dontShowDoubleCountWarning": false
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "omgwtfnzbs.org",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "[/?&=]send.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://omgwtfnzbs.org/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     }
   ]
 }
