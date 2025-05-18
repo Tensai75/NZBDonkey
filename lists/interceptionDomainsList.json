@@ -210,6 +210,20 @@
       "icon": "https://www.jellyfinplex.com/data/assets/logo/4552981.png",
       "allowDownloadInterception": false,
       "dontShowDoubleCountWarning": false
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "usenet-crawler.com",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://www.usenet-crawler.com/templates/dark/images/favicon.ico",
+      "allowDownloadInterception": false,
+      "dontShowDoubleCountWarning": false
     }
   ]
 }
