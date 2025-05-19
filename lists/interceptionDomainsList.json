@@ -108,6 +108,102 @@
       "fetchOrigin": "background",
       "archiveFileExtensions": [],
       "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzbplanet.net",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://nzbplanet.net/views/images/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzb.su",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "hhttps://nzb.su/templates/light/images/icons/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "omgwtfnzbs.org",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "[/?&=]send.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://omgwtfnzbs.org/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["7z", "rar", "zip"],
+      "domain": "g4u.to",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/nzb/.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://g4u.to/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzbcore.info",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://nzbcore.info/nnplus/www/templates/bookstrap/images/icons/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "domain": "jellyfinplex.com",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/attachments/.*/\\?sess=.*",
+      "postDataHandling": "sendAsURLSearchParams",
+      "requiresPostDataHandling": true,
+      "showNzbDialog": true,
+      "icon": "https://www.jellyfinplex.com/data/assets/logo/4552981.png"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "usenet-crawler.com",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://www.usenet-crawler.com/templates/dark/images/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzbfinder.ws",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://nzbfinder.ws/favicon.ico"
     }
   ]
 }
