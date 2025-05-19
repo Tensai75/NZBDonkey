@@ -135,6 +135,18 @@
     },
     {
       "archiveFileExtensions": ["zip"],
+      "domain": "nzb.life",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://nzb.life/templates/light/images/icons/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
       "domain": "omgwtfnzbs.org",
       "fetchOrigin": "background",
       "isActive": true,
