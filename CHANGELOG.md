@@ -1,3 +1,10 @@
+# [1.1.0-beta.3](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2025-05-19)
+
+
+### Bug Fixes
+
+* correctly parse file name in content-disposition header ([4733a43](https://github.com/Tensai75/NZBDonkey/commit/4733a43dfc3ebeb23783d08bb77cf2ed59640c95))
+
 # [1.1.0-beta.2](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2025-05-18)
 
 
