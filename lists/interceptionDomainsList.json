@@ -192,6 +192,18 @@
       "requiresPostDataHandling": false,
       "showNzbDialog": true,
       "icon": "https://www.usenet-crawler.com/templates/dark/images/favicon.ico"
+    },
+    {
+      "archiveFileExtensions": ["zip"],
+      "domain": "nzbfinder.ws",
+      "fetchOrigin": "background",
+      "isActive": true,
+      "isDefault": false,
+      "pathRegExp": "/getnzb.*",
+      "postDataHandling": "sendAsFormData",
+      "requiresPostDataHandling": false,
+      "showNzbDialog": true,
+      "icon": "https://nzbfinder.ws/favicon.ico"
     }
   ]
 }
