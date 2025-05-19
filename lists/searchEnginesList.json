@@ -3,7 +3,7 @@
   "data": [
     {
       "type": "defaultEngine",
-      "name": "NZBIndex",
+      "name": "NZBIndex.com",
       "isActive": true,
       "isDefault": true,
       "settings": {
@@ -20,7 +20,7 @@
     },
     {
       "type": "defaultEngine",
-      "name": "NZBIndex beta",
+      "name": "NZBIndex.com beta",
       "isActive": true,
       "isDefault": true,
       "settings": {
@@ -34,6 +34,40 @@
         "setIntoQuotes": false
       },
       "icon": "https://beta.nzbindex.com/favicon.ico"
+    },
+    {
+      "type": "defaultEngine",
+      "name": "NZBIndex.nl",
+      "isActive": true,
+      "isDefault": true,
+      "settings": {
+        "searchURL": "https://nzbindex.nl/search/json?sort=agedesc&hidespam=1&q=%s",
+        "responseType": "json",
+        "searchPattern": "results[0].id",
+        "searchGroup": 1,
+        "downloadURL": "https://nzbindex.nl/download/%s/",
+        "removeUnderscore": false,
+        "removeHyphen": false,
+        "setIntoQuotes": false
+      },
+      "icon": "https://nzbindex.nl/favicon.ico"
+    },
+    {
+      "type": "defaultEngine",
+      "name": "NZBIndex.nl beta",
+      "isActive": true,
+      "isDefault": true,
+      "settings": {
+        "searchURL": "https://beta.nzbindex.nl/api/search?q=%s&sort=agedesc&max=25",
+        "responseType": "json",
+        "searchPattern": "data.content.0.id",
+        "searchGroup": 1,
+        "downloadURL": "https://beta.nzbindex.nl/download?ids=%s",
+        "removeUnderscore": false,
+        "removeHyphen": false,
+        "setIntoQuotes": false
+      },
+      "icon": "https://beta.nzbindex.nl/favicon.ico"
     },
     {
       "type": "defaultEngine",
