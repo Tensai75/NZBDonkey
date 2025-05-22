@@ -7,11 +7,11 @@
       "isActive": true,
       "isDefault": true,
       "settings": {
-        "searchURL": "https://nzbindex.com/search/json?sort=agedesc&hidespam=1&q=%s",
+        "searchURL": "https://nzbindex.com/api/search?q=%s&sort=agedesc&max=25",
         "responseType": "json",
-        "searchPattern": "results[0].id",
+        "searchPattern": "data.content.0.id",
         "searchGroup": 1,
-        "downloadURL": "https://nzbindex.com/download/%s/",
+        "downloadURL": "https://nzbindex.com/download?ids=%s",
         "removeUnderscore": false,
         "removeHyphen": false,
         "setIntoQuotes": false
@@ -20,54 +20,20 @@
     },
     {
       "type": "defaultEngine",
-      "name": "NZBIndex.com beta",
-      "isActive": true,
-      "isDefault": true,
-      "settings": {
-        "searchURL": "https://beta.nzbindex.com/api/search?q=%s&sort=agedesc&max=25",
-        "responseType": "json",
-        "searchPattern": "data.content.0.id",
-        "searchGroup": 1,
-        "downloadURL": "https://beta.nzbindex.com/download?ids=%s",
-        "removeUnderscore": false,
-        "removeHyphen": false,
-        "setIntoQuotes": false
-      },
-      "icon": "https://beta.nzbindex.com/favicon.ico"
-    },
-    {
-      "type": "defaultEngine",
       "name": "NZBIndex.nl",
       "isActive": true,
       "isDefault": true,
       "settings": {
-        "searchURL": "https://nzbindex.nl/search/json?sort=agedesc&hidespam=1&q=%s",
+        "searchURL": "https://nzbindex.nl/api/search?q=%s&sort=agedesc&max=25",
         "responseType": "json",
-        "searchPattern": "results[0].id",
+        "searchPattern": "data.content.0.id",
         "searchGroup": 1,
-        "downloadURL": "https://nzbindex.nl/download/%s/",
+        "downloadURL": "https://nzbindex.nl/download?ids=%s",
         "removeUnderscore": false,
         "removeHyphen": false,
         "setIntoQuotes": false
       },
       "icon": "https://nzbindex.nl/favicon.ico"
-    },
-    {
-      "type": "defaultEngine",
-      "name": "NZBIndex.nl beta",
-      "isActive": true,
-      "isDefault": true,
-      "settings": {
-        "searchURL": "https://beta.nzbindex.nl/api/search?q=%s&sort=agedesc&max=25",
-        "responseType": "json",
-        "searchPattern": "data.content.0.id",
-        "searchGroup": 1,
-        "downloadURL": "https://beta.nzbindex.nl/download?ids=%s",
-        "removeUnderscore": false,
-        "removeHyphen": false,
-        "setIntoQuotes": false
-      },
-      "icon": "https://beta.nzbindex.nl/favicon.ico"
     },
     {
       "type": "defaultEngine",
