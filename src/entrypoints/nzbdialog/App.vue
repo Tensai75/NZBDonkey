@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { Form, FormField } from '@primevue/forms'
 import { Button, Column, DataTable, InputText, Message, ProgressSpinner, Select } from 'primevue'
-import { nextTick, ref, Ref, watch } from 'vue'
+import { nextTick, onMounted, ref, Ref, watch } from 'vue'
+
+import type { FormInstance } from '@primevue/forms'
 
 import { i18n } from '#i18n'
 import { browser, Browser } from '#imports'
@@ -15,6 +17,8 @@ const loaded = ref(false)
 let port: Browser.runtime.Port | undefined = undefined
 const nzbFiles = ref([]) as Ref<NZBFileObject[]>
 const filename = ref('')
+
+const formRef = ref<FormInstance | null>(null) // Reference to the form
 
 document.title = i18n.t('extension.name')
 
@@ -86,6 +90,21 @@ watch(loaded, () => {
   })
   focusPopupWindow(5000)
 })
+
+// Add a keydown listener to trigger submit on Enter
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+})
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Enter' && formRef.value?.valid) {
+    event.preventDefault()
+    submit()
+  } else if (event.key === 'Escape') {
+    event.preventDefault()
+    cancel()
+  }
+}
 </script>
 
 <template>
@@ -94,6 +113,7 @@ watch(loaded, () => {
   </div>
   <Form
     v-if="loaded"
+    ref="formRef"
     v-slot="$form"
     :validate-on-blur="true"
     :validate-on-value-update="true"
@@ -129,6 +149,8 @@ watch(loaded, () => {
                 size="small"
                 autocomplete="off"
                 type="text"
+                autofocus
+                @focus="$event.target.select()"
                 @keyup="updateCategories()"
                 @change="updateCategories()"
               />

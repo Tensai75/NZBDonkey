@@ -39,7 +39,7 @@ export default defineUnlistedScript(() => {
     debugMessenger.sendMessage('debbugLoggerLog', message)
   }
 
-  type InterceptionSource = 'click' | 'submit' | 'xhr' | 'fetch'
+  type InterceptionSource = 'click' | 'submit' | 'xhr' | 'fetch' | 'location'
   type RecentRequestInfo = {
     timestamp: number
     source: InterceptionSource
@@ -49,7 +49,8 @@ export default defineUnlistedScript(() => {
     click: 1,
     submit: 2,
     xhr: 3,
-    fetch: 4,
+    location: 4,
+    fetch: 5,
   }
 
   log.info('interception injection script loaded')
@@ -162,6 +163,18 @@ export default defineUnlistedScript(() => {
     document.body.addEventListener('submit', submitListener, true)
     // handles click
     document.body.addEventListener('click', clickListener, true)
+    // handles window.location change but only works with Chrome
+    if (import.meta.env.CHROME) {
+      // @ts-expect-error ts(2339) // TypeScript does not recognize the 'navigation' property on window
+      navigation.addEventListener('navigate', (event: NavigateEvent) => {
+        const targetUrl: string = new URL(event.destination.url, window.location.href).href
+        if (testTargetUrl(targetUrl)) {
+          log.info('intercepting location change for ' + targetUrl)
+          event.preventDefault()
+          fetchUrl(targetUrl, {}, 'location')
+        }
+      })
+    }
   }
 
   function submitListener(event: SubmitEvent): void {

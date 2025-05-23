@@ -3,6 +3,7 @@ import { Fieldset, Select, Slider, Tag, ToggleSwitch } from 'primevue'
 import { Ref } from 'vue'
 
 import { i18n } from '#i18n'
+import TagInput from '@/components/inputs/tagInput.vue'
 import { Settings as NZBFileSettings, useSettings as useNZBFileSettings } from '@/services/nzbfile/'
 
 const settings: Ref<NZBFileSettings> = await useNZBFileSettings()
@@ -49,9 +50,6 @@ const processTitleNames = {
             </div>
           </template>
         </Select>
-        <!-- label class="label-text pl-4">
-        {{ i18n.t("settings.processing.processTitle.description") }}
-      </label -->
       </div>
 
       <div class="flex items-center mb-4">
@@ -74,6 +72,28 @@ const processTitleNames = {
           {{ i18n.t('settings.processing.addPassword') }}
         </label>
       </div>
+
+      <div class="flex items-center mb-4">
+        <ToggleSwitch v-model="settings.addCategory" />
+        <label class="label-text pl-4">
+          {{ i18n.t('settings.processing.addCategory') }}
+        </label>
+      </div>
+    </Fieldset>
+  </div>
+  <div class="mb-4">
+    <Fieldset :legend="i18n.t('settings.processing.filesToBeRemoved.title')">
+      <div class="flex items-center mb-4">
+        <TagInput
+          v-model="settings.filesToBeRemoved"
+          :placeholder="i18n.t('settings.processing.filesToBeRemoved.enterSearchKey')"
+          tag-bg-color="var(--p-primary-400)"
+          tag-text-color="var(--p-primary-contrast-color)"
+        />
+      </div>
+      <span class="label-text">
+        {{ i18n.t('settings.processing.filesToBeRemoved.description') }}
+      </span>
     </Fieldset>
   </div>
   <div class="mb-4">

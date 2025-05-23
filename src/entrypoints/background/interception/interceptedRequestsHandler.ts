@@ -24,7 +24,7 @@ export default function (): void {
   })
 }
 
-async function fetchInterceptedRequest({
+export async function fetchInterceptedRequest({
   url,
   options,
   domain,
@@ -32,9 +32,9 @@ async function fetchInterceptedRequest({
   searchParams,
   source,
 }: InterceptionRequest): Promise<void> {
-  // Process formData and searchParams into the request body
-  options.body = processRequestBody(formData, searchParams)
   try {
+    // Process formData and searchParams into the request body
+    options.body = processRequestBody(formData, searchParams)
     const settings = await getInterceptionSettings()
     const setting = settings.domains.find((domainSetting) => domainSetting.domain === domain)
     const response = await useFetch(url, options)

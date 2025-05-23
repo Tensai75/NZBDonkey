@@ -132,6 +132,7 @@ export class NZBFileObject {
         browser.tabs.create({ url: browser.runtime.getURL('/nzbdonkey.html#NOACTIVEENGINE' as PublicPath) })
         throw new Error(i18n.t('errors.noActiveSearchEngines'))
       }
+      notifications.info(i18n.t('nzbsearch.searching', [this.header]))
       const searches = []
       for (const engine of engines) {
         const f = async (): Promise<{ nzbFile: NZBObject; engine: string }> => {
@@ -229,6 +230,7 @@ export class NZBFileObject {
       if (this.settings.processTitle) this.formatTitle()
       if (this.settings.addTitle) this.addTitleToMeta()
       if (this.settings.addPassword) this.addPasswordToMeta()
+      if (this.settings.filesToBeRemoved.length > 0) this.removeFiles()
       this.sendToTargets()
     } catch (e) {
       this.error(
@@ -307,6 +309,21 @@ export class NZBFileObject {
     }
   }
 
+  removeFiles(): void {
+    if (!this.nzbFile.head) this.nzbFile.head = { meta: [] }
+    const comments = this.nzbFile['#comment'] || []
+    this.nzbFile.file = this.nzbFile.file.filter((file) => {
+      const filename = file.subject.match(/"(.+?)"/)?.[1] || file.subject
+      const keep = !this.settings?.filesToBeRemoved.some((fileToBeRemoved) => filename.includes(fileToBeRemoved))
+      if (!keep) {
+        log.info(`removing file "${filename}" from NZB file`)
+        comments.push(` file '${file.subject}' removed by NZBDonkey `)
+      }
+      return keep
+    })
+    this.nzbFile['#comment'] = comments
+  }
+
   formatTitle(): string {
     switch (this.settings?.processTitleType) {
       case 'spaces':
@@ -339,6 +356,7 @@ export class NZBFileObject {
   getAsTextFile(format: boolean = true, indentBy: number = 4): string {
     let nzbFile = NZB_FILE_HEADER
     nzbFile += nzbObjectToText({ head: this.nzbFile.head }, format, indentBy)
+    nzbFile += nzbObjectToText({ '#comment': this.nzbFile['#comment'] }, format, indentBy)
     nzbFile += nzbObjectToText({ file: this.nzbFile.file }, format, indentBy)
     nzbFile += '</nzb>'
     return nzbFile

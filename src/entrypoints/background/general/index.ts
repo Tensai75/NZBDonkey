@@ -1,9 +1,7 @@
-import analyseSelectionHandler from './analyseSelectionHandler'
-import nzblnkHandler from './nzblnkHandler'
-import sendToContextMenuHandler from './sendToContextMenuHandler'
+import registerNzblnkHandler from './nzblnkHandler'
+import registerContextMenus from './registerContextMenus'
 
 export default function (): void {
-  analyseSelectionHandler()
-  nzblnkHandler()
-  sendToContextMenuHandler()
+  registerContextMenus()
+  registerNzblnkHandler()
 }

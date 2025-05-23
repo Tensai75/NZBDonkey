@@ -74,9 +74,9 @@ const notificationNames = [
       </Fieldset>
     </div>
     <div class="mb-4">
-      <Fieldset :legend="i18n.t('settings.general.selectText.searchKeyTitel')" class="flex align-middle">
+      <Fieldset :legend="i18n.t('settings.general.selectText.searchKeyTitle')" class="flex align-middle">
         <div class="flex items-center taginput">
-          <label class="label-text mr-4">
+          <label class="label-text font-bold min-w-20 max-w-20 w-20 mr-4">
             {{ i18n.t('common.title') }}
           </label>
           <TagInput
@@ -87,7 +87,7 @@ const notificationNames = [
           />
         </div>
         <div class="flex items-center taginput">
-          <label class="label-text mr-4">
+          <label class="label-text font-bold min-w-20 max-w-20 w-20 mr-4">
             {{ i18n.t('common.header') }}
           </label>
           <TagInput
@@ -98,7 +98,7 @@ const notificationNames = [
           />
         </div>
         <div class="flex items-center taginput">
-          <label class="label-text mr-4">
+          <label class="label-text font-bold min-w-20 max-w-20 w-20 mr-4">
             {{ i18n.t('common.password') }}
           </label>
           <TagInput

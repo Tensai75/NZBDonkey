@@ -22,6 +22,8 @@ export const defaultDomainSettings: DomainSettings = {
   postDataHandling: 'sendAsFormData',
   fetchOrigin: 'background',
   archiveFileExtensions: [],
+  allowDownloadInterception: false,
+  dontShowDoubleCountWarning: false,
 }
 
 export type DomainSettings = {
@@ -34,6 +36,8 @@ export type DomainSettings = {
   postDataHandling: 'sendAsFormData' | 'sendAsURLSearchParams'
   fetchOrigin: 'injection' | 'background'
   archiveFileExtensions: string[]
+  allowDownloadInterception?: boolean
+  dontShowDoubleCountWarning?: boolean
   icon?: string
 }
 

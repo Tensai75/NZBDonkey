@@ -45,10 +45,10 @@ export interface NZBSegmentObject {
 }
 
 export const NZB_FILE_HEADER = `<?xml version="1.0" encoding="UTF-8"?>
-  <!DOCTYPE nzb PUBLIC "-//newzBin//DTD NZB 1.1//EN" "http://www.newzbin.com/DTD/nzb/nzb-1.1.dtd">
-  <nzb xmlns="http://www.newzbin.com/DTD/2003/nzb">
-  <!-- created with NZBDonkey v${version} -->
-  `
+<!DOCTYPE nzb PUBLIC "-//newzBin//DTD NZB 1.1//EN" "http://www.newzbin.com/DTD/nzb/nzb-1.1.dtd">
+<nzb xmlns="http://www.newzbin.com/DTD/2003/nzb">
+<!-- created with NZBDonkey v${version} -->
+`
 const xmlConverterOptions = {
   attributeNamePrefix: '',
   ignoreAttributes: false,

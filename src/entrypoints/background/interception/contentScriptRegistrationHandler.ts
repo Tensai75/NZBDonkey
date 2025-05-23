@@ -53,22 +53,22 @@ function handleDomainsRegistration(isRegistered: boolean, domains: Array<string>
 function unregisterContentScript(): void {
   browser.scripting
     .unregisterContentScripts({ ids: [scriptId] })
-    .then(() => log.info('Unregistration completed successfully'))
+    .then(() => log.info('Unregistration of the interception content script completed successfully'))
     .catch((e: Error) => log.error('Error while unregistering the interception content script', e))
 }
 
 function updateContentScript(domains: Array<string>): void {
   browser.scripting
     .updateContentScripts([{ id: scriptId, matches: domains }])
-    .then(() => log.info('Registration updated successfully'))
-    .catch((e: Error) => log.error('Error while updating the registration', e))
+    .then(() => log.info('Registration of the interception content script updated successfully'))
+    .catch((e: Error) => log.error('Error while updating the registration of the interception content script', e))
 }
 
 function registerNewContentScript(domains: Array<string>): void {
   browser.scripting
     .registerContentScripts([{ id: scriptId, js: [scriptSource], matches: domains }])
-    .then(() => log.info('Registration completed successfully'))
-    .catch((e: Error) => log.error('Error while registering the content script', e))
+    .then(() => log.info('Registration of the interception content script completed successfully'))
+    .catch((e: Error) => log.error('Error while registering the interception content script', e))
 }
 
 function getActiveDomainsMatchPatternArray(settings: InterceptionSettings): Array<string> {

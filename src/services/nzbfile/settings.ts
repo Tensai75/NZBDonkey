@@ -5,6 +5,7 @@ export const name = 'nzbfileSettings'
 export const defaultSettings: Settings = {
   addPassword: true,
   addTitle: true,
+  addCategory: true,
   addPasswordToFilename: true,
   processTitle: true,
   processTitleType: 'spaces',
@@ -12,11 +13,13 @@ export const defaultSettings: Settings = {
   fileCheckThreshold: 1,
   segmentCheck: true,
   segmentCheckThreshold: 2,
+  filesToBeRemoved: [],
 }
 
 export type Settings = {
   addPassword: boolean
   addTitle: boolean
+  addCategory: boolean
   addPasswordToFilename: boolean
   processTitle: boolean
   processTitleType: 'spaces' | 'dots'
@@ -24,6 +27,7 @@ export type Settings = {
   fileCheckThreshold: number
   segmentCheck: boolean
   segmentCheckThreshold: number
+  filesToBeRemoved: string[]
 }
 
 export const use = async () => useSettings<Settings>({ name, defaults: defaultSettings })
