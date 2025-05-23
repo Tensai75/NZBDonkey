@@ -1,3 +1,10 @@
+# [1.1.0-beta.4](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0-beta.3...v1.1.0-beta.4) (2025-05-23)
+
+
+### Bug Fixes
+
+* always register context menus upon start of the background script ([30d91b8](https://github.com/Tensai75/NZBDonkey/commit/30d91b8c35aa4f3832b7ea7fbc2fbd3b32ddda76))
+
 # [1.1.0-beta.3](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2025-05-19)
 
 
