@@ -1,6 +1,7 @@
 import { Browser, browser, i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { sendMessage } from '@/services/messengers/extensionMessenger'
+import { createContextMenuPromise } from '@/utils/generalUtilities'
 
 // Extend the Window interface to include the custom property
 declare global {
@@ -13,33 +14,35 @@ declare global {
 const CONTEXT_MENU_ID: string = 'NZBDONKEY_Selection'
 const selectionScriptSource: string = '/content-scripts/selection.js'
 
-export default function (): void {
-  browser.runtime.onInstalled.addListener((details) => {
-    if (details.reason === 'install' || details.reason === 'update') {
-      registerContextMenu()
-    }
-  })
-  browser.contextMenus.onClicked.addListener(contextMenuListener)
-}
-
-async function registerContextMenu(): Promise<void> {
-  // create selection context menu
-  log.info('registering the select context menu')
+export async function registerAnalyseSelectionContextMenu(): Promise<void> {
+  // create analyse selection context menu
+  log.info('registering the analyse selection context menu')
   try {
-    await browser.contextMenus.remove(CONTEXT_MENU_ID)
-  } catch {
-    // void error when removing the context menu if it does not exist
-  }
-  browser.contextMenus.create(
-    {
+    await createContextMenuPromise({
       title: i18n.t('contextMenu.analyseSelection'),
       contexts: ['selection'],
       id: CONTEXT_MENU_ID,
-    },
-    () => {
-      log.info('registering of the select context menu successful')
+    })
+  } catch (e) {
+    log.error(
+      'error while registering the analyse selection context menu:',
+      e instanceof Error ? e : new Error(String(e))
+    )
+    return
+  }
+  log.info('registration of the analyse selection context menu was successful')
+  log.info('registering the analyse selection context menu listener')
+  if (browser.contextMenus.onClicked.hasListener(contextMenuListener)) {
+    log.info('the analyse selection context menu listener is already registered')
+  } else {
+    try {
+      browser.contextMenus.onClicked.addListener(contextMenuListener)
+      log.info('registration of the analyse selection context menu listener was successful')
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error('unknown error')
+      log.error('error while registering the analyse selection context menu listener:', error)
     }
-  )
+  }
 }
 
 async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?: Browser.tabs.Tab): Promise<void> {

@@ -1,3 +1,5 @@
+import { browser, Browser } from '#imports'
+
 /**
  * A utility function to handle try-catch logic for both synchronous and asynchronous operations.
  *
@@ -57,4 +59,25 @@ export function debounceVoid<T extends (...arg: Parameters<T>) => void>(fn: T, d
       isFirstCall = true // Reset for the next debounce cycle
     }, delay)
   } as T
+}
+
+/**
+ * A utility function to create a browser context menu using a Promise-based approach.
+ * This wraps the callback-based `browser.contextMenus.create` method in a Promise,
+ * allowing it to be used with `async/await`.
+ *
+ * @param {Browser.contextMenus.CreateProperties} options - The properties for the context menu to be created.
+ * @return {Promise<void>} A Promise that resolves when the context menu is successfully created,
+ * or rejects with an error if the creation fails.
+ */
+export function createContextMenuPromise(options: Browser.contextMenus.CreateProperties): Promise<void> {
+  return new Promise((resolve, reject) => {
+    browser.contextMenus.create(options, () => {
+      if (browser.runtime.lastError) {
+        reject(new Error(browser.runtime.lastError.message))
+      } else {
+        resolve()
+      }
+    })
+  })
 }

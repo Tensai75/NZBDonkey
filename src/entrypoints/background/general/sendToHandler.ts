@@ -4,59 +4,67 @@ import { extractArchive } from '@/services/interception'
 import log from '@/services/logger/debugLogger'
 import notifications from '@/services/notifications'
 import { NZBFileObject, NZBFileTarget, showNzbFileDialog } from '@/services/nzbfile'
-import { getTargets, watchSettings as watchTargetSettings } from '@/services/targets'
+import { getTargets } from '@/services/targets'
 import { FetchOptions, getFilenameFromResponse, useFetch } from '@/utils/fetchUtilities'
+import { createContextMenuPromise } from '@/utils/generalUtilities'
 import { getExtensionFromFilename } from '@/utils/stringUtilities'
 
 const CONTEXT_MENU_ID: string = 'NZBDONKEY_SendTo'
 const CONTEXT_MENU_ID_TARGET: string = 'NZBDONKEY_SendTo_Target_'
 
-export default function (): void {
-  browser.runtime.onInstalled.addListener((details) => {
-    if (details.reason === 'install' || details.reason === 'update') {
-      registerContextMenu()
-    }
-  })
-  browser.contextMenus.onClicked.addListener(contextMenuListener)
-  watchTargetSettings(() => {
-    log.info('target settings have changed: updating sendto context menu')
-    registerContextMenu()
-  })
-}
-
-async function registerContextMenu(): Promise<void> {
+export async function registerSendToContextMenu(): Promise<void> {
+  const nzbTargets = await getTargets()
+  if (nzbTargets.length === 0) return
   // create send to context menu
   log.info('registering the sendto context menu')
   try {
-    await browser.contextMenus.remove(CONTEXT_MENU_ID)
-  } catch {
-    // void error when removing the context menu if it does not exist
+    await createContextMenuPromise({
+      title: i18n.t('contextMenu.sendToSeveralTarget') + ':',
+      contexts: ['link'],
+      id: CONTEXT_MENU_ID,
+    })
+  } catch (e) {
+    log.error('error while registering the send to context menu:', e instanceof Error ? e : new Error(String(e)))
+    return
   }
-  const nzbTargets = await getTargets()
-  if (nzbTargets.length > 0) {
-    browser.contextMenus.create(
-      {
-        title: i18n.t('contextMenu.sendToSeveralTarget') + ':',
-        contexts: ['link'],
-        id: CONTEXT_MENU_ID,
-      },
-      () => {
-        nzbTargets.forEach(function (target, index) {
-          const createOptions: Browser.contextMenus.CreateProperties & { icons?: object } = {
-            title: target.name,
-            contexts: ['link'],
-            parentId: CONTEXT_MENU_ID,
-            id: CONTEXT_MENU_ID_TARGET + index.toString(),
-          }
-          if (!import.meta.env.CHROME)
-            createOptions.icons = {
-              16: '/img/' + target.type + '.png',
-            }
-          browser.contextMenus.create(createOptions)
-        })
-        log.info('registering of the sendto context menu successful')
+  let createError = false
+  nzbTargets.forEach(async function (target, index) {
+    const createOptions: Browser.contextMenus.CreateProperties & { icons?: object } = {
+      title: target.name,
+      contexts: ['link'],
+      parentId: CONTEXT_MENU_ID,
+      id: CONTEXT_MENU_ID_TARGET + index.toString(),
+    }
+    if (!import.meta.env.CHROME)
+      createOptions.icons = {
+        16: '/img/' + target.type + '.png',
       }
-    )
+    try {
+      await createContextMenuPromise(createOptions)
+    } catch (e) {
+      log.error(
+        `error while registering the send to sub context menu with number ${index.toString}:`,
+        e instanceof Error ? e : new Error(String(e))
+      )
+      createError = true
+    }
+  })
+  if (createError) {
+    log.error('registration of the send to context menu failed')
+    return
+  }
+  log.info('registration of the send to context menu was successful')
+  log.info('registering the send to context menu listener')
+  if (browser.contextMenus.onClicked.hasListener(contextMenuListener)) {
+    log.info('the sent to context menu listener is already registered')
+  } else {
+    try {
+      browser.contextMenus.onClicked.addListener(contextMenuListener)
+      log.info('registration of the send to context menu listener was successful')
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error('unknown error')
+      log.error('error while registering the send to context menu listener:', error)
+    }
   }
 }
 
