@@ -300,7 +300,8 @@
     "caution": "Achtung",
     "extensionMustBeConfiguredFirst": "Die Erweiterung muss für die Verwendung zuerst konfiguriert werden.",
     "noCategory": "Keine Kategorie",
-    "extensionWasUpdated": "Die Erweiterung wurde aktualisiert"
+    "extensionWasUpdated": "Die Erweiterung wurde aktualisiert",
+    "files": "Dateien"
   },
   "validation": {
     "isRequired": "$1 ist ein Pflichtfeld",

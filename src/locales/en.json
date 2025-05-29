@@ -300,7 +300,8 @@
     "caution": "Caution",
     "extensionMustBeConfiguredFirst": "The extension must first be configured for use.",
     "noCategory": "No category",
-    "extensionWasUpdated": "The extension was updated"
+    "extensionWasUpdated": "The extension was updated",
+    "files": "Files"
   },
   "validation": {
     "isRequired": "$1 is required",
