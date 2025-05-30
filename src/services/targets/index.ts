@@ -26,8 +26,17 @@ export { type Settings as NzbgetTargetSettings } from './nzbget'
 export { type Settings as PremiumizeTargetSettings } from './premiumize'
 export { type Settings as SabnzbdTargetSettings } from './sabnzbd'
 export { type Settings as SynologyTargetSettings } from './synology'
+export { type Settings as TorboxTargetSettings } from './torbox'
 
-export const targetList: TargetType[] = ['download', 'jdownloader', 'nzbget', 'premiumize', 'sabnzbd', 'synology']
+export const targetList: TargetType[] = [
+  'download',
+  'jdownloader',
+  'nzbget',
+  'premiumize',
+  'sabnzbd',
+  'synology',
+  'torbox',
+]
 
 export * as download from './download'
 export * as jdownloader from './jdownloader'
@@ -35,6 +44,7 @@ export * as nzbget from './nzbget'
 export * as premiumize from './premiumize'
 export * as sabnzbd from './sabnzbd'
 export * as synology from './synology'
+export * as torbox from './torbox'
 
 export * from './functions'
 export {

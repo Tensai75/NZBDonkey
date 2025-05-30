@@ -125,7 +125,11 @@
       },
       "testConnection": "Test connection",
       "addNewTarget": "add a new target",
-      "title": "NZB file targets"
+      "title": "NZB file targets",
+      "asQueued": {
+        "description": "add the NZB file to the queue instead of starting the download immediately",
+        "name": "Add to the queue"
+      }
     },
     "processing": {
       "processTitle": {
@@ -346,6 +350,9 @@
     },
     "synology": {
       "description": "send to Synology Downloadstation"
+    },
+    "torbox": {
+      "description": "send to Torbox.app"
     }
   },
   "contextMenu": {

@@ -125,7 +125,11 @@
       },
       "testConnection": "Verbindung prüfen",
       "addNewTarget": "neues Ziel hinzufügen",
-      "title": "NZB-Dateiziele"
+      "title": "NZB-Dateiziele",
+      "asQueued": {
+        "description": "die NZB-Datei der Warteschlange hinzufügen, anstatt den Download sofort zu starten",
+        "name": "Der Warteschlange hinzufügen"
+      }
     },
     "processing": {
       "processTitle": {
@@ -346,6 +350,9 @@
     },
     "synology": {
       "description": "an Synology Downloadstation senden"
+    },
+    "torbox": {
+      "description": "an Torbox.app senden"
     }
   },
   "contextMenu": {

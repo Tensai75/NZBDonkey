@@ -14,6 +14,7 @@ import PremiumizeSettings from '@/components/targets/premiumizeSettings.vue'
 import SabnzbdSettings from '@/components/targets/sabnzbdSettings.vue'
 import SynologySettings from '@/components/targets/synologySettings.vue'
 import ChooseType from '@/components/targets/targetChooseDialog.vue'
+import TorboxSettings from '@/components/targets/torboxSettings.vue'
 import { requiredResolver } from '@/services/resolvers'
 import * as targets from '@/services/targets'
 
@@ -192,6 +193,13 @@ function confirmAdvancedSettings() {
           v-model:connection-successful="connectionSuccessful"
           v-model:show-advanced-settings="showAdvancedSettings"
           @rerender="rerenderKey++"
+        />
+        <TorboxSettings
+          v-if="targetSettings.type === 'torbox'"
+          v-model:target-settings="targetSettings"
+          v-model:test-connection="testConnection"
+          v-model:connection-successful="connectionSuccessful"
+          v-model:show-advanced-settings="showAdvancedSettings"
         />
       </div>
       <CategoriesSettings v-if="stage === 2 && targetCanHaveCategories" v-model:target-settings="targetSettings" />
