@@ -392,6 +392,7 @@
     "noActiveSearchEngines": "no active search engines",
     "errorWhileProcessingContextMenuCLick": "error while processing context menu click: $1",
     "invalidNzblnkLink": "invalid NZBLNK",
-    "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and/or there are new options."
+    "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and/or there are new options.",
+    "hostPermissionsRequired": "NZBDonkey requires the requested permission for the programme to work"
   }
 }

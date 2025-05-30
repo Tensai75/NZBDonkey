@@ -392,6 +392,7 @@
     "noActiveSearchEngines": "keine aktiven Suchmaschinen",
     "errorWhileProcessingContextMenuCLick": "Fehler während der Bearbeitung eines Kontextmenü-Klicks: $1",
     "invalidNzblnkLink": "ungültiger NZBLNK",
-    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen"
+    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen",
+    "hostPermissionsRequired": "NZBDonkey benötigt die angeforderte Berechtigung, damit das Programm funktioniert"
   }
 }

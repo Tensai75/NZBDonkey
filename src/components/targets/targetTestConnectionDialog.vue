@@ -3,6 +3,7 @@ import { Button, Dialog, ProgressSpinner } from 'primevue'
 import { Ref, ref, toRaw, watch } from 'vue'
 
 import { i18n } from '#i18n'
+import { browser } from '#imports'
 import { sendMessage } from '@/services/messengers/extensionMessenger'
 import { TargetSettings } from '@/services/targets'
 import { generateErrorString } from '@/utils/stringUtilities'
@@ -18,6 +19,10 @@ watch(showTestConnectionDialog, async () => {
   if (showTestConnectionDialog.value) {
     let success: boolean
     try {
+      const granted = await browser.permissions.request({ origins: ['<all_urls>'] })
+      if (!granted) {
+        throw new Error(i18n.t('errors.hostPermissionsRequired'))
+      }
       success = await sendMessage('connectionTest', toRaw(targetSettings.value))
     } catch (e) {
       success = false
