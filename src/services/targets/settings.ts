@@ -4,6 +4,7 @@ import { Settings as NzbgetSettings } from './nzbget'
 import { Settings as PremiumizeSettings } from './premiumize'
 import { Settings as SabnzbdSettings } from './sabnzbd'
 import { Settings as SynologySettings } from './synology'
+import { Settings as TorboxSettings } from './torbox'
 
 import { CategoriesSettings } from '@/services/categories'
 import { getSettings, setSettings, useSettings, watchSettings } from '@/utils/settingsUtilities'
@@ -26,15 +27,16 @@ export type TargetSettings = {
   isActive: boolean
   settings:
     | DownloadSettings
+    | JDownloaderSettings
     | NzbgetSettings
+    | PremiumizeSettings
     | SabnzbdSettings
     | SynologySettings
-    | PremiumizeSettings
-    | JDownloaderSettings
+    | TorboxSettings
   categories: CategoriesSettings
 }
 
-export type TargetType = 'download' | 'nzbget' | 'sabnzbd' | 'synology' | 'premiumize' | 'jdownloader'
+export type TargetType = 'download' | 'jdownloader' | 'nzbget' | 'premiumize' | 'sabnzbd' | 'synology' | 'torbox'
 
 export const use = async () => useSettings<Settings>({ name, defaults: defaultSettings })
 export const get = async () => getSettings<Settings>({ name, defaults: defaultSettings })
