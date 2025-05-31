@@ -105,6 +105,12 @@ const openSettings = () => {
 }
 
 onMounted(() => {
+  browser.permissions.contains({ origins: ['<all_urls>'] }).then((result) => {
+    if (!result) {
+      browser.runtime.openOptionsPage()
+      window.close()
+    }
+  })
   document.addEventListener('click', (e) => {
     if (
       e.target === menuContainer.value ||

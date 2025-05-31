@@ -301,6 +301,7 @@
     "extensionMustBeConfiguredFirst": "Die Erweiterung muss für die Verwendung zuerst konfiguriert werden.",
     "noCategory": "Keine Kategorie",
     "extensionWasUpdated": "Die Erweiterung wurde aktualisiert",
+    "grantPermission": "Berechtigung erteilen"
     "files": "Dateien"
   },
   "validation": {
@@ -393,6 +394,7 @@
     "noActiveSearchEngines": "keine aktiven Suchmaschinen",
     "errorWhileProcessingContextMenuCLick": "Fehler während der Bearbeitung eines Kontextmenü-Klicks: $1",
     "invalidNzblnkLink": "ungültiger NZBLNK",
-    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen"
+    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen",
+    "hostPermissionsRequired": "NZBDonkey benötigt die Berechtigung, auf alle Webseiten zugreifen zu dürfen, um ordnungsgemäss zu funktionieren."
   }
 }

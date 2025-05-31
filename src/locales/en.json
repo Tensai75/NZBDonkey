@@ -301,6 +301,7 @@
     "extensionMustBeConfiguredFirst": "The extension must first be configured for use.",
     "noCategory": "No category",
     "extensionWasUpdated": "The extension was updated",
+    "grantPermission": "Grant permission"
     "files": "Files"
   },
   "validation": {
@@ -393,6 +394,7 @@
     "noActiveSearchEngines": "no active search engines",
     "errorWhileProcessingContextMenuCLick": "error while processing context menu click: $1",
     "invalidNzblnkLink": "invalid NZBLNK",
-    "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and/or there are new options."
+    "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and/or there are new options.",
+    "hostPermissionsRequired": "NZBDonkey requires permission to access all websites in order to function properly"
   }
 }
