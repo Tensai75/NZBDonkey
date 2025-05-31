@@ -1,3 +1,10 @@
+## [1.1.1-beta.1](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0...v1.1.1-beta.1) (2025-05-31)
+
+
+### Bug Fixes
+
+* correctly calculate content height for popup windows ([3e8ee66](https://github.com/Tensai75/NZBDonkey/commit/3e8ee66122bad93d3d3f2906a5f734f20d4a28e4)), closes [#54](https://github.com/Tensai75/NZBDonkey/issues/54)
+
 # [1.1.0](https://github.com/Tensai75/NZBDonkey/compare/v1.0.0...v1.1.0) (2025-05-23)
 
 
