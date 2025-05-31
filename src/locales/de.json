@@ -125,7 +125,11 @@
       },
       "testConnection": "Verbindung prüfen",
       "addNewTarget": "neues Ziel hinzufügen",
-      "title": "NZB-Dateiziele"
+      "title": "NZB-Dateiziele",
+      "asQueued": {
+        "description": "die NZB-Datei der Warteschlange hinzufügen, anstatt den Download sofort zu starten",
+        "name": "Der Warteschlange hinzufügen"
+      }
     },
     "processing": {
       "processTitle": {
@@ -300,7 +304,9 @@
     "caution": "Achtung",
     "extensionMustBeConfiguredFirst": "Die Erweiterung muss für die Verwendung zuerst konfiguriert werden.",
     "noCategory": "Keine Kategorie",
-    "extensionWasUpdated": "Die Erweiterung wurde aktualisiert"
+    "extensionWasUpdated": "Die Erweiterung wurde aktualisiert",
+    "grantPermission": "Berechtigung erteilen",
+    "files": "Dateien"
   },
   "validation": {
     "isRequired": "$1 ist ein Pflichtfeld",
@@ -346,6 +352,9 @@
     },
     "synology": {
       "description": "an Synology Downloadstation senden"
+    },
+    "torbox": {
+      "description": "an Torbox.app senden"
     }
   },
   "contextMenu": {
@@ -392,6 +401,7 @@
     "noActiveSearchEngines": "keine aktiven Suchmaschinen",
     "errorWhileProcessingContextMenuCLick": "Fehler während der Bearbeitung eines Kontextmenü-Klicks: $1",
     "invalidNzblnkLink": "ungültiger NZBLNK",
-    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen"
+    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen",
+    "hostPermissionsRequired": "NZBDonkey benötigt die Berechtigung, auf alle Webseiten zugreifen zu dürfen, um ordnungsgemäss zu funktionieren."
   }
 }

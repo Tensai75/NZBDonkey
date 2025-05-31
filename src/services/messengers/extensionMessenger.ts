@@ -8,6 +8,7 @@ import {
   InterceptionRequestResponse,
 } from '@/services/messengers/windowMessenger'
 import { NZBFileObject } from '@/services/nzbfile'
+import { TargetSettings } from '@/services/targets'
 
 interface ProtocolMap {
   interceptedRequest(data: InterceptionRequest): void
@@ -19,6 +20,7 @@ interface ProtocolMap {
   nzbFileDialog(data: { windowID: number }): NZBFileObject | NZBFileObject[]
   doubleCountWarning(data: { tabId: number; domain: DomainSettings }): void
   doubleCountWarningResponse(data: { domain: DomainSettings }): void
+  connectionTest(data: TargetSettings): Promise<boolean>
 }
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>()
 export type RemoveListenerCallback = RemoveListenerCallbackType

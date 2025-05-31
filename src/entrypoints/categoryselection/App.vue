@@ -8,6 +8,7 @@ import { CategorySettings } from '@/services/categories'
 import log from '@/services/logger/debugLogger'
 import { focusPopupWindow, resizePopupWindow } from '@/utils/popupWindowUtilities'
 
+const overlay = ref(true)
 const loaded = ref(false)
 let port: Browser.runtime.Port | undefined = undefined
 const categories = ref([]) as Ref<CategorySettings[]>
@@ -44,20 +45,41 @@ function submit(category: string) {
 }
 
 watch(loaded, () => {
-  nextTick(() => {
-    resizePopupWindow('main > *', 640, 800)
+  nextTick(async () => {
+    await resize()
+    overlay.value = false
+    focusPopupWindow(5000)
   })
-  focusPopupWindow(5000)
 })
+
+function resize() {
+  return new Promise<void>((resolve) => {
+    setTimeout(async () => {
+      const maxHeight = 800 > screen.availHeight ? screen.availHeight : 800
+      const headerHeight = document.querySelector('header')?.scrollHeight || 0
+      const footerHeight = document.querySelector('footer')?.scrollHeight || 0
+      const availableHeight = maxHeight - headerHeight - footerHeight
+      const content = document.getElementById('content')
+      const contentHeight = content?.scrollHeight || 0
+      const maxContentHeight = contentHeight > availableHeight ? availableHeight : contentHeight
+      if (content) {
+        content.style.maxHeight = `${maxContentHeight}px`
+        content.style.height = `${maxContentHeight}px`
+      }
+      await resizePopupWindow(640, headerHeight + maxContentHeight + footerHeight)
+      resolve()
+    }, 100)
+  })
+}
 </script>
 
 <template>
-  <div v-if="!loaded" class="flex items-center justify-center flex-grow" style="height: 100vh">
+  <div v-if="overlay" class="overlay">
     <ProgressSpinner style="width: 60px; height: 60px" stroke-width="3" />
   </div>
   <div v-if="loaded" class="flex flex-col h-screen w-full">
     <!-- Header -->
-    <header class="flex p-4 flex-shrink">
+    <header id="header" class="flex p-4 flex-shrink">
       <div class="flex flex-row justify-between w-full">
         <div class="inline-flex items-center justify-center gap-2">
           <span class="font-bold whitespace-nowrap text-lg">{{ title }}</span>
@@ -66,17 +88,7 @@ watch(loaded, () => {
     </header>
 
     <!-- Main Content -->
-    <main class="flex overflow-y-auto flex-col space-y-2 px-4 h-full">
-      <div>
-        <Button
-          :label="i18n.t('common.noCategory')"
-          severity="primary"
-          raised
-          variant="outlined"
-          class="w-full"
-          @click="submit('')"
-        ></Button>
-      </div>
+    <main id="content" class="flex overflow-y-auto flex-col space-y-2 px-4 h-full">
       <div v-for="category in categories" :key="category.name">
         <Button
           :label="category.name"
@@ -87,13 +99,37 @@ watch(loaded, () => {
           @click="submit(category.name)"
         ></Button>
       </div>
+      <div>
+        <Button
+          :label="i18n.t('common.noCategory')"
+          severity="primary"
+          raised
+          variant="outlined"
+          class="w-full"
+          @click="submit('')"
+        ></Button>
+      </div>
     </main>
 
     <!-- Footer -->
-    <footer class="flex flex-shrink p-4">
+    <footer id="footer" class="flex flex-shrink p-4">
       <div class="flex flex-row justify-end w-full">
         <Button :label="i18n.t('common.cancel')" severity="secondary" @click="cancel()"></Button>
       </div>
     </footer>
   </div>
 </template>
+<style lang="css">
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black; /* Solid black background */
+  z-index: 1000; /* Ensure it appears above other elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

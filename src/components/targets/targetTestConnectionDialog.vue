@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { Button, Dialog, ProgressSpinner } from 'primevue'
-import { Ref, ref, watch } from 'vue'
+import { Ref, ref, toRaw, watch } from 'vue'
 
 import { i18n } from '#i18n'
-import * as targets from '@/services/targets'
+import { sendMessage } from '@/services/messengers/extensionMessenger'
+import { TargetSettings } from '@/services/targets'
 import { generateErrorString } from '@/utils/stringUtilities'
 
 const showTestConnectionDialog = defineModel('showTestConnectionDialog') as Ref<boolean>
-const targetSettings = defineModel('targetSettings') as Ref<targets.TargetSettings>
+const targetSettings = defineModel('targetSettings') as Ref<TargetSettings>
 const emit = defineEmits(['success', 'close'])
 
 const testingConnection = ref(true)
@@ -15,16 +16,15 @@ const error = ref('')
 
 watch(showTestConnectionDialog, async () => {
   if (showTestConnectionDialog.value) {
+    let success: boolean
     try {
-      await targets[targetSettings.value.type as targets.TargetType].testConnection(
-        targetSettings.value as targets.TargetSettings
-      )
-      testingConnection.value = false
+      success = await sendMessage('connectionTest', toRaw(targetSettings.value))
     } catch (e) {
-      error.value = generateErrorString(e instanceof Error ? e.message : i18n.t('errors.unknownError'))
-      testingConnection.value = false
+      success = false
+      error.value = generateErrorString(e instanceof Error ? e.message : (e as string))
     }
-    emit('success', error.value === '' ? true : false)
+    testingConnection.value = false
+    emit('success', success)
   }
 })
 
@@ -57,8 +57,10 @@ const close = () => {
             class="pi pi-exclamation-triangle"
             style="font-size: 2.5rem; color: rgb(211, 47, 47)"
           ></i>
-          <div v-if="error != ''" style="font-size: 120%">{{ error }}</div>
-          <div v-if="error === ''" style="font-size: 120%">
+          <div v-if="error != ''" class="text-center" style="font-size: 120%">
+            {{ error }}
+          </div>
+          <div v-if="error === ''" class="text-center" style="font-size: 120%">
             {{ generateErrorString(i18n.t('common.connectionSuccessful')) }}
           </div>
         </div>

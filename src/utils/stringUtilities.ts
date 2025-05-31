@@ -32,11 +32,12 @@ export const getExtensionFromFilename = (filename: string): string => {
  * @return {string} The formatted error string, or an empty string if the input is empty.
  */
 export const generateErrorString = (input: string): string => {
-  if (!input) {
-    return ''
-  }
-  const formatted = input.endsWith('!') ? input : input + '!'
-  return formatted.charAt(0).toUpperCase() + formatted.slice(1)
+  if (!input) return ''
+  // Remove punctuation marks at the end
+  const sanitized = input.replace(/[.!]+$/g, '')
+  // Capitalize the first character
+  const capitalized = sanitized.charAt(0).toUpperCase() + sanitized.slice(1)
+  return `${capitalized}!`
 }
 
 /**

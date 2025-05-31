@@ -54,8 +54,8 @@ const close = () => {
             class="pi pi-exclamation-triangle"
             style="font-size: 2.5rem; color: rgb(211, 47, 47)"
           ></i>
-          <div v-if="error != ''" style="font-size: 120%">{{ error }}</div>
-          <div v-if="error === ''" style="font-size: 120%">
+          <div v-if="error != ''" class="text-center" style="font-size: 120%">{{ error }}</div>
+          <div v-if="error === ''" class="text-center" style="font-size: 120%">
             {{ generateErrorString(i18n.t('common.searchEngineTestSuccessful')) }}
           </div>
         </div>
