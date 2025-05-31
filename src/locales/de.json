@@ -305,7 +305,7 @@
     "extensionMustBeConfiguredFirst": "Die Erweiterung muss für die Verwendung zuerst konfiguriert werden.",
     "noCategory": "Keine Kategorie",
     "extensionWasUpdated": "Die Erweiterung wurde aktualisiert",
-    "grantPermission": "Berechtigung erteilen"
+    "grantPermission": "Berechtigung erteilen",
     "files": "Dateien"
   },
   "validation": {

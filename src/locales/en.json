@@ -305,7 +305,7 @@
     "extensionMustBeConfiguredFirst": "The extension must first be configured for use.",
     "noCategory": "No category",
     "extensionWasUpdated": "The extension was updated",
-    "grantPermission": "Grant permission"
+    "grantPermission": "Grant permission",
     "files": "Files"
   },
   "validation": {
