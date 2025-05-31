@@ -5,8 +5,8 @@ export async function openPopupWindow(source: string): Promise<number> {
   try {
     log.info(`openinge popup dialog window with source "${source}"`)
     const win = await browser.windows.getCurrent()
-    const width = win.width && win.width < 250 ? win.width : 250
-    const height = win.height && win.height < 250 ? win.height : 250
+    const width = 250
+    const height = 250
     const left = win.width ? Math.round(win.width / 2 - width / 2 + (win.left ?? 0)) : 0
     const top = win.height ? Math.round(win.height / 2 - height / 2 + (win.top ?? 0)) : 0
     const window = await browser.windows.create({
@@ -34,25 +34,18 @@ export async function openPopupWindow(source: string): Promise<number> {
   }
 }
 
-export function resizePopupWindow(selector: string, maxWidth: number, maxHeight: number) {
-  let contentHeight = 0
-  document.querySelectorAll(selector).forEach((element) => {
-    contentHeight += (element as HTMLElement).clientHeight
-  })
-  let targetHeight = contentHeight + 250
-  if (targetHeight > maxHeight) targetHeight = maxHeight
-  browser.windows.getCurrent().then((window) => {
-    if (window.height !== targetHeight) {
-      // resize and move window to center
-      const width = screen.availWidth < maxWidth ? screen.availWidth : maxWidth
-      const height = screen.availHeight < targetHeight ? screen.availHeight : targetHeight
-      // screen.availLeft and screen.availTop are available on Firefox and Chrome
-      const left = Math.round(screen.availWidth / 2 - width / 2 + (screen as Screen & { availLeft: number }).availLeft)
-      const top = Math.round(screen.availHeight / 2 - height / 2 + (screen as Screen & { availTop: number }).availTop)
-      browser.windows.update(window.id as number, { width: width, height: height, left, top }).then(() => {
-        resizePopupWindow(selector, maxWidth, maxHeight)
-      })
-    }
+export async function resizePopupWindow(width: number, height: number): Promise<void> {
+  const barHeight = window.outerHeight - window.innerHeight
+  const totalHeight = height + barHeight
+  const left = screen.availWidth / 2 - width / 2 + (screen as Screen & { availLeft: number }).availLeft
+  const top = screen.availHeight / 2 - totalHeight / 2 + (screen as Screen & { availTop: number }).availTop
+
+  const popupWindow = await browser.windows.getCurrent()
+  await browser.windows.update(popupWindow.id as number, {
+    width: Math.round(width),
+    height: Math.round(totalHeight),
+    top: Math.round(top),
+    left: Math.round(left),
   })
 }
 

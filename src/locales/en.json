@@ -302,6 +302,7 @@
     "noCategory": "No category",
     "extensionWasUpdated": "The extension was updated",
     "grantPermission": "Grant permission"
+    "files": "Files"
   },
   "validation": {
     "isRequired": "$1 is required",

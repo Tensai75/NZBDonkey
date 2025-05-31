@@ -302,6 +302,7 @@
     "noCategory": "Keine Kategorie",
     "extensionWasUpdated": "Die Erweiterung wurde aktualisiert",
     "grantPermission": "Berechtigung erteilen"
+    "files": "Dateien"
   },
   "validation": {
     "isRequired": "$1 ist ein Pflichtfeld",

@@ -13,11 +13,11 @@ import { NZBFileObject } from '@/services/nzbfile'
 import { requiredResolver } from '@/services/resolvers'
 import { focusPopupWindow, resizePopupWindow } from '@/utils/popupWindowUtilities'
 
+const overlay = ref(true)
 const loaded = ref(false)
 let port: Browser.runtime.Port | undefined = undefined
 const nzbFiles = ref([]) as Ref<NZBFileObject[]>
 const filename = ref('')
-
 const formRef = ref<FormInstance | null>(null) // Reference to the form
 
 document.title = i18n.t('extension.name')
@@ -84,15 +84,20 @@ function submit() {
   }
 }
 
-watch(loaded, () => {
-  nextTick(() => {
-    resizePopupWindow('main > *', 800, 800)
-  })
-  focusPopupWindow(5000)
-})
-
-// Add a keydown listener to trigger submit on Enter
 onMounted(() => {
+  watch(loaded, () => {
+    nextTick(async () => {
+      await resize()
+      // for some reasons the first resize does not result in correct heights because
+      // scrollHeights are not reliable during the first resize even with the additional delay
+      nextTick(async () => {
+        await resize(true)
+        overlay.value = false
+        focusPopupWindow(5000)
+      })
+    })
+  })
+  // Add a keydown listener to trigger submit on Enter
   window.addEventListener('keydown', handleKeydown)
 })
 
@@ -105,10 +110,63 @@ function handleKeydown(event: KeyboardEvent) {
     cancel()
   }
 }
+
+function resize(secondResize = false) {
+  return new Promise<void>((resolve) => {
+    // 100 ms delay to ensure the DOM is fully rendered before resizing
+    // required especially for Firefox in order to get correct scrollHeights in second resize
+    // seemingly not required for Chrome but more testing woul be needed
+    setTimeout(async () => {
+      const maxWidth = 800 > screen.availWidth ? screen.availWidth : 800
+      const maxHeight = 800 > screen.availHeight ? screen.availHeight : 800
+      let lowerContentMaxHeight = 245
+      let upperContentMaxHeight: number
+      const headerHeight = document.getElementById('header')?.scrollHeight
+      const footerHeight = document.getElementById('footer')?.scrollHeight
+      const upperContent = document.getElementById('nzbFiles')
+      const lowerContent = document.getElementById('targets')
+      let upperContentHeight = upperContent?.scrollHeight
+      let lowerContentHeight = lowerContent?.scrollHeight || 0
+      // debug console output
+      // console.log(`resize ${secondResize ? '2' : '1'}`)
+      // console.log('upperContentHeight:', upperContentHeight)
+      // console.log('lowerContentHeight:', lowerContentHeight)
+      if (headerHeight === undefined || footerHeight === undefined || upperContentHeight === undefined) {
+        log.error('resizing the window failed because one or more elements were not found')
+        resolve()
+        return
+      }
+      const availableHeight = maxHeight - headerHeight - footerHeight
+      lowerContentMaxHeight = 800 > screen.availHeight ? availableHeight * (2 / 5) : lowerContentMaxHeight
+      if (upperContentHeight + lowerContentHeight > availableHeight) {
+        lowerContentMaxHeight = lowerContentHeight >= lowerContentMaxHeight ? lowerContentMaxHeight : lowerContentHeight
+        upperContentMaxHeight = availableHeight - lowerContentMaxHeight
+      } else {
+        lowerContentMaxHeight = lowerContentHeight
+        upperContentMaxHeight = upperContentHeight
+      }
+      // only set the maxHeights and heights during the second resize
+      // for some reasons scrollHeights are not reliable during the first resize even with the delay
+      if (secondResize) {
+        if (lowerContent) {
+          lowerContent.style.maxHeight = `${lowerContentMaxHeight}px`
+          lowerContent.style.height = `${lowerContentMaxHeight}px`
+        }
+        if (upperContent) {
+          upperContent.style.maxHeight = `${upperContentMaxHeight}px`
+          upperContent.style.height = `${upperContentMaxHeight}px`
+        }
+      }
+      const containerHeight = headerHeight + footerHeight + upperContentMaxHeight + lowerContentMaxHeight
+      await resizePopupWindow(maxWidth, containerHeight)
+      resolve()
+    }, 100)
+  })
+}
 </script>
 
 <template>
-  <div v-if="!loaded" class="flex items-center justify-center flex-grow" style="height: 100vh">
+  <div v-if="overlay" class="overlay">
     <ProgressSpinner style="width: 60px; height: 60px" stroke-width="3" />
   </div>
   <Form
@@ -120,9 +178,9 @@ function handleKeydown(event: KeyboardEvent) {
     :validate-on-mount="true"
     :validate-on-change="true"
   >
-    <div class="flex flex-col h-screen w-full">
+    <div id="container">
       <!-- Header -->
-      <header class="flex p-4 flex-shrink">
+      <header id="header" class="p-4">
         <div class="flex flex-row justify-between w-full">
           <div class="inline-flex items-center justify-center gap-2">
             <span class="font-bold text-lg truncate" style="max-width: 95vw; width: 95vw">{{ filename }}</span>
@@ -131,9 +189,10 @@ function handleKeydown(event: KeyboardEvent) {
       </header>
 
       <!-- Main Content -->
-      <main class="flex overflow-y-auto flex-col space-y-4 px-4 h-full">
-        <div v-if="nzbFiles.length === 1" class="space-y-4 flex-shrink">
-          <div class="flex flex-col items-center gap-1 mb-4">
+      <main id="main" class="px-4">
+        <!-- NZB files -->
+        <div v-if="nzbFiles.length === 1" id="nzbFiles">
+          <div class="gap-1 pb-4">
             <label for="title" class="font-semibold w-full">{{ i18n.t('common.title') }}</label>
             <FormField
               v-slot="$field"
@@ -159,7 +218,7 @@ function handleKeydown(event: KeyboardEvent) {
               }}</Message>
             </FormField>
           </div>
-          <div class="flex flex-col items-center gap-1 mb-4">
+          <div class="gap-1 pb-4">
             <label for="password" class="font-semibold w-full">{{ i18n.t('common.password') }}</label>
             <InputText
               id="password"
@@ -171,18 +230,12 @@ function handleKeydown(event: KeyboardEvent) {
             />
           </div>
         </div>
-        <div v-if="nzbFiles.length > 1" class="space-y-4" style="height: fit-content; max-height: 330px">
-          <div class="flex flex-col items-center gap-1 h-full">
-            <label for="title" class="font-semibold w-full">Dateien</label>
-            <DataTable
-              :value="nzbFiles"
-              table-style=""
-              size="small"
-              class="w-full"
-              scrollable
-              scroll-height="flex"
-              style="height: 95%"
-            >
+        <template v-if="nzbFiles.length > 1">
+          <div id="nzbFiles" class="gap-1 h-full">
+            <DataTable :value="nzbFiles" table-style="" size="small" class="w-full" scrollable scroll-height="flex">
+              <template #header>
+                <label for="title" class="font-semibold w-full">{{ i18n.t('common.files') }}</label>
+              </template>
               <Column header-style="width: 5%">
                 <template #body="slotProps">
                   <input
@@ -231,17 +284,16 @@ function handleKeydown(event: KeyboardEvent) {
               </Column>
             </DataTable>
           </div>
-        </div>
-        <div
+        </template>
+        <!-- Targets -->
+        <template
           v-if="
             nzbFiles[0].targets.length === 1 &&
             nzbFiles[0].targets[0].categories.useCategories &&
             nzbFiles[0].targets[0].categories.categories.length > 0
           "
-          class="space-y-4"
-          style="height: fit-content; max-height: 215px"
         >
-          <div class="flex flex-col items-center gap-1 mb-4">
+          <div id="targets" class="gap-1 pt-4">
             <label for="title" class="font-semibold w-full">{{
               i18n.t('settings.nzbFileTargets.categories.category.name')
             }}</label>
@@ -256,19 +308,20 @@ function handleKeydown(event: KeyboardEvent) {
               style="width: 100%"
             ></Select>
           </div>
-        </div>
-        <div v-if="nzbFiles[0].targets.length > 1" class="space-y-4" style="height: fit-content; max-height: 215px">
-          <div class="flex flex-col items-center gap-1 h-full">
-            <label for="title" class="font-semibold w-full">{{ i18n.t('menu.settings.nzbFileTargets') }}</label>
+        </template>
+        <template v-if="nzbFiles[0].targets.length > 1">
+          <div id="targets" class="gap-1 pt-4 h-full">
             <DataTable
               :value="nzbFiles[0].targets"
               table-style=""
               size="small"
               class="w-full"
-              style="height: 95%"
               scrollable
               scroll-height="flex"
             >
+              <template #header>
+                <label for="title" class="font-semibold w-full">{{ i18n.t('menu.settings.nzbFileTargets') }}</label>
+              </template>
               <Column field="active" :header="i18n.t('settings.nzbFileTargets.active')" header-style="width: 5%">
                 <template #body="slotProps">
                   <input
@@ -293,8 +346,9 @@ function handleKeydown(event: KeyboardEvent) {
                   <span><img :src="'/img/' + slotProps.data.type + '.png'" :alt="slotProps.data.type" /></span>
                 </template>
               </Column>
-              <Column field="name" :header="i18n.t('settings.nzbFileTargets.name')" header-style="width: 40%"></Column>
+              <Column field="name" :header="i18n.t('settings.nzbFileTargets.name')" header-style="width: auto"></Column>
               <Column
+                v-if="nzbFiles[0].targets.some((target) => target.categories.useCategories)"
                 field="selectedCategory"
                 :header="i18n.t('settings.nzbFileTargets.categories.category.name')"
                 header-style="width: auto"
@@ -326,10 +380,11 @@ function handleKeydown(event: KeyboardEvent) {
               </template>
             </DataTable>
           </div>
-        </div>
+        </template>
       </main>
+
       <!-- Footer -->
-      <footer class="flex flex-shrink p-4">
+      <footer id="footer" class="p-4">
         <div class="flex flex-row justify-between w-full">
           <Button :label="i18n.t('common.cancel')" severity="secondary" @click="cancel()"></Button>
           <Button :disabled="!loaded || !$form.valid" :label="i18n.t('common.ok')" @click="submit()"></Button>
@@ -338,3 +393,64 @@ function handleKeydown(event: KeyboardEvent) {
     </div>
   </Form>
 </template>
+<style lang="css">
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  max-height: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 0px;
+}
+
+#header,
+#footer {
+  flex-shrink: 0;
+}
+
+#main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#nzbFiles,
+#targets {
+  overflow-y: auto;
+  box-sizing: border-box;
+  margin-top: 0;
+  overflow: hidden;
+}
+
+#nzbFiles {
+  flex-grow: 1;
+}
+
+#targets {
+  flex-grow: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black; /* Solid black background */
+  z-index: 1000; /* Ensure it appears above other elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
