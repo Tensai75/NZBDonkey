@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { version } from '@@/package.json'
-import { ConfirmDialog } from 'primevue'
-import { ref } from 'vue'
+import { Button, ConfirmDialog } from 'primevue'
+import { onMounted, ref } from 'vue'
 
 import { i18n } from '#i18n'
+import { browser } from '#imports'
 import GeneralSettings from '@/components/generalSettings.vue'
 import InterceptionSettings from '@/components/interception/interceptionSettings.vue'
 import NZBDonkeyLogo from '@/components/nzbdonkeyLogo.vue'
@@ -33,10 +34,34 @@ const about: { id: string; name: string }[] = [
 ]
 
 const menuItem = ref('targets')
+const hostPermissionGranted = ref(false)
+const requestingPermission = ref(false)
+
+onMounted(async () => {
+  // Request permissions for all URLs if not already granted
+  hostPermissionGranted.value = await browser.permissions.contains({
+    origins: ['<all_urls>'],
+  })
+})
+
+async function requestPermission() {
+  requestingPermission.value = true
+  hostPermissionGranted.value = await browser.permissions.request({
+    origins: ['<all_urls>'],
+  })
+  requestingPermission.value = false
+}
 </script>
 
 <template>
-  <div class="flex flex-row w-full h-screen">
+  <div v-if="!hostPermissionGranted" class="flex flex-col gap-8 items-center justify-center w-full h-screen">
+    <i class="pi pi-exclamation-triangle text-red-500" style="font-size: 3rem"></i>
+    <div class="text-center max-w-[480px] text-xl">
+      {{ i18n.t('errors.hostPermissionsRequired') }}
+    </div>
+    <Button :label="i18n.t('common.grantPermission')" :disabled="requestingPermission" @click="requestPermission" />
+  </div>
+  <div v-if="hostPermissionGranted" class="flex flex-row w-full h-screen">
     <!-- Left Column -->
     <div class="flex flex-col max-w-[320px] w-full mr-8">
       <!-- Top Left -->
