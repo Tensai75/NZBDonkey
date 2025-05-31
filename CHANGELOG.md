@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0...v1.2.0) (2025-05-31)
+
+
+### Bug Fixes
+
+* correctly calculate content height for popup windows ([3e8ee66](https://github.com/Tensai75/NZBDonkey/commit/3e8ee66122bad93d3d3f2906a5f734f20d4a28e4)), closes [#54](https://github.com/Tensai75/NZBDonkey/issues/54)
+* request host permission if not yet granted ([835a526](https://github.com/Tensai75/NZBDonkey/commit/835a52666c31afae438d3fffb3b80f8b4c95a484))
+* use the background script to make the connection test request ([14963a2](https://github.com/Tensai75/NZBDonkey/commit/14963a20f6078e13a0eb4a58ae50787f284c877f))
+
+
+### Features
+
+* addition of torbox.app as another destination for nzb files ([ec031df](https://github.com/Tensai75/NZBDonkey/commit/ec031df36df9fdbcfab244f8c06b7cb52e76280f))
+
 # [1.1.0](https://github.com/Tensai75/NZBDonkey/compare/v1.0.0...v1.1.0) (2025-05-23)
 
 
