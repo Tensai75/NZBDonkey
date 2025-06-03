@@ -16,9 +16,20 @@
 
 [![Firefox Webstore](https://img.shields.io/amo/v/nzbdonkey?style=for-the-badge&logo=firefox&label=Mozilla%20Webstore)](https://addons.mozilla.org/de/firefox/addon/nzbdonkey/)
 
+## Supported target applications
+
+<a href="#" title="local download"><img src="https://raw.githubusercontent.com/Tensai75/NZBDonkey/refs/heads/master/src/public/img/download.png" title="local download" alt="Download" width="48"/></a>
+<a href="https://sabnzbd.org/" title="Sabnzbd"><img src="https://raw.githubusercontent.com/Tensai75/NZBDonkey/refs/heads/master/src/public/img/sabnzbd.png" alt="Sabnzbd" width="48"/></a>
+<a href="https://nzbget.com/" title="NZBGet"><img src="https://raw.githubusercontent.com/Tensai75/NZBDonkey/refs/heads/master/src/public/img/nzbget.png" alt="NZBGet" width="48"/></a>
+<a href="https://www.synology.com/en-global/dsm/packages/DownloadStation" title="Synology Download Station"><img src="https://raw.githubusercontent.com/Tensai75/NZBDonkey/refs/heads/master/src/public/img/synology.png" alt="Synology Downloadstation" width="48"/></a>
+<a href="https://jdownloader.org/" title="JDownloader"><img src="https://raw.githubusercontent.com/Tensai75/NZBDonkey/refs/heads/master/src/public/img/jdownloader.png" alt="JDownloader 2" width="48"/></a>
+<a href="https://premiumize.me" title="Premiumize.me"><img src="https://raw.githubusercontent.com/Tensai75/NZBDonkey/refs/heads/master/src/public/img/premiumize.png" alt="Premiumize.me" width="48"/></a>
+<a href="https://torbox.app" title="Torbox.app"><img src="https://raw.githubusercontent.com/Tensai75/NZBDonkey/refs/heads/master/src/public/img/torbox.png" alt="Torbox.app" width="48"/></a>
+
+
 ## Description
 
-Add-on to automatically download NZB files or send them to NZBGet, SABnzbd, Synology DownloadStation, JDwonloader or to the premiumize.me download service.
+Add-on to automatically download NZB files or send them to NZBGet, SABnzbd, Synology Download Station, JDwonloader, Premiumize.me or Torbox.app.
 
 - Works either with NZBLNK links or with header, password and title information provided as plain text.
 - Searches sequentially or simultaneously in different NZB search engines
@@ -26,7 +37,7 @@ Add-on to automatically download NZB files or send them to NZBGet, SABnzbd, Syno
 - Highly configurable
   - Multiple target applications can be configured for the NZB file:
     - Download to the download folder of the browser
-    - Send directly to SABnzbd, NZBGet, Synology DownloadStation, JDownloader or premiumize.me Downloader
+    - Send directly to SABnzbd, NZBGet, Synology Download Station, JDownloader, Premiumize.me or Torbox.app
   - Support for categories (if supported by the target application)
     - The categories can be freely configured for each target application with various options:
       - Automatic setting of a category based on the title or file name of the NZB file (with fallback option)
