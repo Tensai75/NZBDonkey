@@ -1,8 +1,11 @@
+[![Deutsch](https://img.shields.io/badge/Deutsch-blue?style=plastic&logo=readme&logoColor=white)](README.DE.md)
+
 [![Chrome users](https://img.shields.io/chrome-web-store/users/edkhpdceeinkcacjdgebjehipmnbomce?style=plastic&label=Chrome%20users)](https://chrome.google.com/webstore/detail/nzbdonkey/edkhpdceeinkcacjdgebjehipmnbomce)
 [![Firefox users](https://img.shields.io/amo/users/nzbdonkey?style=plastic&label=Firefox%20users)](https://addons.mozilla.org/de/firefox/addon/nzbdonkey/)
 [![Latest release](https://img.shields.io/github/v/release/Tensai75/NZBDonkey?include_prereleases&display_name=tag&logo=github&label=latest%20release&style=plastic)](https://github.com/Tensai75/NZBDonkey/releases/latest)
 [![Latest stable release](https://img.shields.io/github/v/release/Tensai75/NZBDonkey?display_name=tag&logo=github&label=latest%20stable%20release&style=plastic)](https://github.com/Tensai75/NZBDonkey/releases/latest)
 [![Workflow status](https://img.shields.io/github/actions/workflow/status/Tensai75/NZBDonkey/semantic_release.yaml?style=plastic)](https://github.com/Tensai75/NZBDonkey/actions/workflows/semantic_release.yaml)
+
 
 ![NZBDonkey logo](https://raw.githubusercontent.com/Tensai75/NZBDonkey/master/icons/NZBDonkey_128.png 'NZBDonkey Logo')
 
