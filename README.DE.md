@@ -1,3 +1,7 @@
+---
+layout: default
+title: Readme Deutsch
+---
 [![English](https://img.shields.io/badge/English-blue?style=plastic&logo=readme&logoColor=white)](README.md)
 
 [![Chrome users](https://img.shields.io/chrome-web-store/users/edkhpdceeinkcacjdgebjehipmnbomce?style=plastic&label=Chrome%20users)](https://chrome.google.com/webstore/detail/nzbdonkey/edkhpdceeinkcacjdgebjehipmnbomce)
