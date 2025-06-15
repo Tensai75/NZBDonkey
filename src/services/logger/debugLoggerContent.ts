@@ -1,10 +1,8 @@
 import { defineExtensionMessaging } from '@webext-core/messaging'
-import { defineWindowMessaging } from '@webext-core/messaging/page'
 
 import { DebugLogProtocolMap, IDebugLog } from './loggerDB'
 
 const extensionMessenger = defineExtensionMessaging<DebugLogProtocolMap>()
-const websiteMessenger = defineWindowMessaging<DebugLogProtocolMap>({ namespace: 'nzbdonkey' })
 
 const log = (message: IDebugLog) => send(message)
 const clear = () => extensionMessenger.sendMessage('debbugLoggerClear', undefined)
@@ -21,10 +19,6 @@ const send = (message: IDebugLog): void => {
   extensionMessenger.sendMessage('debbugLoggerLog', message)
 }
 
-const initialise = () => {
-  websiteMessenger.onMessage('debbugLoggerLog', (message) => {
-    extensionMessenger.sendMessage('debbugLoggerLog', message.data)
-  })
-}
+const initialise = () => {}
 
 export { clear, get, init, log }

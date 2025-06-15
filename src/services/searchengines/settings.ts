@@ -8,11 +8,13 @@ export const name = 'serachenginesSettings'
 export const defaultSettings: Settings = {
   searchOrder: 'parallel',
   engines: [],
+  updateOnStartup: true,
 }
 
 export type Settings = {
   searchOrder: 'parallel' | 'sequential'
   engines: SearchEngine[]
+  updateOnStartup: boolean
 }
 
 export type SearchEngine = {

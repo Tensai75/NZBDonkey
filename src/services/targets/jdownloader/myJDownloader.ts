@@ -1,6 +1,6 @@
 import cipher from './myJDownloaderWebCrypto'
 
-import { useFetch } from '@/utils/fetchUtilities'
+import { getHttpStatusText, useFetch } from '@/utils/fetchUtilities'
 
 const MYJD_API_VERSION = 1
 const MYJD_API_URL = 'https://api.jdownloader.org'
@@ -174,7 +174,7 @@ export class MyJDownloader {
           return this.fetchAndDecrypt(path, secret, endpoint, params)
         }
         if (json.type) throw new Error(json.type)
-        throw new Error(response.status + response.statusText ? ` - ${response.statusText}` : '')
+        throw new Error(`${response.status} - ${getHttpStatusText(response.status)}`)
       }
       const encrypted = await response.text()
       const decrypted: { [key: string]: unknown } = JSON.parse(await cipher.aesDecrypt(secret, encrypted))

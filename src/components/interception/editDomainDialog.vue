@@ -6,7 +6,7 @@ import { PropType, ref, toRaw } from 'vue'
 import { i18n } from '#i18n'
 import DefaultDomainsDialog from '@/components/interception/defaultDomainsDialog.vue'
 import * as interception from '@/services/interception'
-import { requiredBaseDomainResolver, requiredRegexpResolver } from '@/services/resolvers'
+import { requiredBaseDomainResolver, requiredNetRequestRegexpResolver } from '@/services/resolvers'
 
 const props = defineProps({
   domains: {
@@ -19,6 +19,7 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['save', 'close'])
+const showAdvancedSettings = ref(false)
 
 // default is add
 const title = ref(i18n.t('settings.interception.addDialog'))
@@ -87,7 +88,7 @@ function reset() {
           v-slot="$field"
           :name="i18n.t('settings.interception.domains.domain.pathRegExp')"
           :initial-value="domain.pathRegExp"
-          :resolver="requiredRegexpResolver"
+          :resolver="requiredNetRequestRegexpResolver"
           :validate-on-blur="true"
           :validate-on-value-update="true"
           :validate-on-mount="true"
@@ -125,110 +126,6 @@ function reset() {
         </FormField>
       </div>
       <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">
-          {{ i18n.t('settings.interception.domains.domain.doubleCountDownloads') }}
-        </label>
-        <FormField
-          :name="i18n.t('settings.interception.domains.domain.doubleCountDownloads')"
-          :initial-value="domain.allowDownloadInterception"
-          class="grid-row flex-auto"
-        >
-          <div class="flex items-center">
-            <ToggleSwitch v-model="domain.allowDownloadInterception" />
-            <label class="label-text pl-4">
-              {{ i18n.t('settings.interception.domains.domain.allowDoubleCountDownloads') }}
-            </label>
-          </div>
-        </FormField>
-      </div>
-      <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">
-          {{ i18n.t('settings.interception.domains.domain.doubleCountDownloadsWarning') }}
-        </label>
-        <FormField
-          :name="i18n.t('settings.interception.domains.domain.doubleCountDownloadsWarning')"
-          :initial-value="domain.dontShowDoubleCountWarning"
-          class="grid-row flex-auto"
-        >
-          <div class="flex items-center">
-            <ToggleSwitch v-model="domain.dontShowDoubleCountWarning" />
-            <label class="label-text pl-4">
-              {{ i18n.t('settings.interception.domains.domain.ignoreDoubleCountDownloadsWarning') }}
-            </label>
-          </div>
-        </FormField>
-      </div>
-      <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
-          i18n.t('settings.interception.domains.domain.requiresPostDataHandling.title')
-        }}</label>
-        <FormField
-          :name="i18n.t('settings.interception.domains.domain.requiresPostDataHandling.title')"
-          :initial-value="domain.requiresPostDataHandling"
-          class="grid-row flex-auto"
-        >
-          <div class="flex items-center">
-            <ToggleSwitch v-model="domain.requiresPostDataHandling" :disabled="domain.isDefault" />
-            <label class="label-text pl-4">
-              {{ i18n.t('settings.interception.domains.domain.requiresPostDataHandling.description') }}
-            </label>
-          </div>
-          <div v-show="domain.requiresPostDataHandling" class="mt-4">
-            <div class="flex items-center gap-2 mb-4">
-              <RadioButton
-                v-model="domain.postDataHandling"
-                input-id="sendAsFormData"
-                name="postDataHandling"
-                value="sendAsFormData"
-                :disabled="domain.isDefault"
-              />
-              <label for="sendAsFormData">{{
-                i18n.t('settings.interception.domains.domain.postDataHandling.sendAsFormData')
-              }}</label>
-            </div>
-            <div class="flex items-center gap-2">
-              <RadioButton
-                v-model="domain.postDataHandling"
-                input-id="sendAsURLSearchParams"
-                name="postDataHandling"
-                value="sendAsURLSearchParams"
-                :disabled="domain.isDefault"
-              />
-              <label for="sendAsURLSearchParams">{{
-                i18n.t('settings.interception.domains.domain.postDataHandling.sendAsURLSearchParams')
-              }}</label>
-            </div>
-          </div>
-        </FormField>
-      </div>
-      <div class="flex items-center gap-4 pt-4 mb-4">
-        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">Fetch Origin</label>
-        <FormField name="Fetch Origin" :initial-value="domain.fetchOrigin" class="grid-row flex-auto">
-          <div class="flex items-center">
-            <div class="flex items-center gap-2">
-              <RadioButton
-                v-model="domain.fetchOrigin"
-                input-id="background"
-                name="fetchOrigin"
-                value="background"
-                :disabled="domain.isDefault"
-              />
-              <label for="sendAsURLSearchParams">Background Script</label>
-            </div>
-            <div class="flex items-center gap-2 ml-4">
-              <RadioButton
-                v-model="domain.fetchOrigin"
-                input-id="injection"
-                name="fetchOrigin"
-                value="injection"
-                :disabled="domain.isDefault"
-              />
-              <label for="sendAsFormData">Injection Script</label>
-            </div>
-          </div>
-        </FormField>
-      </div>
-      <div class="flex items-center gap-4 pt-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.interceptArchiveFiles.title')
         }}</label>
@@ -256,6 +153,78 @@ function reset() {
           <Message v-if="$field?.invalid" severity="error" size="small" variant="simple" class="flex-auto">{{
             $field.error?.message
           }}</Message>
+        </FormField>
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
+          i18n.t('settings.common.confirmAdvancedSettings.header')
+        }}</label>
+        <ToggleSwitch v-model="showAdvancedSettings" :disabled="domain.isDefault" />
+      </div>
+      <div v-show="showAdvancedSettings" class="flex items-center gap-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
+          i18n.t('settings.interception.domains.domain.postDataHandling.title')
+        }}</label>
+        <FormField
+          :name="i18n.t('settings.interception.domains.domain.postDataHandling.title')"
+          :initial-value="domain.postDataHandling"
+          class="grid-row flex-auto"
+        >
+          <div class="mt-4">
+            <div class="flex items-center gap-2 mb-4">
+              <RadioButton
+                v-model="domain.postDataHandling"
+                input-id="sendAsURLSearchParams"
+                name="postDataHandling"
+                value="sendAsURLSearchParams"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsURLSearchParams"
+                >{{ i18n.t('settings.interception.domains.domain.postDataHandling.sendAsURLSearchParams') }} ({{
+                  i18n.t('common.default')
+                }})</label
+              >
+            </div>
+            <div class="flex items-center gap-2">
+              <RadioButton
+                v-model="domain.postDataHandling"
+                input-id="sendAsFormData"
+                name="postDataHandling"
+                value="sendAsFormData"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsFormData">{{
+                i18n.t('settings.interception.domains.domain.postDataHandling.sendAsFormData')
+              }}</label>
+            </div>
+          </div>
+        </FormField>
+      </div>
+      <div v-show="showAdvancedSettings" class="flex items-center gap-4 pt-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">Fetch Origin</label>
+        <FormField name="Fetch Origin" :initial-value="domain.fetchOrigin" class="grid-row flex-auto">
+          <div class="flex items-center">
+            <div class="flex items-center gap-2">
+              <RadioButton
+                v-model="domain.fetchOrigin"
+                input-id="background"
+                name="fetchOrigin"
+                value="background"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsURLSearchParams">Background Script ({{ i18n.t('common.default') }})</label>
+            </div>
+            <div class="flex items-center gap-2 ml-4">
+              <RadioButton
+                v-model="domain.fetchOrigin"
+                input-id="injection"
+                name="fetchOrigin"
+                value="injection"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsFormData">Content Script</label>
+            </div>
+          </div>
         </FormField>
       </div>
       <template #footer>

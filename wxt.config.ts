@@ -11,7 +11,16 @@ const getManifest: (env: ConfigEnv) => Partial<Browser.runtime.Manifest> = (env)
     name: '__MSG_extension_name__',
     description: '__MSG_extension_description__',
     default_locale: 'en',
-    permissions: ['storage', 'scripting', 'notifications', 'downloads', 'contextMenus', 'clipboardWrite', 'webRequest'],
+    permissions: [
+      'storage',
+      'scripting',
+      'notifications',
+      'downloads',
+      'contextMenus',
+      'clipboardWrite',
+      'webRequest',
+      'declarativeNetRequest',
+    ],
     host_permissions: ['<all_urls>'],
     web_accessible_resources: [
       {
@@ -29,13 +38,7 @@ const getManifest: (env: ConfigEnv) => Partial<Browser.runtime.Manifest> = (env)
         id: '{dd77cf0b-b93f-4e9f-8006-b642c02219db}',
       },
     }
-  } /*
-  if (env.browser === 'chrome') {
-    manifest.externally_connectable = {
-      matches: ['<all_urls>'],
-    }
   }
-    */
   return manifest
 }
 
