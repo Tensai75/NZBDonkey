@@ -1,3 +1,11 @@
+## [1.2.1-beta.1](https://github.com/Tensai75/NZBDonkey/compare/v1.2.0...v1.2.1-beta.1) (2025-06-18)
+
+
+### Bug Fixes
+
+* allow single host names in the base domain validation ([47704f3](https://github.com/Tensai75/NZBDonkey/commit/47704f325a5f85d82e75ae6cea6ff964fb160fda))
+* use own html-to-text conversion for better accuracy of text selection analysis ([3b3c682](https://github.com/Tensai75/NZBDonkey/commit/3b3c6820205243cc37d395c9dd38fcdd9aa4c6e0))
+
 # [1.2.0](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0...v1.2.0) (2025-05-31)
 
 
