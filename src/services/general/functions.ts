@@ -1,5 +1,4 @@
 import { Settings } from '@/services/general/settings'
-import log from '@/services/logger/debugLogger'
 
 export function analyseText(settings: Settings): {
   selection: string
@@ -15,7 +14,6 @@ export function analyseText(settings: Settings): {
   const range = document.createRange()
   range.selectNodeContents(cleanFragment(getSelectionFragment()))
   selection = cleanText(range.toString())
-  log.info(selection)
   // test if the selection contains a description for the header starting with some common words used for and ending with a colon or a vertical bar
   let customHeaderSearchTerms = settings.textSelection.header.join('|')
   customHeaderSearchTerms = customHeaderSearchTerms != '' ? '|' + customHeaderSearchTerms : ''
