@@ -3,7 +3,12 @@ import { DomainSettings, extractArchive, getSettings as getInterceptionSettings 
 import log from '@/services/logger/debugLogger'
 import notification from '@/services/notifications'
 import { NZBFileObject, showNzbFileDialog } from '@/services/nzbfile'
-import { DeserializedResponse, getBaseDomainFromULR, getFilenameFromResponse } from '@/utils/fetchUtilities'
+import {
+  DeserializedResponse,
+  getBaseDomainFromULR,
+  getFilenameFromResponse,
+  getHttpStatusText,
+} from '@/utils/fetchUtilities'
 import { getExtensionFromFilename } from '@/utils/stringUtilities'
 
 export async function fetchInterceptedRequest({
@@ -17,7 +22,7 @@ export async function fetchInterceptedRequest({
     log.info(`fetching intercepted request from ${request.url}`)
     const response = await fetch(request)
     if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}${response.statusText ? ' - ' + response.statusText : ''}`)
+      throw new Error(`${response.status} - ${getHttpStatusText(response.status)}`)
     }
     processInterceptedRequestResponse({ response: response, source: source })
   } catch (e) {

@@ -167,15 +167,6 @@ export class MyJDownloader {
       path += `&signature=${signature}`
     }
     return useFetch(MYJD_API_URL + path, options).then(async (response) => {
-      if (!response.ok) {
-        const json: ApiError = await response.json()
-        if (json.type === 'OUTDATED' || json.type === 'TOKEN_INVALID') {
-          await this.reconnect()
-          return this.fetchAndDecrypt(path, secret, endpoint, params)
-        }
-        if (json.type) throw new Error(json.type)
-        throw new Error(response.status + response.statusText ? ` - ${response.statusText}` : '')
-      }
       const encrypted = await response.text()
       const decrypted: { [key: string]: unknown } = JSON.parse(await cipher.aesDecrypt(secret, encrypted))
       if (!decrypted.rid || decrypted.rid != rid) throw new Error('rid missmatch')
