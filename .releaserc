@@ -16,7 +16,10 @@
     [
       "@semantic-release/changelog",
       {
-        "changelogFile": "CHANGELOG.md"
+        "changelogFile": "CHANGELOG.md",
+        "branches": [
+          "master"
+        ]
       }
     ],
     [
@@ -33,7 +36,24 @@
           "package.json",
           "package-lock.json"
         ],
-        "message": "chore(release): v${nextRelease.version}\n\n${nextRelease.notes}"
+        "message": "chore(release): v${nextRelease.version}\n\n${nextRelease.notes}",
+        "branches": [
+          "master"
+        ]
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "package.json",
+          "package-lock.json"
+        ],
+        "message": "chore(release): v${nextRelease.version}\n\n${nextRelease.notes}",
+        "branches": [
+          "beta",
+          "rc"
+        ]
       }
     ],
     [

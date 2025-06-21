@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { i18n } from '#i18n'
+</script>
 
 <template>
   <div class="text-sm">{{ i18n.t('common.creditsDisclaimer') }}:</div>
@@ -14,11 +16,6 @@
       <div class="text-sm">
         <a href="https://github.com/primefaces/primevue">@primevue/forms</a> (<span
           ><a href="https://github.com/primefaces/primevue/blob/master/LICENSE.md">MIT License</a></span
-        >)
-      </div>
-      <div class="text-sm">
-        <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">@types/html-to-text</a> (<span
-          ><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/LICENSE">MIT license</a></span
         >)
       </div>
       <div class="text-sm">
@@ -49,11 +46,6 @@
       <div class="text-sm">
         <a href="https://github.com/Akryum/floating-vue">floating-vue</a> (<span
           ><a href="https://github.com/Akryum/floating-vue/blob/main/LICENSE">MIT License</a></span
-        >)
-      </div>
-      <div class="text-sm">
-        <a href="https://github.com/html-to-text/node-html-to-text">html-to-text</a> (<span
-          ><a href="https://github.com/html-to-text/node-html-to-text/blob/master/LICENSE">MIT License</a></span
         >)
       </div>
       <div class="text-sm">

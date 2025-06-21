@@ -209,7 +209,7 @@ function resize(secondResize = false) {
                 autocomplete="off"
                 type="text"
                 autofocus
-                @focus="$event.target.select()"
+                @focus="($event.target as HTMLInputElement)?.select()"
                 @keyup="updateCategories()"
                 @change="updateCategories()"
               />

@@ -34,5 +34,6 @@ export default [
     files: ['**/*.vue'],
     languageOptions: { parserOptions: { parser: tseslint.parser } },
   },
+  { ignores: ['src/services/interception/libarchive-wasm/**'] },
   eslintConfigPrettier, // Ensure Prettier config is applied last
 ]

@@ -1,5 +1,3 @@
-import { convert } from 'html-to-text'
-
 import { Settings } from '@/services/general/settings'
 
 export function analyseText(settings: Settings): {
@@ -13,7 +11,9 @@ export function analyseText(settings: Settings): {
   let password: string = ''
   let title: string = ''
   let test: RegExpMatchArray | null
-  selection = convert(prepareSelectionHTML(getSelectionHTML()))
+  const range = document.createRange()
+  range.selectNodeContents(cleanFragment(getSelectionFragment()))
+  selection = cleanText(range.toString())
   // test if the selection contains a description for the header starting with some common words used for and ending with a colon or a vertical bar
   let customHeaderSearchTerms = settings.textSelection.header.join('|')
   customHeaderSearchTerms = customHeaderSearchTerms != '' ? '|' + customHeaderSearchTerms : ''
@@ -76,27 +76,53 @@ export function analyseText(settings: Settings): {
   }
 }
 
-function getSelectionHTML(): string {
-  let html = ''
+function getSelectionFragment(): DocumentFragment {
+  let html = new DocumentFragment()
   if (typeof window.getSelection !== 'undefined') {
     const sel = window.getSelection()
     if (sel?.rangeCount) {
-      const container = document.createElement('div')
-      for (let i = 0; i < sel.rangeCount; i += 1) {
-        container.appendChild(sel.getRangeAt(i).cloneContents())
-      }
-      html = container.innerHTML
+      html = sel.getRangeAt(0).cloneContents()
     }
   }
-  return `<div>${html}</div>`
+  return html
 }
 
-function prepareSelectionHTML(html: string): string {
-  // remove all <input> tags and replace them with their value
-  // this is needed because the html-to-text library will simply remove <input> tags
-  html = html.replace(/<input.+?value\s*?=\s*?['"](.*?)['"].*?>/gi, '\n$1\n')
-  // add a <br /> before every </th> or </td> tag to make sure that the text is separated correctly
-  // this is needed because the html-to-text library will simply fuse the text of table cells together
-  html = html.replace(/(<\/t(?:h|d)>)/gi, '<br />$1')
-  return html
+function cleanFragment(fragment: DocumentFragment): DocumentFragment {
+  // Replace all textarea elements
+  const textareas = fragment.querySelectorAll('textarea')
+  textareas.forEach((textarea) => {
+    const pre = document.createElement('pre')
+    pre.textContent = (textarea as HTMLTextAreaElement).value
+    textarea.replaceWith(pre)
+  })
+  // Replace all input[type="text"] elements
+  const textInputs = fragment.querySelectorAll('input[type="text"]')
+  textInputs.forEach((input) => {
+    const span = document.createElement('span')
+    span.textContent = (input as HTMLInputElement).value
+    input.replaceWith(span)
+  })
+  // Replace <br> tags with a line break
+  const brs = fragment.querySelectorAll('br')
+  brs.forEach((br) => {
+    const lineBreak = document.createTextNode('\n')
+    br.replaceWith(lineBreak)
+  })
+  // Remove <script> tags
+  const scripts = fragment.querySelectorAll('script')
+  scripts.forEach((script) => {
+    script.remove()
+  })
+  return fragment
+}
+
+function cleanText(text: string): string {
+  return text
+    .split('\n') // Break into lines
+    .map((line) => line.trim()) // Trim each line
+    .join('\n') // Recombine
+    .replace(/\t+/g, ' ') // Replace tabs with a space
+    .replace(/ {2,}/g, ' ') // Collapse multiple spaces
+    .replace(/\n{2,}/g, '\n') // Collapse multiple line breaks
+    .trim() // Final trim of full result
 }
