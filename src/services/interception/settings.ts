@@ -18,12 +18,9 @@ export const defaultDomainSettings: DomainSettings = {
   pathRegExp: '',
   isDefault: false,
   showNzbDialog: true,
-  requiresPostDataHandling: false,
-  postDataHandling: 'sendAsFormData',
+  postDataHandling: 'sendAsURLSearchParams',
   fetchOrigin: 'background',
   archiveFileExtensions: [],
-  allowDownloadInterception: false,
-  dontShowDoubleCountWarning: false,
 }
 
 export type DomainSettings = {
@@ -32,12 +29,9 @@ export type DomainSettings = {
   pathRegExp: string
   isDefault: boolean
   showNzbDialog: boolean
-  requiresPostDataHandling: boolean
   postDataHandling: 'sendAsFormData' | 'sendAsURLSearchParams'
   fetchOrigin: 'injection' | 'background'
   archiveFileExtensions: string[]
-  allowDownloadInterception?: boolean
-  dontShowDoubleCountWarning?: boolean
   icon?: string
 }
 

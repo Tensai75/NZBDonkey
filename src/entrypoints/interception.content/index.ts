@@ -1,60 +1,31 @@
-import { defineContentScript, injectScript, ScriptPublicPath, toRaw } from '#imports'
-import { DomainSettings, useSettings as useInterceptionSettings } from '@/services/interception'
+import { defineContentScript } from '#imports'
 import log from '@/services/logger/debugLogger'
-import { sendMessage } from '@/services/messengers/extensionMessenger'
-import { websiteMessenger } from '@/services/messengers/windowMessenger'
-
-const injectionScript: ScriptPublicPath = '/injection.js'
+import { onMessage } from '@/services/messengers/extensionMessenger'
+import { deserializeRequest, serializeResponse } from '@/utils/fetchUtilities'
 
 export default defineContentScript({
   registration: 'runtime',
   main() {
     log.initDebugLog('interception-content')
-    log.initMessageListener()
-    log.initDebugLog('interception-content')
     log.info('interception content script loaded')
-    websiteMessenger.onMessage('getDomainSetting', (message) => {
-      useInterceptionSettings()
-        .then((settings) => {
-          const setting = settings.value.domains.find(
-            (domain: DomainSettings) => domain.isActive && domain.domain === message.data
-          )
-          websiteMessenger.sendMessage('domainSetting', toRaw(setting)).catch((e: Error) => {
-            log.error('error when sending message from content script', e)
-          })
-        })
-        .catch((e: Error) => {
-          log.error('error loading settings in content script', e)
-        })
-    })
-    websiteMessenger.onMessage('interceptedRequest', (message) => {
-      log.info('forwarding intercepted request to background script')
-      sendMessage('interceptedRequest', message.data).catch((e: Error) => {
-        log.error('error while sending intercepted request from content script', e)
-      })
-    })
-    websiteMessenger.onMessage('interceptedRequestResponse', (message) => {
-      log.info('forwarding intercepted request response to background script')
-      sendMessage('interceptedRequestResponse', message.data).catch((e: Error) => {
-        log.error('error while sending intercepted request response from content script', e)
-      })
-    })
-    websiteMessenger.onMessage('interceptedRequestFetchError', (message) => {
-      log.info('forwarding intercepted request fetch error to background script')
-      sendMessage('interceptedRequestFetchError', message.data).catch((e: Error) => {
-        log.error('error while sending intercepted request fetch error from content script', e)
-      })
-    })
 
-    log.info('injecting the interception injection script')
-    injectScript(injectionScript, {
-      keepInDom: true,
+    onMessage('fetchRequest', async (message) => {
+      log.info(`fetch request message received`)
+      try {
+        const deserializedRequest = deserializeRequest(message.data)
+        log.info(`fetching ${deserializedRequest.url}`)
+        const response = await fetch(deserializedRequest)
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}${response.statusText ? ' - ' + response.statusText : ''}`)
+        }
+        const serializedResponse = await serializeResponse(response)
+        log.info(`sending serialized response back to background script`)
+        return serializedResponse
+      } catch (e) {
+        const error = e instanceof Error ? e : new Error('unknown error')
+        log.error('error fetching intercepted request', error)
+        return error
+      }
     })
-      .then(() => {
-        log.info('injecting the interception injection script successful')
-      })
-      .catch((e: Error) => {
-        log.error('error while injecting the interception injection script', e)
-      })
   },
 })

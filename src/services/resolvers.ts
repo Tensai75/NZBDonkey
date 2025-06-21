@@ -1,6 +1,7 @@
 import { FormFieldResolverOptions } from '@primevue/forms'
 
 import { i18n } from '#i18n'
+import { browser } from '#imports'
 
 export const requiredResolver = ({ value, name = '' }: FormFieldResolverOptions) => {
   const errors = []
@@ -79,7 +80,36 @@ export const requiredRegexpResolver = ({ value, name = '' }: FormFieldResolverOp
       message: i18n.t('validation.isRequired', [name]),
     })
   }
+  return { errors }
+}
+
+export const requiredNetRequestRegexpResolver = async ({ value, name = '' }: FormFieldResolverOptions) => {
+  const errors = []
+  if (!value) {
+    errors.push({
+      message: i18n.t('validation.isRequired', [name]),
+    })
+  }
   errors.push(...regexpResolver({ value, name }).errors)
+  const regexpErrors = await netRequestRegexpResolver({ value, name })
+  errors.push(...regexpErrors.errors)
+  return { errors }
+}
+
+export const netRequestRegexpResolver = async ({ value }: FormFieldResolverOptions) => {
+  const errors = []
+  try {
+    const result = await browser.declarativeNetRequest.isRegexSupported({ regex: value })
+    if (!result.isSupported) {
+      errors.push({
+        message: i18n.t('validation.regexpNotSupported'),
+      })
+    }
+  } catch {
+    errors.push({
+      message: i18n.t('validation.noValidRegexp'),
+    })
+  }
   return { errors }
 }
 
