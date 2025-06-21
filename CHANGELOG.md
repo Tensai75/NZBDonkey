@@ -1,10 +1,3 @@
-## [1.2.1-beta.2](https://github.com/Tensai75/NZBDonkey/compare/v1.2.1-beta.1...v1.2.1-beta.2) (2025-06-21)
-
-
-### Bug Fixes
-
-* allow trailing dot in host names ([fa01a58](https://github.com/Tensai75/NZBDonkey/commit/fa01a588c4811723eddf31053c2f7ae0f08a5f8e)), closes [#68](https://github.com/Tensai75/NZBDonkey/issues/68)
-
 # [1.2.0](https://github.com/Tensai75/NZBDonkey/compare/v1.1.0...v1.2.0) (2025-05-31)
 
 
