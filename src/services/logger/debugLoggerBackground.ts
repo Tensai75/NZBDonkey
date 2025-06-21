@@ -11,9 +11,7 @@ const clear = () => clearDebugLog()
 const get = () => {
   return getDebugLog()
 }
-const init = () => initialise()
-
-const initialise = () => {
+const init = () => {
   extensionMessenger.onMessage('debbugLoggerLog', (message) => {
     saveDebugLog(message.data)
   })
