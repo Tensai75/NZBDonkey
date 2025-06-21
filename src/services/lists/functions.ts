@@ -9,9 +9,6 @@ export const fetchAndValidateList = async <T>(
 ): Promise<T[]> => {
   const fetchList = async (url: string): Promise<{ version: number; data: T[] }> => {
     const response = await useFetch(url)
-    if (!response.ok) {
-      throw new Error(`${response.status} ${response.statusText || ''}`.trim())
-    }
     return await response.json()
   }
 

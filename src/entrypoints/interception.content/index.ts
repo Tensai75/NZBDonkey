@@ -1,7 +1,7 @@
 import { defineContentScript } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { onMessage } from '@/services/messengers/extensionMessenger'
-import { deserializeRequest, serializeResponse } from '@/utils/fetchUtilities'
+import { deserializeRequest, getHttpStatusText, serializeResponse } from '@/utils/fetchUtilities'
 
 export default defineContentScript({
   registration: 'runtime',
@@ -16,7 +16,7 @@ export default defineContentScript({
         log.info(`fetching ${deserializedRequest.url}`)
         const response = await fetch(deserializedRequest)
         if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}${response.statusText ? ' - ' + response.statusText : ''}`)
+          throw new Error(`${response.status} - ${getHttpStatusText(response.status)}`)
         }
         const serializedResponse = await serializeResponse(response)
         log.info(`sending serialized response back to background script`)
