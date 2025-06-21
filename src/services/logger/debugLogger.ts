@@ -60,8 +60,5 @@ const init = () => {
   if (source === 'background') {
     import('@/services/logger/debugLoggerBackground').then((logger) => logger.init())
     return
-  } else {
-    import('@/services/logger/debugLoggerContent').then((logger) => logger.init())
-    return
   }
 }
