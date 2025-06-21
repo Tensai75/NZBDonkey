@@ -208,11 +208,8 @@
         "domain": {
           "title": "Domäne",
           "active": "Aktiv",
-          "requiresPostDataHandling": {
-            "title": "POST-Daten Verarbeitung",
-            "description": "POST-Daten dieser Seite verarbeiten"
-          },
           "postDataHandling": {
+            "title": "POST-Daten Verarbeitung",
             "sendAsFormData": "POST-Daten als FormData verarbeiten",
             "sendAsURLSearchParams": "POST-Daten als URLSearchParams verarbeiten"
           },
@@ -306,7 +303,8 @@
     "noCategory": "Keine Kategorie",
     "extensionWasUpdated": "Die Erweiterung wurde aktualisiert",
     "grantPermission": "Berechtigung erteilen",
-    "files": "Dateien"
+    "files": "Dateien",
+    "default": "Standard"
   },
   "validation": {
     "isRequired": "$1 ist ein Pflichtfeld",
@@ -324,15 +322,15 @@
     "missingFiles": "$1 fehlende Datei(en)",
     "noSegments": "die NZB-Datei enthält keine Segmente",
     "missingSegments": "$1 fehlende(s) Segment(e)",
-    "noFiles": "die NZB-Datei enthält keine Dateien"
+    "noFiles": "die NZB-Datei enthält keine Dateien",
+    "regexpNotSupported": "Diese Regexp ist zu komplex und kann nicht verwendet werden"
   },
   "interception": {
-    "fetchError": "NZB Download-Überwachung: Fehler beim laden von $1: $2",
+    "fetchError": "Fehler beim Laden der URL \"$1\", abgefangen auf $2: $3",
     "fetchSuccess": "NZB Donwload-Überwachung: Datei  \"$1\" erfolgreich geladen von $2",
-    "fetchResponseProcessingError": "Fehler bei der Bearbeitung der Datei \"$1\", abgefangen von $2: $3",
+    "fetchResponseProcessingError": "Fehler bei der Bearbeitung der Datei \"$1\", abgefangen auf $2: $3",
     "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen",
-    "doubleCountDownloadInformation": "Dieser Download von $1 hätte von NZBDonkey abgefangen werden können. Wenn $1 jedoch einen Download-Zähler hat, könnte es sein, dass dieser Download dann doppelt gezählt wird.",
-    "doubleCountDownloadWarning": "Falls $1 einen Download-Zähler hat, wird dieser Download möglicherweise doppelt gezählt."
+    "requestBlocked": "Request für $1 wurde abgefangen"
   },
   "targets": {
     "download": {
@@ -401,7 +399,7 @@
     "noActiveSearchEngines": "keine aktiven Suchmaschinen",
     "errorWhileProcessingContextMenuCLick": "Fehler während der Bearbeitung eines Kontextmenü-Klicks: $1",
     "invalidNzblnkLink": "ungültiger NZBLNK",
-    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und/oder es gibt neue Optionen",
+    "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und es gibt neue Optionen",
     "hostPermissionsRequired": "NZBDonkey benötigt die Berechtigung, auf alle Webseiten zugreifen zu dürfen, um ordnungsgemäss zu funktionieren."
   }
 }

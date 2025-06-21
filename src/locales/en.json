@@ -208,11 +208,8 @@
         "domain": {
           "title": "Domain",
           "active": "Active",
-          "requiresPostDataHandling": {
-            "title": "POST data handling",
-            "description": "process the POST data from this site"
-          },
           "postDataHandling": {
+            "title": "POST data handling",
             "sendAsFormData": "handle POST data as FormData",
             "sendAsURLSearchParams": "handle POST data as URLSearchParams"
           },
@@ -306,7 +303,8 @@
     "noCategory": "No category",
     "extensionWasUpdated": "The extension was updated",
     "grantPermission": "Grant permission",
-    "files": "Files"
+    "files": "Files",
+    "default": "default"
   },
   "validation": {
     "isRequired": "$1 is required",
@@ -324,15 +322,15 @@
     "missingFiles": "$1 missing file(s)",
     "noSegments": "the nzb file has no segments",
     "missingSegments": "$1 missing segment(s)",
-    "noFiles": "the nzb file has no files"
+    "noFiles": "the nzb file has no files",
+    "regexpNotSupported": "This regexp is too complex and cannot be used"
   },
   "interception": {
-    "fetchError": "NZB download interception: error loading from url $1: $2",
+    "fetchError": "error loading url \"$1\" intercepted on $2: $3",
     "fetchSuccess": "NZB download interception: file \"$1\" successfully loaded from $2",
-    "fetchResponseProcessingError": "error while processing file \"$1\" intercepted from $2: $3",
+    "fetchResponseProcessingError": "error while processing file \"$1\" intercepted on $2: $3",
     "success": "NZB file \"$1\" was intercepted successfully",
-    "doubleCountDownloadInformation": "This download of $1 could have been intercepted by NZBDonkey. However, if $1 has a download counter, it could be that this download is then counted twice.",
-    "doubleCountDownloadWarning": "If $1 has a download counter, this download may be counted twice."
+    "requestBlocked": "request for $1 intercepted"
   },
   "targets": {
     "download": {
@@ -401,7 +399,7 @@
     "noActiveSearchEngines": "no active search engines",
     "errorWhileProcessingContextMenuCLick": "error while processing context menu click: $1",
     "invalidNzblnkLink": "invalid NZBLNK",
-    "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and/or there are new options.",
+    "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and there are new options.",
     "hostPermissionsRequired": "NZBDonkey requires permission to access all websites in order to function properly"
   }
 }
