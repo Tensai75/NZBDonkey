@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { Button, Column, DataTable, Fieldset, RadioButton, useConfirm } from 'primevue'
+import { Button, Column, DataTable, Fieldset, RadioButton, ToggleSwitch, useConfirm } from 'primevue'
 import { ref, Ref } from 'vue'
 import { PublicPath } from 'wxt/browser'
 
 import { i18n } from '#i18n'
 import { browser } from '#imports'
 import EditSearchEngineDialog from '@/components/searchengines/searchengineEditDialog.vue'
+import { updateSearchEnginesList } from '@/services/lists'
 import {
   SearchEngine,
   Settings as SearchEngineSettings,
@@ -54,6 +55,10 @@ const showEditDialog = (index: number) => {
 const showAddDialog = () => {
   engineIndex.value = settings.value.engines.length
   showEditSearchEngineDialog.value = true
+}
+
+const updateNow = async () => {
+  settings.value.engines = await updateSearchEnginesList(settings.value.engines)
 }
 </script>
 
@@ -163,6 +168,28 @@ const showAddDialog = () => {
             </div>
           </template>
         </DataTable>
+      </div>
+    </Fieldset>
+  </div>
+  <div class="mb-4">
+    <Fieldset :legend="i18n.t('settings.searchEngines.updateOnStartup.title')">
+      <div class="flex flex-row items-center justify-left gap-4">
+        <div class="flex items-center">
+          <ToggleSwitch v-model="settings.updateOnStartup" />
+          <label class="label-text pl-4">
+            {{ i18n.t('settings.searchEngines.updateOnStartup.description') }}
+          </label>
+        </div>
+        <div class="text-xs">
+          <Button
+            :label="i18n.t('settings.searchEngines.domains.updateDomainsNow')"
+            raised
+            variant="outlined"
+            size="small"
+            style="width: auto !important"
+            @click="updateNow()"
+          />
+        </div>
       </div>
     </Fieldset>
   </div>

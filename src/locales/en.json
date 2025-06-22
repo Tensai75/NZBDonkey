@@ -190,7 +190,14 @@
       "addDialog": "Add new search engine",
       "searchEnginesList": "Predefined search engines",
       "addNewSearchEngine": "add new search engine",
-      "noSearchEnginesDefined": "No search engines defined yet!"
+      "noSearchEnginesDefined": "No search engines defined yet!",
+      "updateOnStartup": {
+        "title": "Update of predefined search engines",
+        "description": "automatically update predefined search engines"
+      },
+      "domains": {
+        "updateDomainsNow": "Update now"
+      }
     },
     "interception": {
       "confirmDelete": {
@@ -221,15 +228,16 @@
             "title": "NZB settings dialog",
             "description": "show a dialog to set title, password, and other options"
           },
-          "pathRegExp": "RegExp for the download path",
-          "doubleCountDownloads": "Double-counting downloads",
-          "allowDoubleCountDownloads": "allow the interception of downloads that may be counted twice on pages with a download counter",
-          "doubleCountDownloadsWarning": "Warning for double counting downloads",
-          "ignoreDoubleCountDownloadsWarning": "no longer display the warning for double-counting downloads"
+          "pathRegExp": "RegExp for the download path"
         },
         "domainsList": "Predefined domains",
         "addNewDomain": "add new domain",
-        "noDomainsDefined": "No domains defined yet!"
+        "noDomainsDefined": "No domains defined yet!",
+        "updateDomainsNow": "Update now"
+      },
+      "updateOnStartup": {
+        "title": "Update of predefined domains",
+        "description": "automatically update predefined domains"
       }
     },
     "common": {
@@ -304,6 +312,7 @@
     "extensionWasUpdated": "The extension was updated",
     "grantPermission": "Grant permission",
     "files": "Files",
+    "checkSettings": "Please check the settings",
     "default": "default"
   },
   "validation": {
@@ -327,7 +336,6 @@
   },
   "interception": {
     "fetchError": "error loading url \"$1\" intercepted on $2: $3",
-    "fetchSuccess": "NZB download interception: file \"$1\" successfully loaded from $2",
     "fetchResponseProcessingError": "error while processing file \"$1\" intercepted on $2: $3",
     "success": "NZB file \"$1\" was intercepted successfully",
     "requestBlocked": "request for $1 intercepted"
@@ -357,7 +365,6 @@
   },
   "contextMenu": {
     "sendToSeveralTarget": "send to",
-    "sendToSingelTarget": "send to $1",
     "analyseSelection": "analyse selected text"
   },
   "nzbsearch": {
@@ -400,6 +407,7 @@
     "errorWhileProcessingContextMenuCLick": "error while processing context menu click: $1",
     "invalidNzblnkLink": "invalid NZBLNK",
     "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and there are new options.",
-    "hostPermissionsRequired": "NZBDonkey requires permission to access all websites in order to function properly"
+    "hostPermissionsRequired": "NZBDonkey requires permission to access all websites in order to function properly",
+    "settingsMigrationError": "the migration of the settings has failed"
   }
 }
