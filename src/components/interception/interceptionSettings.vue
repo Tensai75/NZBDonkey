@@ -6,6 +6,7 @@ import EditInterceptionDomainDialog from '../../components/interception/editDoma
 import { Settings as InterceptionSettings, use as useInterceptionSettings } from '../../services/interception/settings'
 
 import { i18n } from '#i18n'
+import { updateInterceptionDomainsList } from '@/services/lists'
 
 const settings: Ref<InterceptionSettings> = await useInterceptionSettings()
 
@@ -44,6 +45,10 @@ const showEditDialog = (index: number) => {
 const showAddDialog = () => {
   domainIndex.value = settings.value.domains.length
   showEditInterceptionDomainDialog.value = true
+}
+
+const updateNow = async () => {
+  settings.value.domains = await updateInterceptionDomainsList(settings.value.domains)
 }
 </script>
 
@@ -143,6 +148,28 @@ const showAddDialog = () => {
             </div>
           </template>
         </DataTable>
+      </div>
+    </Fieldset>
+  </div>
+  <div class="mb-4">
+    <Fieldset v-if="settings.enabled" :legend="i18n.t('settings.interception.updateOnStartup.title')">
+      <div class="flex flex-row items-center justify-left gap-4">
+        <div class="flex items-center">
+          <ToggleSwitch v-model="settings.updateOnStartup" />
+          <label class="label-text pl-4">
+            {{ i18n.t('settings.interception.updateOnStartup.description') }}
+          </label>
+        </div>
+        <div class="text-xs">
+          <Button
+            :label="i18n.t('settings.interception.domains.updateDomainsNow')"
+            raised
+            variant="outlined"
+            size="small"
+            style="width: auto !important"
+            @click="updateNow()"
+          />
+        </div>
       </div>
     </Fieldset>
   </div>

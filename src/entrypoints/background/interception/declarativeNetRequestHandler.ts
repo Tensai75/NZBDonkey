@@ -2,6 +2,7 @@ import { fetchInterceptedRequest, processInterceptedRequestResponse } from './in
 
 import { browser, Browser, i18n } from '#imports'
 import * as interception from '@/services/interception'
+import { updateInterceptionDomainsList } from '@/services/lists'
 import log from '@/services/logger/debugLogger'
 import { sendMessage } from '@/services/messengers/extensionMessenger'
 import notification from '@/services/notifications'
@@ -25,6 +26,10 @@ let sessionRuleId = 1
 
 export default function (): void {
   interception.getSettings().then(async (settings) => {
+    if (settings.updateOnStartup) {
+      settings.domains = await updateInterceptionDomainsList(settings.domains)
+      interception.saveSettings(settings)
+    }
     log.info('setting up interception')
     setupInterception(settings)
     interception.watchSettings((settings) => {

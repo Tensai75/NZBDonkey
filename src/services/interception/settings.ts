@@ -5,11 +5,13 @@ export const name = 'interceptionSettings'
 export const defaultSettings: Settings = {
   enabled: true,
   domains: [],
+  updateOnStartup: true,
 }
 
 export type Settings = {
   enabled: boolean
   domains: DomainSettings[]
+  updateOnStartup: boolean
 }
 
 export const defaultDomainSettings: DomainSettings = {
