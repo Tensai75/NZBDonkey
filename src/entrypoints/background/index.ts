@@ -18,7 +18,7 @@ export default defineBackground(() => {
       log.info('clearing settings and opening info page')
       browser.storage.sync.clear().then(() => {
         browser.storage.sync.set({ version: browser.runtime.getManifest().version })
-        browser.tabs.create({ url: browser.runtime.getURL('/nzbdonkey.html' as PublicPath) })
+        browser.tabs.create({ url: browser.runtime.getURL('/nzbdonkey.html#INSTALLED' as PublicPath) })
       })
     }
   })

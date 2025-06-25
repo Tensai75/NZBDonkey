@@ -1,5 +1,4 @@
 import searchEnginesList from '@@/lists/searchEnginesList.json'
-import { PublicPath } from 'wxt/browser'
 
 import { browser } from '#imports'
 import * as general from '@/services/general'
@@ -96,40 +95,23 @@ type OldSettings = {
 }
 
 export default async function (): Promise<void> {
-  log.info('NZBDonkey has been updated from <= v0.7.7')
   log.info('migrating settings from v0.7.7')
-  try {
-    const storedSettings = await browser.storage.sync.get(null)
-    const oldSettings = storedSettings as OldSettings
-    await migrateGeneralSettings(oldSettings)
-    await migrateTargetSettings(oldSettings)
-    await migrateSearchEnginesSettings(oldSettings)
-    await migrateNzbfileSettings(oldSettings)
-    await updateVersionInStorage()
-    openInfoPage()
-  } catch (error) {
-    await handleMigrationError(error)
-  }
-}
 
-async function updateVersionInStorage(): Promise<void> {
-  const version = browser.runtime.getManifest().version
-  await browser.storage.sync.set({ version })
-  log.info(`updated settings version to ${version}`)
-}
+  const storedSettings = await browser.storage.sync.get(null)
+  const oldSettings = storedSettings as OldSettings
 
-function openInfoPage(): void {
-  const infoPageUrl = browser.runtime.getURL('/nzbdonkey.html#UPDATED' as PublicPath)
-  browser.tabs.create({ url: infoPageUrl })
-  log.info('opened info page')
-}
-
-async function handleMigrationError(error: unknown): Promise<void> {
-  log.error('error migrating settings:', error instanceof Error ? error : new Error(String(error)))
-  log.info('clearing settings and opening info page')
+  log.info('clearing old settings')
   await browser.storage.sync.clear()
-  await updateVersionInStorage()
-  openInfoPage()
+
+  if (oldSettings['general.debug'] === undefined) {
+    log.info('no old settings from v0.7.7 found, skipping migration')
+    return
+  }
+
+  await migrateGeneralSettings(oldSettings)
+  await migrateTargetSettings(oldSettings)
+  await migrateSearchEnginesSettings(oldSettings)
+  await migrateNzbfileSettings(oldSettings)
 }
 
 async function migrateGeneralSettings(oldSettings: OldSettings) {
