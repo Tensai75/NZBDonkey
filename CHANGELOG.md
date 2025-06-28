@@ -1,3 +1,11 @@
+## [1.2.2](https://github.com/Tensai75/NZBDonkey/compare/v1.2.1...v1.2.2) (2025-06-28)
+
+
+### Bug Fixes
+
+* better handling of text nodes in selected text ([7397eee](https://github.com/Tensai75/NZBDonkey/commit/7397eee762e44c33e5358f8576980fc60b0741ef))
+* don't clear storage on install ([931807d](https://github.com/Tensai75/NZBDonkey/commit/931807daac900701366cc7978957af7ac0ed6b94)), closes [#70](https://github.com/Tensai75/NZBDonkey/issues/70)
+
 ## [1.2.1](https://github.com/Tensai75/NZBDonkey/compare/v1.2.0...v1.2.1) (2025-06-21)
 
 
