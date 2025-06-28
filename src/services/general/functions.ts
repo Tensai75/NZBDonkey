@@ -113,16 +113,41 @@ function cleanFragment(fragment: DocumentFragment): DocumentFragment {
   scripts.forEach((script) => {
     script.remove()
   })
+  // Remove all formatting tags like <b>, <i>, etc., but keep their inner text/content
+  const formattingTags = ['b', 'i', 'u', 'em', 'strong', 'mark', 'small', 'del', 'ins', 'sub', 'sup', 'span', 'font']
+  formattingTags.forEach((tag) => {
+    const elements = Array.from(fragment.querySelectorAll(tag))
+    elements.forEach((el) => {
+      // Move all children before the formatting element (merging with surrounding content)
+      while (el.firstChild) {
+        el.parentNode?.insertBefore(el.firstChild, el)
+      }
+      el.parentNode?.removeChild(el)
+    })
+  })
+  // Remove all empty text nodes and merge adjacent text nodes
+  fragment.normalize()
+  // Add a line break "\n" to the end of each text node
+  const walker = document.createTreeWalker(fragment, NodeFilter.SHOW_TEXT)
+  let node: Text | null = walker.nextNode() as Text | null
+  while (node) {
+    node.textContent += '\n'
+    node = walker.nextNode() as Text | null
+  }
   return fragment
 }
 
 function cleanText(text: string): string {
   return text
     .split('\n') // Break into lines
-    .map((line) => line.trim()) // Trim each line
+    .map(
+      (line) =>
+        line
+          .replace(/\t+/g, ' ') // Replace tabs with a space
+          .replace(/ {2,}/g, ' ') // Collapse multiple spaces
+          .trim() // Trim each line
+    )
     .join('\n') // Recombine
-    .replace(/\t+/g, ' ') // Replace tabs with a space
-    .replace(/ {2,}/g, ' ') // Collapse multiple spaces
     .replace(/\n{2,}/g, '\n') // Collapse multiple line breaks
     .trim() // Final trim of full result
 }
