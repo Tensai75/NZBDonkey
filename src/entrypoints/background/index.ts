@@ -15,11 +15,10 @@ export default defineBackground(() => {
   browser.runtime.onInstalled.addListener((details) => {
     if (details.reason === 'install') {
       log.info('NZBDonkey has been freshly installed')
-      log.info('clearing settings and opening info page')
-      browser.storage.sync.clear().then(() => {
-        browser.storage.sync.set({ version: browser.runtime.getManifest().version })
-        browser.tabs.create({ url: browser.runtime.getURL('/nzbdonkey.html' as PublicPath) })
-      })
+      // save the current version to storage
+      browser.storage.sync.set({ version: browser.runtime.getManifest().version })
+      log.info('opening info page')
+      browser.tabs.create({ url: browser.runtime.getURL('/nzbdonkey.html' as PublicPath) })
     }
   })
   log.info('background script loaded successfully')
