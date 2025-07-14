@@ -58,11 +58,11 @@
       "isActive": true,
       "isDefault": true,
       "settings": {
-        "searchURL": "http://nzbking.com/search/?q=%s",
+        "searchURL": "https://nzbking.com/?q=%s",
         "responseType": "html",
         "searchPattern": "href=\"\\/details:(.*?)\\/\"",
         "searchGroup": 1,
-        "downloadURL": "http://nzbking.com/nzb:%s/",
+        "downloadURL": "https://nzbking.com/nzb:%s/",
         "removeUnderscore": false,
         "removeHyphen": false,
         "setIntoQuotes": false
