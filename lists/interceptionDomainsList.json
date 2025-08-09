@@ -183,7 +183,7 @@
     },
     {
       "archiveFileExtensions": ["zip", "rar", "7z"],
-      "domain": "jellyfinplex.com",
+      "domain": "cinema-of-usenet.com",
       "fetchOrigin": "background",
       "isActive": true,
       "isDefault": true,
@@ -191,7 +191,7 @@
       "postDataHandling": "sendAsURLSearchParams",
       "requiresPostDataHandling": true,
       "showNzbDialog": true,
-      "icon": "https://www.jellyfinplex.com/data/assets/logo/4552981.png"
+      "icon": "https://www.cinema-of-usenet.com/data/assets/logo/4552946.webp"
     },
     {
       "archiveFileExtensions": ["zip"],
