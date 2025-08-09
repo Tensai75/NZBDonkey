@@ -52,6 +52,7 @@ export async function updateInterceptionDomainsList(
           // Update the specified keys
           return {
             ...domain,
+            domain: domainsListDomain.domain,
             pathRegExp: domainsListDomain.pathRegExp,
             postDataHandling: domainsListDomain.postDataHandling,
             fetchOrigin: domainsListDomain.fetchOrigin,
