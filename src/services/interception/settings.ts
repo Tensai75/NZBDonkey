@@ -15,6 +15,7 @@ export type Settings = {
 }
 
 export const defaultDomainSettings: DomainSettings = {
+  id: '',
   isActive: true,
   domain: '',
   pathRegExp: '',
@@ -26,6 +27,7 @@ export const defaultDomainSettings: DomainSettings = {
 }
 
 export type DomainSettings = {
+  id?: string
   isActive: boolean
   domain: string
   pathRegExp: string

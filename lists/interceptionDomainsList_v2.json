@@ -2,6 +2,7 @@
   "version": 2,
   "data": [
     {
+      "id": "nzbindex.com",
       "archiveFileExtensions": [],
       "domain": "nzbindex.com",
       "fetchOrigin": "background",
@@ -13,6 +14,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "binsearch.info",
       "archiveFileExtensions": [],
       "domain": "binsearch.info",
       "fetchOrigin": "background",
@@ -24,6 +26,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "nzbking.com",
       "archiveFileExtensions": ["zip"],
       "domain": "nzbking.com",
       "fetchOrigin": "background",
@@ -35,6 +38,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "scenenzbs.com",
       "archiveFileExtensions": ["zip"],
       "domain": "scenenzbs.com",
       "fetchOrigin": "background",
@@ -46,6 +50,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "house-of-usenet.com",
       "archiveFileExtensions": ["zip", "rar", "7z"],
       "domain": "house-of-usenet.com",
       "fetchOrigin": "background",
@@ -57,6 +62,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "newzbay.cc",
       "archiveFileExtensions": ["zip"],
       "domain": "newzbay.cc",
       "fetchOrigin": "background",
@@ -68,6 +74,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "fileleechers.com",
       "archiveFileExtensions": [],
       "domain": "fileleechers.com",
       "fetchOrigin": "background",
@@ -79,6 +86,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "nzbgeek.info",
       "archiveFileExtensions": [],
       "domain": "nzbgeek.info",
       "fetchOrigin": "background",
@@ -90,6 +98,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "drunkenslug.com",
       "archiveFileExtensions": ["zip"],
       "domain": "drunkenslug.com",
       "fetchOrigin": "background",
@@ -101,6 +110,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "nzbplanet.net",
       "archiveFileExtensions": ["zip"],
       "domain": "nzbplanet.net",
       "fetchOrigin": "background",
@@ -112,6 +122,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "nzb.life",
       "archiveFileExtensions": ["zip"],
       "domain": "nzb.life",
       "fetchOrigin": "background",
@@ -123,6 +134,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "omgwtfnzbs.org",
       "archiveFileExtensions": ["zip"],
       "domain": "omgwtfnzbs.org",
       "fetchOrigin": "background",
@@ -134,6 +146,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "g4u.to",
       "archiveFileExtensions": ["7z", "rar", "zip"],
       "domain": "g4u.to",
       "fetchOrigin": "background",
@@ -145,6 +158,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "nzbcore.info",
       "archiveFileExtensions": ["zip"],
       "domain": "nzbcore.info",
       "fetchOrigin": "background",
@@ -156,6 +170,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "jellyfinplex.com",
       "archiveFileExtensions": ["zip", "rar", "7z"],
       "domain": "jellyfinplex.com",
       "fetchOrigin": "background",
@@ -167,6 +182,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "usenet-crawler.com",
       "archiveFileExtensions": ["zip"],
       "domain": "usenet-crawler.com",
       "fetchOrigin": "background",
@@ -178,6 +194,7 @@
       "showNzbDialog": true
     },
     {
+      "id": "nzbfinder.ws",
       "archiveFileExtensions": ["zip"],
       "domain": "nzbfinder.ws",
       "fetchOrigin": "background",

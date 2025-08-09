@@ -21,6 +21,7 @@ async function migrateInterceptionSettings() {
     delete domain.requiresPostDataHandling
     // @ts-expect-error Property does not exist on type 'DomainSettings'
     delete domain.postDataHandling
+    domain.id = domain.id || domain.domain
   })
   settings.updateOnStartup = settings.updateOnStartup === undefined ? true : settings.updateOnStartup
   settings.domains = await updateInterceptionDomainsList(settings.domains)

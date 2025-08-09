@@ -35,19 +35,19 @@ export async function updateInterceptionDomainsList(
     interceptionDoaminsList.defaultKeys as (keyof InterceptionDomainsListItem)[]
   )
   // Get the set of domain names present in the domains list
-  const domainsListDomainNames = new Set(domainsList.map((d) => d.domain))
+  const domainsListIDs = new Set(domainsList.map((d) => d.id))
   // Filter and update domains
   const updatedDomains = domains
     .filter((domain) => {
       // Keep all non-default domains, and only keep default domains if their domain is in domainsListDomainNames
-      const keep = !domain.isDefault || domainsListDomainNames.has(domain.domain)
+      const keep = !domain.isDefault || domainsListIDs.has(domain.id)
       if (!keep) log.info(`removing default interception domain "${domain.domain}" from settings`)
       return keep
     })
     .map((domain) => {
       if (domain.isDefault) {
         // Find the matching domain entry
-        const domainsListDomain = domainsList.find((d) => d.domain === domain.domain)
+        const domainsListDomain = domainsList.find((d) => d.id === domain.id)
         if (domainsListDomain) {
           // Update the specified keys
           return {
