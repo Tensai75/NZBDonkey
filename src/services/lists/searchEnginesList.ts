@@ -7,7 +7,7 @@ import { SearchEngine as SearchEnginesListItem } from '@/services/searchengines'
 import { defaultSettings as defaultEngineSettings } from '@/services/searchengines/defaultEngine'
 
 const searchEnginesList = {
-  url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/refs/heads/${import.meta.env.WXT_BRANCH_NAME}/lists/searchEnginesList.json`,
+  url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/${import.meta.env.WXT_BRANCH_NAME}/lists/searchEnginesList.json`,
   expectedVersion: 1,
   sortkey: 'name',
   defaultList: searchEnginesDefaultList,

@@ -5,7 +5,7 @@ import { fetchAndValidateList } from './functions'
 import { CategorySettings as CategoriesRegExpListItem, categoryDefaultSettings } from '@/services/categories'
 
 const categoriesRegexpList = {
-  url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/refs/heads/${import.meta.env.WXT_BRANCH_NAME}/lists/categoriesRegExpList.json`,
+  url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/${import.meta.env.WXT_BRANCH_NAME}/lists/categoriesRegExpList.json`,
   expectedVersion: 1,
   sortkey: 'name',
   defaultList: categoriesRegexpDefaultList,
