@@ -170,18 +170,6 @@
       "icon": "https://g4u.to/favicon.ico"
     },
     {
-      "archiveFileExtensions": ["zip"],
-      "domain": "nzbcore.info",
-      "fetchOrigin": "background",
-      "isActive": true,
-      "isDefault": true,
-      "pathRegExp": "/getnzb.*",
-      "postDataHandling": "sendAsFormData",
-      "requiresPostDataHandling": false,
-      "showNzbDialog": true,
-      "icon": "https://nzbcore.info/nnplus/www/templates/bookstrap/images/icons/favicon.ico"
-    },
-    {
       "archiveFileExtensions": ["zip", "rar", "7z"],
       "domain": "cinema-of-usenet.com",
       "fetchOrigin": "background",
