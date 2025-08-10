@@ -1,3 +1,13 @@
+# [1.3.0](https://github.com/Tensai75/NZBDonkey/compare/v1.2.2...v1.3.0) (2025-08-10)
+
+
+### Features
+
+* automatic updating of predefined search engines and domains ([a421f3a](https://github.com/Tensai75/NZBDonkey/commit/a421f3a56ff417c33fd52ef99124fab10b14e1e1))
+* automatic updating of predefined search engines and domains ([1f7b7d5](https://github.com/Tensai75/NZBDonkey/commit/1f7b7d51cebdd26e77403624aa2f2d78fb72efc6))
+* **interception:** use declarativeNetRequest to block requests ([951ed43](https://github.com/Tensai75/NZBDonkey/commit/951ed434e2cfc0dcf0229cabe9ee1d4d6a24eaa2))
+* **interception:** use declarativeNetRequest to block requests ([8e2a334](https://github.com/Tensai75/NZBDonkey/commit/8e2a334265a4c307a9ee68b9d5ddbb02bacbd379))
+
 ## [1.2.2](https://github.com/Tensai75/NZBDonkey/compare/v1.2.1...v1.2.2) (2025-06-28)
 
 
