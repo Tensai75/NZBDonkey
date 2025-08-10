@@ -1,4 +1,4 @@
-import interceptionDomainsDefaultList from '@@/lists/interceptionDomainsList_v2.json'
+import interceptionDomainsDefaultList from '@@/lists/interceptionDomainsList.json'
 
 import { fetchAndValidateList } from './functions'
 
@@ -6,7 +6,7 @@ import { DomainSettings as InterceptionDomainsListItem, defaultDomainSettings } 
 import log from '@/services/logger/debugLogger'
 
 const interceptionDoaminsList = {
-  url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/${import.meta.env.WXT_BRANCH_NAME}/lists/interceptionDomainsList_v2.json`,
+  url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/${import.meta.env.WXT_BRANCH_NAME}/lists/interceptionDomainsList.json`,
   expectedVersion: 2,
   sortkey: 'domain',
   defaultList: interceptionDomainsDefaultList,
