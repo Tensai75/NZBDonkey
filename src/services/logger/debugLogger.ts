@@ -32,11 +32,8 @@ const log = (
   if (source === 'background') {
     import('@/services/logger/debugLoggerBackground').then((logger) => logger.log(message))
     return
-  } else if (source.endsWith('content')) {
-    import('@/services/logger/debugLoggerContent').then((logger) => logger.log(message))
-    return
   } else {
-    import('@/services/logger/debugLoggerPage').then((logger) => logger.log(message))
+    import('@/services/logger/debugLoggerContent').then((logger) => logger.log(message))
     return
   }
 }
@@ -45,11 +42,8 @@ const clear = () => {
   if (source === 'background') {
     import('@/services/logger/debugLoggerBackground').then((logger) => logger.clear())
     return
-  } else if (source.endsWith('content')) {
-    import('@/services/logger/debugLoggerContent').then((logger) => logger.clear())
-    return
   } else {
-    import('@/services/logger/debugLoggerPage').then((logger) => logger.clear())
+    import('@/services/logger/debugLoggerContent').then((logger) => logger.clear())
     return
   }
 }
@@ -57,22 +51,14 @@ const clear = () => {
 const get = () => {
   if (source === 'background') {
     return import('@/services/logger/debugLoggerBackground').then((logger) => logger.get())
-  } else if (source.endsWith('content')) {
-    return import('@/services/logger/debugLoggerContent').then((logger) => logger.get())
   } else {
-    return import('@/services/logger/debugLoggerPage').then((logger) => logger.get())
+    return import('@/services/logger/debugLoggerContent').then((logger) => logger.get())
   }
 }
 
 const init = () => {
   if (source === 'background') {
     import('@/services/logger/debugLoggerBackground').then((logger) => logger.init())
-    return
-  } else if (source.endsWith('content')) {
-    import('@/services/logger/debugLoggerContent').then((logger) => logger.init())
-    return
-  } else {
-    import('@/services/logger/debugLoggerPage').then((logger) => logger.init())
     return
   }
 }

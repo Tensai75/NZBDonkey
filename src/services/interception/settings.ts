@@ -5,39 +5,37 @@ export const name = 'interceptionSettings'
 export const defaultSettings: Settings = {
   enabled: true,
   domains: [],
+  updateOnStartup: true,
 }
 
 export type Settings = {
   enabled: boolean
   domains: DomainSettings[]
+  updateOnStartup: boolean
 }
 
 export const defaultDomainSettings: DomainSettings = {
+  id: '',
   isActive: true,
   domain: '',
   pathRegExp: '',
   isDefault: false,
   showNzbDialog: true,
-  requiresPostDataHandling: false,
-  postDataHandling: 'sendAsFormData',
+  postDataHandling: 'sendAsURLSearchParams',
   fetchOrigin: 'background',
   archiveFileExtensions: [],
-  allowDownloadInterception: false,
-  dontShowDoubleCountWarning: false,
 }
 
 export type DomainSettings = {
+  id?: string
   isActive: boolean
   domain: string
   pathRegExp: string
   isDefault: boolean
   showNzbDialog: boolean
-  requiresPostDataHandling: boolean
   postDataHandling: 'sendAsFormData' | 'sendAsURLSearchParams'
   fetchOrigin: 'injection' | 'background'
   archiveFileExtensions: string[]
-  allowDownloadInterception?: boolean
-  dontShowDoubleCountWarning?: boolean
   icon?: string
 }
 
