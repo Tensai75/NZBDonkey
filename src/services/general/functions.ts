@@ -16,8 +16,8 @@ export function analyseText(settings: Settings): {
   selection = cleanText(range.toString())
   // test if the selection contains a description for the header starting with some common words used for and ending with a colon or a vertical bar
   let customHeaderSearchTerms = settings.textSelection.header.join('|')
-  customHeaderSearchTerms = customHeaderSearchTerms != '' ? '|' + customHeaderSearchTerms : ''
-  const headerRegexpString = `(?:^\\s*(?:header|subje[ck]t|betreff|files?${customHeaderSearchTerms}) ?.*?(?::|\\s)+)+"?(\\S.*\\S)"?$`
+  customHeaderSearchTerms = customHeaderSearchTerms != '' ? customHeaderSearchTerms + '|' : ''
+  const headerRegexpString = `^(?:${customHeaderSearchTerms}header|subje[ck]t|betreff|files?(?: name)?)(?:\\s|:)*(.*?)$`
   const headerRegexp = new RegExp(headerRegexpString, 'im')
   if (headerRegexp.test(selection)) {
     // set the header to the text after the description
@@ -44,8 +44,8 @@ export function analyseText(settings: Settings): {
   } else {
     // first check if there is actually a title prefix
     let customTitleSearchTerms = settings?.textSelection.title.join('|')
-    customTitleSearchTerms = customTitleSearchTerms != '' ? '|' + customTitleSearchTerms : ''
-    const titleRegexpString = `(?:^\\s?(?:titel|title${customTitleSearchTerms}) ?.*?(?::|\\s)+)+(\\S.*\\S)$`
+    customTitleSearchTerms = customTitleSearchTerms != '' ? customTitleSearchTerms + '|' : ''
+    const titleRegexpString = `^(?:${customTitleSearchTerms}titel|title)(?:\\s|:)*(.*?)$`
     const titleRegexp = new RegExp(titleRegexpString, 'im')
     test = selection.match(titleRegexp)
     if (test) {
@@ -56,8 +56,8 @@ export function analyseText(settings: Settings): {
     }
     // test if the selection contains a description for the password starting with some common words used for and ending with a colon or a vertical bar
     let customPasswordSearchTerms = settings.textSelection.password.join('|')
-    customPasswordSearchTerms = customPasswordSearchTerms != '' ? '|' + customPasswordSearchTerms : ''
-    const passwordRegexpString = `(?:^\\s?(?:passwor[td]|pw|pass${customPasswordSearchTerms}) ?.*?(?::|\\s)+)+(\\S.*\\S)$`
+    customPasswordSearchTerms = customPasswordSearchTerms != '' ? customPasswordSearchTerms + '|' : ''
+    const passwordRegexpString = `^(?:${customPasswordSearchTerms}passwor[td]|pw|(?:file )?pass)(?:\\s|:)*(.*?)$`
     const passwordRegexp = new RegExp(passwordRegexpString, 'im')
     test = selection.match(passwordRegexp)
     if (test) {
