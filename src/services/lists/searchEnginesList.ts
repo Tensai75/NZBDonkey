@@ -8,7 +8,7 @@ import { defaultSettings as defaultEngineSettings } from '@/services/searchengin
 
 const searchEnginesList = {
   url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/${import.meta.env.WXT_BRANCH_NAME}/lists/searchEnginesList.json`,
-  expectedVersion: 1,
+  expectedVersion: 2,
   sortkey: 'name',
   defaultList: searchEnginesDefaultList,
   defaultKeys: [...Object.keys(defaultEngineSettings), 'icon'] as (keyof SearchEnginesListItem)[],

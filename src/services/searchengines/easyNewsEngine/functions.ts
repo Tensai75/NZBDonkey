@@ -3,18 +3,19 @@ import { SearchEngine } from '../settings'
 import { Settings } from './settings'
 
 import log from '@/services/logger/debugLogger'
+import { NZBObject, textToNzbObject } from '@/services/nzbfile/nzbObject'
 import { FetchOptions, useFetch } from '@/utils/fetchUtilities'
 
 const EASYNEWS_SEARCH_URL =
   'https://members.easynews.com/2.0/search/solr-search/?fly=2&pby=1000&pno=1&s1=nsubject&s1d=%2B&s2=nrfile&s2d=%2B&s3=dsize&s3d=%2B&sS=0&st=adv&safeO=0&sb=1&sbj='
 const EASYNEWS_DOWNLOADA_URL = 'https://members.easynews.com/2.0/api/dl-nzb'
 
-export const getNZB = async (header: string, settings: SearchEngine): Promise<string> => {
+export const getNZB = async (header: string, settings: SearchEngine): Promise<NZBObject> => {
   const engine = settings as SearchEngine & { settings: Settings }
   const response = await search(header, engine)
   const results = await checkresponse(response, engine)
   const downloadOptions = setOptions(results, engine)
-  return await download(downloadOptions, engine)
+  return convertToNzbObject(await download(downloadOptions, engine), engine)
 }
 
 const search = async (header: string, engine: SearchEngine & { settings: Settings }): Promise<string> => {
@@ -135,4 +136,16 @@ const encodeFileName = (baseName: string, extension: string): string => {
 
   // Combine with a colon separator
   return `${encodedBaseName}:${encodedExtension}`
+}
+
+const convertToNzbObject = (nzbTextFile: string, engine: SearchEngine & { settings: Settings }): NZBObject => {
+  let nzbFile: NZBObject
+  try {
+    nzbFile = textToNzbObject(nzbTextFile)
+    log.info(`the response from search engine "${engine.name}" is a valid NZB file`)
+  } catch {
+    log.warn(`the response from search engine "${engine.name}" is not a valid NZB file`)
+    throw new Error('not a valid NZB file')
+  }
+  return nzbFile
 }

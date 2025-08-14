@@ -137,14 +137,7 @@ export class NZBFileObject {
       for (const engine of engines) {
         const f = async (): Promise<{ nzbFile: NZBObject; engine: string }> => {
           try {
-            const nzbTextFile = await searchengines[engine.type].getNZB(this.header, engine)
-            let nzbFile: NZBObject
-            try {
-              nzbFile = textToNzbObject(nzbTextFile)
-              log.info(`the response from search engine "${engine.name}" is a valid NZB file`)
-            } catch {
-              throw new Error(`the response from search engine "${engine.name}" is not a valid NZB file`)
-            }
+            const nzbFile = await searchengines[engine.type].getNZB(this.header, engine)
             if (!this.settings) this.settings = await nzbfile.getSettings()
             if (this.settings.fileCheck || this.settings.segmentCheck) {
               const validation = await this.validate(nzbFile)
