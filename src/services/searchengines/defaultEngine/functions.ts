@@ -1,13 +1,14 @@
 import jsonpath from 'jsonpath'
 import { parseHTML } from 'linkedom'
 
+import { download, search, setURL } from '../functions'
 import { SearchEngine } from '../settings'
 
 import { Settings } from './settings'
 
 import log from '@/services/logger/debugLogger'
-import { NZBObject, mergeNZBObjects, textToNzbObject } from '@/services/nzbfile/nzbObject'
-import { FetchOptions, useFetch } from '@/utils/fetchUtilities'
+import { NZBObject, mergeNZBObjects } from '@/services/nzbfile/nzbObject'
+import { FetchOptions } from '@/utils/fetchUtilities'
 
 type EngineWithSettings = SearchEngine & { settings: Settings }
 
@@ -15,9 +16,14 @@ interface JsonResponse {
   [key: string]: unknown
 }
 
+const OPTIONS: FetchOptions = {
+  responseType: 'text',
+  timeout: 60000,
+}
+
 export const getNZB = async (header: string, settings: SearchEngine): Promise<NZBObject> => {
   const engine = settings as EngineWithSettings
-  const response = await search(header, engine)
+  const response = await search(header, setURL(OPTIONS, engine.settings.searchURL, header), engine)
   if (engine.settings.responseType === 'html') {
     return await processHtmlResponse(response, engine)
   } else if (engine.settings.responseType === 'json') {
@@ -27,44 +33,16 @@ export const getNZB = async (header: string, settings: SearchEngine): Promise<NZ
   }
 }
 
-const search = async (header: string, engine: EngineWithSettings): Promise<string> => {
-  log.info(`searching search engine "${engine.name}" for header: ${header}`)
-  if (engine.settings.removeUnderscore) {
-    header = header.replace('_', ' ')
-  }
-  if (engine.settings.removeHyphen) {
-    header = header.replace('-', ' ')
-  }
-  if (engine.settings.setIntoQuotes) {
-    header = `"${header}"`
-  }
-  const nzbSearchURL = engine.settings.searchURL.replace(/%s/, encodeURI(header))
-  log.info(`Search URL for search engine "${engine.name}" is set to: ${nzbSearchURL}`)
-  const options: FetchOptions = {
-    url: nzbSearchURL,
-    responseType: 'text',
-    timeout: 10000,
-  }
-  try {
-    const response = await (await useFetch(options)).text()
-    log.info(`Search engine "${engine.name}" has sent a response`)
-    return response
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
-    log.warn(`error while searching on search engine "${engine.name}"`, error)
-    throw error
-  }
-}
-
 const processHtmlResponse = async (response: string, engine: EngineWithSettings): Promise<NZBObject> => {
   if (engine.settings.groupByPoster) {
-    return await getGroupedNzbFromHtml(response, engine)
+    log.info(`grouping NZB files from search engine "${engine.name}"`)
+    return await getMergedNzbFromHtml(response, engine)
   }
   const nzbID = getItemfromHtml(response, engine.settings.searchPattern, engine.settings.searchGroup)
   if (nzbID === null) {
     throw new Error(`no NZB file ID found`)
   }
-  return convertToNzbObject(await download(setOptions(nzbID, engine), engine), engine)
+  return await download(setURL(OPTIONS, engine.settings.downloadURL, nzbID), engine)
 }
 
 const processJsonResponse = async (response: string, engine: EngineWithSettings): Promise<NZBObject> => {
@@ -75,13 +53,14 @@ const processJsonResponse = async (response: string, engine: EngineWithSettings)
     throw new Error(`no valid JSON response`)
   }
   if (engine.settings.groupByPoster) {
-    return await getGroupedNzbFromJson(jsonResponse, engine)
+    log.info(`grouping NZB files from search engine "${engine.name}"`)
+    return await getMergedNzbFromJson(jsonResponse, engine)
   }
   const nzbID = getItemfromJson(jsonResponse, engine.settings.searchPattern)
   if (nzbID === null || nzbID.length === 0) {
     throw new Error(`no NZB file ID found`)
   }
-  return convertToNzbObject(await download(setOptions(nzbID[0] as string, engine), engine), engine)
+  return await download(setURL(OPTIONS, engine.settings.downloadURL, nzbID[0] as string), engine)
 }
 
 const getItemfromHtml = (response: string, searchPattern: string, searchGroup: number): string | null => {
@@ -111,41 +90,7 @@ const getItemfromJson = (response: JsonResponse, jsonPath: string): unknown[] | 
   return null
 }
 
-const setOptions = (nzbID: string, engine: EngineWithSettings): FetchOptions => {
-  const nzbDownloadURL = engine.settings.downloadURL.replace(/%s/, nzbID)
-  log.info(
-    `the download URL for NZB file with ID ${nzbID} from search engine "${engine.name}" is set to ${nzbDownloadURL}`
-  )
-  return {
-    url: nzbDownloadURL,
-    responseType: 'text',
-    timeout: 60000,
-  }
-}
-
-const download = async (options: FetchOptions, engine: EngineWithSettings): Promise<string> => {
-  try {
-    return await (await useFetch(options)).text()
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
-    log.warn(`error while trying to download the NZB file from search engine "${engine.name}"`, error)
-    throw error
-  }
-}
-
-const convertToNzbObject = (nzbTextFile: string, engine: EngineWithSettings): NZBObject => {
-  let nzbFile: NZBObject
-  try {
-    nzbFile = textToNzbObject(nzbTextFile)
-    log.info(`the response from search engine "${engine.name}" is a valid NZB file`)
-  } catch {
-    log.warn(`the response from search engine "${engine.name}" is not a valid NZB file`)
-    throw new Error('not a valid NZB file')
-  }
-  return nzbFile
-}
-
-const getGroupedNzbFromHtml = async (html: string, engine: EngineWithSettings): Promise<NZBObject> => {
+const getMergedNzbFromHtml = async (html: string, engine: EngineWithSettings): Promise<NZBObject> => {
   const results = querySelectorAll(html, engine.settings.resultSelector)
   if (results.length === 0) {
     throw new Error(`no results from search engine "${engine.name}"`)
@@ -163,11 +108,10 @@ const getGroupedNzbFromHtml = async (html: string, engine: EngineWithSettings): 
       nzbPromises.push(makeDownloadPromise(nzbs, nzbID, engine))
     }
   }
-  return downloadGroupedNZB(nzbPromises, nzbs)
+  return downloadMergedNZB(nzbPromises, nzbs)
 }
 
-const getGroupedNzbFromJson = async (json: JsonResponse, engine: EngineWithSettings): Promise<NZBObject> => {
-  log.info(`grouping NZB files from search engine "${engine.name}"`)
+const getMergedNzbFromJson = async (json: JsonResponse, engine: EngineWithSettings): Promise<NZBObject> => {
   const nzbIDs = jsonpath.query(json, `$.${engine.settings.searchPattern}`)
   const posters = jsonpath.query(json, `$.${engine.settings.posterPattern}`)
   if (nzbIDs.length === 0) {
@@ -186,24 +130,15 @@ const getGroupedNzbFromJson = async (json: JsonResponse, engine: EngineWithSetti
       nzbPromises.push(makeDownloadPromise(nzbs, nzbID, engine))
     }
   }
-  return downloadGroupedNZB(nzbPromises, nzbs)
+  return downloadMergedNZB(nzbPromises, nzbs)
 }
 
 const makeDownloadPromise = (nzbs: NZBObject[], nzbID: string, engine: EngineWithSettings): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
-    download(setOptions(nzbID, engine), engine)
-      .then((nzbTextFile) => {
-        let nzbFile: NZBObject
-        try {
-          nzbFile = textToNzbObject(nzbTextFile)
-          console.log(nzbFile)
-          log.info(`the response from search engine "${engine.name}" is a valid NZB file`)
-          nzbs.push(nzbFile)
-          resolve()
-        } catch {
-          log.warn(`the response from search engine "${engine.name}" is not a valid NZB file`)
-          reject(`not a valid NZB file`)
-        }
+    download(setURL(OPTIONS, engine.settings.downloadURL, nzbID), engine)
+      .then((nzbFile) => {
+        nzbs.push(nzbFile)
+        resolve()
       })
       .catch((error) => {
         reject(error.message || 'unknown error')
@@ -211,7 +146,7 @@ const makeDownloadPromise = (nzbs: NZBObject[], nzbID: string, engine: EngineWit
   })
 }
 
-const downloadGroupedNZB = async (nzbPromises: Promise<void>[], nzbs: NZBObject[]): Promise<NZBObject> => {
+const downloadMergedNZB = async (nzbPromises: Promise<void>[], nzbs: NZBObject[]): Promise<NZBObject> => {
   const promiseResult = await Promise.allSettled(nzbPromises)
   if (nzbs.length > 0) {
     const mergedNzb = mergeNZBObjects(nzbs)

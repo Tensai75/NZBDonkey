@@ -25,7 +25,7 @@ export function getSearchEnginesList(): Promise<SearchEnginesListItem[]> {
 }
 
 export async function updateSearchEnginesList(engines: SearchEnginesListItem[]): Promise<SearchEnginesListItem[]> {
-  log.info('updating predefined default search engines with the latest data from the search engines list')
+  log.info('updating predefined search engines with the latest data from the search engines list')
   const searchEngineList = await fetchAndValidateList<SearchEnginesListItem>(
     searchEnginesList.url,
     searchEnginesList.expectedVersion,

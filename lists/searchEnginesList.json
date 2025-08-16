@@ -89,13 +89,15 @@
       "type": "easyNewsEngine",
       "name": "EasyNews",
       "isActive": true,
-      "isDefault": false,
+      "isDefault": true,
       "settings": {
         "username": "",
         "password": "",
         "removeUnderscore": false,
         "removeHyphen": false,
-        "setIntoQuotes": false
+        "setIntoQuotes": false,
+        "searchURL": "https://members.easynews.com/2.0/search/solr-search/?fly=2&pby=1000&pno=1&s1=nsubject&s1d=%2B&s2=nrfile&s2d=%2B&s3=dsize&s3d=%2B&sS=0&st=adv&safeO=0&sb=1&sbj=%s",
+        "downloadURL": "https://members.easynews.com/2.0/api/dl-nzb"
       },
       "icon": "https://members.easynews.com/L4/favicon.ico"
     }
