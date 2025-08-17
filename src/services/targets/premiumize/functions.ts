@@ -6,25 +6,35 @@ import { i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { FetchOptions, JSONparse, useFetch } from '@/utils/fetchUtilities'
+import { Semaphore } from '@/utils/generalUtilities'
 import { getBasenameFromFilename } from '@/utils/stringUtilities'
 
+const MAX_CONCURRENT = 5
+
+const dlSemaphore = new Semaphore(MAX_CONCURRENT)
+
 export const push = async (nzb: NZBFileObject, targetSettings: TargetSettings): Promise<void> => {
-  const settings = targetSettings.settings as Settings
-  log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+  const release = await dlSemaphore.acquire()
   try {
-    const file = new Blob([nzb.getAsTextFile(), nzb.filename], {
-      type: 'application/octet-stream',
-    })
-    const options = setOptions(settings)
-    const filename = getBasenameFromFilename(nzb.getFilename()).slice(0, 86) + '.nzb'
-    options.basepath = 'api/transfer/create'
-    ;(options.data as FormData).append('password', nzb.password)
-    ;(options.data as FormData).append('src', file, filename)
-    await connect(options)
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-    log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
-    throw error
+    const settings = targetSettings.settings as Settings
+    log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+    try {
+      const file = new Blob([nzb.getAsTextFile(), nzb.filename], {
+        type: 'application/octet-stream',
+      })
+      const options = setOptions(settings)
+      const filename = getBasenameFromFilename(nzb.getFilename()).slice(0, 86) + '.nzb'
+      options.basepath = 'api/transfer/create'
+      ;(options.data as FormData).append('password', nzb.password)
+      ;(options.data as FormData).append('src', file, filename)
+      await connect(options)
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
+      throw error
+    }
+  } finally {
+    release()
   }
 }
 

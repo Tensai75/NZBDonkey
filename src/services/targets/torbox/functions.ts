@@ -6,32 +6,42 @@ import { i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { FetchOptions, JSONparse, useFetch } from '@/utils/fetchUtilities'
+import { Semaphore } from '@/utils/generalUtilities'
 import { getBasenameFromFilename } from '@/utils/stringUtilities'
+
+const MAX_CONCURRENT = 10
+
+const dlSemaphore = new Semaphore(MAX_CONCURRENT)
 
 const BASE_SCHEME = 'https'
 const BASE_SERVER = 'api.torbox.app'
 const API_VERSION = 'v1'
 
 export const push = async (nzb: NZBFileObject, targetSettings: TargetSettings): Promise<void> => {
-  const settings = targetSettings.settings as Settings
-  log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+  const release = await dlSemaphore.acquire()
   try {
-    const options = setOptions(settings)
-    options.path = 'usenet/asyncccreateusenetdownload'
-    options.data = new FormData()
-    options.data.append(
-      'file',
-      new Blob([nzb.getAsTextFile()], { type: 'application/octet-stream' }),
-      nzb.getFilename()
-    )
-    options.data.append('name', getBasenameFromFilename(nzb.getFilename()))
-    options.data.append('as_queued', settings.as_queued ? 'true' : 'false')
-    if (nzb.password !== '') options.data.append('password', nzb.password)
-    await connect(options)
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-    log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
-    throw error
+    const settings = targetSettings.settings as Settings
+    log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+    try {
+      const options = setOptions(settings)
+      options.path = 'usenet/asyncccreateusenetdownload'
+      options.data = new FormData()
+      options.data.append(
+        'file',
+        new Blob([nzb.getAsTextFile()], { type: 'application/octet-stream' }),
+        nzb.getFilename()
+      )
+      options.data.append('name', getBasenameFromFilename(nzb.getFilename()))
+      options.data.append('as_queued', settings.as_queued ? 'true' : 'false')
+      if (nzb.password !== '') options.data.append('password', nzb.password)
+      await connect(options)
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
+      throw error
+    }
+  } finally {
+    release()
   }
 }
 

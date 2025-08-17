@@ -134,13 +134,7 @@ function confirmAdvancedSettings() {
     :validate-on-value-update="true"
     :validate-on-mount="true"
   >
-    <Dialog
-      :visible="true"
-      :closable="false"
-      modal
-      :header="title"
-      style="width: 55rem; max-width: 55rem; height: fit-content; max-height: 100%"
-    >
+    <Dialog :visible="true" :closable="false" modal :header="title" style="width: 55rem; max-width: 55rem">
       <template #header>
         <div class="inline-flex items-center justify-center gap-2">
           <NZBDonkeyLogo size="32" />

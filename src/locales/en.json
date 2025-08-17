@@ -338,7 +338,10 @@
     "fetchError": "error loading url \"$1\" intercepted on $2: $3",
     "fetchResponseProcessingError": "error while processing file \"$1\" intercepted on $2: $3",
     "success": "NZB file \"$1\" was intercepted successfully",
-    "requestBlocked": "request for $1 intercepted"
+    "requestBlocked": "The Request for $1 has been intercepted and is being processed.",
+    "fetchResponseArchiveProcessingSuccess": "The interception of archive $1 was successful.",
+    "fetchResponseArchiveProcessingPartialSuccess": "The interception of archive $1 partially failed with $2 errors.",
+    "fetchResponseArchiveProcessingError": "The interception of archive $1 failed."
   },
   "targets": {
     "download": {
@@ -365,7 +368,8 @@
   },
   "contextMenu": {
     "sendToSeveralTarget": "send to",
-    "analyseSelection": "analyse selected text"
+    "analyseSelection": "analyse selected text",
+    "sendToProcessing": "Processing the context menu click on $1"
   },
   "nzbsearch": {
     "searchNzb": "Search for NZB file",
@@ -404,7 +408,7 @@
     "errorWhileProcessingNzblnk": "error while processing NZBLNK: $1",
     "noFilename": "no filename or title set",
     "noActiveSearchEngines": "no active search engines",
-    "errorWhileProcessingContextMenuCLick": "error while processing context menu click: $1",
+    "errorWhileProcessingContextMenuClick": "Error while processing context menu click: $1",
     "invalidNzblnkLink": "invalid NZBLNK",
     "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and there are new options.",
     "hostPermissionsRequired": "NZBDonkey requires permission to access all websites in order to function properly",

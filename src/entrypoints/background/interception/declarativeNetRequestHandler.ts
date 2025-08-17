@@ -5,7 +5,7 @@ import * as interception from '@/services/interception'
 import { updateInterceptionDomainsList } from '@/services/lists'
 import log from '@/services/logger/debugLogger'
 import { sendMessage } from '@/services/messengers/extensionMessenger'
-import notification from '@/services/notifications'
+import notifications from '@/services/notifications'
 import {
   DeserializedResponse,
   deserializeResponse,
@@ -105,7 +105,7 @@ function onErrorOccurredListener(details: Browser.webRequest.WebRequestDetails):
     let sourceUrl = ''
     try {
       if (!isTracked) return
-      notification.info(i18n.t('interception.requestBlocked', [details.url]))
+      notifications.info(i18n.t('interception.requestBlocked', [details.url]))
       log.info(`request ${details.requestId} to ${details.url} was blocked by interception rules`)
       if (details.tabId >= 0 && details.frameId === 0 && details.type === 'main_frame') {
         log.info(`going back in tab ${details.tabId} due to blocked request`)
@@ -142,7 +142,7 @@ function onErrorOccurredListener(details: Browser.webRequest.WebRequestDetails):
       const url = details.url
       const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
       log.error(`faild to intercept request ${details.requestId} from ${url}`, error)
-      notification.error(i18n.t('interception.fetchError', [url, sourceUrl, error.message]))
+      notifications.error(i18n.t('interception.fetchError', [url, sourceUrl, error.message]))
       await browser.scripting.executeScript({
         target: { tabId: details.tabId },
         func: (msg: string) => alert(msg),
