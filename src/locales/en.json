@@ -338,7 +338,6 @@
     "fetchError": "error loading url \"$1\" intercepted on $2: $3",
     "fetchResponseProcessingError": "error while processing file \"$1\" intercepted on $2: $3",
     "success": "NZB file \"$1\" was intercepted successfully",
-    "requestBlocked": "request for $1 intercepted"
     "requestBlocked": "The Request for $1 has been intercepted and is being processed.",
     "fetchResponseArchiveProcessingSuccess": "The interception of archive $1 was successful.",
     "fetchResponseArchiveProcessingPartialSuccess": "The interception of archive $1 partially failed with $2 errors.",
