@@ -150,7 +150,6 @@ const downloadMergedNZB = async (nzbPromises: Promise<void>[], nzbs: NZBObject[]
   const promiseResult = await Promise.allSettled(nzbPromises)
   if (nzbs.length > 0) {
     const mergedNzb = mergeNZBObjects(nzbs)
-    console.log(mergedNzb)
     return mergedNzb
   } else {
     throw new Error(promiseResult.find((result) => result.status === 'rejected')?.reason || 'unknown error')
