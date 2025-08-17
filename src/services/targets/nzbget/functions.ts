@@ -6,7 +6,12 @@ import { i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { FetchOptions, JSONparse, useFetch } from '@/utils/fetchUtilities'
+import { Semaphore } from '@/utils/generalUtilities'
 import { b64EncodeUnicode } from '@/utils/stringUtilities'
+
+const MAX_CONCURRENT = 5
+
+const dlSemaphore = new Semaphore(MAX_CONCURRENT)
 
 type NzbGetApiResponse = {
   jsonrpc: string // The version of JSON-RPC used, typically "2.0"
@@ -25,39 +30,44 @@ export const push = async (
   nzb: NZBFileObject,
   targetSettings: TargetSettings & { selectedCategory?: string }
 ): Promise<void> => {
-  const settings = targetSettings.settings as Settings
-  log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+  const release = await dlSemaphore.acquire()
   try {
-    const options = setOptions(settings)
-    const clonedNZB = Object.assign(new NZBFileObject(), nzb)
-    if (targetSettings.selectedCategory && clonedNZB.settings?.addCategory) {
-      clonedNZB.addMetaInformation('category', targetSettings.selectedCategory)
+    const settings = targetSettings.settings as Settings
+    log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+    try {
+      const options = setOptions(settings)
+      const clonedNZB = Object.assign(new NZBFileObject(), nzb)
+      if (targetSettings.selectedCategory && clonedNZB.settings?.addCategory) {
+        clonedNZB.addMetaInformation('category', targetSettings.selectedCategory)
+      }
+      const params = [
+        nzb.getFilename(), // Filename
+        b64EncodeUnicode(clonedNZB.getAsTextFile()), // Content (NZB File)
+        typeof targetSettings.selectedCategory === 'string' ? targetSettings.selectedCategory : '', // Category
+        0, // Priority
+        false, // AddToTop
+        settings.addPaused, // AddPaused
+        '', // DupeKey
+        0, // DupeScore
+        settings.dupeMode, // DupeMode
+        [
+          { '*unpack:password': nzb.password.toString() as string }, // Post processing parameter: Password
+        ],
+      ]
+      options.data = JSON.stringify({
+        version: '1.1',
+        id: 1,
+        method: 'append',
+        params: params,
+      })
+      await connect(options)
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
+      throw error
     }
-    const params = [
-      nzb.getFilename(), // Filename
-      b64EncodeUnicode(clonedNZB.getAsTextFile()), // Content (NZB File)
-      typeof targetSettings.selectedCategory === 'string' ? targetSettings.selectedCategory : '', // Category
-      0, // Priority
-      false, // AddToTop
-      settings.addPaused, // AddPaused
-      '', // DupeKey
-      0, // DupeScore
-      settings.dupeMode, // DupeMode
-      [
-        { '*unpack:password': nzb.password.toString() as string }, // Post processing parameter: Password
-      ],
-    ]
-    options.data = JSON.stringify({
-      version: '1.1',
-      id: 1,
-      method: 'append',
-      params: params,
-    })
-    await connect(options)
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-    log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
-    throw error
+  } finally {
+    release()
   }
 }
 

@@ -5,7 +5,12 @@ import { Settings } from './settings'
 import { browser, Browser, i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
+import { Semaphore } from '@/utils/generalUtilities'
 import { b64EncodeUnicode } from '@/utils/stringUtilities'
+
+const MAX_CONCURRENT = 5
+
+const dlSemaphore = new Semaphore(MAX_CONCURRENT)
 
 const activeDownloads = new Map<
   number,
@@ -19,19 +24,24 @@ const activeDownloads = new Map<
 const pendingCreatedFilenames = new Map<number, string>()
 
 export const push = async (nzbFile: NZBFileObject, targetSettings: TargetSettings): Promise<void> => {
-  if (!browser.downloads.onChanged.hasListener(globalOnChanged)) {
-    browser.downloads.onChanged.addListener(globalOnChanged)
-  }
-  if (!browser.downloads.onCreated.hasListener(globalOnCreated)) {
-    browser.downloads.onCreated.addListener(globalOnCreated)
-  }
-  const downloadInstance = new download(nzbFile, targetSettings)
+  const release = await dlSemaphore.acquire()
   try {
-    await downloadInstance.push()
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-    log.error(`error while downloading file "${nzbFile.title}"`, error)
-    throw error
+    if (!browser.downloads.onChanged.hasListener(globalOnChanged)) {
+      browser.downloads.onChanged.addListener(globalOnChanged)
+    }
+    if (!browser.downloads.onCreated.hasListener(globalOnCreated)) {
+      browser.downloads.onCreated.addListener(globalOnCreated)
+    }
+    const downloadInstance = new download(nzbFile, targetSettings)
+    try {
+      await downloadInstance.push()
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      log.error(`error while downloading file "${nzbFile.title}"`, error)
+      throw error
+    }
+  } finally {
+    release()
   }
 }
 

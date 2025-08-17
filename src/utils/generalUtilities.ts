@@ -81,3 +81,63 @@ export function createContextMenuPromise(options: Browser.contextMenus.CreatePro
     })
   })
 }
+
+/**
+ * A simple async semaphore for limiting concurrency.
+ *
+ * Usage:
+ *   const semaphore = new Semaphore(5) // allow 5 concurrent tasks
+ *   const release = await semaphore.acquire()
+ *   try {
+ *     // critical section
+ *   } finally {
+ *     release()
+ *   }
+ */
+export class Semaphore {
+  /**
+   * Queue of waiting resolvers. Each queued function, when invoked, hands back
+   * a release callback to the awaiting acquire() caller.
+   */
+  private q: Array<() => void> = []
+
+  /**
+   * Current number of acquired (in-use) permits.
+   */
+  private used = 0
+
+  /**
+   * Create a semaphore with a fixed maximum concurrency (capacity).
+   * @param cap Maximum number of concurrent acquisitions allowed (> 0).
+   */
+  constructor(private cap: number) {}
+
+  /**
+   * Acquire a permit. If a permit is available, resolves immediately with a
+   * release function. Otherwise waits until a permit is released.
+   *
+   * @returns Promise resolving to a release callback that MUST be called once.
+   */
+  async acquire(): Promise<() => void> {
+    if (this.used < this.cap) {
+      this.used++
+      return () => this.release()
+    }
+    return await new Promise<() => void>((resolve) => {
+      this.q.push(() => {
+        this.used++
+        resolve(() => this.release())
+      })
+    })
+  }
+
+  /**
+   * Release a previously acquired permit and wake the next waiter (FIFO) if any.
+   * (Internal – users call the release function returned by acquire()).
+   */
+  private release() {
+    this.used--
+    const next = this.q.shift()
+    if (next) next()
+  }
+}
