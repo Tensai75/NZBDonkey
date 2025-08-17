@@ -1,3 +1,20 @@
+# [1.4.0-beta.1](https://github.com/Tensai75/NZBDonkey/compare/v1.3.0...v1.4.0-beta.1) (2025-08-17)
+
+
+### Bug Fixes
+
+* fix for some minor display errors ([20da4c6](https://github.com/Tensai75/NZBDonkey/commit/20da4c6916105f3056c8d5b077452a9ecc84c73e))
+* improved handling of archives with multiple NZB files. ([6447cbe](https://github.com/Tensai75/NZBDonkey/commit/6447cbefdc1de610c64e31fba8f4c8a8f1b62b44))
+* use global listeners and free the memory early to help GC ([71cb780](https://github.com/Tensai75/NZBDonkey/commit/71cb780a595671a53386a0229ff194635cb016eb))
+* use semaphores to limit concurrent pushes ([2ee93f4](https://github.com/Tensai75/NZBDonkey/commit/2ee93f49b30f08c13be323d0d0800447b61faebb))
+
+
+### Features
+
+* make the easynews URLs remotely updatable ([61ddeb3](https://github.com/Tensai75/NZBDonkey/commit/61ddeb3160b4ffff18d42ce0fe18a662200569b1))
+* make timeout user configurable ([7887101](https://github.com/Tensai75/NZBDonkey/commit/7887101eb7c20f7e0dc7a9cc4970907f9d5882fa))
+* new option to merge NZB files from same poster ([ab175ed](https://github.com/Tensai75/NZBDonkey/commit/ab175ed10395e53fca13cd2aa1c9786d2fd13e03))
+
 # [1.3.0](https://github.com/Tensai75/NZBDonkey/compare/v1.2.2...v1.3.0) (2025-08-10)
 
 
