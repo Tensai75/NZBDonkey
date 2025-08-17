@@ -101,6 +101,7 @@ async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?:
         const targets = await loadTargets()
         nzbFiles.forEach((nzbFile) => (nzbFile.targets = targets))
         await handleNzbDialogIfNeeded(nzbFiles, filename, (await getGeneralSettings()).catchLinksShowDialog)
+        await processNzbFiles(nzbFiles, filename)
       }
     } catch (e) {
       const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
@@ -108,6 +109,5 @@ async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?:
       log.error('error while processing context menu click', error)
       notifications.error(i18n.t('errors.errorWhileProcessingContextMenuClick', [error.message]))
     }
-    processNzbFiles(nzbFiles, filename)
   }
 }
