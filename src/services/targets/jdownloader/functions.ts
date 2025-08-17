@@ -30,7 +30,7 @@ export const push = async (nzb: NZBFileObject, targetSettings: TargetSettings): 
         autostart: !settings.addPaused,
         priority: 'DEFAULT',
       }
-      const myJDownloader = new MyJDownloader(settings.username, settings.password, APP_KEY)
+      const myJDownloader = new MyJDownloader(settings.username, settings.password, APP_KEY, settings.timeout)
       await myJDownloader.connect()
       await myJDownloader.addLinksRaw(settings.device, params)
       await myJDownloader.disconnect()
@@ -48,7 +48,7 @@ export const testConnection = async (targetSettings: TargetSettings): Promise<bo
   const settings = targetSettings.settings as Settings
   log.info(`testing connection to ${targetSettings.name}`)
   try {
-    const myJDownloader = new MyJDownloader(settings.username, settings.password, APP_KEY)
+    const myJDownloader = new MyJDownloader(settings.username, settings.password, APP_KEY, settings.timeout)
     await myJDownloader.connect()
     await myJDownloader.disconnect()
     return true
@@ -74,7 +74,7 @@ export const getDevices = async (targetSettings: TargetSettings): Promise<Device
   const settings = targetSettings.settings as Settings
   log.info(`getting devices from ${targetSettings.name}`)
   try {
-    const myJDownloader = new MyJDownloader(settings.username, settings.password, APP_KEY)
+    const myJDownloader = new MyJDownloader(settings.username, settings.password, APP_KEY, settings.timeout)
     await myJDownloader.connect()
     const devices = await myJDownloader.getDevices()
     await myJDownloader.disconnect()

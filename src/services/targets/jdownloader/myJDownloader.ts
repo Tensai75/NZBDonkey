@@ -1,6 +1,6 @@
 import cipher from './myJDownloaderWebCrypto'
 
-import { useFetch } from '@/utils/fetchUtilities'
+import { FetchOptions, useFetch } from '@/utils/fetchUtilities'
 
 const MYJD_API_VERSION = 1
 const MYJD_API_URL = 'https://api.jdownloader.org'
@@ -52,14 +52,16 @@ export class MyJDownloader {
   private serverEncryptionToken: string = ''
   private deviceEncryptionToken: string = ''
   private devices: Devices = []
+  private timeout: number = 30000
 
-  constructor(username: string, password: string, appKey: string) {
+  constructor(username: string, password: string, appKey: string, timeout: number) {
     if (username === '') throw new Error('username is empty')
     if (password === '') throw new Error('password is empty')
     if (appKey === '') throw new Error('appKey is empty')
     this.username = username.toLowerCase()
     this.password = password
     this.appKey = appKey
+    this.timeout = timeout
   }
 
   async connect(): Promise<boolean> {
@@ -151,7 +153,9 @@ export class MyJDownloader {
     params: object | undefined = undefined
   ): Promise<{ [key: string]: unknown }> {
     const rid = Math.floor(Math.random() * 10e12)
-    const options: RequestInit = { method: 'POST' }
+    const options: FetchOptions = {
+      timeout: this.timeout,
+    }
     if (params) {
       const bodyParams = {
         apiVer: MYJD_API_VERSION,
@@ -159,14 +163,15 @@ export class MyJDownloader {
         params: [JSON.stringify(params)],
         rid: rid,
       }
-      options.body = await cipher.aesEncrypt(secret, bodyParams)
+      options.data = await cipher.aesEncrypt(secret, bodyParams)
       path += endpoint
     } else {
       path += `&rid=${rid}`
       const signature = await cipher.hmacSha256(secret, path)
       path += `&signature=${signature}`
     }
-    return useFetch(MYJD_API_URL + path, options).then(async (response) => {
+    options.url = MYJD_API_URL + path
+    return useFetch(options).then(async (response) => {
       const encrypted = await response.text()
       const decrypted: { [key: string]: unknown } = JSON.parse(await cipher.aesDecrypt(secret, encrypted))
       if (!decrypted.rid || decrypted.rid != rid) throw new Error('rid missmatch')

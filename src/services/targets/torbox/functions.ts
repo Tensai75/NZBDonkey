@@ -77,7 +77,7 @@ const setOptions = (settings: Settings): FetchOptions => {
     host: BASE_SERVER,
     basepath: `/${API_VERSION}/api/`,
     responseType: 'text',
-    timeout: settings.timeout ? settings.timeout : 30000,
+    timeout: settings.timeout,
   }
   options.headers = {
     Authorization: `Bearer ${settings.apiKey}`,

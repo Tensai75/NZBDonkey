@@ -285,6 +285,10 @@
       "email": "E-Mail",
       "dupeMode": {
         "title": "Modus für die Duplikatprüfung"
+      },
+      "timeout": {
+        "title": "Timeout",
+        "seconds": "Sekunden"
       }
     },
     "ok": "OK",

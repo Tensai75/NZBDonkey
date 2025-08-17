@@ -130,7 +130,7 @@ const setOptions = (settings: Settings): FetchOptions => {
     username: settings.basicAuthUsername,
     password: settings.basicAuthPassword,
     path: 'api',
-    timeout: 120000, //settings.timeout ? settings.timeout : 120000,
+    timeout: settings.timeout,
     data: '',
   }
   if (settings.basepath && settings.basepath != '') {

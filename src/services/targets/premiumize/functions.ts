@@ -69,7 +69,7 @@ const setOptions = (settings: Settings): FetchOptions => {
     scheme: 'https',
     host: 'www.premiumize.me',
     responseType: 'text',
-    timeout: settings.timeout ? settings.timeout : 30000,
+    timeout: settings.timeout,
   }
   options.data = new FormData()
   options.data.append('apikey', settings.apiKey)

@@ -145,7 +145,7 @@ const setOptions = (settings: Settings, path: string = ''): FetchOptions => {
     port: settings.port,
     basepath: (settings.basepath ? (settings.basepath.match(/^\/*(.*?)\/*$/)?.[1] ?? '') + '/' : '') + 'webapi/',
     path: path !== '' ? path : 'query.cgi',
-    timeout: settings.timeout ? settings.timeout : 5000,
+    timeout: settings.timeout,
   }
   return options
 }

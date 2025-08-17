@@ -4,6 +4,7 @@ import { InputText, Message, Select, ToggleSwitch } from 'primevue'
 import { Ref, computed, watch } from 'vue'
 
 import { i18n } from '#i18n'
+import TimeoutInput from '@/components/inputs/timeoutInput.vue'
 import TestConnectionDialog from '@/components/targets/targetTestConnectionDialog.vue'
 import {
   relativePathResolver,
@@ -237,6 +238,10 @@ watch(
         $field.error?.message
       }}</Message>
     </FormField>
+  </div>
+  <div class="flex items-center gap-4 mb-4">
+    <label for="name" class="font-semibold w-24 text-right">{{ i18n.t('common.settings.timeout.title') }}</label>
+    <TimeoutInput v-model="targetSettings.settings.timeout" />
   </div>
   <div class="flex items-center gap-4 mb-4">
     <label for="name" class="font-semibold w-24 text-right">{{ i18n.t('common.settings.addAsPaused.title') }}</label>

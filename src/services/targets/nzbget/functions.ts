@@ -130,7 +130,7 @@ const setOptions = (settings: Settings): FetchOptions => {
     path: 'jsonrpc/',
     basepath: '',
     responseType: 'text',
-    timeout: settings.timeout ? settings.timeout : 30000,
+    timeout: settings.timeout,
     data: '',
   }
   if (settings.basepath && settings.basepath != '') {
