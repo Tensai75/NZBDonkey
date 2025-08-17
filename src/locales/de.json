@@ -168,8 +168,8 @@
           "searchURL": "Such-URL",
           "responseType": "Antwort-Typ",
           "searchPattern": {
-            "json": "JSON Objekt-Pfad",
-            "html": "RegExp Such-Muster"
+            "json": "JSON Objekt-Pfad für die NZB-ID",
+            "html": "RegExp Such-Muster für die NZB-ID"
           },
           "searchGroup": "RegExp Such-Gruppe",
           "downloadURL": "Download-URL",
@@ -178,7 +178,18 @@
             "removeUndersore": "Unterstriche durch Leerzeichen ersetzen",
             "removeHyphen": "Bindestriche mit Leerzeichen ersetzen",
             "setIntoQuotes": "Suchbegriff in Anführungszeichen setzen"
-          }
+          },
+          "groupByPoster": {
+            "title": "NZB-Dateien zusammenfassen",
+            "description": "NZB-Dateien des gleichen Posters zusammenfassen"
+          },
+          "posterPattern": {
+            "html": "RegExp Such-Muster für den Poster",
+            "json": "JSON Objekt-Pfad für den Poster"
+          },
+          "resultSelector": "CSS-Selektor für den Resultat-Container",
+          "nzbIdIdentifier": "NZB-ID Erkennung",
+          "posterIdentifier": "Poster Erkennung"
         }
       },
       "reorder": "Die Reihenfolge der Suchmaschinen kann mittels drag & drop angepasst werden",

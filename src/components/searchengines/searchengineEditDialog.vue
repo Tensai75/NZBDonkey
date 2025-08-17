@@ -97,14 +97,14 @@ function reset() {
             ></Button>
             <Button type="button" :label="i18n.t('common.cancel')" severity="secondary" @click="emit('close')"></Button>
             <Button
-              v-if="!searchEngineTestSuccessful && (isAdd || !engine.isDefault)"
+              v-if="!searchEngineTestSuccessful"
               type="button"
               :label="i18n.t('common.testSearchEngine')"
               :disabled="!$form.valid"
               @click="showTestSearchEngineDialog = true"
             ></Button>
             <Button
-              v-if="searchEngineTestSuccessful && (isAdd || !engine.isDefault)"
+              v-if="searchEngineTestSuccessful"
               type="button"
               :label="i18n.t('common.save')"
               :disabled="!$form.valid"

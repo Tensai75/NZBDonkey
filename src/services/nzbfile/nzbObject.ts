@@ -40,7 +40,7 @@ export interface NZBSegmentsObject {
 export interface NZBSegmentObject {
   'number': number
   'bytes': number
-  'text': string // This is the Message-ID
+  '#text': string // This is the Message-ID
   '#comment'?: string[] // Optional comment inside segment
 }
 
@@ -90,4 +90,94 @@ export const nzbObjectToText = (
     throw new Error('not a valid NZBObject')
   }
   return text
+}
+
+export const mergeNZBObjects = (nzbObjects: NZBObject[]): NZBObject => {
+  let mergedNzb: NZBObject = {
+    xmlns: 'http://www.newzbin.com/DTD/2003/nzb',
+    head: {
+      meta: [],
+    },
+    file: [],
+  }
+
+  nzbObjects.forEach((nzb) => {
+    if (nzb.head?.meta) {
+      mergedNzb.head!.meta.push(...nzb.head.meta)
+    }
+    if (nzb.file) {
+      nzb.file.forEach((file) => {
+        mergedNzb.file.push(file)
+      })
+    }
+  })
+
+  // Remove duplicates in meta
+  mergedNzb = makeMetaUnique(mergedNzb)
+
+  // Remove duplicates in file
+  mergedNzb = makeFilesUnique(mergedNzb)
+
+  return mergedNzb
+}
+
+export const mergeNZBFileObjects = (files: NZBFileObject[]): NZBFileObject[] => {
+  const fileMap = new Map<string, NZBFileObject>()
+
+  files.forEach((file) => {
+    const existingFile = fileMap.get(file.subject)
+
+    if (existingFile) {
+      // Merge segments from both files
+      const allSegments = [...existingFile.segments.segment, ...file.segments.segment]
+
+      // Update the existing file with merged segments and latest metadata
+      fileMap.set(file.subject, {
+        ...file, // Use latest file's metadata (poster, date, groups)
+        segments: {
+          ...file.segments,
+          segment: allSegments,
+        },
+      })
+    } else {
+      fileMap.set(file.subject, file)
+    }
+  })
+
+  return Array.from(fileMap.values())
+}
+
+export const makeMetaUnique = (nzb: NZBObject): NZBObject => {
+  const uniqueMeta = Array.from(new Set(nzb.head?.meta?.map((m) => JSON.stringify(m)) || [])).map((m) => JSON.parse(m))
+  return {
+    ...nzb,
+    head: {
+      ...nzb.head,
+      meta: uniqueMeta,
+    },
+  }
+}
+
+export const makeFilesUnique = (nzb: NZBObject): NZBObject => {
+  // First merge files with same subject
+  const mergedFiles = mergeNZBFileObjects(nzb.file)
+
+  // Then deduplicate segments within each file
+  const filesWithUniqueSegments = mergedFiles.map((file) => ({
+    ...file,
+    segments: {
+      ...file.segments,
+      segment: makeSegmentsUnique(file.segments.segment),
+    },
+  }))
+
+  return {
+    ...nzb,
+    file: filesWithUniqueSegments,
+  }
+}
+
+export const makeSegmentsUnique = (segments: NZBSegmentObject[]): NZBSegmentObject[] => {
+  const uniqueSegments = Array.from(new Map(segments.map((segment) => [segment['#text'], segment])).values())
+  return uniqueSegments.sort((a, b) => a.number - b.number)
 }
