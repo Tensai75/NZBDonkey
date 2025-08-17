@@ -289,7 +289,9 @@
       "timeout": {
         "title": "Timeout",
         "seconds": "seconds"
-      }
+      },
+      "deviceDescription": "Can only be selected after the connection test.",
+      "deviceError": "There are no target devices available!"
     },
     "ok": "OK",
     "next": "Next",

@@ -132,7 +132,7 @@ function getDeviceIDs() {
       :validate-on-blur="true"
       :validate-on-value-update="true"
       :validate-on-mount="true"
-      class="grid-row flex-auto"
+      class="grid-row"
     >
       <Select
         v-model="targetSettings.settings.device"
@@ -167,6 +167,18 @@ function getDeviceIDs() {
         $field.error?.message
       }}</Message>
     </FormField>
+    <label v-if="!connectionSuccessful" class="label-text pl-4">
+      {{ i18n.t('common.settings.deviceDescription') }}
+    </label>
+    <Message
+      v-if="connectionSuccessful && targetSettings.settings.devices.length === 0"
+      severity="error"
+      size="small"
+      variant="simple"
+      class="flex-auto"
+    >
+      {{ i18n.t('common.settings.deviceError') }}
+    </Message>
   </div>
   <TestConnectionDialog
     v-model:show-test-connection-dialog="showTestConnectionDialog"

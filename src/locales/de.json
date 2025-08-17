@@ -289,7 +289,9 @@
       "timeout": {
         "title": "Timeout",
         "seconds": "Sekunden"
-      }
+      },
+      "deviceDescription": "Kann erst nach dem Verbindungstest ausgewählt werden.",
+      "deviceError": "Es sind keine Ziel-Geräte vorhanden!"
     },
     "ok": "OK",
     "next": "Weiter",
