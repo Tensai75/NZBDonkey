@@ -119,16 +119,9 @@ export async function handleMultiNzbCategorySetting(nzbFiles: NZBFileObject[], f
         if (selectedTargetCategories[j] !== undefined) {
           nzbFiles[i].targets[j].selectedCategory = selectedTargetCategories[j]
         } else {
-          try {
-            // get the category once for the archive file name
-            // assuming that all files in the archive will have the same category
-            selectedTargetCategories[j] = await getCategory(nzbFiles[i].targets[j].categories, filename)
-          } catch (e) {
-            const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-            log.error(`error while getting category for target ${nzbFiles[i].targets[j].name}`, error)
-            // if the category could not be determined, set it to empty
-            selectedTargetCategories[j] = ''
-          }
+          // get the category once for the archive file name
+          // assuming that all files in the archive will have the same category
+          selectedTargetCategories[j] = await getCategory(nzbFiles[i].targets[j].categories, filename)
           nzbFiles[i].targets[j].selectedCategory = selectedTargetCategories[j]
         }
       }

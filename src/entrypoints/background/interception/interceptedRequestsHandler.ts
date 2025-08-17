@@ -54,11 +54,11 @@ export async function processInterceptedRequestResponse({
     log.info(`processing intercepted request response from ${url}`)
     nzbFiles = await handleResponseData({ response, filename, source, allowedArchives: setting.archiveFileExtensions })
     await handleNzbDialogIfNeeded(nzbFiles, filename, setting.showNzbDialog)
+    await processNzbFiles(nzbFiles, filename)
   } catch (e) {
     const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
     handleError(error, nzbFiles)
     log.error('error while processing the intercepted request response', error)
     notifications.error(i18n.t('interception.fetchResponseProcessingError', [filename, source, error.message]))
   }
-  processNzbFiles(nzbFiles, filename)
 }
