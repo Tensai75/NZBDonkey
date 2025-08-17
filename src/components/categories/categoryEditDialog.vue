@@ -34,12 +34,7 @@ const showPredefinedRegExpDialog = ref(false)
 
 <template>
   <Form v-slot="$form" :validate-on-blur="true" :validate-on-value-update="true" :validate-on-mount="true">
-    <Dialog
-      :visible="true"
-      modal
-      :header="title"
-      style="width: 55rem; max-width: 55rem; min-height: fit-content; max-height: 100%"
-    >
+    <Dialog :visible="true" modal :header="title" style="width: 55rem; max-width: 55rem">
       <div class="flex items-center gap-4 mb-4">
         <label for="category" class="font-semibold min-w-32 w-32">{{
           i18n.t('settings.nzbFileTargets.categories.category.name')

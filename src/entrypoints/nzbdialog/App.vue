@@ -11,7 +11,7 @@ import { CategorySettings, getAutomaticCategory, getDefaultCategory } from '@/se
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { requiredResolver } from '@/services/resolvers'
-import { focusPopupWindow, resizePopupWindow } from '@/utils/popupWindowUtilities'
+import { focusPopupWindow, resizePopupWindow, setZoomTo100 } from '@/utils/popupWindowUtilities'
 
 const overlay = ref(true)
 const loaded = ref(false)
@@ -113,54 +113,57 @@ function handleKeydown(event: KeyboardEvent) {
 
 function resize(secondResize = false) {
   return new Promise<void>((resolve) => {
-    // 100 ms delay to ensure the DOM is fully rendered before resizing
-    // required especially for Firefox in order to get correct scrollHeights in second resize
-    // seemingly not required for Chrome but more testing woul be needed
-    setTimeout(async () => {
-      const maxWidth = 800 > screen.availWidth ? screen.availWidth : 800
-      const maxHeight = 800 > screen.availHeight ? screen.availHeight : 800
-      let lowerContentMaxHeight = 245
-      let upperContentMaxHeight: number
-      const headerHeight = document.getElementById('header')?.scrollHeight
-      const footerHeight = document.getElementById('footer')?.scrollHeight
-      const upperContent = document.getElementById('nzbFiles')
-      const lowerContent = document.getElementById('targets')
-      let upperContentHeight = upperContent?.scrollHeight
-      let lowerContentHeight = lowerContent?.scrollHeight || 0
-      // debug console output
-      // console.log(`resize ${secondResize ? '2' : '1'}`)
-      // console.log('upperContentHeight:', upperContentHeight)
-      // console.log('lowerContentHeight:', lowerContentHeight)
-      if (headerHeight === undefined || footerHeight === undefined || upperContentHeight === undefined) {
-        log.error('resizing the window failed because one or more elements were not found')
+    setZoomTo100().then(() => {
+      // 100 ms delay to ensure the DOM is fully rendered before resizing
+      // required especially for Firefox in order to get correct scrollHeights in second resize
+      // seemingly not required for Chrome but more testing woul be needed
+      setTimeout(async () => {
+        const maxWidth = 800 > screen.availWidth ? screen.availWidth : 800
+        const maxHeight = 800 > screen.availHeight ? screen.availHeight : 800
+        let lowerContentMaxHeight = 245
+        let upperContentMaxHeight: number
+        const headerHeight = document.getElementById('header')?.scrollHeight
+        const footerHeight = document.getElementById('footer')?.scrollHeight
+        const upperContent = document.getElementById('nzbFiles')
+        const lowerContent = document.getElementById('targets')
+        let upperContentHeight = upperContent?.scrollHeight
+        let lowerContentHeight = lowerContent?.scrollHeight || 0
+        // debug console output
+        // console.log(`resize ${secondResize ? '2' : '1'}`)
+        // console.log('upperContentHeight:', upperContentHeight)
+        // console.log('lowerContentHeight:', lowerContentHeight)
+        if (headerHeight === undefined || footerHeight === undefined || upperContentHeight === undefined) {
+          log.error('resizing the window failed because one or more elements were not found')
+          resolve()
+          return
+        }
+        const availableHeight = maxHeight - headerHeight - footerHeight
+        lowerContentMaxHeight = 800 > screen.availHeight ? availableHeight * (2 / 5) : lowerContentMaxHeight
+        if (upperContentHeight + lowerContentHeight > availableHeight) {
+          lowerContentMaxHeight =
+            lowerContentHeight >= lowerContentMaxHeight ? lowerContentMaxHeight : lowerContentHeight
+          upperContentMaxHeight = availableHeight - lowerContentMaxHeight
+        } else {
+          lowerContentMaxHeight = lowerContentHeight
+          upperContentMaxHeight = upperContentHeight
+        }
+        // only set the maxHeights and heights during the second resize
+        // for some reasons scrollHeights are not reliable during the first resize even with the delay
+        if (secondResize) {
+          if (lowerContent) {
+            lowerContent.style.maxHeight = `${lowerContentMaxHeight}px`
+            lowerContent.style.height = `${lowerContentMaxHeight}px`
+          }
+          if (upperContent) {
+            upperContent.style.maxHeight = `${upperContentMaxHeight}px`
+            upperContent.style.height = `${upperContentMaxHeight}px`
+          }
+        }
+        const containerHeight = headerHeight + footerHeight + upperContentMaxHeight + lowerContentMaxHeight
+        await resizePopupWindow(maxWidth, containerHeight)
         resolve()
-        return
-      }
-      const availableHeight = maxHeight - headerHeight - footerHeight
-      lowerContentMaxHeight = 800 > screen.availHeight ? availableHeight * (2 / 5) : lowerContentMaxHeight
-      if (upperContentHeight + lowerContentHeight > availableHeight) {
-        lowerContentMaxHeight = lowerContentHeight >= lowerContentMaxHeight ? lowerContentMaxHeight : lowerContentHeight
-        upperContentMaxHeight = availableHeight - lowerContentMaxHeight
-      } else {
-        lowerContentMaxHeight = lowerContentHeight
-        upperContentMaxHeight = upperContentHeight
-      }
-      // only set the maxHeights and heights during the second resize
-      // for some reasons scrollHeights are not reliable during the first resize even with the delay
-      if (secondResize) {
-        if (lowerContent) {
-          lowerContent.style.maxHeight = `${lowerContentMaxHeight}px`
-          lowerContent.style.height = `${lowerContentMaxHeight}px`
-        }
-        if (upperContent) {
-          upperContent.style.maxHeight = `${upperContentMaxHeight}px`
-          upperContent.style.height = `${upperContentMaxHeight}px`
-        }
-      }
-      const containerHeight = headerHeight + footerHeight + upperContentMaxHeight + lowerContentMaxHeight
-      await resizePopupWindow(maxWidth, containerHeight)
-      resolve()
-    }, 100)
+      }, 100)
+    })
   })
 }
 </script>
@@ -182,8 +185,8 @@ function resize(secondResize = false) {
       <!-- Header -->
       <header id="header" class="p-4">
         <div class="flex flex-row justify-between w-full">
-          <div class="inline-flex items-center justify-center gap-2">
-            <span class="font-bold text-lg truncate" style="max-width: 95vw; width: 95vw">{{ filename }}</span>
+          <div class="inline-flex items-center justify-center gap-2 w-full">
+            <span class="font-bold text-lg w-full truncate">{{ filename }}</span>
           </div>
         </div>
       </header>
