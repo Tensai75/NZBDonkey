@@ -14,6 +14,7 @@ export const defaultSettings: TargetSettings = {
     devices: new Array<Device>(),
     password: '',
     username: '',
+    timeout: 30000,
   },
   categories: categoriesDefaultSettings,
 }
@@ -24,4 +25,5 @@ export type Settings = {
   devices: Device[]
   password: string
   username: string
+  timeout: number
 }

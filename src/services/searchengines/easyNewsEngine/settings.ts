@@ -11,6 +11,8 @@ export const defaultSettings: SearchEngine = {
     removeUnderscore: false,
     removeHyphen: false,
     setIntoQuotes: false,
+    searchURL: '',
+    downloadURL: '',
   },
 }
 
@@ -20,4 +22,6 @@ export type Settings = {
   removeUnderscore: boolean
   removeHyphen: boolean
   setIntoQuotes: boolean
+  searchURL: string
+  downloadURL: string
 }

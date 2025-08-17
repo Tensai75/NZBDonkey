@@ -168,8 +168,8 @@
           "searchURL": "Search URL",
           "responseType": "Response type",
           "searchPattern": {
-            "json": "JSON object path",
-            "html": "Regexp search pattern"
+            "json": "JSON object path for the NZB id",
+            "html": "Regexp search pattern for the NZB id"
           },
           "searchGroup": "Regexp search group",
           "downloadURL": "Download URL",
@@ -178,7 +178,18 @@
             "removeUndersore": "replace underscores with spaces",
             "removeHyphen": "replace hyphens with spaces",
             "setIntoQuotes": "set search string into quotes"
-          }
+          },
+          "groupByPoster": {
+            "title": "Merge NZB files",
+            "description": "Merge NZB files from same poster"
+          },
+          "posterPattern": {
+            "html": "Regexp search pattern for the poster",
+            "json": "JSON object path for the poster"
+          },
+          "resultSelector": "CSS selector for the result container",
+          "nzbIdIdentifier": "NZB id identification",
+          "posterIdentifier": "Poster identification"
         }
       },
       "reorder": "Reorder the search engines with drag & drop ",
@@ -274,7 +285,13 @@
       "email": "Email",
       "dupeMode": {
         "title": "Duplicate check mode"
-      }
+      },
+      "timeout": {
+        "title": "Timeout",
+        "seconds": "seconds"
+      },
+      "deviceDescription": "Can only be selected after the connection test.",
+      "deviceError": "There are no target devices available!"
     },
     "ok": "OK",
     "next": "Next",
@@ -338,7 +355,10 @@
     "fetchError": "error loading url \"$1\" intercepted on $2: $3",
     "fetchResponseProcessingError": "error while processing file \"$1\" intercepted on $2: $3",
     "success": "NZB file \"$1\" was intercepted successfully",
-    "requestBlocked": "request for $1 intercepted"
+    "requestBlocked": "The Request for $1 has been intercepted and is being processed.",
+    "fetchResponseArchiveProcessingSuccess": "The interception of archive $1 was successful.",
+    "fetchResponseArchiveProcessingPartialSuccess": "The interception of archive $1 partially failed with $2 errors.",
+    "fetchResponseArchiveProcessingError": "The interception of archive $1 failed."
   },
   "targets": {
     "download": {
@@ -365,7 +385,8 @@
   },
   "contextMenu": {
     "sendToSeveralTarget": "send to",
-    "analyseSelection": "analyse selected text"
+    "analyseSelection": "analyse selected text",
+    "sendToProcessing": "Processing the context menu click on $1"
   },
   "nzbsearch": {
     "searchNzb": "Search for NZB file",
@@ -404,7 +425,7 @@
     "errorWhileProcessingNzblnk": "error while processing NZBLNK: $1",
     "noFilename": "no filename or title set",
     "noActiveSearchEngines": "no active search engines",
-    "errorWhileProcessingContextMenuCLick": "error while processing context menu click: $1",
+    "errorWhileProcessingContextMenuClick": "Error while processing context menu click: $1",
     "invalidNzblnkLink": "invalid NZBLNK",
     "settingsWereNotPreserved": "Not all settings from the previous version could be migrated and there are new options.",
     "hostPermissionsRequired": "NZBDonkey requires permission to access all websites in order to function properly",

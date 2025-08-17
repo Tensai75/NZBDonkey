@@ -8,7 +8,7 @@ import { defaultSettings as defaultEngineSettings } from '@/services/searchengin
 
 const searchEnginesList = {
   url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/${import.meta.env.WXT_BRANCH_NAME}/lists/searchEnginesList.json`,
-  expectedVersion: 1,
+  expectedVersion: 2,
   sortkey: 'name',
   defaultList: searchEnginesDefaultList,
   defaultKeys: [...Object.keys(defaultEngineSettings), 'icon'] as (keyof SearchEnginesListItem)[],
@@ -16,6 +16,7 @@ const searchEnginesList = {
 
 export function getSearchEnginesList(): Promise<SearchEnginesListItem[]> {
   return fetchAndValidateList<SearchEnginesListItem>(
+    'search engines list',
     searchEnginesList.url,
     searchEnginesList.expectedVersion,
     searchEnginesList.sortkey as keyof SearchEnginesListItem,
@@ -25,8 +26,9 @@ export function getSearchEnginesList(): Promise<SearchEnginesListItem[]> {
 }
 
 export async function updateSearchEnginesList(engines: SearchEnginesListItem[]): Promise<SearchEnginesListItem[]> {
-  log.info('updating predefined default search engines with the latest data from the search engines list')
+  log.info('updating predefined search engines with the latest data from the search engines list')
   const searchEngineList = await fetchAndValidateList<SearchEnginesListItem>(
+    'search engines list',
     searchEnginesList.url,
     searchEnginesList.expectedVersion,
     searchEnginesList.sortkey as keyof SearchEnginesListItem,

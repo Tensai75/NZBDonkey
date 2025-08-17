@@ -1,13 +1,12 @@
 import { Browser, browser, i18n } from '#imports'
 import { getSettings as getGeneralSettings } from '@/services/general'
-import { extractArchive } from '@/services/interception'
+import { handleError, handleNzbDialogIfNeeded, handleResponseData, processNzbFiles } from '@/services/interception'
 import log from '@/services/logger/debugLogger'
 import notifications from '@/services/notifications'
-import { NZBFileObject, NZBFileTarget, showNzbFileDialog } from '@/services/nzbfile'
+import { NZBFileObject, NZBFileTarget } from '@/services/nzbfile'
 import { getTargets } from '@/services/targets'
 import { FetchOptions, getFilenameFromResponse, useFetch } from '@/utils/fetchUtilities'
 import { createContextMenuPromise } from '@/utils/generalUtilities'
-import { getExtensionFromFilename } from '@/utils/stringUtilities'
 
 const CONTEXT_MENU_ID: string = 'NZBDONKEY_SendTo'
 const CONTEXT_MENU_ID_TARGET: string = 'NZBDONKEY_SendTo_Target_'
@@ -70,6 +69,8 @@ export async function registerSendToContextMenu(): Promise<void> {
 
 async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?: Browser.tabs.Tab): Promise<void> {
   if (info.menuItemId === CONTEXT_MENU_ID || info.parentMenuItemId === CONTEXT_MENU_ID) {
+    let nzbFiles: NZBFileObject[] = []
+    let filename = ''
     try {
       const loadTargets = async (): Promise<NZBFileTarget[]> => {
         let nzbTargets: NZBFileTarget[] = []
@@ -84,36 +85,29 @@ async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?:
         const nzbfile = await new NZBFileObject().init()
         await nzbfile.processNzblnk(info.linkUrl ? info.linkUrl : '', tab?.url ? tab.url : '', await loadTargets())
       } else if (info.linkUrl) {
+        notifications.info(i18n.t('contextMenu.sendToProcessing', [info.linkUrl]))
         const fetchOptions: FetchOptions = {
           url: info.linkUrl,
           init: { credentials: 'include' },
         }
         const response = await useFetch(fetchOptions)
-        let nzbFiles: NZBFileObject[] = []
-        const filename = getFilenameFromResponse(response)
-        const extension = getExtensionFromFilename(filename).toLowerCase()
-        if (extension === 'nzb') {
-          const nzbfile = await new NZBFileObject().init()
-          await nzbfile.addNzbFile(await response.text(), filename, info.pageUrl ?? '', await loadTargets())
-          nzbFiles.push(nzbfile)
-        } else if (['zip', 'rar', '7z'].includes(extension)) {
-          nzbFiles = await extractArchive(await response.blob(), info.pageUrl ?? '')
-        } else {
-          throw new Error('no nzb file or archive in download link')
-        }
-        if (nzbFiles.length === 0) throw new Error('no NZB file found in download')
+        filename = getFilenameFromResponse(response)
+        nzbFiles = await handleResponseData({
+          response,
+          filename,
+          source: info.linkUrl,
+          allowedArchives: ['rar', 'zip', '7z'],
+        })
         const targets = await loadTargets()
         nzbFiles.forEach((nzbFile) => (nzbFile.targets = targets))
-        if ((await getGeneralSettings()).catchLinksShowDialog) {
-          nzbFiles = await showNzbFileDialog(nzbFiles, filename)
-        }
-        nzbFiles.forEach((nzbFile) => nzbFile.process())
+        await handleNzbDialogIfNeeded(nzbFiles, filename, (await getGeneralSettings()).catchLinksShowDialog)
+        await processNzbFiles(nzbFiles, filename)
       }
     } catch (e) {
       const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-      const errorMessage = i18n.t('errors.errorWhileProcessingContextMenuCLick', [error.message])
-      log.error(errorMessage, error)
-      notifications.error(errorMessage)
+      handleError(error, nzbFiles)
+      log.error('error while processing context menu click', error)
+      notifications.error(i18n.t('errors.errorWhileProcessingContextMenuClick', [error.message]))
     }
   }
 }

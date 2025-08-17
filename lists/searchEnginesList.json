@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "data": [
     {
       "type": "defaultEngine",
@@ -9,8 +9,12 @@
       "settings": {
         "searchURL": "https://nzbindex.com/api/search?q=%s&sort=agedesc&max=25",
         "responseType": "json",
-        "searchPattern": "data.content.0.id",
+        "searchPattern": "data.content[*].id",
         "searchGroup": 1,
+        "groupByPoster": true,
+        "posterPattern": "data.content[*].poster",
+        "posterGroup": 1,
+        "resultSelector": "",
         "downloadURL": "https://nzbindex.com/download?ids=%s",
         "removeUnderscore": false,
         "removeHyphen": false,
@@ -26,8 +30,12 @@
       "settings": {
         "searchURL": "https://nzbindex.nl/api/search?q=%s&sort=agedesc&max=25",
         "responseType": "json",
-        "searchPattern": "data.content.0.id",
+        "searchPattern": "data.content[*].id",
         "searchGroup": 1,
+        "groupByPoster": true,
+        "posterPattern": "data.content[*].poster",
+        "posterGroup": 1,
+        "resultSelector": "",
         "downloadURL": "https://nzbindex.nl/download?ids=%s",
         "removeUnderscore": false,
         "removeHyphen": false,
@@ -45,6 +53,10 @@
         "responseType": "html",
         "searchPattern": "<input[^>]*checkbox[^>]*name=\"([^\"]+)\"",
         "searchGroup": 1,
+        "groupByPoster": true,
+        "posterPattern": "href=\"[^\"]*poster[^>]*>(.*?)<",
+        "posterGroup": 1,
+        "resultSelector": "TR",
         "downloadURL": "https://www.binsearch.info/nzb?%s=on",
         "removeUnderscore": false,
         "removeHyphen": false,
@@ -62,6 +74,10 @@
         "responseType": "html",
         "searchPattern": "href=\"\\/details:(.*?)\\/\"",
         "searchGroup": 1,
+        "groupByPoster": true,
+        "posterPattern": "href=\"[^\"]*poster[^>]*>(.*?)\\s*<",
+        "posterGroup": 1,
+        "resultSelector": "DIV.search-result",
         "downloadURL": "https://nzbking.com/nzb:%s/",
         "removeUnderscore": false,
         "removeHyphen": false,
@@ -73,13 +89,15 @@
       "type": "easyNewsEngine",
       "name": "EasyNews",
       "isActive": true,
-      "isDefault": false,
+      "isDefault": true,
       "settings": {
         "username": "",
         "password": "",
         "removeUnderscore": false,
         "removeHyphen": false,
-        "setIntoQuotes": false
+        "setIntoQuotes": false,
+        "searchURL": "https://members.easynews.com/2.0/search/solr-search/?fly=2&pby=1000&pno=1&s1=nsubject&s1d=%2B&s2=nrfile&s2d=%2B&s3=dsize&s3d=%2B&sS=0&st=adv&safeO=0&sb=1&sbj=%s",
+        "downloadURL": "https://members.easynews.com/2.0/api/dl-nzb"
       },
       "icon": "https://members.easynews.com/L4/favicon.ico"
     }

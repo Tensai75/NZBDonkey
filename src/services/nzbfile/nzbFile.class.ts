@@ -35,6 +35,7 @@ export class NZBFileObject {
   filepath: string
   targets: NZBFileTarget[]
   source: string
+  isFromArchive: boolean = false
   searchEngine?: string
   downloadURL?: string
   settings?: NZBFileSettings
@@ -137,14 +138,7 @@ export class NZBFileObject {
       for (const engine of engines) {
         const f = async (): Promise<{ nzbFile: NZBObject; engine: string }> => {
           try {
-            const nzbTextFile = await searchengines[engine.type].getNZB(this.header, engine)
-            let nzbFile: NZBObject
-            try {
-              nzbFile = textToNzbObject(nzbTextFile)
-              log.info(`the response from search engine "${engine.name}" is a valid NZB file`)
-            } catch {
-              throw new Error(`the response from search engine "${engine.name}" is not a valid NZB file`)
-            }
+            const nzbFile = await searchengines[engine.type].getNZB(this.header, engine)
             if (!this.settings) this.settings = await nzbfile.getSettings()
             if (this.settings.fileCheck || this.settings.segmentCheck) {
               const validation = await this.validate(nzbFile)
@@ -231,7 +225,7 @@ export class NZBFileObject {
       if (this.settings.addTitle) this.addTitleToMeta()
       if (this.settings.addPassword) this.addPasswordToMeta()
       if (this.settings.filesToBeRemoved.length > 0) this.removeFiles()
-      this.sendToTargets()
+      await this.sendToTargets()
     } catch (e) {
       this.error(
         i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : i18n.t('errors.unknownError')])
@@ -365,26 +359,40 @@ export class NZBFileObject {
   warn(error: string): void {
     this.errorMessage = error
     this.status = 'warn'
-    this.log(this)
+    this.log(this).then(() => {
+      this.dispose()
+    })
     log.warn(error)
-    notifications.error(error)
+    if (!this.isFromArchive) notifications.error(error)
   }
 
   success(): void {
     this.status = 'success'
-    this.log(this)
+    this.log(this).then(() => {
+      this.dispose()
+    })
     let successMessage = ''
     if (this.header !== '') successMessage = i18n.t('nzbsearch.success', [this.header])
     else if (this.filename !== '') successMessage = i18n.t('interception.success', [this.filename])
     log.info(successMessage)
-    notifications.success(successMessage)
+    if (!this.isFromArchive) notifications.success(successMessage)
   }
 
   error(error: string): void {
     this.errorMessage = error
     this.status = 'error'
-    this.log(this)
+    this.log(this).then(() => {
+      this.dispose()
+    })
     log.error(error)
-    notifications.error(error)
+    if (!this.isFromArchive) notifications.error(error)
+  }
+
+  dispose(): void {
+    // Break references to help GC
+    this.nzbFile = {} as NZBObject
+    this.targets = []
+    this.settings = undefined
+    this.log = async () => -1
   }
 }

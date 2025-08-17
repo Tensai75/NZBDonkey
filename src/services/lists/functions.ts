@@ -2,6 +2,7 @@ import log from '@/services/logger/debugLogger'
 import { useFetch } from '@/utils/fetchUtilities'
 
 export const fetchAndValidateList = async <T>(
+  listname: string,
   url: string,
   expectedVersion: number,
   sortKey: keyof T,
@@ -43,7 +44,7 @@ export const fetchAndValidateList = async <T>(
     }
     return sortList(filterKeys(json.data), sortKey)
   } catch (error) {
-    log.warn(`Error loading the list from URL: ${error instanceof Error ? error.message : 'unknown error'}`)
+    log.warn(`Error loading the ${listname} from URL: ${error instanceof Error ? error.message : 'unknown error'}`)
     return sortList(filterKeys(defaultList.data), sortKey)
   }
 }

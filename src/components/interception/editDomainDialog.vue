@@ -51,7 +51,7 @@ function reset() {
     :validate-on-value-update="true"
     :validate-on-mount="true"
   >
-    <Dialog :visible="true" :closable="false" modal :header="title" style="width: 48rem; max-width: 48rem">
+    <Dialog :visible="true" :closable="false" modal :header="title" style="width: 55rem; max-width: 55rem">
       <div class="flex items-center gap-4 mb-4 flex-auto">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.title')
