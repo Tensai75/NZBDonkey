@@ -15,6 +15,7 @@ const interceptionDoaminsList = {
 
 export function getInterceptionDomainsList(): Promise<InterceptionDomainsListItem[]> {
   return fetchAndValidateList<InterceptionDomainsListItem>(
+    'interception domains list',
     interceptionDoaminsList.url,
     interceptionDoaminsList.expectedVersion,
     interceptionDoaminsList.sortkey as keyof InterceptionDomainsListItem,
@@ -28,6 +29,7 @@ export async function updateInterceptionDomainsList(
 ): Promise<InterceptionDomainsListItem[]> {
   log.info('updating predefined domains with the latest data from the interception domains list')
   const domainsList = await fetchAndValidateList<InterceptionDomainsListItem>(
+    'interception domains list',
     interceptionDoaminsList.url,
     interceptionDoaminsList.expectedVersion,
     interceptionDoaminsList.sortkey as keyof InterceptionDomainsListItem,
