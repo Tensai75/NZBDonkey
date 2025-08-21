@@ -1,3 +1,10 @@
+# [1.4.0-beta.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2025-08-21)
+
+
+### Bug Fixes
+
+* make text analysis regexp more consistent ([06491f0](https://github.com/Tensai75/NZBDonkey/commit/06491f02dda0ba6dd95e4cde4932b37d573d13c3))
+
 # [1.4.0-beta.1](https://github.com/Tensai75/NZBDonkey/compare/v1.3.0...v1.4.0-beta.1) (2025-08-17)
 
 
