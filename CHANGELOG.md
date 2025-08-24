@@ -1,3 +1,10 @@
+# [1.4.0-beta.4](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.3...v1.4.0-beta.4) (2025-08-24)
+
+
+### Bug Fixes
+
+* switch to lazy loading of NZB file log entries to prevent freezing with large logs ([7115af6](https://github.com/Tensai75/NZBDonkey/commit/7115af69b6bedd9fe348dba86f1bb3f6e04af609))
+
 # [1.4.0-beta.3](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2025-08-24)
 
 
