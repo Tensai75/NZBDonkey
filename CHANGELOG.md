@@ -1,3 +1,10 @@
+# [1.4.0-beta.3](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2025-08-24)
+
+
+### Bug Fixes
+
+* only create NZB file object if extraction was successful ([aaeb0df](https://github.com/Tensai75/NZBDonkey/commit/aaeb0df71507e4d4d4144c69ff76ec9346c29b4d))
+
 # [1.4.0-beta.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2025-08-21)
 
 
