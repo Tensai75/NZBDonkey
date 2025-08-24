@@ -10,6 +10,9 @@ export default {
   get: () => {
     return get()
   },
+  getLazy: (first: number, last: number) => {
+    return getLazy(first, last)
+  },
   initDebugLog: (origin: string) => {
     source = origin
   },
@@ -53,6 +56,14 @@ const get = () => {
     return import('@/services/logger/debugLoggerBackground').then((logger) => logger.get())
   } else {
     return import('@/services/logger/debugLoggerContent').then((logger) => logger.get())
+  }
+}
+
+const getLazy = (first: number, last: number) => {
+  if (source === 'background') {
+    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.getLazy(first, last))
+  } else {
+    return import('@/services/logger/debugLoggerContent').then((logger) => logger.getLazy(first, last))
   }
 }
 

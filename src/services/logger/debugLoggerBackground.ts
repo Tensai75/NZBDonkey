@@ -11,6 +11,9 @@ const clear = () => clearDebugLog()
 const get = () => {
   return getDebugLog()
 }
+const getLazy = (first: number, last: number) => {
+  return getDebugLogLazy(first, last)
+}
 const init = () => {
   extensionMessenger.onMessage('debbugLoggerLog', (message) => {
     saveDebugLog(message.data)
@@ -20,6 +23,9 @@ const init = () => {
   })
   extensionMessenger.onMessage('debbugLoggerGet', async (): Promise<IDebugLog[]> => {
     return getDebugLog()
+  })
+  extensionMessenger.onMessage('debbugLoggerGetLazy', async (message): Promise<IDebugLog[]> => {
+    return getDebugLogLazy(message.data.first, message.data.last)
   })
 }
 
@@ -54,4 +60,12 @@ const getDebugLog = async (): Promise<IDebugLog[]> => {
   return db.debugLog.orderBy('date').toArray()
 }
 
-export { clear, get, init, log }
+const getDebugLogLazy = async (first: number, last: number): Promise<IDebugLog[]> => {
+  return db.debugLog
+    .orderBy('date')
+    .offset(first)
+    .limit(last - first)
+    .toArray()
+}
+
+export { clear, get, getLazy, init, log }

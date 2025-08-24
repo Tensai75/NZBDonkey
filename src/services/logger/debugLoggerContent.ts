@@ -15,5 +15,8 @@ const clear = () => extensionMessenger.sendMessage('debbugLoggerClear', undefine
 const get = () => {
   return extensionMessenger.sendMessage('debbugLoggerGet', undefined)
 }
+const getLazy = (first: number, last: number) => {
+  return extensionMessenger.sendMessage('debbugLoggerGetLazy', { first, last })
+}
 
-export { clear, get, log }
+export { clear, get, getLazy, log }

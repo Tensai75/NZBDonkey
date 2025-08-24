@@ -27,6 +27,7 @@ interface IDebugLog {
 interface DebugLogProtocolMap {
   debbugLoggerLog(data: IDebugLog): void
   debbugLoggerGet(): IDebugLog[]
+  debbugLoggerGetLazy(data: { first: number; last: number }): IDebugLog[]
   debbugLoggerClear(): void
 }
 
@@ -45,8 +46,9 @@ interface INZBLog {
 }
 
 interface NzbLogProtocolMap {
-  nzbLoggerLog(data: IDebugLog): void
-  nzbLoggerGet(): IDebugLog[]
+  nzbLoggerLog(data: INZBLog): void
+  nzbLoggerGet(): INZBLog[]
+  nzbLoggerGetLazy(data: { first: number; last: number }): INZBLog[]
   nzbLoggerClear(): void
 }
 

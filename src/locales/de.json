@@ -410,7 +410,8 @@
         "message": "Das NZB-Datei-Protokoll wirklich löschen?",
         "header": "NZB-Datei-Protokoll löschen"
       }
-    }
+    },
+    "update": "Aktualisieren"
   },
   "errors": {
     "notImplemented": "nicht implementiert",
