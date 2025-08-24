@@ -26,7 +26,7 @@ const emit = defineEmits(['close'])
 </script>
 
 <template>
-  <Dialog :visible="true" :closable="false" modal :header="title" style="width: 48rem; max-width: 48rem">
+  <Dialog :visible="true" :closable="false" modal :header="title" style="width: 800px; max-width: 800px">
     <div style="height: 60vh">
       <DebugLog v-if="props.logType === 'debugLog'" />
       <NzbLog v-else-if="props.logType === 'nzbLog'" />

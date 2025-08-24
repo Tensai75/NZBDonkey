@@ -45,8 +45,9 @@ interface INZBLog {
 }
 
 interface NzbLogProtocolMap {
-  nzbLoggerLog(data: IDebugLog): void
-  nzbLoggerGet(): IDebugLog[]
+  nzbLoggerLog(data: INZBLog): void
+  nzbLoggerGet(): INZBLog[]
+  nzbLoggerGetLazy(data: { first: number; last: number }): INZBLog[]
   nzbLoggerClear(): void
 }
 

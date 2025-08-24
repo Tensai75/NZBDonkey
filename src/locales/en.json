@@ -410,7 +410,8 @@
         "message": "Do you really want to delete the NZB file log?",
         "header": "Delete NZB file log"
       }
-    }
+    },
+    "update": "Update"
   },
   "errors": {
     "notImplemented": "not implemented",

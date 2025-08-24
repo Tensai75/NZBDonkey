@@ -1,3 +1,6 @@
+import 'floating-vue/dist/style.css'
+
+import { vTooltip } from 'floating-vue'
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import { createApp } from 'vue'
@@ -15,7 +18,7 @@ const primeVueTheme = {
   },
 }
 
-const app = createApp(App).use(PrimeVue, primeVueTheme).use(ConfirmationService)
+const app = createApp(App).use(PrimeVue, primeVueTheme).use(ConfirmationService).directive('tooltip', vTooltip)
 
 app.mount('#app')
 

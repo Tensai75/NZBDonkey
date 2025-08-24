@@ -1,17 +1,24 @@
 <script lang="ts" setup>
-import { Button, Column, DataTable, Tag } from 'primevue'
+import { Button, Column, DataTable, Skeleton, Tag } from 'primevue'
 import { useConfirm } from 'primevue/useconfirm'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 import { i18n } from '#i18n'
+import NZBLogInfo from '@/components/logger/nzbLogInfo.vue'
 import NZBDonkeyLogo from '@/components/nzbdonkeyLogo.vue'
+import ScrollText from '@/components/scrollText.vue'
 import log from '@/services/logger/debugLogger'
 import { INZBLog } from '@/services/logger/loggerDB'
-import nzb from '@/services/logger/nzbLogger'
+import nzbLogger from '@/services/logger/nzbLogger'
 
-const nzbLog = ref<INZBLog[]>()
-const loading = ref(true)
+const totalCount = ref(0)
+const first = ref(0)
+const last = ref(0)
+const nzbLogs = ref([] as INZBLog[])
+const lazyLoading = ref(false)
 const filters = ref()
+const loaded = ref(false)
+const dataTable = ref(0)
 
 const colors = {
   initiated: 'var(--p-primary-600)',
@@ -39,9 +46,45 @@ const statuses = {
   inactive: i18n.t('common.inactive'),
 }
 
-const dt = ref()
+const loadLogsLazy = async (event: { first: number; last: number }, showLoader: boolean = true) => {
+  try {
+    if (lazyLoading.value) return // Prevent multiple loads
+    if (showLoader) lazyLoading.value = true
+
+    first.value = event.first
+    last.value = event.last > 0 ? event.last : 50 // Ensure last is at least 50 if not provided
+
+    // Load total count and check if it has changed
+    const totalCountUpdated = await loadTotalCount()
+    if (totalCount.value === 0) {
+      // If no logs are available, reset the array and exit
+      nzbLogs.value = []
+      lazyLoading.value = false
+      if (!loaded.value) loaded.value = true
+      return
+    }
+    if (last.value > totalCount.value) {
+      last.value = totalCount.value
+    }
+
+    // Load required data
+    const loadedLogs = await nzbLogger.getLazy(first.value, last.value)
+
+    // Populate virtual logs
+    var _nzbLogs = Array.from<INZBLog>({ length: totalCount.value }) // Initialize with empty logs
+    _nzbLogs.splice(first.value, last.value - first.value, ...loadedLogs)
+    nzbLogs.value = _nzbLogs
+    lazyLoading.value = false
+    if (!loaded.value) loaded.value = true
+    if (totalCountUpdated) dataTable.value++ // Force DataTable to refresh if total count changed
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error('unknown error')
+    log.error(`Error loading logs lazy: ${error.message}`, error)
+  }
+}
+
 const exportCSV = () => {
-  dt.value.exportCSV()
+  nzbLogger.download()
 }
 
 const confirm = useConfirm()
@@ -60,8 +103,8 @@ const confirmDelete = (): void => {
       severity: 'danger',
     },
     accept: async () => {
-      nzb.clear()
-      nzbLog.value = await nzb.get()
+      nzbLogger.clear()
+      loadLogsLazy({ first: 0, last: 50 }) // Reload the logs after clearing
     },
     reject: () => {
       // void
@@ -69,39 +112,44 @@ const confirmDelete = (): void => {
   })
 }
 
-function copyToClipboard(text: string): void {
-  if (navigator.clipboard && window.isSecureContext) {
-    // Use Clipboard API if available and in a secure context
-    navigator.clipboard.writeText(text).catch((err) => {
-      log.error('Failed to copy text: ', err)
-    })
+async function loadTotalCount() {
+  const count = await nzbLogger.count()
+  if (count !== totalCount.value) {
+    totalCount.value = count
+    return true
   } else {
-    log.error('Clipboard API not available or not in a secure context')
+    return false
   }
 }
-
-onMounted(async () => {
-  nzbLog.value = await nzb.get()
-  loading.value = false
-})
 </script>
 
 <template>
   <DataTable
-    ref="dt"
+    :key="dataTable"
     v-model:filters="filters"
     filter-display="menu"
+    :value="nzbLogs"
     scrollable
     scroll-height="flex"
-    export-filename="nzb-log"
-    sort-field="date"
-    :sort-order="-1"
-    :value="nzbLog"
-    :loading="loading"
     table-style="min-width: 100%; max-width: 100%; width: 100%"
+    :virtual-scroller-options="{
+      lazy: true,
+      onLazyLoad: loadLogsLazy,
+      itemSize: 101,
+      delay: 0,
+      showLoader: false,
+      loading: false, // lazyLoading,
+      numToleratedItems: 20,
+    }"
   >
-    <template #empty> {{ i18n.t('logger.noEntries') }} </template>
-    <template #loading> {{ i18n.t('logger.loadingLogs') }} </template>
+    <template #empty>
+      <div v-if="loaded" class="w-full flex items-center justify-center" style="height: 120px">
+        {{ i18n.t('logger.noEntries') }}
+      </div>
+      <div v-else class="w-full flex items-center justify-center" style="height: 120px">
+        {{ i18n.t('logger.loadingLogs') }}
+      </div>
+    </template>
 
     <Column field="id" hidden></Column>
     <Column field="date" hidden></Column>
@@ -113,112 +161,87 @@ onMounted(async () => {
     <Column field="searchEngine" hidden></Column>
     <Column field="source" hidden></Column>
     <Column field="errorMessage" hidden></Column>
-    <Column :header="i18n.t('common.status')" style="width: 1%">
+    <Column :header="i18n.t('common.status')" class="td_logo">
       <template #body="{ data }">
         <NZBDonkeyLogo
-          v-tooltip.right-start="data.errorMessage ?? statuses[data.status as keyof typeof statuses]"
-          :color="colors[data.status as keyof typeof colors]"
+          v-if="data?.status"
+          v-tooltip.right-start="data?.errorMessage ?? statuses[data?.status as keyof typeof statuses]"
+          :color="colors[data?.status as keyof typeof colors]"
           size="48"
           class="cursor-help"
         />
+        <div v-else>
+          <Skeleton width="48px" height="48px" />
+        </div>
       </template>
     </Column>
-    <Column :header="i18n.t('common.information')" style="max-width: 300px">
+    <Column :header="i18n.t('common.information')" class="td_info">
       <template #body="{ data }">
-        <div class="flex flex-col">
-          <div class="flex flex-row w-full gap-x-4">
-            <div class="flex-[4] text-right">{{ i18n.t('common.title') }}:</div>
-            <div class="flex-[16] truncate" :title="data.title">{{ data.title }}</div>
-            <i
-              v-tooltip.left-start="i18n.t('common.copyXtoClipboard', [i18n.t('common.title')])"
-              class="flex-1 pi pi-copy cursor-pointer"
-              @click="copyToClipboard(data.title)"
-            ></i>
-          </div>
-          <div v-if="data.header" class="flex flex-row w-full gap-x-4">
-            <div class="flex-[4] text-right">{{ i18n.t('common.header') }}:</div>
-            <div class="flex-[16] truncate" :title="data.header">{{ data.header }}</div>
-            <i
-              v-tooltip.left-start="i18n.t('common.copyXtoClipboard', [i18n.t('common.header')])"
-              class="flex-1 pi pi-copy cursor-pointer"
-              @click="copyToClipboard(data.header)"
-            ></i>
-          </div>
-          <div v-if="data.password" class="flex flex-row w-full gap-x-4">
-            <div class="flex-[4] text-right">{{ i18n.t('common.password') }}:</div>
-            <div class="flex-[16] truncate" :title="data.password">{{ data.password }}</div>
-            <i
-              v-tooltip.left-start="i18n.t('common.copyXtoClipboard', [i18n.t('common.password')])"
-              class="flex-1 pi pi-copy cursor-pointer"
-              @click="copyToClipboard(data.password)"
-            ></i>
-          </div>
-          <div v-if="data.source" class="flex flex-row w-full gap-x-4">
-            <div class="flex-[4] text-right">{{ i18n.t('common.source') }}:</div>
-            <div class="flex-[16] truncate" :title="data.source">
-              <a v-if="data.source.startsWith('http')" :href="data.source" target="_blank">
-                {{ data.source }}
-              </a>
-              <span v-else>{{ data.source }}</span>
-            </div>
-            <i
-              v-tooltip.left-start="i18n.t('common.copyXtoClipboard', [i18n.t('common.source')])"
-              class="flex-1 pi pi-copy cursor-pointer"
-              @click="copyToClipboard(data.source)"
-            ></i>
-          </div>
-          <div v-if="data.searchEngine" class="flex flex-row w-full gap-x-4">
-            <div class="flex-[4] text-right">{{ i18n.t('common.searchEngine') }}:</div>
-            <div class="flex-[16] truncate" :title="data.searchEngine">{{ data.searchEngine }}</div>
-            <i
-              v-tooltip.left-start="i18n.t('common.copyXtoClipboard', [i18n.t('common.searchEngine')])"
-              class="flex-1 pi pi-copy cursor-pointer"
-              @click="copyToClipboard(data.searchEngine)"
-            ></i>
+        <div class="flex td_info">
+          <NZBLogInfo v-if="data?.title" :data="data" class="my-auto" />
+          <div v-else class="flex items-center td_info">
+            <Skeleton width="100%" height="80%" />
           </div>
         </div>
       </template>
     </Column>
-    <Column :header="i18n.t('settings.nzbFileTargets.title')" style="max-width: 120px">
+    <Column :header="i18n.t('settings.nzbFileTargets.title')" class="td_targets">
       <template #body="{ data }">
-        <Tag
-          v-for="target in data.targets"
-          :key="target.name"
-          v-tooltip.left-start="target.errorMessage ?? statuses[target.status as keyof typeof statuses]"
-          :severity="severity[target.status as keyof typeof severity]"
-          :value="target.name"
-          :title="target.errorMessage"
-          rounded
-          style="
-            font-weight: 600;
-            font-size: 0.7rem;
-            padding: 0 0.5rem !important;
-            margin-bottom: 4px;
-            word-wrap: none;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            max-width: 100%;
-            justify-content: left;
-          "
-          class="cursor-help"
-        />
+        <div class="flex td_targets">
+          <div v-if="data?.targets" class="flex flex-col justify-center my-auto">
+            <Tag
+              v-for="target in data?.targets"
+              :key="target.name"
+              v-tooltip.left-start="target.errorMessage ?? statuses[target.status as keyof typeof statuses]"
+              :severity="severity[target.status as keyof typeof severity]"
+              :title="target.errorMessage"
+              rounded
+              style="
+                font-weight: 600;
+                font-size: 0.8rem;
+                padding: 0 0.5rem !important;
+                margin: 2px 0 2px 0 !important;
+                justify-content: left;
+                max-width: 117px;
+              "
+              class="cursor-help"
+            >
+              <ScrollText :start-on-hover="true" :constant-speed="true" :speed="40" :pause-at-ends="2">
+                {{ target.name }}
+              </ScrollText>
+            </Tag>
+          </div>
+          <div v-else class="flex items-center td_targets">
+            <Skeleton width="100%" height="80%" />
+          </div>
+        </div>
       </template>
     </Column>
     <template #footer="">
-      <div class="flex flex-row justify-between items-center gap-2">
+      <div class="flex flex-row justify-between items-center gap-2" style="margin: 0 -1rem">
         <Button
           :label="i18n.t('logger.exportCSV')"
           icon="pi pi-download"
           severity="secondary"
           size="small"
+          :disabled="totalCount === 0"
+          style="margin-left: 8px"
           @click="exportCSV()"
+        ></Button>
+        <Button
+          :label="i18n.t('logger.update')"
+          icon="pi pi-sync"
+          severity="primary"
+          size="small"
+          @click="dataTable++"
         ></Button>
         <Button
           :label="i18n.t('logger.clearLog')"
           icon="pi pi-trash"
           severity="danger"
           size="small"
+          :disabled="totalCount === 0"
+          style="margin-right: 8px"
           @click="confirmDelete()"
         ></Button>
       </div>
