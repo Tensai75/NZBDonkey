@@ -25,8 +25,9 @@ export async function extractArchive(blob: Blob, source: string): Promise<NZBFil
     const pathname = entry.getPathname()
     if (pathname.toLowerCase().endsWith('.nzb')) {
       try {
+        const nzbTextfile = new TextDecoder().decode(entry.readData())
         const nzbfile = await new NZBFileObject().init()
-        await nzbfile.addNzbFile(new TextDecoder().decode(entry.readData()), getFileNameFromPath(pathname), source)
+        await nzbfile.addNzbFile(nzbTextfile, getFileNameFromPath(pathname), source)
         nzbFiles.push(nzbfile)
       } catch (e) {
         const error = e instanceof Error ? e : new Error('unknown error')
