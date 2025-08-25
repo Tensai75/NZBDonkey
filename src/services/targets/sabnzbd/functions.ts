@@ -43,6 +43,7 @@ export const push = async (
         output: 'json',
         apikey: settings.apiKey,
         nzbname: filename,
+        password: nzb.password,
         cat: typeof targetSettings.selectedCategory === 'string' ? targetSettings.selectedCategory : '',
         priority: addPaused.toString(),
         name: [content, filename] as [Blob | File, string],
