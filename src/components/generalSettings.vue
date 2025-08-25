@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { Button, Fieldset, Select, ToggleSwitch } from 'primevue'
+import { useConfirm } from 'primevue/useconfirm'
 import { Ref, ref } from 'vue'
 
 import { i18n } from '#i18n'
 import TagInput from '@/components/inputs/tagInput.vue'
 import LogDialog from '@/components/logger/logDialog.vue'
 import { Settings as GeneralSettings, useSettings as useGeneralSettings } from '@/services/general'
+import debugLogger from '@/services/logger/debugLogger'
+import nzbLogger from '@/services/logger/nzbLogger'
 
 const settings: Ref<GeneralSettings> = await useGeneralSettings()
 
@@ -18,6 +21,44 @@ const notificationNames = [
   i18n.t('settings.general.notifications.showError'),
   i18n.t('settings.general.notifications.showNothing'),
 ]
+
+const exportCSV = (logType: 'nzb' | 'debug') => {
+  if (logType === 'debug') debugLogger.download()
+  if (logType === 'nzb') nzbLogger.download()
+}
+
+const confirm = useConfirm()
+const confirmDelete = (logType: 'nzb' | 'debug'): void => {
+  const message =
+    logType === 'nzb'
+      ? i18n.t('logger.nzbLog.confirmDeleteNzblog.message')
+      : i18n.t('logger.debugLog.confirmDeleteDebuglog.message')
+  const header =
+    logType === 'nzb'
+      ? i18n.t('logger.nzbLog.confirmDeleteNzblog.header')
+      : i18n.t('logger.debugLog.confirmDeleteDebuglog.header')
+  confirm.require({
+    message: message,
+    header: header,
+    icon: 'pi pi-exclamation-triangle',
+    rejectProps: {
+      label: i18n.t('common.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: i18n.t('common.delete'),
+      severity: 'danger',
+    },
+    accept: async () => {
+      if (logType === 'debug') debugLogger.clear()
+      if (logType === 'nzb') nzbLogger.clear()
+    },
+    reject: () => {
+      // void
+    },
+  })
+}
 </script>
 
 <template>
@@ -110,8 +151,9 @@ const notificationNames = [
         </div>
       </Fieldset>
     </div>
-    <Fieldset :legend="i18n.t('settings.general.logs.title')" class="flex align-middle">
-      <div class="flex items-center mb-4">
+    <div class="mb-4"></div>
+    <Fieldset :legend="i18n.t('menu.logger.nzbLog.title')" class="flex align-middle">
+      <div class="flex items-center">
         <ToggleSwitch v-model="settings.nzbLog" />
         <label class="label-text pl-4">
           {{ i18n.t('settings.general.logs.nzbLog') }}
@@ -123,7 +165,27 @@ const notificationNames = [
           :label="i18n.t('menu.logger.nzbLog.title')"
           @click="logType = 'nzbLog'"
         />
+        <Button
+          :label="i18n.t('logger.exportCSV')"
+          icon="pi pi-download"
+          severity="secondary"
+          size="small"
+          style="margin-left: 16px"
+          @click="exportCSV('nzb')"
+        />
+        <Button
+          :label="i18n.t('logger.clearLog')"
+          icon="pi pi-trash"
+          severity="danger"
+          size="small"
+          style="margin-left: 16px"
+          @click="confirmDelete('nzb')"
+        />
       </div>
+    </Fieldset>
+  </div>
+  <div class="mb-4">
+    <Fieldset :legend="i18n.t('menu.logger.debugLog.title')" class="flex align-middle">
       <div class="flex items-center">
         <ToggleSwitch v-model="settings.debug" />
         <label class="label-text pl-4">
@@ -135,6 +197,22 @@ const notificationNames = [
           severity="secondary"
           :label="i18n.t('menu.logger.debugLog.title')"
           @click="logType = 'debugLog'"
+        />
+        <Button
+          :label="i18n.t('logger.exportCSV')"
+          icon="pi pi-download"
+          severity="secondary"
+          size="small"
+          style="margin-left: 16px"
+          @click="exportCSV('debug')"
+        />
+        <Button
+          :label="i18n.t('logger.clearLog')"
+          icon="pi pi-trash"
+          severity="danger"
+          size="small"
+          style="margin-left: 16px"
+          @click="confirmDelete('debug')"
         />
       </div>
     </Fieldset>
