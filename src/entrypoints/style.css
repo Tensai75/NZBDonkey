@@ -254,3 +254,86 @@ div.td_targets {
   overflow-y: auto;
   padding: 0 8px 0 0 !important;
 }
+
+td.td_date,
+th.td_date,
+td.td_type,
+th.td_type,
+td.td_text,
+th.td_text,
+td.td_source,
+th.td_source {
+  padding: 4px 8px !important;
+}
+
+th.td_date {
+  min-width: 86px;
+  max-width: 86px;
+  width: 86px;
+  font-size: 0.85rem !important;
+}
+
+div.td_date {
+  min-width: 70px;
+  max-width: 70px;
+  width: 70px;
+  min-height: 54px;
+  max-height: 54px;
+  height: 54px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+th.td_type {
+  min-width: 60px;
+  max-width: 60px;
+  width: 60px;
+  font-size: 0.85rem !important;
+}
+
+div.td_type {
+  min-width: 44px;
+  max-width: 44px;
+  width: 44px;
+  min-height: 54px;
+  max-height: 54px;
+  height: 54px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+th.td_text {
+  min-width: 509px;
+  max-width: 509px;
+  width: 509px;
+  font-size: 0.85rem !important;
+}
+
+div.td_text {
+  min-width: 493px;
+  max-width: 493px;
+  width: 493px;
+  min-height: 54px;
+  max-height: 54px;
+  height: 54px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+th.td_source {
+  min-width: 80px;
+  max-width: 80px;
+  width: 80px;
+  font-size: 0.85rem !important;
+}
+
+div.td_source {
+  min-width: 64px;
+  max-width: 64px;
+  width: 64px;
+  min-height: 54px;
+  max-height: 54px;
+  height: 54px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}

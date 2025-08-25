@@ -330,7 +330,11 @@
     "grantPermission": "Berechtigung erteilen",
     "files": "Dateien",
     "checkSettings": "Bitte überprüfen Sie die Einstellungen",
-    "default": "Standard"
+    "default": "Standard",
+    "selectFilter": "Filter auswählen",
+    "apply": "Anwenden",
+    "clear": "Löschen",
+    "search": "Suche"
   },
   "validation": {
     "isRequired": "$1 ist ein Pflichtfeld",

@@ -330,7 +330,11 @@
     "grantPermission": "Grant permission",
     "files": "Files",
     "checkSettings": "Please check the settings",
-    "default": "default"
+    "default": "default",
+    "selectFilter": "Select filter",
+    "apply": "Apply",
+    "clear": "Clear",
+    "search": "Search"
   },
   "validation": {
     "isRequired": "$1 is required",

@@ -7,6 +7,7 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 
+import { i18n } from '#i18n'
 import { MyPreset } from '@/assets/presets'
 import log from '@/services/logger/debugLogger'
 
@@ -15,6 +16,10 @@ log.initDebugLog('options')
 const primeVueTheme = {
   theme: {
     preset: MyPreset,
+  },
+  locale: {
+    apply: i18n.t('common.apply'),
+    clear: i18n.t('common.clear'),
   },
 }
 
