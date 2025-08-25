@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { Button, Column, DataTable, Skeleton, Tag } from 'primevue'
+import { FilterMatchMode } from '@primevue/core/api'
+import { Button, Column, DataTable, InputText, Select, Skeleton, Tag } from 'primevue'
 import { useConfirm } from 'primevue/useconfirm'
 import { ref } from 'vue'
 
@@ -8,32 +9,48 @@ import NZBLogInfo from '@/components/logger/nzbLogInfo.vue'
 import NZBDonkeyLogo from '@/components/nzbdonkeyLogo.vue'
 import ScrollText from '@/components/scrollText.vue'
 import log from '@/services/logger/debugLogger'
-import { INZBLog } from '@/services/logger/loggerDB'
+import { INZBLog, NZBLogQuery, NZBStatus } from '@/services/logger/loggerDB'
 import nzbLogger from '@/services/logger/nzbLogger'
 
 const totalCount = ref(0)
-const first = ref(0)
-const last = ref(0)
 const nzbLogs = ref([] as INZBLog[])
+const nzbLogQuery = ref<NZBLogQuery>({
+  first: 0,
+  last: 50,
+  filter: {
+    status: undefined,
+    information: undefined,
+  },
+})
 const lazyLoading = ref(false)
-const filters = ref()
+const filters = ref({
+  status: { value: null, matchMode: FilterMatchMode.EQUALS },
+  title: { value: null, matchMode: FilterMatchMode.CONTAINS },
+})
 const loaded = ref(false)
 const dataTable = ref(0)
+const availableStatuses = ref<NZBStatus[]>([])
 
 const colors = {
   initiated: 'var(--p-primary-600)',
+  pending: 'var(--p-primary-600)',
   searching: 'var(--p-primary-600)',
   fetched: 'var(--p-primary-600)',
   success: 'var(--p-green-600)',
   warn: 'var(--p-amber-800)',
   error: 'var(--p-red-800)',
+  inactive: 'var(--p-gray-600)',
 }
 
-const severity = {
-  inactive: 'secondary',
+const severities = {
+  initiated: 'primary',
   pending: 'primary',
+  searching: 'primary',
+  fetched: 'primary',
   success: 'success',
+  warn: 'warn',
   error: 'danger',
+  inactive: 'secondary',
 }
 
 const statuses = {
@@ -51,32 +68,37 @@ const loadLogsLazy = async (event: { first: number; last: number }, showLoader: 
     if (lazyLoading.value) return // Prevent multiple loads
     if (showLoader) lazyLoading.value = true
 
-    first.value = event.first
-    last.value = event.last > 0 ? event.last : 50 // Ensure last is at least 50 if not provided
-
-    // Load total count and check if it has changed
-    const totalCountUpdated = await loadTotalCount()
-    if (totalCount.value === 0) {
+    const noLogs = () => {
       // If no logs are available, reset the array and exit
       nzbLogs.value = []
       lazyLoading.value = false
       if (!loaded.value) loaded.value = true
       return
     }
-    if (last.value > totalCount.value) {
-      last.value = totalCount.value
+
+    nzbLogQuery.value.first = event.first
+    nzbLogQuery.value.last = event.last > 0 ? event.last : 50 // Ensure last is at least 50 if not provided
+
+    // Load total count and check if it has changed
+    await loadTotalCount()
+    if (totalCount.value === 0) return noLogs()
+    if (nzbLogQuery.value.last > totalCount.value) {
+      nzbLogQuery.value.last = totalCount.value
     }
 
     // Load required data
-    const loadedLogs = await nzbLogger.getLazy(first.value, last.value)
+    const loadedLogs = await nzbLogger.getLazy(nzbLogQuery.value)
+    if (loadedLogs.length === 0) return noLogs()
+
+    // Extract unique statuses from loaded logs
+    availableStatuses.value = await nzbLogger.getStatuses()
 
     // Populate virtual logs
     var _nzbLogs = Array.from<INZBLog>({ length: totalCount.value }) // Initialize with empty logs
-    _nzbLogs.splice(first.value, last.value - first.value, ...loadedLogs)
+    _nzbLogs.splice(nzbLogQuery.value.first, nzbLogQuery.value.last - nzbLogQuery.value.first, ...loadedLogs)
     nzbLogs.value = _nzbLogs
     lazyLoading.value = false
     if (!loaded.value) loaded.value = true
-    if (totalCountUpdated) dataTable.value++ // Force DataTable to refresh if total count changed
   } catch (e) {
     const error = e instanceof Error ? e : new Error('unknown error')
     log.error(`Error loading logs lazy: ${error.message}`, error)
@@ -113,13 +135,17 @@ const confirmDelete = (): void => {
 }
 
 async function loadTotalCount() {
-  const count = await nzbLogger.count()
+  const count = await nzbLogger.count(nzbLogQuery.value)
   if (count !== totalCount.value) {
     totalCount.value = count
-    return true
-  } else {
-    return false
+    dataTable.value++ // Force DataTable to refresh if total count changed
   }
+}
+
+function setFilter(event: { status?: { value: NZBStatus }; title?: { value: string } }) {
+  nzbLogQuery.value.filter!.status = event.status?.value || undefined
+  nzbLogQuery.value.filter!.information = event.title?.value || undefined
+  loadLogsLazy({ first: 0, last: 50 })
 }
 </script>
 
@@ -141,6 +167,7 @@ async function loadTotalCount() {
       loading: false, // lazyLoading,
       numToleratedItems: 20,
     }"
+    @update:filters="(event) => setFilter(event)"
   >
     <template #empty>
       <div v-if="loaded" class="w-full flex items-center justify-center" style="height: 120px">
@@ -151,41 +178,68 @@ async function loadTotalCount() {
       </div>
     </template>
 
-    <Column field="id" hidden></Column>
-    <Column field="date" hidden></Column>
-    <Column field="status" hidden></Column>
-    <Column field="title" hidden></Column>
-    <Column field="header" hidden></Column>
-    <Column field="password" hidden></Column>
-    <Column field="filename" hidden></Column>
-    <Column field="searchEngine" hidden></Column>
-    <Column field="source" hidden></Column>
-    <Column field="errorMessage" hidden></Column>
-    <Column :header="i18n.t('common.status')" class="td_logo">
+    <Column class="td_logo" field="status" :header="i18n.t('common.status')">
       <template #body="{ data }">
-        <NZBDonkeyLogo
-          v-if="data?.status"
-          v-tooltip.right-start="data?.errorMessage ?? statuses[data?.status as keyof typeof statuses]"
-          :color="colors[data?.status as keyof typeof colors]"
-          size="48"
-          class="cursor-help"
-        />
-        <div v-else>
-          <Skeleton width="48px" height="48px" />
+        <div class="flex td_logo">
+          <NZBDonkeyLogo
+            v-if="data?.status"
+            v-tooltip.right-start="data?.errorMessage ?? statuses[data?.status as keyof typeof statuses]"
+            :color="colors[data?.status as keyof typeof colors]"
+            size="48"
+            class="cursor-help"
+          />
+          <div v-else class="flex items-center w-full">
+            <Skeleton width="48px" height="48px" />
+          </div>
         </div>
       </template>
+      <template #filter="{ filterModel, filterCallback }">
+        <Select
+          v-model="filterModel.value"
+          :options="availableStatuses"
+          :placeholder="i18n.t('common.selectFilter')"
+          style="min-width: 12rem"
+          :show-clear="true"
+          @change="filterCallback()"
+        >
+          <template #option="slotProps">
+            <Tag
+              :value="statuses[slotProps.option as keyof typeof statuses]"
+              :severity="severities[slotProps.option as keyof typeof severities]"
+            />
+          </template>
+        </Select>
+      </template>
     </Column>
-    <Column :header="i18n.t('common.information')" class="td_info">
+    <Column class="td_info" field="title" :header="i18n.t('common.information')">
       <template #body="{ data }">
         <div class="flex td_info">
           <NZBLogInfo v-if="data?.title" :data="data" class="my-auto" />
-          <div v-else class="flex items-center td_info">
+          <div v-else class="flex items-center w-full">
             <Skeleton width="100%" height="80%" />
           </div>
         </div>
       </template>
+      <template #filter="{ filterModel, filterCallback }">
+        <div class="flex flex-row items-center gap-2">
+          <InputText
+            v-model="filterModel.value"
+            type="text"
+            :placeholder="i18n.t('common.search')"
+            size="small"
+            @change="filterCallback()"
+          />
+          <Button
+            type="button"
+            icon="pi pi-times"
+            severity="secondary"
+            size="small"
+            @click="filterModel.value = ''"
+          ></Button>
+        </div>
+      </template>
     </Column>
-    <Column :header="i18n.t('settings.nzbFileTargets.title')" class="td_targets">
+    <Column class="td_targets" :header="i18n.t('settings.nzbFileTargets.title')">
       <template #body="{ data }">
         <div class="flex td_targets">
           <div v-if="data?.targets" class="flex flex-col justify-center my-auto">
@@ -193,7 +247,7 @@ async function loadTotalCount() {
               v-for="target in data?.targets"
               :key="target.name"
               v-tooltip.left-start="target.errorMessage ?? statuses[target.status as keyof typeof statuses]"
-              :severity="severity[target.status as keyof typeof severity]"
+              :severity="severities[target.status as keyof typeof severities]"
               :title="target.errorMessage"
               rounded
               style="
@@ -211,7 +265,7 @@ async function loadTotalCount() {
               </ScrollText>
             </Tag>
           </div>
-          <div v-else class="flex items-center td_targets">
+          <div v-else class="flex items-center w-full">
             <Skeleton width="100%" height="80%" />
           </div>
         </div>

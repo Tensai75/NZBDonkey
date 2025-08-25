@@ -71,7 +71,7 @@ const loadLogsLazy = async (event: { first: number; last: number }, showLoader: 
     if (loadedLogs.length === 0) return noLogs()
 
     // Extract unique sources from loaded logs
-    sources.value = Array.from(new Set(loadedLogs.map((item) => item.source)))
+    sources.value = await debugLogger.getSources()
 
     // Populate virtual logs
     var _debugLogs = Array.from<IDebugLog>({ length: totalCount.value }) // Initialize with empty logs
@@ -223,9 +223,15 @@ async function loadTotalCount() {
           </div>
         </div>
       </template>
-      <template #filter="{ filterModel }">
+      <template #filter="{ filterModel, filterCallback }">
         <div class="flex flex-row items-center gap-2">
-          <InputText v-model="filterModel.value" type="text" :placeholder="i18n.t('common.search')" size="small" />
+          <InputText
+            v-model="filterModel.value"
+            type="text"
+            :placeholder="i18n.t('common.search')"
+            size="small"
+            @change="filterCallback()"
+          />
           <Button
             type="button"
             icon="pi pi-times"
@@ -236,7 +242,6 @@ async function loadTotalCount() {
         </div>
       </template>
     </Column>
-    <Column field="error" :header="i18n.t('common.error')" hidden></Column>
     <Column class="td_source" field="source" :header="i18n.t('common.source')">
       <template #body="{ data }">
         <div class="flex td_source">

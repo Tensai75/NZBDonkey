@@ -201,15 +201,15 @@ th.td_logo {
   max-width: 64px;
   width: 64px;
   padding: 8px !important;
-  font-size: 1rem !important;
+  font-size: 0.85rem !important;
 }
 
 th.td_info {
   min-width: 525px;
   max-width: 525px;
   width: 525px;
-  padding: 8px 8px 8px 16px !important;
-  font-size: 1rem !important;
+  padding: 8px 8px 8px 30px !important;
+  font-size: 0.85rem !important;
 }
 
 th.td_targets {
@@ -217,7 +217,7 @@ th.td_targets {
   max-width: 139px;
   width: 139px;
   padding: 8px 8px 8px 0 !important;
-  font-size: 1rem !important;
+  font-size: 0.85rem !important;
 }
 
 td.td_logo {
@@ -336,4 +336,8 @@ div.td_source {
   height: 54px;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+.p-datatable-popover-filter {
+  margin-inline-start: 0px !important;
 }

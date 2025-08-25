@@ -17,6 +17,7 @@ export default {
     return count(debugLogQuery)
   },
   download: () => download(),
+  getSources: () => getSources(),
   initDebugLog: (origin: string) => {
     source = origin
   },
@@ -84,6 +85,14 @@ const download = () => {
     return import('@/services/logger/debugLoggerBackground').then((logger) => logger.download())
   } else {
     return import('@/services/logger/debugLoggerContent').then((logger) => logger.download())
+  }
+}
+
+const getSources = () => {
+  if (source === 'background') {
+    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.getSources())
+  } else {
+    return import('@/services/logger/debugLoggerContent').then((logger) => logger.getSources())
   }
 }
 

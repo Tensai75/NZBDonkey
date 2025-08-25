@@ -31,6 +31,7 @@ export interface DebugLogProtocolMap {
   debbugLoggerClear(): void
   debbugLoggerCount(data: DebugLogQuery): number
   debbugLoggerDownload(): Promise<void>
+  debbugLoggerGetSources(): string[]
 }
 
 export type DebugLogType = 'info' | 'warn' | 'error'
@@ -61,6 +62,16 @@ export interface INZBLog {
   searchEngine?: string
   source?: string
   errorMessage?: string
+}
+
+export type NZBLogFilter = {
+  status?: NZBStatus
+  information?: string
+}
+export type NZBLogQuery = {
+  first: number
+  last: number
+  filter?: NZBLogFilter
 }
 
 export interface NzbLogProtocolMap {

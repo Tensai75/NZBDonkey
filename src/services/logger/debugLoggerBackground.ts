@@ -21,6 +21,7 @@ const count = (debugLogQuery: DebugLogQuery) => {
   return countQuery(debugLogQuery)
 }
 const download = () => downloadLogs()
+const getSources = () => getAvailableSources()
 const init = () => {
   extensionMessenger.onMessage('debbugLoggerLog', (message) => {
     saveDebugLog(message.data)
@@ -39,6 +40,9 @@ const init = () => {
   })
   extensionMessenger.onMessage('debbugLoggerDownload', async (): Promise<void> => {
     return downloadLogs()
+  })
+  extensionMessenger.onMessage('debbugLoggerGetSources', async (): Promise<string[]> => {
+    return getAvailableSources()
   })
 }
 
@@ -140,4 +144,10 @@ const downloadLogs = async (): Promise<void> => {
   browser.downloads.download(downloadOptions)
 }
 
-export { clear, count, download, get, getLazy, init, log }
+const getAvailableSources = async (): Promise<string[]> => {
+  const allSources = await db.debugLog.toArray()
+  // Extract status and filter unique values
+  return [...new Set(allSources.map((log) => log.source).filter((source): source is string => source !== undefined))]
+}
+
+export { clear, count, download, get, getLazy, getSources, init, log }

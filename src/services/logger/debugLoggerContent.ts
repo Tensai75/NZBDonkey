@@ -24,5 +24,8 @@ const count = (debugLogQuery: DebugLogQuery) => {
 const download = () => {
   return extensionMessenger.sendMessage('debbugLoggerDownload', undefined)
 }
+const getSources = () => {
+  return extensionMessenger.sendMessage('debbugLoggerGetSources', undefined)
+}
 
-export { clear, count, download, get, getLazy, log }
+export { clear, count, download, get, getLazy, getSources, log }
