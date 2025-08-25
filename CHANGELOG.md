@@ -1,3 +1,10 @@
+# [1.4.0-beta.6](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.5...v1.4.0-beta.6) (2025-08-25)
+
+
+### Bug Fixes
+
+* use the API parameter to send the password to sabnzbd ([3617f5e](https://github.com/Tensai75/NZBDonkey/commit/3617f5ebff293af259bcad70717b91c821952b0e))
+
 # [1.4.0-beta.5](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.4...v1.4.0-beta.5) (2025-08-25)
 
 
