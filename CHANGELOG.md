@@ -1,3 +1,10 @@
+# [1.4.0-beta.7](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.6...v1.4.0-beta.7) (2025-08-27)
+
+
+### Features
+
+* add filters and search to the NZB file log ([d6ccc1e](https://github.com/Tensai75/NZBDonkey/commit/d6ccc1efb38e9af743fd018a9538747f3b21c61e))
+
 # [1.4.0-beta.6](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0-beta.5...v1.4.0-beta.6) (2025-08-25)
 
 
