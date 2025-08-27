@@ -16,10 +16,10 @@ const get = () => {
   return extensionMessenger.sendMessage('debbugLoggerGet', undefined)
 }
 const getLazy = (debugLogQuery: DebugLogQuery) => {
-  return extensionMessenger.sendMessage('debbugLoggerGetLazy', debugLogQuery)
+  return extensionMessenger.sendMessage('debbugLoggerGetLazy', JSON.parse(JSON.stringify(debugLogQuery)))
 }
 const count = (debugLogQuery: DebugLogQuery) => {
-  return extensionMessenger.sendMessage('debbugLoggerCount', debugLogQuery)
+  return extensionMessenger.sendMessage('debbugLoggerCount', JSON.parse(JSON.stringify(debugLogQuery)))
 }
 const download = () => {
   return extensionMessenger.sendMessage('debbugLoggerDownload', undefined)

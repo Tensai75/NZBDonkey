@@ -334,7 +334,8 @@
     "selectFilter": "Filter auswählen",
     "apply": "Anwenden",
     "clear": "Löschen",
-    "search": "Suche"
+    "search": "Suche",
+    "noAvailableOptions": "Kein Optionen vorhanden"
   },
   "validation": {
     "isRequired": "$1 ist ein Pflichtfeld",

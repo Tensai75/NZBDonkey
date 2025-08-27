@@ -20,6 +20,7 @@ const primeVueTheme = {
   locale: {
     apply: i18n.t('common.apply'),
     clear: i18n.t('common.clear'),
+    emptyMessage: i18n.t('common.noAvailableOptions'),
   },
 }
 

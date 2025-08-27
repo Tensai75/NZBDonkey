@@ -334,7 +334,8 @@
     "selectFilter": "Select filter",
     "apply": "Apply",
     "clear": "Clear",
-    "search": "Search"
+    "search": "Search",
+    "noAvailableOptions": "No options available"
   },
   "validation": {
     "isRequired": "$1 is required",

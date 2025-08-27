@@ -23,7 +23,11 @@ const debugLogQuery = ref<DebugLogQuery>({
   },
 })
 const lazyLoading = ref(false)
-const filters = ref()
+const filters = ref({
+  type: { value: null, matchMode: FilterMatchMode.EQUALS },
+  text: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  source: { value: null, matchMode: FilterMatchMode.EQUALS },
+})
 const loaded = ref(false)
 const dataTable = ref(0)
 const types = ref(['info', 'warn', 'error'])
@@ -33,15 +37,6 @@ const severities = {
   error: 'danger',
 }
 const sources = ref<string[]>([])
-
-const initFilters = () => {
-  filters.value = {
-    type: { value: null, matchMode: FilterMatchMode.EQUALS },
-    text: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    source: { value: null, matchMode: FilterMatchMode.EQUALS },
-  }
-}
-initFilters()
 
 const loadLogsLazy = async (event: { first: number; last: number }, showLoader: boolean = true) => {
   try {

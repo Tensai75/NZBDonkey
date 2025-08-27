@@ -303,16 +303,16 @@ div.td_type {
 }
 
 th.td_text {
-  min-width: 509px;
-  max-width: 509px;
-  width: 509px;
+  min-width: 505px;
+  max-width: 505px;
+  width: 505px;
   font-size: 0.85rem !important;
 }
 
 div.td_text {
-  min-width: 493px;
-  max-width: 493px;
-  width: 493px;
+  min-width: 490px;
+  max-width: 490px;
+  width: 490px;
   min-height: 54px;
   max-height: 54px;
   height: 54px;
