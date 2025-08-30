@@ -14,6 +14,7 @@ const categoriesRegexpList = {
 
 export function getCategoriesRegexpList(): Promise<CategoriesRegExpListItem[]> {
   return fetchAndValidateList<CategoriesRegExpListItem>(
+    'categories regexp list',
     categoriesRegexpList.url,
     categoriesRegexpList.expectedVersion,
     categoriesRegexpList.sortkey as keyof CategoriesRegExpListItem,

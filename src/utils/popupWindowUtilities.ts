@@ -62,3 +62,16 @@ export function focusPopupWindow(intervall: number) {
     }, intervall)
   })
 }
+
+/**
+ * Set the zoom level of the currently active tab.
+ * @param zoom Factor > 0 (e.g. 1 = 100%, 1.25 = 125%, 0.8 = 80%)
+ * @returns previous zoom level
+ */
+export async function setZoomTo100(): Promise<void> {
+  // Get active tab in current window
+  const [tab] = await browser.tabs.query({ active: true, currentWindow: true })
+  if (!tab?.id) return
+  // Apply new zoom
+  await browser.tabs.setZoom(tab.id, 1)
+}

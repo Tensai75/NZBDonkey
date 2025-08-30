@@ -168,8 +168,8 @@
           "searchURL": "Such-URL",
           "responseType": "Antwort-Typ",
           "searchPattern": {
-            "json": "JSON Objekt-Pfad",
-            "html": "RegExp Such-Muster"
+            "json": "JSON Objekt-Pfad für die NZB-ID",
+            "html": "RegExp Such-Muster für die NZB-ID"
           },
           "searchGroup": "RegExp Such-Gruppe",
           "downloadURL": "Download-URL",
@@ -178,7 +178,18 @@
             "removeUndersore": "Unterstriche durch Leerzeichen ersetzen",
             "removeHyphen": "Bindestriche mit Leerzeichen ersetzen",
             "setIntoQuotes": "Suchbegriff in Anführungszeichen setzen"
-          }
+          },
+          "groupByPoster": {
+            "title": "NZB-Dateien zusammenfassen",
+            "description": "NZB-Dateien des gleichen Posters zusammenfassen"
+          },
+          "posterPattern": {
+            "html": "RegExp Such-Muster für den Poster",
+            "json": "JSON Objekt-Pfad für den Poster"
+          },
+          "resultSelector": "CSS-Selektor für den Resultat-Container",
+          "nzbIdIdentifier": "NZB-ID Erkennung",
+          "posterIdentifier": "Poster Erkennung"
         }
       },
       "reorder": "Die Reihenfolge der Suchmaschinen kann mittels drag & drop angepasst werden",
@@ -274,7 +285,13 @@
       "email": "E-Mail",
       "dupeMode": {
         "title": "Modus für die Duplikatprüfung"
-      }
+      },
+      "timeout": {
+        "title": "Timeout",
+        "seconds": "Sekunden"
+      },
+      "deviceDescription": "Kann erst nach dem Verbindungstest ausgewählt werden.",
+      "deviceError": "Es sind keine Ziel-Geräte vorhanden!"
     },
     "ok": "OK",
     "next": "Weiter",
@@ -313,7 +330,12 @@
     "grantPermission": "Berechtigung erteilen",
     "files": "Dateien",
     "checkSettings": "Bitte überprüfen Sie die Einstellungen",
-    "default": "Standard"
+    "default": "Standard",
+    "selectFilter": "Filter auswählen",
+    "apply": "Anwenden",
+    "clear": "Löschen",
+    "search": "Suche",
+    "noAvailableOptions": "Kein Optionen vorhanden"
   },
   "validation": {
     "isRequired": "$1 ist ein Pflichtfeld",
@@ -338,7 +360,10 @@
     "fetchError": "Fehler beim Laden der URL \"$1\", abgefangen auf $2: $3",
     "fetchResponseProcessingError": "Fehler bei der Bearbeitung der Datei \"$1\", abgefangen auf $2: $3",
     "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen",
-    "requestBlocked": "Request für $1 wurde abgefangen"
+    "requestBlocked": "Der Request für $1 wurde abgefangen und wird verarbeitet.",
+    "fetchResponseArchiveProcessingSuccess": "Das Abfangen von Archiv $1 war erfolgreich.",
+    "fetchResponseArchiveProcessingPartialSuccess": "Das Abfangen von Archiv $1 ist mit $2 Fehlern teilweise fehlgeschlagen.",
+    "fetchResponseArchiveProcessingError": "Das Abfangen von Archiv $1 ist fehlgeschlagen."
   },
   "targets": {
     "download": {
@@ -365,7 +390,8 @@
   },
   "contextMenu": {
     "sendToSeveralTarget": "senden an",
-    "analyseSelection": "selektierter Text analysieren"
+    "analyseSelection": "selektierter Text analysieren",
+    "sendToProcessing": "Der Kontextmenü-Klick auf $1 wird verarbeitet."
   },
   "nzbsearch": {
     "searchNzb": "NZB-Datei suchen",
@@ -389,7 +415,8 @@
         "message": "Das NZB-Datei-Protokoll wirklich löschen?",
         "header": "NZB-Datei-Protokoll löschen"
       }
-    }
+    },
+    "update": "Aktualisieren"
   },
   "errors": {
     "notImplemented": "nicht implementiert",
@@ -404,7 +431,7 @@
     "errorWhileProcessingNzblnk": "Fehler während der Bearbeitung des NZBLNK: $1",
     "noFilename": "kein Dateiname oder Titel gesetzt",
     "noActiveSearchEngines": "keine aktiven Suchmaschinen",
-    "errorWhileProcessingContextMenuCLick": "Fehler während der Bearbeitung eines Kontextmenü-Klicks: $1",
+    "errorWhileProcessingContextMenuClick": "Fehler während der Verarbeitung eines Kontextmenü-Klicks: $1",
     "invalidNzblnkLink": "ungültiger NZBLNK",
     "settingsWereNotPreserved": "Es konnten nicht alle Einstellungen der vorherigen Version migriert werden und es gibt neue Optionen",
     "hostPermissionsRequired": "NZBDonkey benötigt die Berechtigung, auf alle Webseiten zugreifen zu dürfen, um ordnungsgemäss zu funktionieren.",

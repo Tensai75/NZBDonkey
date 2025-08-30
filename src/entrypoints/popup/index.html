@@ -1,16 +1,5 @@
 <!doctype html>
-<html
-  lang="en"
-  style="
-    height: 600px;
-    min-height: 600px;
-    max-height: 600px;
-    width: 800px;
-    min-width: 800px;
-    max-width: 800px;
-    overflow: hidden;
-  "
->
+<html>
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/icon/256.png" />
@@ -18,6 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="manifest.type" content="browser_action" />
     <title data-locale="extension_name">NZBDonkey</title>
+    <style>
+      html,
+      body,
+      #app {
+        height: 600px;
+        width: 800px;
+        overflow: hidden;
+      }
+      body {
+        margin: 0;
+      }
+
+      /* Hide scrollbars (Firefox + WebKit/Blink) */
+      html,
+      body {
+        scrollbar-width: none;
+      }
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>

@@ -59,6 +59,11 @@ import { i18n } from '#i18n'
         >)
       </div>
       <div class="text-sm">
+        <a href="https://github.com/WebReflection/linkedom">linkedom</a> (<span
+          ><a href="https://github.com/WebReflection/linkedom/blob/main/LICENSE">ISC License</a></span
+        >)
+      </div>
+      <div class="text-sm">
         <a href="https://github.com/primefaces/primeicons">primeicons</a> (<span
           ><a href="https://github.com/primefaces/primeicons/blob/master/LICENSE">MIT License</a></span
         >)

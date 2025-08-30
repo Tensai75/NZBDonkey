@@ -1,4 +1,4 @@
-import { IDebugLog } from './loggerDB'
+import { DebugLogQuery, IDebugLog } from './loggerDB'
 
 let source: string = 'unknown'
 
@@ -10,6 +10,14 @@ export default {
   get: () => {
     return get()
   },
+  getLazy: (debugLogQuery: DebugLogQuery) => {
+    return getLazy(debugLogQuery)
+  },
+  count: (debugLogQuery: DebugLogQuery) => {
+    return count(debugLogQuery)
+  },
+  download: () => download(),
+  getSources: () => getSources(),
   initDebugLog: (origin: string) => {
     source = origin
   },
@@ -53,6 +61,38 @@ const get = () => {
     return import('@/services/logger/debugLoggerBackground').then((logger) => logger.get())
   } else {
     return import('@/services/logger/debugLoggerContent').then((logger) => logger.get())
+  }
+}
+
+const getLazy = (debugLogQuery: DebugLogQuery) => {
+  if (source === 'background') {
+    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.getLazy(debugLogQuery))
+  } else {
+    return import('@/services/logger/debugLoggerContent').then((logger) => logger.getLazy(debugLogQuery))
+  }
+}
+
+const count = (debugLogQuery: DebugLogQuery) => {
+  if (source === 'background') {
+    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.count(debugLogQuery))
+  } else {
+    return import('@/services/logger/debugLoggerContent').then((logger) => logger.count(debugLogQuery))
+  }
+}
+
+const download = () => {
+  if (source === 'background') {
+    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.download())
+  } else {
+    return import('@/services/logger/debugLoggerContent').then((logger) => logger.download())
+  }
+}
+
+const getSources = () => {
+  if (source === 'background') {
+    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.getSources())
+  } else {
+    return import('@/services/logger/debugLoggerContent').then((logger) => logger.getSources())
   }
 }
 

@@ -66,8 +66,9 @@ export const requiredJSONPathResolver = ({ value, name = '' }: FormFieldResolver
       message: i18n.t('validation.isRequired', [name]),
     })
   }
-  const regex = /^([^.[\]]+|\[\d+\])(\.[^.[\]]+|\[\d+\])*$/i
-  if (!regex.test(value)) {
+  const regex =
+    /^(?:\$)?(?:\.(?:\*|[A-Za-z_][A-Za-z0-9_-]*))*?(?:\[(?:\d+|\*|['"][^'"\]]+['"])\])*?(?:\.(?:\*|[A-Za-z_][A-Za-z0-9_-]*|\[(?:\d+|\*|['"][^'"\]]+['"])\]))*$/i
+  if (!regex.test('$.' + value)) {
     errors.push({ message: i18n.t('validation.noValidJSONPath') })
   }
   return { errors }

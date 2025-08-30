@@ -6,7 +6,7 @@ import { i18n } from '#i18n'
 import { browser, Browser } from '#imports'
 import { CategorySettings } from '@/services/categories'
 import log from '@/services/logger/debugLogger'
-import { focusPopupWindow, resizePopupWindow } from '@/utils/popupWindowUtilities'
+import { focusPopupWindow, resizePopupWindow, setZoomTo100 } from '@/utils/popupWindowUtilities'
 
 const overlay = ref(true)
 const loaded = ref(false)
@@ -54,21 +54,23 @@ watch(loaded, () => {
 
 function resize() {
   return new Promise<void>((resolve) => {
-    setTimeout(async () => {
-      const maxHeight = 800 > screen.availHeight ? screen.availHeight : 800
-      const headerHeight = document.querySelector('header')?.scrollHeight || 0
-      const footerHeight = document.querySelector('footer')?.scrollHeight || 0
-      const availableHeight = maxHeight - headerHeight - footerHeight
-      const content = document.getElementById('content')
-      const contentHeight = content?.scrollHeight || 0
-      const maxContentHeight = contentHeight > availableHeight ? availableHeight : contentHeight
-      if (content) {
-        content.style.maxHeight = `${maxContentHeight}px`
-        content.style.height = `${maxContentHeight}px`
-      }
-      await resizePopupWindow(640, headerHeight + maxContentHeight + footerHeight)
-      resolve()
-    }, 100)
+    setZoomTo100().then(() => {
+      setTimeout(async () => {
+        const maxHeight = 800 > screen.availHeight ? screen.availHeight : 800
+        const headerHeight = document.querySelector('header')?.scrollHeight || 0
+        const footerHeight = document.querySelector('footer')?.scrollHeight || 0
+        const availableHeight = maxHeight - headerHeight - footerHeight
+        const content = document.getElementById('content')
+        const contentHeight = content?.scrollHeight || 0
+        const maxContentHeight = contentHeight > availableHeight ? availableHeight : contentHeight
+        if (content) {
+          content.style.maxHeight = `${maxContentHeight}px`
+          content.style.height = `${maxContentHeight}px`
+        }
+        await resizePopupWindow(640, headerHeight + maxContentHeight + footerHeight)
+        resolve()
+      }, 500)
+    })
   })
 }
 </script>
@@ -79,10 +81,10 @@ function resize() {
   </div>
   <div v-if="loaded" class="flex flex-col h-screen w-full">
     <!-- Header -->
-    <header id="header" class="flex p-4 flex-shrink">
+    <header id="header" class="p-4">
       <div class="flex flex-row justify-between w-full">
-        <div class="inline-flex items-center justify-center gap-2">
-          <span class="font-bold whitespace-nowrap text-lg">{{ title }}</span>
+        <div class="inline-flex items-center justify-center gap-2 w-full">
+          <span class="font-bold text-lg w-full truncate">{{ title }}</span>
         </div>
       </div>
     </header>

@@ -6,6 +6,11 @@ import { i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { FetchOptions, generateFormData, JSONparse, useFetch } from '@/utils/fetchUtilities'
+import { Semaphore } from '@/utils/generalUtilities'
+
+const MAX_CONCURRENT = 5
+
+const dlSemaphore = new Semaphore(MAX_CONCURRENT)
 
 const ERROR_CODES = {
   100: 'Unknown error.',
@@ -68,39 +73,44 @@ export type ApiResponse = {
 }
 
 export const push = async (nzb: NZBFileObject, targetSettings: TargetSettings): Promise<void> => {
-  const settings = targetSettings.settings as Settings
-  log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+  const release = await dlSemaphore.acquire()
   try {
-    const sid = await authenticate(settings)
-    const content = new Blob([nzb.getAsTextFile()], {
-      type: 'text/xml',
-    })
-    const formData = {
-      api: 'SYNO.DownloadStation2.Task',
-      method: 'create',
-      version: downloadStation.maxVersion.toString(),
-      type: '"file"',
-      destination: '""',
-      create_list: 'false',
-      mtime: Date.now().toString(),
-      size: content.size.toString(),
-      file: '["torrent"]',
-      extract_password: '"' + nzb.password + '"',
-      torrent: [content, nzb.getFilename()] as [Blob, string],
+    const settings = targetSettings.settings as Settings
+    log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+    try {
+      const sid = await authenticate(settings)
+      const content = new Blob([nzb.getAsTextFile()], {
+        type: 'text/xml',
+      })
+      const formData = {
+        api: 'SYNO.DownloadStation2.Task',
+        method: 'create',
+        version: downloadStation.maxVersion.toString(),
+        type: '"file"',
+        destination: '""',
+        create_list: 'false',
+        mtime: Date.now().toString(),
+        size: content.size.toString(),
+        file: '["torrent"]',
+        extract_password: '"' + nzb.password + '"',
+        torrent: [content, nzb.getFilename()] as [Blob, string],
+      }
+      const options = setOptions(settings)
+      options.path = downloadStation.path
+      options.parameters = { _sid: sid }
+      options.data = generateFormData(formData)
+      options.timeout = 180000
+      const synoData = await connect(options)
+      if (synoData.success != true) {
+        checkError(synoData)
+      }
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
+      throw error
     }
-    const options = setOptions(settings)
-    options.path = downloadStation.path
-    options.parameters = { _sid: sid }
-    options.data = generateFormData(formData)
-    options.timeout = 180000
-    const synoData = await connect(options)
-    if (synoData.success != true) {
-      checkError(synoData)
-    }
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-    log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
-    throw error
+  } finally {
+    release()
   }
 }
 
@@ -135,7 +145,7 @@ const setOptions = (settings: Settings, path: string = ''): FetchOptions => {
     port: settings.port,
     basepath: (settings.basepath ? (settings.basepath.match(/^\/*(.*?)\/*$/)?.[1] ?? '') + '/' : '') + 'webapi/',
     path: path !== '' ? path : 'query.cgi',
-    timeout: settings.timeout ? settings.timeout : 5000,
+    timeout: settings.timeout,
   }
   return options
 }

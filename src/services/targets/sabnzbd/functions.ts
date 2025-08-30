@@ -6,6 +6,11 @@ import { i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { FetchOptions, generateFormData, JSONparse, useFetch } from '@/utils/fetchUtilities'
+import { Semaphore } from '@/utils/generalUtilities'
+
+const MAX_CONCURRENT = 5
+
+const dlSemaphore = new Semaphore(MAX_CONCURRENT)
 
 type SabnzbdApiResponse = {
   status: boolean
@@ -18,40 +23,46 @@ export const push = async (
   nzb: NZBFileObject,
   targetSettings: TargetSettings & { selectedCategory?: string }
 ): Promise<void> => {
-  const settings = targetSettings.settings as Settings
-  log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+  const release = await dlSemaphore.acquire()
   try {
-    const options = setOptions(settings)
-    const clonedNZB = Object.assign(new NZBFileObject(), nzb)
-    if (targetSettings.selectedCategory && clonedNZB.settings?.addCategory) {
-      clonedNZB.addMetaInformation('category', targetSettings.selectedCategory)
+    const settings = targetSettings.settings as Settings
+    log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
+    try {
+      const options = setOptions(settings)
+      const clonedNZB = Object.assign(new NZBFileObject(), nzb)
+      if (targetSettings.selectedCategory && clonedNZB.settings?.addCategory) {
+        clonedNZB.addMetaInformation('category', targetSettings.selectedCategory)
+      }
+      const content = new Blob([clonedNZB.getAsTextFile()], {
+        type: 'text/xml',
+      })
+      const filename = nzb.getFilename()
+      const addPaused = settings.addPaused ? -2 : -100
+      const formData = {
+        mode: 'addfile',
+        output: 'json',
+        apikey: settings.apiKey,
+        nzbname: filename,
+        password: nzb.password,
+        cat: typeof targetSettings.selectedCategory === 'string' ? targetSettings.selectedCategory : '',
+        priority: addPaused.toString(),
+        name: [content, filename] as [Blob | File, string],
+      }
+      options.data = generateFormData(formData)
+      const response = (await connect(options)) as SabnzbdApiResponse
+      if (response.status) return
+      if (response?.error) {
+        throw new Error(response.error)
+      } else {
+        throw new Error(i18n.t('errors.unknownError'))
+      }
+    } catch (e) {
+      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
+      throw error
     }
-    const content = new Blob([clonedNZB.getAsTextFile()], {
-      type: 'text/xml',
-    })
-    const filename = nzb.getFilename()
-    const addPaused = settings.addPaused ? -2 : -100
-    const formData = {
-      mode: 'addfile',
-      output: 'json',
-      apikey: settings.apiKey,
-      nzbname: filename,
-      cat: typeof targetSettings.selectedCategory === 'string' ? targetSettings.selectedCategory : '',
-      priority: addPaused.toString(),
-      name: [content, filename] as [Blob | File, string],
-    }
-    options.data = generateFormData(formData)
-    const response = (await connect(options)) as SabnzbdApiResponse
-    if (response.status) return
-    if (response?.error) {
-      throw new Error(response.error)
-    } else {
-      throw new Error(i18n.t('errors.unknownError'))
-    }
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-    log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
-    throw error
+  } finally {
+    release()
   }
 }
 
@@ -120,7 +131,7 @@ const setOptions = (settings: Settings): FetchOptions => {
     username: settings.basicAuthUsername,
     password: settings.basicAuthPassword,
     path: 'api',
-    timeout: settings.timeout ? settings.timeout : 30000,
+    timeout: settings.timeout,
     data: '',
   }
   if (settings.basepath && settings.basepath != '') {

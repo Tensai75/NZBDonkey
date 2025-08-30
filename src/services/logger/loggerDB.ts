@@ -1,6 +1,6 @@
 import Dexie from 'dexie/dist/dexie.js'
 
-class NZBDonkeyDatabase extends Dexie {
+export class NZBDonkeyDatabase extends Dexie {
   // Declare implicit table properties.
   // (just to inform Typescript. Instantiated by Dexie in stores() method)
   debugLog!: Dexie.Table<IDebugLog, number> // number = type of the primkey
@@ -15,22 +15,42 @@ class NZBDonkeyDatabase extends Dexie {
   }
 }
 
-interface IDebugLog {
+export interface IDebugLog {
   id?: number
   date: number
-  type: 'info' | 'warn' | 'error'
+  type: DebugLogType
   text: string
   source: string
   error: string
 }
 
-interface DebugLogProtocolMap {
+export interface DebugLogProtocolMap {
   debbugLoggerLog(data: IDebugLog): void
   debbugLoggerGet(): IDebugLog[]
+  debbugLoggerGetLazy(data: DebugLogQuery): IDebugLog[]
   debbugLoggerClear(): void
+  debbugLoggerCount(data: DebugLogQuery): number
+  debbugLoggerDownload(): Promise<void>
+  debbugLoggerGetSources(): string[]
 }
 
-interface INZBLog {
+export type DebugLogType = 'info' | 'warn' | 'error'
+export type DebugLogSortField = 'date'
+export type DebugLogSortOrder = 'asc' | 'desc'
+export type DebugLogFilter = {
+  type?: DebugLogType
+  source?: string
+  text?: string
+}
+export type DebugLogQuery = {
+  first: number
+  last: number
+  sortField?: DebugLogSortField
+  sortOrder?: DebugLogSortOrder
+  filter?: DebugLogFilter
+}
+
+export interface INZBLog {
   id?: number
   date: number
   status?: NZBStatus
@@ -44,21 +64,30 @@ interface INZBLog {
   errorMessage?: string
 }
 
-interface NzbLogProtocolMap {
-  nzbLoggerLog(data: IDebugLog): void
-  nzbLoggerGet(): IDebugLog[]
+export type NZBLogFilter = {
+  status?: NZBStatus
+  information?: string
+}
+export type NZBLogQuery = {
+  first: number
+  last: number
+  filter?: NZBLogFilter
+}
+
+export interface NzbLogProtocolMap {
+  nzbLoggerLog(data: INZBLog): void
+  nzbLoggerGet(): INZBLog[]
+  nzbLoggerGetLazy(data: { first: number; last: number }): INZBLog[]
   nzbLoggerClear(): void
 }
 
-type NZBStatus = 'initiated' | 'searching' | 'fetched' | 'error' | 'warn' | 'success'
-type Target = {
+export type NZBStatus = 'initiated' | 'searching' | 'fetched' | 'error' | 'warn' | 'success'
+export type Target = {
   name: string
   category?: string
   status?: TargetStatus
   errorMessage?: string
 }
-type TargetStatus = 'inactive' | 'pending' | 'success' | 'error'
+export type TargetStatus = 'inactive' | 'pending' | 'success' | 'error'
 
-const db = new NZBDonkeyDatabase()
-
-export { db, DebugLogProtocolMap, IDebugLog, INZBLog, NzbLogProtocolMap, NZBStatus, Target, TargetStatus }
+export const db = new NZBDonkeyDatabase()

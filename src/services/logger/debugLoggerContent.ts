@@ -1,6 +1,6 @@
 import { defineExtensionMessaging } from '@webext-core/messaging'
 
-import { DebugLogProtocolMap, IDebugLog } from './loggerDB'
+import { DebugLogProtocolMap, DebugLogQuery, IDebugLog } from './loggerDB'
 
 const extensionMessenger = defineExtensionMessaging<DebugLogProtocolMap>()
 
@@ -15,5 +15,17 @@ const clear = () => extensionMessenger.sendMessage('debbugLoggerClear', undefine
 const get = () => {
   return extensionMessenger.sendMessage('debbugLoggerGet', undefined)
 }
+const getLazy = (debugLogQuery: DebugLogQuery) => {
+  return extensionMessenger.sendMessage('debbugLoggerGetLazy', JSON.parse(JSON.stringify(debugLogQuery)))
+}
+const count = (debugLogQuery: DebugLogQuery) => {
+  return extensionMessenger.sendMessage('debbugLoggerCount', JSON.parse(JSON.stringify(debugLogQuery)))
+}
+const download = () => {
+  return extensionMessenger.sendMessage('debbugLoggerDownload', undefined)
+}
+const getSources = () => {
+  return extensionMessenger.sendMessage('debbugLoggerGetSources', undefined)
+}
 
-export { clear, get, log }
+export { clear, count, download, get, getLazy, getSources, log }
