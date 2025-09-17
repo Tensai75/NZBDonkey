@@ -19,7 +19,7 @@ export const push = async (nzb: NZBFileObject, targetSettings: TargetSettings): 
     const settings = targetSettings.settings as Settings
     log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
     try {
-      const file = new Blob([nzb.getAsTextFile(), nzb.filename], {
+      const file = new Blob([nzb.getAsTextFile()], {
         type: 'application/octet-stream',
       })
       const options = setOptions(settings)
