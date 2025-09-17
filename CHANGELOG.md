@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0...v1.4.1) (2025-09-17)
+
+
+### Bug Fixes
+
+* **interception:** don't discard the file if the file extension is unknown ([8b2be37](https://github.com/Tensai75/NZBDonkey/commit/8b2be3755312f2e476dc065a357b982bc346825e))
+* **premiumize.me:** don't add filename to nzb file blob ([9586333](https://github.com/Tensai75/NZBDonkey/commit/958633353e913717e64e56e8ac2a036b3e050376)), closes [#87](https://github.com/Tensai75/NZBDonkey/issues/87)
+
 # [1.4.0](https://github.com/Tensai75/NZBDonkey/compare/v1.3.0...v1.4.0) (2025-08-30)
 
 
