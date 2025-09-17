@@ -3,7 +3,7 @@ import { PublicPath } from 'wxt/browser'
 import { ArchiveReader, libarchiveWasm } from './libarchive-wasm'
 import { DomainSettings, get as getSettings } from './settings'
 
-import { i18n } from '#imports'
+import { Browser, i18n } from '#imports'
 import { getCategory } from '@/services/categories'
 import log from '@/services/logger/debugLogger'
 import notifications from '@/services/notifications'
@@ -76,6 +76,7 @@ export async function handleResponseData({
     const archiveFiles = await extractArchive(blob, source)
     nzbFiles.push(...archiveFiles)
   } else {
+    await downloadFile(response, filename)
     throw new Error('no NZB file or archive in intercepted response')
   }
   if (!nzbFiles.length) throw new Error('no NZB file found in download')
@@ -137,4 +138,36 @@ export async function handleError(error: Error, nzbFiles: NZBFileObject[]): Prom
     nzbFile.targets.forEach((target) => (target.status = 'inactive'))
     nzbFile.log(nzbFile)
   })
+}
+
+async function downloadFile(response: Response | DeserializedResponse, filename: string): Promise<void> {
+  const blob = await response.blob()
+  // Create URL (blob for Firefox, data URL for Chrome)
+  let url: string
+  if (import.meta.env.FIREFOX) {
+    url = URL.createObjectURL(blob)
+  } else {
+    // Chrome: blob: not supported by downloads API in MV3 service worker
+    // Use data:; base64 to be safe with any binary chars
+    url = `data:${blob.type};base64,${await blobToBase64(blob)}`
+  }
+  log.info(`downloading file ${filename} via browser download`)
+  const downloadOptions: Browser.downloads.DownloadOptions = {
+    filename: filename,
+    url,
+  }
+  browser.downloads.download(downloadOptions)
+}
+
+// Helper function for efficient blob to base64 encoding
+async function blobToBase64(blob: Blob): Promise<string> {
+  const buffer = await blob.arrayBuffer()
+  const bytes = new Uint8Array(buffer)
+  let binary = ''
+  const chunkSize = 8192
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    const chunk = bytes.subarray(i, Math.min(i + chunkSize, bytes.length))
+    binary += String.fromCharCode(...chunk)
+  }
+  return btoa(binary)
 }
