@@ -17,7 +17,7 @@ export async function openPopupWindow(source: string): Promise<number> {
       height: height,
       type: 'popup',
     })
-    if (window.id) {
+    if (window?.id) {
       log.info(`popup dialog window with source "${source}" opened with id ${window.id}`)
       return window.id
     } else {
