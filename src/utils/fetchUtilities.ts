@@ -1,4 +1,5 @@
 import { b64EncodeUnicode, getFileNameFromPath } from '@/utils/stringUtilities'
+import psl from 'psl'
 
 const DEFAULT_HEADER = { 'X-NZBDonkey': 'true' }
 const DEFAULT_TIMEOUT = 30000
@@ -215,7 +216,15 @@ export const getFilenameFromResponse = (response: Response): string => {
  * @throws {Error} Throws an error if the URL is invalid.
  */
 export const getBaseDomainFromULR = (url: string): string => {
-  return new URL(url).hostname.split('.').slice(-2).join('.')
+  const hostname = new URL(url).hostname
+  const domain = psl.get(hostname)
+  
+  // Fall back to simple extraction for edge cases
+  if (domain === null) {
+    return hostname.split('.').slice(-2).join('.')
+  }
+  
+  return domain
 }
 
 /**
