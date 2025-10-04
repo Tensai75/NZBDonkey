@@ -24,7 +24,7 @@ export const push = async (nzb: NZBFileObject, targetSettings: TargetSettings): 
     log.info(`pushing file "${nzb.title}" to ${targetSettings.name}`)
     try {
       const options = setOptions(settings)
-      options.path = 'usenet/asyncccreateusenetdownload'
+      options.path = 'usenet/asynccreateusenetdownload'
       options.data = new FormData()
       options.data.append(
         'file',
