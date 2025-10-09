@@ -1,4 +1,5 @@
 import { FormFieldResolverOptions } from '@primevue/forms'
+import psl from 'psl'
 
 import { i18n } from '#i18n'
 import { browser } from '#imports'
@@ -52,8 +53,7 @@ export const requiredBaseDomainResolver = ({ value, name = '' }: FormFieldResolv
       message: i18n.t('validation.isRequired', [name]),
     })
   }
-  const regex = /^[a-zA-Z0-9-]{1,63}(?:\.(?:(?:a[cd]|com?|edu|gov|net|org?)\.[a-zA-Z0-9-]{2}|[a-zA-Z]{2,63}))?$/i
-  if (!regex.test(value)) {
+  if (psl.get(value) !== value) {
     errors.push({ message: i18n.t('validation.noBaseDomain') })
   }
   return { errors }

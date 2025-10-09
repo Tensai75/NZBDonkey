@@ -9,7 +9,7 @@ import notifications from '@/services/notifications'
 import {
   DeserializedResponse,
   deserializeResponse,
-  getBaseDomainFromULR,
+  getBaseDomainFromURL,
   serializeRequest,
 } from '@/utils/fetchUtilities'
 
@@ -115,7 +115,7 @@ function onErrorOccurredListener(details: Browser.webRequest.WebRequestDetails):
       if (!cachedRequest) throw new Error(`no cached request found for requestId ${details.requestId}`)
       requestCache.delete(details.requestId) // Clear the cache after processing
       const { url, source } = cachedRequest
-      const domain = getBaseDomainFromULR(url)
+      const domain = getBaseDomainFromURL(url)
       const setting = (await interception.getSettings()).domains.find((d) => d.domain === domain)
       if (!setting) throw new Error(`no domain setting found for ${domain}`)
       try {

@@ -1,3 +1,5 @@
+import psl from 'psl'
+
 import { b64EncodeUnicode, getFileNameFromPath } from '@/utils/stringUtilities'
 
 const DEFAULT_HEADER = { 'X-NZBDonkey': 'true' }
@@ -214,8 +216,16 @@ export const getFilenameFromResponse = (response: Response): string => {
  * @return {string} The base domain.
  * @throws {Error} Throws an error if the URL is invalid.
  */
-export const getBaseDomainFromULR = (url: string): string => {
-  return new URL(url).hostname.split('.').slice(-2).join('.')
+export const getBaseDomainFromURL = (url: string): string => {
+  const hostname = new URL(url).hostname
+  const domain = psl.get(hostname)
+
+  // Fall back to simple extraction for edge cases
+  if (domain === null) {
+    return hostname.split('.').slice(-2).join('.')
+  }
+
+  return domain
 }
 
 /**
