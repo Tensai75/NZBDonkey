@@ -216,7 +216,7 @@ export const getFilenameFromResponse = (response: Response): string => {
  * @return {string} The base domain.
  * @throws {Error} Throws an error if the URL is invalid.
  */
-export const getBaseDomainFromULR = (url: string): string => {
+export const getBaseDomainFromURL = (url: string): string => {
   const hostname = new URL(url).hostname
   const domain = psl.get(hostname)
 

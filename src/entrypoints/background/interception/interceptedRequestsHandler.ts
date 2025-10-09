@@ -11,7 +11,7 @@ import notifications from '@/services/notifications'
 import { NZBFileObject } from '@/services/nzbfile'
 import {
   DeserializedResponse,
-  getBaseDomainFromULR,
+  getBaseDomainFromURL,
   getFilenameFromResponse,
   getHttpStatusText,
 } from '@/utils/fetchUtilities'
@@ -46,7 +46,7 @@ export async function processInterceptedRequestResponse({
 }): Promise<void> {
   let nzbFiles: NZBFileObject[] = [] // Initialize nzbFiles here
   const url = response.url
-  const domain = getBaseDomainFromULR(url)
+  const domain = getBaseDomainFromURL(url)
   const filename = getFilenameFromResponse(response as Response)
   const setting = (await getInterceptionSettings()).domains.find((d) => d.domain === domain)
   try {
