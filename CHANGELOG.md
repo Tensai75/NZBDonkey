@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Tensai75/NZBDonkey/compare/v1.4.1...v1.5.0) (2025-10-26)
+
+
+### Features
+
+* add workflow_dispatch trigger to semantic release workflow ([c4d923b](https://github.com/Tensai75/NZBDonkey/commit/c4d923ba3c8fe6ff0a42d6dc72bbf2fde14d6f47))
+
 ## [1.4.1](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0...v1.4.1) (2025-09-17)
 
 
