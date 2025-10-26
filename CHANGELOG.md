@@ -1,40 +1,37 @@
-# [1.5.0](https://github.com/Tensai75/NZBDonkey/compare/v1.4.1...v1.5.0) (2025-10-26)
+# [1.4.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.1...v1.4.2) (2025-10-26)
 
+### Bug Fixes
 
-### Features
-
-* add workflow_dispatch trigger to semantic release workflow ([c4d923b](https://github.com/Tensai75/NZBDonkey/commit/c4d923ba3c8fe6ff0a42d6dc72bbf2fde14d6f47))
+- **torbox:** fix for api path typo ([bd378fc](https://github.com/Tensai75/NZBDonkey/pull/90/commits/bd378fce2650a7ed400cedd1d0c4fbeef88020e4))
+- use psl for base domain resolution ([e432096](https://github.com/Tensai75/NZBDonkey/pull/89/commits/e432096076b358640f3b3d59e683b23fd46aef47))
 
 ## [1.4.1](https://github.com/Tensai75/NZBDonkey/compare/v1.4.0...v1.4.1) (2025-09-17)
 
-
 ### Bug Fixes
 
-* **interception:** don't discard the file if the file extension is unknown ([8b2be37](https://github.com/Tensai75/NZBDonkey/commit/8b2be3755312f2e476dc065a357b982bc346825e))
-* **premiumize.me:** don't add filename to nzb file blob ([9586333](https://github.com/Tensai75/NZBDonkey/commit/958633353e913717e64e56e8ac2a036b3e050376)), closes [#87](https://github.com/Tensai75/NZBDonkey/issues/87)
+- **interception:** don't discard the file if the file extension is unknown ([8b2be37](https://github.com/Tensai75/NZBDonkey/commit/8b2be3755312f2e476dc065a357b982bc346825e))
+- **premiumize.me:** don't add filename to nzb file blob ([9586333](https://github.com/Tensai75/NZBDonkey/commit/958633353e913717e64e56e8ac2a036b3e050376)), closes [#87](https://github.com/Tensai75/NZBDonkey/issues/87)
 
 # [1.4.0](https://github.com/Tensai75/NZBDonkey/compare/v1.3.0...v1.4.0) (2025-08-30)
 
-
 ### Bug Fixes
 
-* fix for some minor display errors ([20da4c6](https://github.com/Tensai75/NZBDonkey/commit/20da4c6916105f3056c8d5b077452a9ecc84c73e))
-* improved handling of archives with multiple NZB files. ([6447cbe](https://github.com/Tensai75/NZBDonkey/commit/6447cbefdc1de610c64e31fba8f4c8a8f1b62b44))
-* make text analysis regexp more consistent ([06491f0](https://github.com/Tensai75/NZBDonkey/commit/06491f02dda0ba6dd95e4cde4932b37d573d13c3))
-* only create NZB file object if extraction was successful ([aaeb0df](https://github.com/Tensai75/NZBDonkey/commit/aaeb0df71507e4d4d4144c69ff76ec9346c29b4d))
-* switch to lazy loading of debug log entries to prevent freezing with large logs ([38b49dd](https://github.com/Tensai75/NZBDonkey/commit/38b49dd8a98c58561ee1bc0809bb206a27cb7e65))
-* switch to lazy loading of NZB file log entries to prevent freezing with large logs ([7115af6](https://github.com/Tensai75/NZBDonkey/commit/7115af69b6bedd9fe348dba86f1bb3f6e04af609))
-* use global listeners and free the memory early to help GC ([71cb780](https://github.com/Tensai75/NZBDonkey/commit/71cb780a595671a53386a0229ff194635cb016eb))
-* use semaphores to limit concurrent pushes ([2ee93f4](https://github.com/Tensai75/NZBDonkey/commit/2ee93f49b30f08c13be323d0d0800447b61faebb))
-* use the API parameter to send the password to sabnzbd ([3617f5e](https://github.com/Tensai75/NZBDonkey/commit/3617f5ebff293af259bcad70717b91c821952b0e))
-
+- fix for some minor display errors ([20da4c6](https://github.com/Tensai75/NZBDonkey/commit/20da4c6916105f3056c8d5b077452a9ecc84c73e))
+- improved handling of archives with multiple NZB files. ([6447cbe](https://github.com/Tensai75/NZBDonkey/commit/6447cbefdc1de610c64e31fba8f4c8a8f1b62b44))
+- make text analysis regexp more consistent ([06491f0](https://github.com/Tensai75/NZBDonkey/commit/06491f02dda0ba6dd95e4cde4932b37d573d13c3))
+- only create NZB file object if extraction was successful ([aaeb0df](https://github.com/Tensai75/NZBDonkey/commit/aaeb0df71507e4d4d4144c69ff76ec9346c29b4d))
+- switch to lazy loading of debug log entries to prevent freezing with large logs ([38b49dd](https://github.com/Tensai75/NZBDonkey/commit/38b49dd8a98c58561ee1bc0809bb206a27cb7e65))
+- switch to lazy loading of NZB file log entries to prevent freezing with large logs ([7115af6](https://github.com/Tensai75/NZBDonkey/commit/7115af69b6bedd9fe348dba86f1bb3f6e04af609))
+- use global listeners and free the memory early to help GC ([71cb780](https://github.com/Tensai75/NZBDonkey/commit/71cb780a595671a53386a0229ff194635cb016eb))
+- use semaphores to limit concurrent pushes ([2ee93f4](https://github.com/Tensai75/NZBDonkey/commit/2ee93f49b30f08c13be323d0d0800447b61faebb))
+- use the API parameter to send the password to sabnzbd ([3617f5e](https://github.com/Tensai75/NZBDonkey/commit/3617f5ebff293af259bcad70717b91c821952b0e))
 
 ### Features
 
-* add filters and search to the NZB file log ([d6ccc1e](https://github.com/Tensai75/NZBDonkey/commit/d6ccc1efb38e9af743fd018a9538747f3b21c61e))
-* make the easynews URLs remotely updatable ([61ddeb3](https://github.com/Tensai75/NZBDonkey/commit/61ddeb3160b4ffff18d42ce0fe18a662200569b1))
-* make timeout user configurable ([7887101](https://github.com/Tensai75/NZBDonkey/commit/7887101eb7c20f7e0dc7a9cc4970907f9d5882fa))
-* new option to merge NZB files from same poster ([ab175ed](https://github.com/Tensai75/NZBDonkey/commit/ab175ed10395e53fca13cd2aa1c9786d2fd13e03))
+- add filters and search to the NZB file log ([d6ccc1e](https://github.com/Tensai75/NZBDonkey/commit/d6ccc1efb38e9af743fd018a9538747f3b21c61e))
+- make the easynews URLs remotely updatable ([61ddeb3](https://github.com/Tensai75/NZBDonkey/commit/61ddeb3160b4ffff18d42ce0fe18a662200569b1))
+- make timeout user configurable ([7887101](https://github.com/Tensai75/NZBDonkey/commit/7887101eb7c20f7e0dc7a9cc4970907f9d5882fa))
+- new option to merge NZB files from same poster ([ab175ed](https://github.com/Tensai75/NZBDonkey/commit/ab175ed10395e53fca13cd2aa1c9786d2fd13e03))
 
 # [1.3.0](https://github.com/Tensai75/NZBDonkey/compare/v1.2.2...v1.3.0) (2025-08-10)
 
