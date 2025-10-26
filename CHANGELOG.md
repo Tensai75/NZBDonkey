@@ -1,4 +1,4 @@
-# [1.4.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.1...v1.4.2) (2025-10-26)
+## [1.4.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.1...v1.4.2) (2025-10-26)
 
 ### Bug Fixes
 
