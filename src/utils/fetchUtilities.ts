@@ -528,7 +528,7 @@ export async function serializeResponse(response: Response): Promise<SerializedR
     throw new Error('Response body already consumed')
   }
   const clone = response.clone()
-  const headers = Array.from(clone.headers.entries())
+  const headers = Array.from(clone.headers)
   const contentType = clone.headers.get('Content-Type') || ''
   const contentDisposition = clone.headers.get('Content-Disposition') || ''
   const isAttachment = contentDisposition.toLowerCase().includes('attachment')

@@ -16,20 +16,14 @@ import {
   getHttpStatusText,
 } from '@/utils/fetchUtilities'
 
-export async function fetchInterceptedRequest({
-  request,
-  source,
-}: {
-  request: Request
-  source: string
-}): Promise<void> {
+export async function fetchInterceptedRequest(request: Request): Promise<Response> {
   try {
     log.info(`fetching intercepted request from ${request.url}`)
     const response = await fetch(request)
     if (!response.ok) {
       throw new Error(`${response.status} - ${getHttpStatusText(response.status)}`)
     }
-    processInterceptedRequestResponse({ response: response, source: source })
+    return response
   } catch (e) {
     const error = e instanceof Error ? e : new Error('unknown error')
     log.error('error fetching intercepted request', error)
