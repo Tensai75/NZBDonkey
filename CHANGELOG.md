@@ -1,3 +1,10 @@
+## [1.4.3-beta.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.3-beta.1...v1.4.3-beta.2) (2025-11-16)
+
+
+### Bug Fixes
+
+* ignore tab status and just go back or reload ([f06f598](https://github.com/Tensai75/NZBDonkey/commit/f06f59857e4795feed1765c0b192635c1ba1487c))
+
 ## [1.4.3-beta.1](https://github.com/Tensai75/NZBDonkey/compare/v1.4.2...v1.4.3-beta.1) (2025-11-16)
 
 
