@@ -233,28 +233,19 @@ async function goBack(tabId: number, url: string): Promise<void> {
   try {
     const tab = await browser.tabs.get(tabId)
     if (!tab) throw new Error('tab is not defined')
-    // If the tab is still loading, this means that it shows the ERR_BLOCKED_BY_CLIENT error
-    // because if the request was blocked, the tab cannot settle to the completed state.
-    if (tab.status === 'loading') {
-      // If the current URL matches the intercepted URL, simply go back.
-      // This is the usual case for most sites.
-      if (tab.url && tab.url.startsWith(url)) {
-        await browser.tabs.goBack(tabId)
-        log.info(`successfully went back in tab ${tabId}`)
-        return
-      }
-      // On some sites, e.g. drunkenslug, the tab still shows the initiator URL
-      // so in this case we need to reload the tab with this URL to go back.
-      if (tab.url && !tab.url.startsWith(url)) {
-        await browser.tabs.update(tabId, { url: tab.url })
-        log.info(`successfully reloaded tab ${tabId}`)
-        return
-      }
-    } else {
-      // If the tab is not in loading state, it does not show the
-      // ERR_BLOCKED_BY_CLIENT error and no action is needed.
-      // This is the case e.g. if the request was a JavaScript fetch request.
-      log.info(`no update needed for tab ${tabId}`)
+    // If the current URL matches the intercepted URL, simply go back.
+    // This is the usual case for most sites.
+    if (tab.url && tab.url.startsWith(url)) {
+      await browser.tabs.goBack(tabId)
+      log.info(`successfully went back in tab ${tabId}`)
+      return
+    }
+    // On some sites, e.g. drunkenslug, the tab still shows the initiator URL
+    // so in this case we need to reload the tab with this URL to go back.
+    if (tab.url && !tab.url.startsWith(url)) {
+      await browser.tabs.update(tabId, { url: tab.url })
+      log.info(`successfully reloaded tab ${tabId}`)
+      return
     }
   } catch (e) {
     if (String(e).includes('Cannot find a next page in history')) {
