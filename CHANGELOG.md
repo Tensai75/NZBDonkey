@@ -1,3 +1,10 @@
+## [1.4.3-beta.1](https://github.com/Tensai75/NZBDonkey/compare/v1.4.2...v1.4.3-beta.1) (2025-11-16)
+
+
+### Bug Fixes
+
+* **interception:** refactoring for more consistent behaviour ([c640f9f](https://github.com/Tensai75/NZBDonkey/commit/c640f9fe977d511739ec7f5ebc380cacc45e379b))
+
 ## [1.4.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.1...v1.4.2) (2025-10-26)
 
 ### Bug Fixes
