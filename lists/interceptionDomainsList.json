@@ -204,6 +204,18 @@
       "pathRegExp": "/index\\.php\\?attachments/.+/&sess=.+",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "nzbgrabit.org",
+      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "domain": "nzbgrabit.org",
+      "fetchOrigin": "injection",
+      "icon": "https://www.nzbgrabit.org/apple-touch-icon.png",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "/nzbcreate\\.php",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
