@@ -20,10 +20,14 @@ type RequestDetails = {
   source: string
 }
 
+// Path to the content script for interception
 const scriptSource: string = '/content-scripts/interception.js'
-
+// In-memory cache for request details
 const requestCache = new Map<string, RequestDetails>()
 const tabRelationships = new Map<number, number>() // key: new tab ID, value: opener tab ID
+// Timeout settings for waiting loops
+const step = 100
+const timeout = 10000
 
 let sessionRuleId = 1
 
@@ -120,79 +124,99 @@ function onBeforeRequestListener(
 }
 
 function onErrorOccurredListener(details: Browser.webRequest.WebRequestDetails): void {
-  isURLTracked(details.url).then(async (isTracked) => {
-    let sourceUrl = ''
-    let tabId: number = details.tabId
-    try {
-      if (!isTracked) return
-      notifications.info(i18n.t('interception.requestBlocked', [details.url]))
-      log.info(`request ${details.requestId} to ${details.url} was blocked by interception rules`)
-      if (tabRelationships.has(details.tabId)) {
-        // If the tab was opened from another tab, close it
-        log.info(`closing tab ${tabId} opened from tab ${tabRelationships.get(tabId)}`)
-        await browser.tabs.remove(tabId)
-        // set tabId to the opener tab for further processing
-        tabId = tabRelationships.get(tabId)!
-        tabRelationships.delete(details.tabId)
-      } else if (tabId >= 0 && details.frameId === 0 && details.type === 'main_frame') {
-        // If it's a main frame request, try to go back
-        log.info(`updating tab ${tabId} due to blocked request`)
-        await goBack(tabId, details.url)
-      }
-      const cachedRequest = requestCache.get(details.requestId)
-      if (!cachedRequest) throw new Error(`no cached request found for requestId ${details.requestId}`)
-      requestCache.delete(details.requestId) // Clear the cache after processing
-      const { url } = cachedRequest
-      const domain = getBaseDomainFromURL(url)
-      const setting = (await interception.getSettings()).domains.find((d) => d.domain === domain)
-      if (!setting) throw new Error(`no domain setting found for ${domain}`)
-      // Try to reach tab and inject script to get the source URL
-      let error = true
-      let counter = 0
-      while (error) {
-        try {
-          const [scriptingResult] = await browser.scripting.executeScript({
-            target: { tabId: tabId },
-            func: () => window.location.href,
-          })
-          sourceUrl = scriptingResult.result as string
-          log.info(`source URL for request ${details.requestId} is ${sourceUrl}`)
-          error = false
-        } catch {
-          // Ignore errors and retry
-        } finally {
-          counter++
-          await new Promise((resolve) => setTimeout(resolve, 200))
-          // Timeout after 5 seconds (25 * 200ms)
-          if (counter >= 25) {
-            // eslint-disable-next-line no-unsafe-finally
-            throw new Error(`timeout while waiting for tab ${tabId} to be loaded for source URL retrieval`)
-          }
-        }
-      }
-      const request = prepareRequest(cachedRequest, setting)
-      let response: Response | DeserializedResponse
-      switch (setting.fetchOrigin) {
-        case 'injection': {
-          response = await fetchFromContentScript(request, domain, tabId)
-          break
-        }
-        default:
-          response = await fetchInterceptedRequest(request)
-      }
-      processInterceptedRequestResponse({ response, source: sourceUrl })
-    } catch (e) {
-      const url = details.url
-      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-      log.error(`faild to intercept request ${details.requestId} from ${url}`, error)
-      notifications.error(i18n.t('interception.fetchError', [url, sourceUrl, error.message]))
-      await browser.scripting.executeScript({
-        target: { tabId: tabId },
-        func: (msg: string) => alert(msg),
-        args: [error.toString()],
-      })
-    }
+  isURLTracked(details.url).then((isTracked) => {
+    // If the URL is not tracked, ignore
+    if (!isTracked) return
+    // If the URL is tracked, intercept the request
+    interceptRequest(details)
   })
+}
+
+async function interceptRequest(details: Browser.webRequest.WebRequestDetails): Promise<void> {
+  let sourceUrl = ''
+  let tabId: number = details.tabId
+  try {
+    // Inform the user that the request was blocked
+    notifications.info(i18n.t('interception.requestBlocked', [details.url]))
+    log.info(`request ${details.requestId} to ${details.url} was blocked by interception rules`)
+    // Check if the tab was opened from another tab
+    if (tabRelationships.has(details.tabId)) {
+      // If the tab was opened from another tab, close it
+      log.info(`closing tab ${tabId} opened from tab ${tabRelationships.get(tabId)}`)
+      await browser.tabs.remove(tabId)
+      // set tabId to the opener tab for further processing
+      tabId = tabRelationships.get(tabId)!
+      tabRelationships.delete(details.tabId) // Clean up the relationship
+    }
+    // Get the cached request details
+    const cachedRequest = requestCache.get(details.requestId)
+    if (!cachedRequest) throw new Error(`no cached request found for requestId ${details.requestId}`)
+    requestCache.delete(details.requestId) // Clean up the cache after processing
+    const url = cachedRequest.url
+    const domain = getBaseDomainFromURL(url)
+    // Get the domain settings
+    const setting = (await interception.getSettings()).domains.find((d) => d.domain === domain)
+    if (!setting) throw new Error(`no domain setting found for ${domain}`)
+    // Wait for the blocked tab to be loaded completely
+    await waitForTabToLoad(tabId)
+    // Try to reach tab and inject script to get the source URL
+    let error = true
+    let counter = 0
+    while (error) {
+      try {
+        const [scriptingResult] = await browser.scripting.executeScript({
+          target: { tabId: tabId },
+          func: () => window.location.href,
+        })
+        sourceUrl = scriptingResult.result as string
+        log.info(`source URL for request ${details.requestId} is ${sourceUrl}`)
+        error = false
+      } catch (e) {
+        // If we have an error, the tab might show the ERR_BLOCKED_BY_CLIENT page
+        if (String(e).includes('error page')) {
+          log.info(
+            `tab ${tabId} is showing the ERR_BLOCKED_BY_CLIENT page, updating the tab to go back to the previous URL`
+          )
+          await updateTab(tabId, details.url)
+        } else {
+          // If there is another error, rethrow it
+          throw e
+        }
+      } finally {
+        counter++
+        await new Promise((resolve) => setTimeout(resolve, step))
+        // Calculate timeout
+        if (counter >= timeout / step) {
+          // eslint-disable-next-line no-unsafe-finally
+          throw new Error(`timeout while waiting for the source URL script to be injected into tab ${tabId}`)
+        }
+      }
+    }
+    // Prepare the request
+    const request = prepareRequest(cachedRequest, setting)
+    let response: Response | DeserializedResponse
+    // Fetch the request based on the fetch origin setting
+    switch (setting.fetchOrigin) {
+      case 'injection': {
+        response = await fetchFromContentScript(request, domain, tabId)
+        break
+      }
+      default:
+        response = await fetchInterceptedRequest(request)
+    }
+    // Process the response
+    processInterceptedRequestResponse({ response, source: sourceUrl })
+  } catch (e) {
+    const url = details.url
+    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+    log.error(`faild to intercept request ${details.requestId} from ${url}`, error)
+    notifications.error(i18n.t('interception.fetchError', [url, sourceUrl, error.message]))
+    await browser.scripting.executeScript({
+      target: { tabId: tabId },
+      func: (msg: string) => alert(msg),
+      args: [error.toString()],
+    })
+  }
 }
 
 function constructRuleSet(activeDomains: interception.DomainSettings[]): Browser.declarativeNetRequest.Rule[] {
@@ -229,36 +253,70 @@ async function isURLTracked(url: string): Promise<boolean> {
   return false
 }
 
-async function goBack(tabId: number, url: string): Promise<void> {
+async function updateTab(tabId: number, url: string): Promise<void> {
   try {
     const tab = await browser.tabs.get(tabId)
-    if (!tab) throw new Error('tab is not defined')
     // If the current URL matches the intercepted URL, simply go back.
     // This is the usual case for most sites.
     if (tab.url && tab.url.startsWith(url)) {
-      await browser.tabs.goBack(tabId)
-      log.info(`successfully went back in tab ${tabId}`)
+      await goBackInTab(tabId)
+      await waitForTabToLoad(tabId)
       return
     }
     // On some sites, e.g. drunkenslug, the tab still shows the initiator URL
     // so in this case we need to reload the tab with this URL to go back.
     if (tab.url && !tab.url.startsWith(url)) {
-      await browser.tabs.update(tabId, { url: tab.url })
-      log.info(`successfully reloaded tab ${tabId}`)
+      await reloadTab(tabId, tab.url)
+      await waitForTabToLoad(tabId)
       return
     }
   } catch (e) {
     if (String(e).includes('Cannot find a next page in history')) {
-      // Close the tab if going back is not possible
+      // Reload the tab if going back is not possible
       try {
-        await browser.tabs.remove(tabId)
-      } catch {
-        // ignore errors
+        await reloadTab(tabId, url)
+        await waitForTabToLoad(tabId)
+      } catch (e) {
+        throw new Error(`failed to update tab ${tabId}: ${String(e)}`, e instanceof Error ? e : new Error(String(e)))
       }
     } else {
-      log.error(`failed to update tab ${tabId}: ${String(e)}`, e instanceof Error ? e : new Error(String(e)))
+      throw new Error(`failed to update tab ${tabId}: ${String(e)}`, e instanceof Error ? e : new Error(String(e)))
     }
   }
+}
+
+async function goBackInTab(tabId: number): Promise<Browser.tabs.Tab> {
+  log.info(`going back in tab ${tabId}`)
+  await browser.tabs.goBack(tabId)
+  const updatedTab = await browser.tabs.get(tabId)
+  log.info(`successfully went back in tab ${tabId} to URL: ${updatedTab.url}`)
+  return updatedTab
+}
+
+async function reloadTab(tabId: number, url: string): Promise<Browser.tabs.Tab> {
+  log.info(`reloading tab ${tabId} with URL ${url}`)
+  const updatedTab = await browser.tabs.update(tabId, { url: url })
+  if (!updatedTab) throw new Error(`tab is not defined`)
+  log.info(`successfully reloaded tab ${tabId} with URL: ${updatedTab.url}`)
+  return updatedTab
+}
+
+async function waitForTabToLoad(tabId: number): Promise<void> {
+  let tab = await browser.tabs.get(tabId)
+  if (tab.status === 'complete') return
+  log.info(`waiting for tab ${tabId} to finish loading...`)
+  let counter = 0
+  while (tab.status === 'loading') {
+    await new Promise((resolve) => setTimeout(resolve, step))
+    // Refresh tab info
+    tab = await browser.tabs.get(tabId)
+    counter++
+    // Calculate timeout
+    if (counter >= timeout / step) {
+      throw new Error(`timeout while waiting for tab ${tabId} to finish loading`)
+    }
+  }
+  log.info(`tab ${tab.id} has finished loading after ${counter * step} ms with URL: ${tab.url}`)
 }
 
 function normalizeRegexStart(input: string): string {
@@ -327,7 +385,6 @@ async function fetchFromContentScript(request: Request, domain: string, tabId: n
     await browser.scripting.executeScript({
       target: { tabId: tabId },
       files: [scriptSource],
-      injectImmediately: true,
     })
     // send the fetch request to the content script and wait for the response
     log.info(`forwarding intercepted request to interception content script for ${request.url}`)
