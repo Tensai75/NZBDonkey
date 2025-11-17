@@ -6,7 +6,7 @@ import { PropType, ref, toRaw } from 'vue'
 import { i18n } from '#i18n'
 import DefaultDomainsDialog from '@/components/interception/defaultDomainsDialog.vue'
 import * as interception from '@/services/interception'
-import { requiredBaseDomainResolver, requiredNetRequestRegexpResolver } from '@/services/resolvers'
+import { requiredNetRequestRegexpResolver, requiredUniqueBaseDomainResolver } from '@/services/resolvers'
 
 const props = defineProps({
   domains: {
@@ -60,7 +60,7 @@ function reset() {
           v-slot="$field"
           :name="i18n.t('settings.interception.domains.domain.title')"
           :initial-value="domain.domain"
-          :resolver="requiredBaseDomainResolver"
+          :resolver="requiredUniqueBaseDomainResolver"
           :validate-on-blur="true"
           :validate-on-value-update="true"
           :validate-on-mount="true"

@@ -249,6 +249,9 @@
       "updateOnStartup": {
         "title": "Update of predefined domains",
         "description": "automatically update predefined domains"
+      },
+      "defaultDomainsDialog": {
+        "noDomains": "No further domains available."
       }
     },
     "common": {
@@ -354,7 +357,8 @@
     "noSegments": "the nzb file has no segments",
     "missingSegments": "$1 missing segment(s)",
     "noFiles": "the nzb file has no files",
-    "regexpNotSupported": "This regexp is too complex and cannot be used"
+    "regexpNotSupported": "This regexp is too complex and cannot be used",
+    "domainExists": "Domain already available"
   },
   "interception": {
     "fetchError": "error loading url \"$1\" intercepted on $2: $3",
