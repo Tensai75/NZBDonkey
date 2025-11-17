@@ -1,3 +1,10 @@
+## [1.4.3-beta.3](https://github.com/Tensai75/NZBDonkey/compare/v1.4.3-beta.2...v1.4.3-beta.3) (2025-11-17)
+
+
+### Bug Fixes
+
+* third and hopefully final attempt to fix the interception behaviour ([10f3daf](https://github.com/Tensai75/NZBDonkey/commit/10f3dafc539c9ed41f6306c42f2a9b361dfda26f))
+
 ## [1.4.3-beta.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.3-beta.1...v1.4.3-beta.2) (2025-11-16)
 
 
