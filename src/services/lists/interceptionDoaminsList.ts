@@ -42,7 +42,7 @@ export async function updateInterceptionDomainsList(
   const updatedDomains = domains
     .filter((domain) => {
       // Keep all non-default domains, and only keep default domains if their domain is in domainsListDomainNames
-      const keep = !domain.isDefault || domainsListIDs.has(domain.id)
+      const keep = !domain.isDefault || domainsListIDs.has(domain.id ?? domain.domain)
       if (!keep) log.info(`removing default interception domain "${domain.domain}" from settings`)
       return keep
     })

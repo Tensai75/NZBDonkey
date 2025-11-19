@@ -1,11 +1,8 @@
 import * as interception from '@/services/interception'
 import { updateInterceptionDomainsList } from '@/services/lists'
-import log from '@/services/logger/debugLogger'
 import * as searchengines from '@/services/searchengines'
 
 export default async function (): Promise<void> {
-  log.info('migrating settings from v1.2.0')
-
   await migrateInterceptionSettings()
   await migrateSearchEnginesSettings()
 }
