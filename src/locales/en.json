@@ -363,7 +363,8 @@
     "requestBlocked": "The Request for $1 has been intercepted and is being processed.",
     "fetchResponseArchiveProcessingSuccess": "The interception of archive $1 was successful.",
     "fetchResponseArchiveProcessingPartialSuccess": "The interception of archive $1 partially failed with $2 errors.",
-    "fetchResponseArchiveProcessingError": "The interception of archive $1 failed."
+    "fetchResponseArchiveProcessingError": "The interception of archive $1 failed.",
+    "redirectURLError": "Interception redirect URLs not reachable."
   },
   "targets": {
     "download": {

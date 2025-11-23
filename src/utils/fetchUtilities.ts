@@ -207,7 +207,7 @@ export const generateFormData = (
 export const getFilenameFromResponse = (response: Response): string => {
   const contentDisposition = response.headers.get('Content-Disposition')
   const match = contentDisposition?.match(/filename\*?=(?:[^']*'')?"?([^"]*)"?/i)
-  return match?.[1] || getFileNameFromPath(response.url)
+  return match?.[1] || getFileNameFromPath(new URL(response.url).pathname)
 }
 
 /**

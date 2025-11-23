@@ -35,7 +35,24 @@ export async function openPopupWindow(source: string): Promise<number> {
 }
 
 export async function resizePopupWindow(width: number, height: number): Promise<void> {
-  const barHeight = window.outerHeight - window.innerHeight
+  // barHeight might be negative for some reason if called too early (especially in Chrome),
+  // so we recalculate it until we get a valid value or timeout after 2 seconds
+  // If someone has a better idea how to get the correct bar height, please let me know!
+  let barHeight = window.outerHeight - window.innerHeight
+  let timeout = false
+  setTimeout(() => {
+    timeout = true
+  }, 1000)
+  while (barHeight < 0) {
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    barHeight = window.outerHeight - window.innerHeight
+    if (timeout) {
+      log.error(`timeout while calculating popup window bar height - calculated bar height: ${barHeight}`)
+      // set a default value and continue
+      barHeight = 40
+      break
+    }
+  }
   const totalHeight = height + barHeight
   const left = screen.availWidth / 2 - width / 2 + (screen as Screen & { availLeft: number }).availLeft
   const top = screen.availHeight / 2 - totalHeight / 2 + (screen as Screen & { availTop: number }).availTop

@@ -363,7 +363,8 @@
     "requestBlocked": "Der Request für $1 wurde abgefangen und wird verarbeitet.",
     "fetchResponseArchiveProcessingSuccess": "Das Abfangen von Archiv $1 war erfolgreich.",
     "fetchResponseArchiveProcessingPartialSuccess": "Das Abfangen von Archiv $1 ist mit $2 Fehlern teilweise fehlgeschlagen.",
-    "fetchResponseArchiveProcessingError": "Das Abfangen von Archiv $1 ist fehlgeschlagen."
+    "fetchResponseArchiveProcessingError": "Das Abfangen von Archiv $1 ist fehlgeschlagen.",
+    "redirectURLError": "Die Redirect-URLs für die Download-Überwachung sind nicht erreichbar."
   },
   "targets": {
     "download": {
