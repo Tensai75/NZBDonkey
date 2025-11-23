@@ -70,7 +70,7 @@ const checkresponse = async (
       throw new Error(`search engine "${engine.name}" did not return any results`)
     }
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.warn(`error while checking the response from search engine "${engine.name}" for the NZB file ID`, error)
     throw error
   }

@@ -25,9 +25,7 @@ export async function openPopupWindow(source: string): Promise<number> {
     }
   } catch (e) {
     const err = new Error(
-      `error while opening popup dialog window with source "${source}": ${
-        e instanceof Error ? e.message : 'unknown error'
-      }`
+      `error while opening popup dialog window with source "${source}": ${e instanceof Error ? e.message : String(e)}`
     )
     log.error(err.message)
     throw err

@@ -20,7 +20,7 @@ watch(showTestSearchEngineDialog, async () => {
       testingConnection.value = false
       emit('success')
     } catch (e) {
-      error.value = generateErrorString(e instanceof Error ? e.message : i18n.t('errors.unknownError'))
+      error.value = generateErrorString(e instanceof Error ? e.message : String(e))
       testingConnection.value = false
     }
   }

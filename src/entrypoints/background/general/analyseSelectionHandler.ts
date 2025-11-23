@@ -39,7 +39,7 @@ export async function registerAnalyseSelectionContextMenu(): Promise<void> {
       browser.contextMenus.onClicked.addListener(contextMenuListener)
       log.info('registration of the analyse selection context menu listener was successful')
     } catch (e) {
-      const error = e instanceof Error ? e : new Error('unknown error')
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error('error while registering the analyse selection context menu listener:', error)
     }
   }
@@ -75,7 +75,7 @@ async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?:
         log.info(`Selection script already injected into tab ${tab.id}.`)
       }
     } catch (e) {
-      const error = e instanceof Error ? e : new Error('unknown error')
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error(`Error injecting selection script into tab ${tab.id}:`, error)
     }
   }

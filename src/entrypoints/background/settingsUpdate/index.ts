@@ -27,8 +27,8 @@ export default function (): void {
             for (const v of updates) {
               await versionUpdates[v]()
             }
-          } catch (error) {
-            handleMigrationError(error)
+          } catch (e) {
+            handleMigrationError(e)
           } finally {
             await updateVersionInStorage(newVersion)
             openInfoPage(oldVersion === '0.7.7' ? 'UPDATED_FROM_V0_7_7' : 'UPDATED')

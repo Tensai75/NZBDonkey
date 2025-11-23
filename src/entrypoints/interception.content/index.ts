@@ -22,7 +22,7 @@ export default defineContentScript({
         log.info(`sending serialized response back to background script`)
         return serializedResponse
       } catch (e) {
-        const error = e instanceof Error ? e : new Error('unknown error')
+        const error = e instanceof Error ? e : new Error(String(e))
         log.error('error fetching intercepted request', error)
         return error
       }

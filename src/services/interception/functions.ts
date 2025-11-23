@@ -30,7 +30,7 @@ export async function extractArchive(blob: Blob, source: string): Promise<NZBFil
         await nzbfile.addNzbFile(nzbTextfile, getFileNameFromPath(pathname), source)
         nzbFiles.push(nzbfile)
       } catch (e) {
-        const error = e instanceof Error ? e : new Error('unknown error')
+        const error = e instanceof Error ? e : new Error(String(e))
         log.warn('error while extracting the NZB file', error)
       }
     }

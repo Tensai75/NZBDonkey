@@ -27,7 +27,7 @@ export const search = async (header: string, options: FetchOptions, engine: Sear
     log.info(`Search engine "${engine.name}" has sent a response`)
     return response
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.warn(`error while searching on search engine "${engine.name}"`, error)
     throw error
   }
@@ -46,7 +46,7 @@ export const download = async (options: FetchOptions, engine: SearchEngine): Pro
   try {
     nzbTextFile = await (await useFetch(options)).text()
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.warn(`error while trying to download the NZB file from search engine "${engine.name}"`, error)
     throw error
   }

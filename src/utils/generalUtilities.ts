@@ -17,8 +17,8 @@ export const tryCatch = async <T, E = Error>(
     try {
       const data = (arg as () => T)()
       return { data, error: null }
-    } catch (error) {
-      return { data: null, error: error as E }
+    } catch (e) {
+      return { data: null, error: e as E }
     }
   }
 
@@ -26,8 +26,8 @@ export const tryCatch = async <T, E = Error>(
   try {
     const data = await (arg as Promise<T>)
     return { data, error: null }
-  } catch (error) {
-    return { data: null, error: error as E }
+  } catch (e) {
+    return { data: null, error: e as E }
   }
 }
 

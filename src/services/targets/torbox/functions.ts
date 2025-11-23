@@ -2,7 +2,6 @@ import { TargetSettings } from '../settings'
 
 import { Settings } from './settings'
 
-import { i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { FetchOptions, JSONparse, useFetch } from '@/utils/fetchUtilities'
@@ -36,7 +35,7 @@ export const push = async (nzb: NZBFileObject, targetSettings: TargetSettings): 
       if (nzb.password !== '') options.data.append('password', nzb.password)
       await connect(options)
     } catch (e) {
-      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
       throw error
     }
@@ -54,7 +53,7 @@ export const testConnection = async (targetSettings: TargetSettings): Promise<bo
     await connect(options)
     return true
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.error(`error while testing connection to ${targetSettings.name}`, error)
     throw error
   }
@@ -65,7 +64,7 @@ export const getCategories = async (targetSettings: TargetSettings): Promise<str
   try {
     throw new Error('not implemented')
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.error(`error while getting the categories from ${targetSettings.name}`, error)
     throw e
   }

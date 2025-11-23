@@ -121,9 +121,7 @@ export class NZBFileObject {
       this.targets = targets.length > 0 ? targets : await nzbFileTargets.getTargets()
       this.search()
     } catch (e) {
-      this.error(
-        i18n.t('errors.errorWhileProcessingNzblnk', [e instanceof Error ? e.message : i18n.t('errors.unknownError')])
-      )
+      this.error(i18n.t('errors.errorWhileProcessingNzblnk', [e instanceof Error ? e.message : String(e)]))
     }
   }
 
@@ -149,7 +147,7 @@ export class NZBFileObject {
             }
             return { nzbFile, engine: engine.name }
           } catch (e) {
-            const error = e instanceof Error ? e : new Error('unknown error')
+            const error = e instanceof Error ? e : new Error(String(e))
             log.warn(`the result from "${engine.name}" was rejected for the following reason: ${error.message}`)
             throw error
           }
@@ -165,9 +163,7 @@ export class NZBFileObject {
             const nzbFiles = await showNzbFileDialog(nzbfile)
             nzbFiles.forEach((nzbFile) => nzbFile.process())
           } catch (e) {
-            this.error(
-              i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : i18n.t('errors.unknownError')])
-            )
+            this.error(i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : String(e)]))
           }
         } else {
           nzbfile.process()
@@ -202,12 +198,7 @@ export class NZBFileObject {
       }
       throw new Error(i18n.t('errors.noSearchResults'))
     } catch (e) {
-      this.error(
-        i18n.t('errors.errorWhileSearching', [
-          this.header,
-          e instanceof Error ? e.message : i18n.t('errors.unknownError'),
-        ])
-      )
+      this.error(i18n.t('errors.errorWhileSearching', [this.header, e instanceof Error ? e.message : String(e)]))
     }
   }
 
@@ -230,9 +221,7 @@ export class NZBFileObject {
       if (this.settings.filesToBeRemoved.length > 0) this.removeFiles()
       await this.sendToTargets()
     } catch (e) {
-      this.error(
-        i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : i18n.t('errors.unknownError')])
-      )
+      this.error(i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : String(e)]))
     }
   }
 
@@ -260,7 +249,7 @@ export class NZBFileObject {
             this.targets[i].status = 'success'
             this.log(this)
           } catch (e) {
-            this.targets[i].errorMessage = e instanceof Error ? e.message : i18n.t('errors.unknownError')
+            this.targets[i].errorMessage = e instanceof Error ? e.message : String(e)
             this.targets[i].status = 'error'
             this.status = 'warn'
             this.log(this)
@@ -277,9 +266,7 @@ export class NZBFileObject {
         this.success()
       }
     } catch (e) {
-      this.error(
-        i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : i18n.t('errors.unknownError')])
-      )
+      this.error(i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : String(e)]))
     }
   }
 

@@ -61,7 +61,7 @@ export async function registerSendToContextMenu(): Promise<void> {
       browser.contextMenus.onClicked.addListener(contextMenuListener)
       log.info('registration of the send to context menu listener was successful')
     } catch (e) {
-      const error = e instanceof Error ? e : new Error('unknown error')
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error('error while registering the send to context menu listener:', error)
     }
   }
@@ -104,7 +104,7 @@ async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?:
         await processNzbFiles(nzbFiles, filename)
       }
     } catch (e) {
-      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      const error = e instanceof Error ? e : new Error(String(e))
       handleError(error, nzbFiles)
       log.error('error while processing context menu click', error)
       notifications.error(i18n.t('errors.errorWhileProcessingContextMenuClick', [error.message]))
