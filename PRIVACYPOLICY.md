@@ -21,7 +21,7 @@ The extension does not send any requests or access credentials to unauthorized t
 
 ## 6. Redirecting requests to connectivity-check.ubuntu.com
 
-When the NZB file interception feature is enabled, requests initiated by the browser for NZB file downloads are redirected to 'https://connectivity-check.ubuntu.com' to provoke a 204 'no content' response, effectively blocking the request. The cookie and referer headers are removed from the redirected requests, but your IP address is visible to connectivity-check.ubuntu.com. The connectivity-check.ubuntu.com endpoint is used by Ubuntu to check the internet connection. There is no documentation that this endpoint collects browsing habits, device identifiers or otherwise tracks user behaviour.
+When the NZB file interception feature is enabled, requests initiated by the browser for NZB file downloads are redirected to 'https://connectivity-check.ubuntu.com' to provoke a 204 'no content' response, effectively blocking the request. The cookie and referer headers are removed from the redirected requests, but the IP address is visible to connectivity-check.ubuntu.com. The connectivity-check.ubuntu.com endpoint is used by Ubuntu to check the internet connection. There is no documentation that this endpoint collects browsing habits, device identifiers or otherwise tracks user behaviour.
 
 ## 7. GitHub Repository Access
 
