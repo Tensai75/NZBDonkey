@@ -1,3 +1,10 @@
+## [1.4.3-beta.4](https://github.com/Tensai75/NZBDonkey/compare/v1.4.3-beta.3...v1.4.3-beta.4) (2025-11-23)
+
+
+### Bug Fixes
+
+* use redirect to 204 no content instead of blocking ([b4ac05c](https://github.com/Tensai75/NZBDonkey/commit/b4ac05cd7aa3ed25cbb8333d12b4732c6ab0a0a1))
+
 ## [1.4.3-beta.3](https://github.com/Tensai75/NZBDonkey/compare/v1.4.3-beta.2...v1.4.3-beta.3) (2025-11-17)
 
 
