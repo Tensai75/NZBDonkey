@@ -249,6 +249,9 @@
       "updateOnStartup": {
         "title": "Aktualisierung vordefinierter Domänen",
         "description": "vordefinierte Domänen automatisch aktualisieren"
+      },
+      "defaultDomainsDialog": {
+        "noDomains": "Keine weiteren Domänen verfügbar."
       }
     },
     "common": {
@@ -354,7 +357,8 @@
     "noSegments": "die NZB-Datei enthält keine Segmente",
     "missingSegments": "$1 fehlende(s) Segment(e)",
     "noFiles": "die NZB-Datei enthält keine Dateien",
-    "regexpNotSupported": "Diese Regexp ist zu komplex und kann nicht verwendet werden"
+    "regexpNotSupported": "Diese Regexp ist zu komplex und kann nicht verwendet werden",
+    "domainExists": "Diese Domäne existiert schon"
   },
   "interception": {
     "fetchError": "Fehler beim Laden der URL \"$1\", abgefangen auf $2: $3",

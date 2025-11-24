@@ -8,6 +8,7 @@ const versionUpdates: Record<string, () => Promise<void>> = {
   '1.0.0': async () => await import('./fromV1_0_X').then((mod) => mod.default()),
   '1.2.0': async () => await import('./fromV1_2_X').then((mod) => mod.default()),
   '1.3.0': async () => await import('./fromV1_3_X').then((mod) => mod.default()),
+  '1.4.2': async () => await import('./fromV1_4_2').then((mod) => mod.default()),
   // Add future updates here
 }
 

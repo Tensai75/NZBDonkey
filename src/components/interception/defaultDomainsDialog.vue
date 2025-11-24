@@ -25,7 +25,10 @@ async function getList() {
         <ProgressSpinner style="width: 60px; height: 60px" stroke-width="3" />
       </div>
       <div v-if="domainsListLoaded" class="flex flex-col items-center justify-center gap-4 mt-4">
-        <div v-for="item in domainsList" :key="item.domain" class="flex items-center gap-4 flex-auto">
+        <div v-if="domainsList!.length === 0" class="text-center text-smpx-4">
+          {{ i18n.t('settings.interception.defaultDomainsDialog.noDomains') }}
+        </div>
+        <div v-for="item in domainsList" v-else :key="item.domain" class="flex items-center gap-4 flex-auto">
           <Button
             severity="contrast"
             variant="text"
