@@ -95,8 +95,6 @@ type OldSettings = {
 }
 
 export default async function (): Promise<void> {
-  log.info('migrating settings from v0.7.7')
-
   const storedSettings = await browser.storage.sync.get(null)
   const oldSettings = storedSettings as OldSettings
 

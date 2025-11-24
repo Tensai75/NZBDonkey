@@ -3,16 +3,15 @@ import {
   getSettings as getInterceptionSettings,
   saveSettings as saveInterceptionSettings,
 } from '@/services/interception'
-import log from '@/services/logger/debugLogger'
 
 export default async function (): Promise<void> {
-  log.info('migrating settings from v1.4.2')
-
   await migrateInterceptionSettings()
 }
 
 async function migrateInterceptionSettings() {
   const settings = await getInterceptionSettings()
+  const preSettings = JSON.parse(JSON.stringify(settings))
+  console.log('settings pre-update to v1.4.3', preSettings)
 
   // Fast check: if all domain names are unique, skip processing
   const domainNames = settings.domains.map((d) => d.domain)
@@ -47,5 +46,6 @@ async function migrateInterceptionSettings() {
 
   // Update settings with deduplicated domains
   settings.domains = Array.from(domainMap.values())
+  console.log('settings post-update to v1.4.3', settings)
   await saveInterceptionSettings(settings)
 }

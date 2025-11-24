@@ -1,9 +1,6 @@
-import log from '@/services/logger/debugLogger'
 import * as nzbfile from '@/services/nzbfile'
 
 export default async function (): Promise<void> {
-  log.info('migrating settings from v1.0.0')
-
   await migrateNzbfileSettings()
 }
 

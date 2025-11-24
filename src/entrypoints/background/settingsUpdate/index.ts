@@ -4,11 +4,11 @@ import { browser } from '#imports'
 import log from '@/services/logger/debugLogger'
 
 const versionUpdates: Record<string, () => Promise<void>> = {
-  '0.7.7': async () => await import('./fromV0_7_7').then((mod) => mod.default()),
-  '1.0.0': async () => await import('./fromV1_0_X').then((mod) => mod.default()),
-  '1.2.0': async () => await import('./fromV1_2_X').then((mod) => mod.default()),
-  '1.3.0': async () => await import('./fromV1_3_X').then((mod) => mod.default()),
-  '1.4.2': async () => await import('./fromV1_4_2').then((mod) => mod.default()),
+  '1.0.0': async () => await import('./v1_0_0').then((mod) => mod.default()),
+  '1.2.0': async () => await import('./v1_2_0').then((mod) => mod.default()),
+  '1.3.0': async () => await import('./v1_3_0').then((mod) => mod.default()),
+  '1.4.0': async () => await import('./v1_4_0').then((mod) => mod.default()),
+  '1.4.3': async () => await import('./v1_4_3').then((mod) => mod.default()),
   // Add future updates here
 }
 
@@ -19,21 +19,32 @@ export default function (): void {
       browser.storage.sync.get('version').then(async ({ version }) => {
         const oldVersion: string = version ? (version as string) : '0.7.7' // default to 0.7.7 if no version is set
         const newVersion = browser.runtime.getManifest().version
+        let settingsUpdate = false
+        let settingsUpdateError = false
         if (oldVersion !== newVersion) {
           log.info(`NZBDonkey has been updated to version v${newVersion}`)
-          try {
-            const updates = Object.keys(versionUpdates)
-              .filter((v) => compareVersions(v, oldVersion) >= 0)
-              .sort(compareVersions)
-            for (const v of updates) {
-              await versionUpdates[v]()
+          for (const v in versionUpdates) {
+            if (compareVersions(v, '>', oldVersion)) {
+              log.info(`migrating settings to v${v}`)
+              try {
+                await versionUpdates[v]()
+              } catch (error) {
+                log.error(
+                  `error migrating settings to v${v}:`,
+                  error instanceof Error ? error : new Error(String(error))
+                )
+                settingsUpdateError = true
+              }
+              settingsUpdate = true
             }
-          } catch (e) {
-            const error = e instanceof Error ? e : new Error(String(e))
-            handleMigrationError(error)
-          } finally {
-            await updateVersionInStorage(newVersion)
+          }
+          await updateVersionInStorage(newVersion)
+          if (settingsUpdateError) {
+            openInfoPage('UPDATED_WITH_ERROR')
+            return
+          } else if (settingsUpdate) {
             openInfoPage(oldVersion === '0.7.7' ? 'UPDATED_FROM_V0_7_7' : 'UPDATED')
+            return
           }
         }
       })
@@ -52,26 +63,46 @@ async function updateVersionInStorage(version: string = browser.runtime.getManif
   log.info(`updated settings version to ${version}`)
 }
 
-function handleMigrationError(error: Error): void {
-  log.error('error migrating settings:', error)
-  openInfoPage('UPDATED_WITH_ERROR')
-}
-
 /**
- * Compares two version strings (e.g., "1.2.3")
- * Returns:
- *  -1 if a < b
- *   0 if a == b
- *   1 if a > b
+ * From https://stackoverflow.com/a/53387532
+ * Compares two version strings (e.g., "1.2.3", "1.2.4-beta", "1.3.0.1").
+ * @param a - The first version string.
+ * @param exp - The comparison operator ('>', '<', '=').
+ * @param b - The second version string.
+ * @returns True if the comparison holds, false otherwise.
  */
-export function compareVersions(a: string, b: string): number {
-  const partsA = a.split('.').map(Number)
-  const partsB = b.split('.').map(Number)
+export const compareVersions = (
+  (prep: (t: string | string[]) => string[]) =>
+  (a: string | string[], exp: '>' | '<' | '=', b: string | string[]): boolean => {
+    a = prep(a)
+    b = prep(b)
+    const l: number = Math.max(a.length, b.length)
+    let i: number = 0
+    let r: number = 0
+    while (!r && i < l)
+      //convert into integer, including undefined values
+      r = ~~a[i] - ~~b[i++]
 
-  for (let i = 0; i < 3; i++) {
-    const diff = (partsA[i] ?? 0) - (partsB[i] ?? 0)
-    if (diff !== 0) return diff > 0 ? 1 : -1
+    const result: '>' | '<' | '=' = r < 0 ? '<' : r ? '>' : '='
+    return exp === result
   }
-
-  return 0
-}
+)((t: string | string[]) =>
+  ('' + t)
+    // treat non-numerical characters as lower version
+    // replacing them with a negative number based on charcode of first character
+    .replace(
+      /[^\d.]+/g,
+      (c) =>
+        '.' +
+        (c
+          .replace(/[\W_]+/, '')
+          .toUpperCase()
+          .charCodeAt(0) -
+          65536) +
+        '.'
+    )
+    // remove trailing "." and "0" if followed by non-numerical characters (1.0.0b);
+    .replace(/(?:\.0+)*(\.-\d+(?:\.\d+)?)\.*$/g, '$1')
+    // return array
+    .split('.')
+)
