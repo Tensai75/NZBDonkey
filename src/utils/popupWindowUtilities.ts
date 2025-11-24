@@ -32,7 +32,13 @@ export async function openPopupWindow(source: string): Promise<number> {
 }
 
 export async function resizePopupWindow(width: number, height: number): Promise<void> {
-  const barHeight = window.outerHeight - window.innerHeight
+  let barHeight = window.outerHeight - window.innerHeight
+  // There seems to be a bug in Chrome where sometimes outerHeight has a wrong value,
+  // lower than innerHeight, resulting in a negative barHeight
+  if (barHeight < 0) {
+    log.warn('correcting barHeight, using default value of 39 pixels for Chrome')
+    barHeight = 39 // default value for bar height in Chrome
+  }
   const totalHeight = height + barHeight
   const left = screen.availWidth / 2 - width / 2 + (screen as Screen & { availLeft: number }).availLeft
   const top = screen.availHeight / 2 - totalHeight / 2 + (screen as Screen & { availTop: number }).availTop
