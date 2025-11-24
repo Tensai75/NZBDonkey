@@ -27,7 +27,8 @@ export default function (): void {
             for (const v of updates) {
               await versionUpdates[v]()
             }
-          } catch (error) {
+          } catch (e) {
+            const error = e instanceof Error ? e : new Error(String(e))
             handleMigrationError(error)
           } finally {
             await updateVersionInStorage(newVersion)
@@ -50,8 +51,8 @@ async function updateVersionInStorage(version: string = browser.runtime.getManif
   log.info(`updated settings version to ${version}`)
 }
 
-function handleMigrationError(error: unknown): void {
-  log.error('error migrating settings:', error instanceof Error ? error : new Error(String(error)))
+function handleMigrationError(error: Error): void {
+  log.error('error migrating settings:', error)
   openInfoPage('UPDATED_WITH_ERROR')
 }
 

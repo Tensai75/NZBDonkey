@@ -43,8 +43,9 @@ export const fetchAndValidateList = async <T>(
       throw new Error(`Version mismatch: expected ${expectedVersion}, got ${json.version}`)
     }
     return sortList(filterKeys(json.data), sortKey)
-  } catch (error) {
-    log.warn(`Error loading the ${listname} from URL: ${error instanceof Error ? error.message : 'unknown error'}`)
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.warn(`Error loading the ${listname} from URL: ${error.message}`)
     return sortList(filterKeys(defaultList.data), sortKey)
   }
 }

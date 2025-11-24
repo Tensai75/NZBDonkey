@@ -30,7 +30,7 @@ export async function extractArchive(blob: Blob, source: string): Promise<NZBFil
         await nzbfile.addNzbFile(nzbTextfile, getFileNameFromPath(pathname), source)
         nzbFiles.push(nzbfile)
       } catch (e) {
-        const error = e instanceof Error ? e : new Error('unknown error')
+        const error = e instanceof Error ? e : new Error(String(e))
         log.warn('error while extracting the NZB file', error)
       }
     }
@@ -82,8 +82,9 @@ export async function handleResponseData({
     if (!nzbFiles.length) throw new Error('no NZB file found in download')
     return nzbFiles
   } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
     downloadFile(response, filename)
-    throw e instanceof Error ? e : new Error(String(e))
+    throw error
   }
 }
 
@@ -163,7 +164,8 @@ async function downloadFile(response: Response | DeserializedResponse, filename:
     }
     browser.downloads.download(downloadOptions)
   } catch (e) {
-    log.error(`error while downloading file ${filename}`, e instanceof Error ? e : new Error(String(e)))
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error(`error while downloading file ${filename}`, error)
   }
 }
 

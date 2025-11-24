@@ -75,7 +75,7 @@ const loadLogsLazy = async (event: { first: number; last: number }, showLoader: 
     lazyLoading.value = false
     if (!loaded.value) loaded.value = true
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     debugLogger.error(`Error loading logs lazy: ${error.message}`, error)
   }
 }

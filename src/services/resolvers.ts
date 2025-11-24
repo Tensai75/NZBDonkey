@@ -119,8 +119,7 @@ export const regexpResolver = ({ value }: FormFieldResolverOptions) => {
   try {
     const regex = new RegExp(value)
     regex.test('test')
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (e) {
+  } catch {
     errors.push({
       message: i18n.t('validation.noValidRegexp'),
     })

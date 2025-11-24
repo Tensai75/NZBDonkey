@@ -60,11 +60,8 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
       })
       sourceUrl = scriptingResult.result as string
     } catch (e) {
-      // If injection fails, fall back to the source from the request details
-      log.error(
-        `failed to get source URL for request ${details.requestId}`,
-        e instanceof Error ? e : new Error(String(e))
-      )
+      const error = e instanceof Error ? e : new Error(String(e))
+      log.error(`failed to get source URL for request ${details.requestId}`, error)
     }
     log.info(`source URL for request ${details.requestId} is ${sourceUrl}`)
     // Prepare the request
@@ -143,11 +140,9 @@ export async function fetchInterceptedRequestFromContentScript(
       return deserializeResponse(serializedResponse)
     }
   } catch (e) {
-    log.error(
-      `failed to fetch intercepted request ${request.url} from content script`,
-      e instanceof Error ? e : new Error(String(e))
-    )
-    throw e
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error(`failed to fetch intercepted request ${request.url} from content script`, error)
+    throw error
   } finally {
     // remove the session rule after processing the request
     log.info(`removing session rule no ${ruleId} for ${request.url}`)

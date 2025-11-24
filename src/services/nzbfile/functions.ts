@@ -69,10 +69,8 @@ export async function showNzbFileDialog(
           try {
             await browser.windows.remove(windowId)
           } catch (e) {
-            log.error(
-              `Failed to remove NZB dialog window with id ${windowId}:`,
-              e instanceof Error ? e : new Error(String(e))
-            )
+            const error = e instanceof Error ? e : new Error(String(e))
+            log.error(`Failed to remove NZB dialog window with id ${windowId}:`, error)
           }
           reject(new Error(i18n.t('common.abortedByUser')))
         }

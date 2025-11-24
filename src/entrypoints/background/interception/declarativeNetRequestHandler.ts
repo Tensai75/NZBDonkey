@@ -127,7 +127,8 @@ async function setupInterception(settings: interception.Settings): Promise<void>
       browser.tabs.onCreated.addListener(onTabCreatedListener)
     }
   } catch (e) {
-    log.error('failed to set up interception:', e instanceof Error ? e : new Error(String(e)))
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to set up interception:', error)
   }
 }
 
@@ -250,10 +251,8 @@ async function isURLTracked(url: string): Promise<boolean> {
       const regex = new RegExp(`${domain.domain}${normalizeRegexStart(domain.pathRegExp)}`, 'i')
       if (regex.test(url)) return true
     } catch (e) {
-      log.error(
-        `invalid regex for domain ${domain.domain}: ${domain.pathRegExp}`,
-        e instanceof Error ? e : new Error(String(e))
-      )
+      const error = e instanceof Error ? e : new Error(String(e))
+      log.error(`invalid regex for domain ${domain.domain}: ${domain.pathRegExp}`, error)
     }
   }
   return false

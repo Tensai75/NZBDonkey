@@ -42,8 +42,7 @@ const checkresponse = async (
     let response_JSON
     try {
       response_JSON = JSON.parse(response)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (e) {
+    } catch {
       throw new Error(`search engine "${engine.name}" did not return a valid JSON response`)
     }
     if (!response_JSON.data) throw new Error(`search engine "${engine.name}" did not return any results`)
@@ -70,7 +69,7 @@ const checkresponse = async (
       throw new Error(`search engine "${engine.name}" did not return any results`)
     }
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.warn(`error while checking the response from search engine "${engine.name}" for the NZB file ID`, error)
     throw error
   }

@@ -21,7 +21,7 @@ watch(showTestConnectionDialog, async () => {
       success = await sendMessage('connectionTest', toRaw(targetSettings.value))
     } catch (e) {
       success = false
-      error.value = generateErrorString(e instanceof Error ? e.message : (e as string))
+      error.value = generateErrorString(e instanceof Error ? e.message : String(e))
     }
     testingConnection.value = false
     emit('success', success)

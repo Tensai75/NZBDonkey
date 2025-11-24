@@ -68,8 +68,7 @@ export const textToNzbObject = (text: string): NZBObject => {
   let xmlObject
   try {
     xmlObject = parser.parse(text)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (e) {
+  } catch {
     throw new Error('not a valid XML file')
   }
   if (!xmlObject.nzb) throw new Error('not a valid NZB file')
@@ -85,8 +84,7 @@ export const nzbObjectToText = (
   let text: string
   try {
     text = builder.build(nzbObject)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (e) {
+  } catch {
     throw new Error('not a valid NZBObject')
   }
   return text

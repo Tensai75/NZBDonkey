@@ -90,15 +90,13 @@ export const useFetch = async (
       throw new Error(`${response.status} - ${getHttpStatusText(response.status)}`)
     }
     return response
-  } catch (error) {
-    if (error instanceof Error) {
-      if (error.name === 'AbortError') {
-        throw new Error('the request timed out')
-      } else {
-        throw new Error(`the request failed: ${error.message ?? 'unknown error'}`)
-      }
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    if (error.name === 'AbortError') {
+      throw new Error('the request timed out')
+    } else {
+      throw new Error(`the request failed: ${error.message}`)
     }
-    throw new Error(`the request failed: unknown error`)
   }
 }
 

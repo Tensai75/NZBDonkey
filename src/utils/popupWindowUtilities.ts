@@ -24,11 +24,8 @@ export async function openPopupWindow(source: string): Promise<number> {
       throw new Error('window id is not defined')
     }
   } catch (e) {
-    const err = new Error(
-      `error while opening popup dialog window with source "${source}": ${
-        e instanceof Error ? e.message : 'unknown error'
-      }`
-    )
+    const error = e instanceof Error ? e : new Error(String(e))
+    const err = new Error(`error while opening popup dialog window with source "${source}": ${error.message}`)
     log.error(err.message)
     throw err
   }
