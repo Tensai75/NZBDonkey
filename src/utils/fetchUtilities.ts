@@ -207,7 +207,7 @@ export const generateFormData = (
 export const getFilenameFromResponse = (response: Response): string => {
   const contentDisposition = response.headers.get('Content-Disposition')
   const match = contentDisposition?.match(/filename\*?=(?:[^']*'')?"?([^"]*)"?/i)
-  return match?.[1] || getFileNameFromPath(response.url)
+  return match?.[1] || getFileNameFromPath(new URL(response.url).pathname)
 }
 
 /**
@@ -528,7 +528,7 @@ export async function serializeResponse(response: Response): Promise<SerializedR
     throw new Error('Response body already consumed')
   }
   const clone = response.clone()
-  const headers = Array.from(clone.headers.entries())
+  const headers = Array.from(clone.headers)
   const contentType = clone.headers.get('Content-Type') || ''
   const contentDisposition = clone.headers.get('Content-Disposition') || ''
   const isAttachment = contentDisposition.toLowerCase().includes('attachment')

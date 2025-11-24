@@ -19,15 +19,19 @@ Wenn in Ihrem Browser die Profilsynchronisierung aktiviert ist, können die Konf
 NZBDonkey interagiert mit externen Websites und APIs, um nach NZB-Dateien zu suchen oder um NZB-Dateien an die gewünschten Ziel-Anwendungen zu senden. Es wird jedoch nur mit den Webseiten und APIs kommuniziert, die in den Einstellungen der Erweiterung explizit konfiguriert wurden. Hinterlegte Zugangsdaten, wie API-Keys, Benutzernamen und Passwörter, werden dabei ausschliesslich zur Authentifizierung an die entsprechend konfigurierte Webseiten oder APIs gesendet.
 Die Erweiterung sendet keine Anfragen oder Zugangsdaten an unbefugte Dritte.
 
-## 6. GitHub-Repository-Zugang
+## 6. Umleitung von Anfragen an connectivity-check.ubuntu.com
+
+Wenn die Funktion zum Abfangen von NZB-Datei aktiviert ist, werden die vom Browser initiierten Anfragen für NZB-Datei-Downloads an 'https://connectivity-check.ubuntu.com' umgeleitet, um eine 204-Antwort 'kein Inhalt' zu provozieren und somit die Anfrage effektiv zu blockieren. Die Cookie- und Referer-Header werden aus den umgeleiteten Anfragen entfernt, die IP-Adresse ist jedoch für connectivity-check.ubuntu.com sichtbar. Die Seite connectivity-check.ubuntu.com wird von Ubuntu verwendet, um die Internetverbindung zu überprüfen. Es gibt keine Dokumentation darüber, dass dieser Endpunkt Browsing-Gewohnheiten, Gerätekennungen oder anderweitig das Benutzerverhalten erfasst.
+
+## 7. GitHub-Repository-Zugang
 
 NZBDonkey kann auf sein GitHub-Repository (https://github.com/Tensai75/nzbdonkey) zugreifen, um nach Aktualisierungen der Erweiterung zu suchen und um Vorlagen für bestimmte Benutzereinstellungen abzurufen. Dieser Vorgang beschränkt sich auf den Abruf öffentlich zugänglicher Informationen aus dem offiziellen NZBDonkey-Repository und beinhaltet keine Übermittlung von Benutzerdaten an GitHub.
 
-## 7. Dienste von Drittanbietern
+## 8. Dienste von Drittanbietern
 
-NZBDonkey interagiert nicht mit externen Diensten, APIs oder Tracking-Mechanismen von Drittanbietern, die über die in Abschnitt 5 und 6 genannten Websites und APIs hinausgehen.
+NZBDonkey interagiert nicht mit externen Diensten, APIs oder Tracking-Mechanismen von Drittanbietern, die über die in den Abschnitten 5 bis 7 genannten Websites und APIs hinausgehen.
 
-## 8. Lokale Aktivitätsprotokollierung
+## 9. Lokale Aktivitätsprotokollierung
 
 NZBDonkey protokolliert bestimmte Aktivitäten der Erweiterung aus Gründen der Benutzerfreundlichkeit und zur Unterstützung seiner Funktionalität. Insbesondere protokolliert die Erweiterung Informationen über NZB-Dateien, nach denen gesucht wurde oder die während des Downloads abgefangen wurden. Dies beinhaltet:
 
@@ -40,18 +44,18 @@ NZBDonkey protokolliert bestimmte Aktivitäten der Erweiterung aus Gründen der 
 Zusätzlich erstellt NZBDonkey ein Debug-Protokoll zur Fehlerbehebung, welches weitere Informationen enthalten kann, wie z.B. URLs die von der Erweiterung aufgerufen wurden.
 Alle protokollierten Informationen werden im lokalen Speicher des Browsers gespeichert und nicht an externe Server oder Dritte übertragen. Sowohl die Erstellung des NZB-Dateiprotokolls als auch die des Debug-Protokolls können in den Einstellungen der Erweiterung deaktiviert und die Protokolle jederzeit durch den Benutzer gelöscht werden.
 
-## 9. Sicherheit
+## 10. Sicherheit
 
 Da alle Daten lokal gespeichert oder über Browserprofile synchronisiert werden, wird die Sicherheit Ihrer Informationen durch die Sicherheitseinstellungen Ihres Browsers und Ihres Betriebssystems gewährleistet. Wir empfehlen Ihnen, Ihren Browser und Ihr System auf dem neuesten Stand zu halten.
 
-## 10. Änderungen an dieser Richtlinie
+## 11. Änderungen an dieser Richtlinie
 
 Diese Datenschutzrichtlinie kann in regelmäßigen Abständen aktualisiert werden. Alle Änderungen werden in der Dokumentation oder den Versionshinweisen der Erweiterung angegeben.
 
-## 11. Kontaktinformationen
+## 12. Kontaktinformationen
 
 Wenn Sie Fragen zu dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter tensai75@protonmail.com.
 
-## 12. Datum des Inkrafttretens
+## 13. Datum des Inkrafttretens
 
-31\. März 2025
+23\. November 2025

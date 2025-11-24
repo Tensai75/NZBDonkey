@@ -6,6 +6,7 @@ import { ValidateResults, validateNZBFile } from './validation'
 import { i18n } from '#imports'
 import { getCategory } from '@/services/categories'
 import * as general from '@/services/general'
+import { handleError } from '@/services/interception'
 import log from '@/services/logger/debugLogger'
 import { NZBStatus, TargetStatus } from '@/services/logger/loggerDB'
 import nzbLog from '@/services/logger/nzbLogger'
@@ -72,18 +73,20 @@ export class NZBFileObject {
   ): Promise<void> {
     try {
       if (!this.status) await this.init()
-      this.nzbFile = textToNzbObject(nzbTextFile)
       this.filename = filename
+      this.setDefaultsFromFilename()
       this.source = source
       this.targets = targets.length > 0 ? targets : await nzbFileTargets.getTargets()
-      this.extractMetaInformation()
-      this.setDefaultsFromFilename()
       this.status = 'fetched'
-      this.id = await this.log(this)
+      this.nzbFile = textToNzbObject(nzbTextFile)
+      this.extractMetaInformation()
+      await this.log(this)
     } catch (e) {
-      this.error(
-        i18n.t('errors.errorWhileProcessing', [e instanceof Error ? e.message : i18n.t('errors.unknownError')])
-      )
+      const error = e instanceof Error ? e : new Error(String(e))
+      handleError(error, [this])
+      await this.log(this)
+      this.dispose()
+      throw error
     }
   }
 

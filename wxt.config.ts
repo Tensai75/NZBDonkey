@@ -23,7 +23,7 @@ const getManifest: (env: ConfigEnv) => Partial<Browser.runtime.Manifest> = (env)
     host_permissions: ['<all_urls>'],
     web_accessible_resources: [
       {
-        resources: ['/injection.js', '/libarchive.wasm', '/icon/*', '/img/*', '/assets/style.css'],
+        resources: ['/libarchive.wasm', '/icon/*', '/img/*', '/assets/style.css'],
         matches: ['<all_urls>'],
       },
     ],

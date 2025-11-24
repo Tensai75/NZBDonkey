@@ -7,7 +7,7 @@ export default defineContentScript({
   registration: 'runtime',
   main() {
     log.initDebugLog('interception-content')
-    log.info('interception content script loaded')
+    log.info('interception content script loaded successfully')
 
     onMessage('fetchRequest', async (message) => {
       log.info(`fetch request message received`)
