@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/Tensai75/NZBDonkey/compare/v1.4.3...v1.4.4) (2025-12-13)
+
+
+### Bug Fixes
+
+* fix null check logic in getFilenameFromResponse ([8d3c91d](https://github.com/Tensai75/NZBDonkey/commit/8d3c91d297e07c8a3833df505781442430c410be))
+
 ## [1.4.3](https://github.com/Tensai75/NZBDonkey/compare/v1.4.2...v1.4.3) (2025-12-13)
 
 
