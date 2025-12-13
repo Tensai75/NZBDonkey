@@ -1,6 +1,8 @@
 import { FormFieldResolverOptions } from '@primevue/forms'
 import psl from 'psl'
 
+import { get as getInterceptionSettings } from './interception/settings'
+
 import { i18n } from '#i18n'
 import { browser } from '#imports'
 
@@ -46,7 +48,7 @@ export const requiredListResolver = ({ value }: FormFieldResolverOptions) => {
   return { errors }
 }
 
-export const requiredBaseDomainResolver = ({ value, name = '' }: FormFieldResolverOptions) => {
+export const requiredUniqueBaseDomainResolver = async ({ value, name = '' }: FormFieldResolverOptions) => {
   const errors = []
   if (!value) {
     errors.push({
@@ -55,6 +57,10 @@ export const requiredBaseDomainResolver = ({ value, name = '' }: FormFieldResolv
   }
   if (psl.get(value) !== value) {
     errors.push({ message: i18n.t('validation.noBaseDomain') })
+  }
+  const settings = await getInterceptionSettings()
+  if (settings.domains.some((d) => d.domain === value)) {
+    errors.push({ message: i18n.t('validation.domainExists') })
   }
   return { errors }
 }
@@ -119,8 +125,7 @@ export const regexpResolver = ({ value }: FormFieldResolverOptions) => {
   try {
     const regex = new RegExp(value)
     regex.test('test')
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (e) {
+  } catch {
     errors.push({
       message: i18n.t('validation.noValidRegexp'),
     })

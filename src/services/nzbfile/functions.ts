@@ -58,7 +58,7 @@ export async function showNzbFileDialog(
           browser.windows.remove(windowId)
           return processedFiles
         }
-        const cancel = () => {
+        const cancel = async () => {
           nzbFiles.forEach((file) => {
             file.status = 'error'
             file.errorMessage = i18n.t('common.abortedByUser')
@@ -66,7 +66,12 @@ export async function showNzbFileDialog(
             file.log(file)
           })
           cleanup()
-          browser.windows.remove(windowId)
+          try {
+            await browser.windows.remove(windowId)
+          } catch (e) {
+            const error = e instanceof Error ? e : new Error(String(e))
+            log.error(`Failed to remove NZB dialog window with id ${windowId}:`, error)
+          }
           reject(new Error(i18n.t('common.abortedByUser')))
         }
         const cleanup = () => {

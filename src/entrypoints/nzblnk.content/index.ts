@@ -36,7 +36,7 @@ export default defineContentScript({
             }
           }
         } catch (e) {
-          const error = e instanceof Error ? e : new Error('unknown error')
+          const error = e instanceof Error ? e : new Error(String(e))
           log.error('error while processing click event', error)
         }
       })

@@ -1,11 +1,8 @@
 import { updateSearchEnginesList } from '@/services/lists'
-import log from '@/services/logger/debugLogger'
 import * as searchengines from '@/services/searchengines'
 import * as targets from '@/services/targets'
 
 export default async function (): Promise<void> {
-  log.info('migrating settings from v1.3.0')
-
   await migrateSearchEnginesSettings()
   await migrateTargetsSettings()
 }

@@ -24,18 +24,21 @@ export async function openPopupWindow(source: string): Promise<number> {
       throw new Error('window id is not defined')
     }
   } catch (e) {
-    const err = new Error(
-      `error while opening popup dialog window with source "${source}": ${
-        e instanceof Error ? e.message : 'unknown error'
-      }`
-    )
+    const error = e instanceof Error ? e : new Error(String(e))
+    const err = new Error(`error while opening popup dialog window with source "${source}": ${error.message}`)
     log.error(err.message)
     throw err
   }
 }
 
 export async function resizePopupWindow(width: number, height: number): Promise<void> {
-  const barHeight = window.outerHeight - window.innerHeight
+  let barHeight = window.outerHeight - window.innerHeight
+  // There seems to be a bug in Chrome where sometimes outerHeight has a wrong value,
+  // lower than innerHeight, resulting in a negative barHeight
+  if (barHeight < 0) {
+    log.warn('correcting barHeight, using default value of 39 pixels for Chrome')
+    barHeight = 39 // default value for bar height in Chrome
+  }
   const totalHeight = height + barHeight
   const left = screen.availWidth / 2 - width / 2 + (screen as Screen & { availLeft: number }).availLeft
   const top = screen.availHeight / 2 - totalHeight / 2 + (screen as Screen & { availTop: number }).availTop

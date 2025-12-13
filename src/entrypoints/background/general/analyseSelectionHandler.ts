@@ -3,7 +3,7 @@ import log from '@/services/logger/debugLogger'
 import { sendMessage } from '@/services/messengers/extensionMessenger'
 import { createContextMenuPromise } from '@/utils/generalUtilities'
 
-// Extend the Window interface to include the custom property
+// Extend the Window interface to include the custom property to avoid TypeScript errors
 declare global {
   interface Window {
     __NZBDONKEY_SELECTION_SCRIPT_INJECTED__?: boolean
@@ -24,28 +24,32 @@ export async function registerAnalyseSelectionContextMenu(): Promise<void> {
       id: CONTEXT_MENU_ID,
     })
   } catch (e) {
-    log.error(
-      'error while registering the analyse selection context menu:',
-      e instanceof Error ? e : new Error(String(e))
-    )
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('error while registering the analyse selection context menu:', error)
     return
   }
   log.info('registration of the analyse selection context menu was successful')
+}
+
+export function registerAnalyseSelectionContextMenuListener(): void {
   log.info('registering the analyse selection context menu listener')
-  if (browser.contextMenus.onClicked.hasListener(contextMenuListener)) {
+  if (browser.contextMenus.onClicked.hasListener(analyseSelectionContextMenuListener)) {
     log.info('the analyse selection context menu listener is already registered')
   } else {
     try {
-      browser.contextMenus.onClicked.addListener(contextMenuListener)
+      browser.contextMenus.onClicked.addListener(analyseSelectionContextMenuListener)
       log.info('registration of the analyse selection context menu listener was successful')
     } catch (e) {
-      const error = e instanceof Error ? e : new Error('unknown error')
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error('error while registering the analyse selection context menu listener:', error)
     }
   }
 }
 
-async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?: Browser.tabs.Tab): Promise<void> {
+async function analyseSelectionContextMenuListener(
+  info: Browser.contextMenus.OnClickData,
+  tab?: Browser.tabs.Tab
+): Promise<void> {
   if (info.menuItemId === CONTEXT_MENU_ID && tab?.id) {
     try {
       // Check if the script is already injected
@@ -75,7 +79,7 @@ async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?:
         log.info(`Selection script already injected into tab ${tab.id}.`)
       }
     } catch (e) {
-      const error = e instanceof Error ? e : new Error('unknown error')
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error(`Error injecting selection script into tab ${tab.id}:`, error)
     }
   }

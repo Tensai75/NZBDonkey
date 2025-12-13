@@ -36,7 +36,7 @@ export const push = async (nzbFile: NZBFileObject, targetSettings: TargetSetting
     try {
       await downloadInstance.push()
     } catch (e) {
-      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error(`error while downloading file "${nzbFile.title}"`, error)
       throw error
     }
@@ -50,9 +50,9 @@ export const testConnection = async (targetSettings: TargetSettings): Promise<bo
   try {
     throw new Error(i18n.t('errors.notImplemented'))
   } catch (e) {
-    const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+    const error = e instanceof Error ? e : new Error(String(e))
     log.error(`error while testing connection to ${targetSettings.name}: ${error.message}`)
-    throw e
+    throw error
   }
 }
 
@@ -61,9 +61,9 @@ export const getCategories = async (targetSettings: TargetSettings): Promise<str
   try {
     throw new Error('not implemented')
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.error(`error while getting the categories from ${targetSettings.name}`, error)
-    throw e
+    throw error
   }
 }
 

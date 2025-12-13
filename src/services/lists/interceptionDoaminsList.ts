@@ -2,7 +2,11 @@ import interceptionDomainsDefaultList from '@@/lists/interceptionDomainsList.jso
 
 import { fetchAndValidateList } from './functions'
 
-import { DomainSettings as InterceptionDomainsListItem, defaultDomainSettings } from '@/services/interception'
+import {
+  DomainSettings as InterceptionDomainsListItem,
+  defaultDomainSettings,
+  getSettings as getInterceptionSettings,
+} from '@/services/interception'
 import log from '@/services/logger/debugLogger'
 
 const interceptionDoaminsList = {
@@ -13,8 +17,8 @@ const interceptionDoaminsList = {
   defaultKeys: [...Object.keys(defaultDomainSettings), 'icon'] as (keyof InterceptionDomainsListItem)[],
 }
 
-export function getInterceptionDomainsList(): Promise<InterceptionDomainsListItem[]> {
-  return fetchAndValidateList<InterceptionDomainsListItem>(
+export async function getInterceptionDomainsList(): Promise<InterceptionDomainsListItem[]> {
+  const domains = await fetchAndValidateList<InterceptionDomainsListItem>(
     'interception domains list',
     interceptionDoaminsList.url,
     interceptionDoaminsList.expectedVersion,
@@ -22,6 +26,10 @@ export function getInterceptionDomainsList(): Promise<InterceptionDomainsListIte
     interceptionDoaminsList.defaultList as { version: number; data: InterceptionDomainsListItem[] },
     interceptionDoaminsList.defaultKeys as (keyof InterceptionDomainsListItem)[]
   )
+  const settings = await getInterceptionSettings()
+
+  // Filter domains list to only include domains not already in settings
+  return domains.filter((domain) => !settings.domains.some((d) => d.domain === domain.domain))
 }
 
 export async function updateInterceptionDomainsList(

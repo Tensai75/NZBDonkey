@@ -59,7 +59,7 @@ function unregisterContentScript(): void {
 
 function updateContentScript(domains: Array<string>): void {
   browser.scripting
-    .updateContentScripts([{ id: scriptId, matches: domains }])
+    .updateContentScripts([{ id: scriptId, js: [scriptSource], matches: domains }])
     .then(() => log.info('Registration of the interception content script updated successfully'))
     .catch((e: Error) => log.error('Error while updating the registration of the interception content script', e))
 }

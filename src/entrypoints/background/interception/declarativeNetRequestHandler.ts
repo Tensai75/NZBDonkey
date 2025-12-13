@@ -1,74 +1,177 @@
-import { fetchInterceptedRequest, processInterceptedRequestResponse } from './interceptedRequestsHandler'
+import { interceptRequest } from './interceptedRequestsHandler'
 
-import { browser, Browser, i18n } from '#imports'
-import * as interception from '@/services/interception'
-import { updateInterceptionDomainsList } from '@/services/lists'
+import { browser, Browser } from '#imports'
+import { DomainSettings, getActiveDomains, watchSettings as watchInterceptionSettings } from '@/services/interception'
 import log from '@/services/logger/debugLogger'
-import { sendMessage } from '@/services/messengers/extensionMessenger'
-import notifications from '@/services/notifications'
-import {
-  DeserializedResponse,
-  deserializeResponse,
-  getBaseDomainFromURL,
-  serializeRequest,
-} from '@/utils/fetchUtilities'
+import { onMessage } from '@/services/messengers/extensionMessenger'
 
-type RequestDetails = {
+export type RequestDetails = {
+  tabId: number
+  requestId: string
   url: string
   method: string
   body?: { [key: string]: string[] }
   source: string
 }
 
-const requestCache = new Map<string, RequestDetails>()
+// Redirect URLs to be used in declarativeNetRequest rule
+// User selectable option to be implemented maybe in future versions
+/*
+const redirectURLs = [
+  'https://cp.cloudflare.com/generate_204',
+  'https://www.gstatic.com/generate_204',
+  'https://connectivity-check.ubuntu.com/204',
+  'https://httpstat.us/204',
+  'https://httpbin.org/status/204',
+  'https://www.google.com/generate_204',
+]
+*/
+// Redirect URL to be used in declarativeNetRequest rule
+const redirectURL: string = 'https://connectivity-check.ubuntu.com/204'
+// In-memory cache for request details
+export const requestCache = new Map<string, RequestDetails>()
+export const tabRelationships = new Map<number, number>() // key: new tab ID, value: opener tab ID
 
-let sessionRuleId = 1
+// Request methods for declarativeNetRequest rules
+const requestMethods: ('other' | 'connect' | 'delete' | 'get' | 'head' | 'options' | 'patch' | 'post' | 'put')[] = [
+  'other',
+  'connect',
+  'delete',
+  'get',
+  'head',
+  'options',
+  'patch',
+  'post',
+  'put',
+]
+// Resource types for declarativeNetRequest rules
+const resourceTypes: (
+  | 'object'
+  | 'main_frame'
+  | 'sub_frame'
+  | 'stylesheet'
+  | 'script'
+  | 'image'
+  | 'font'
+  | 'xmlhttprequest'
+  | 'ping'
+  | 'csp_report'
+  | 'media'
+  | 'websocket'
+  | 'other'
+)[] = [
+  'object',
+  'main_frame',
+  'sub_frame',
+  'stylesheet',
+  'script',
+  'image',
+  'font',
+  'xmlhttprequest',
+  'ping',
+  'csp_report',
+  'media',
+  'websocket',
+  'other',
+]
 
 export default function (): void {
-  interception.getSettings().then(async (settings) => {
-    if (settings.updateOnStartup) {
-      settings.domains = await updateInterceptionDomainsList(settings.domains)
-      interception.saveSettings(settings)
-    }
-    log.info('setting up interception')
-    setupInterception(settings)
-    interception.watchSettings((settings) => {
-      log.info('interception settings changed, updating interception setup')
-      setupInterception(settings)
-    })
+  setupInterception() // <- async setup
+  // synchronous listener for heartbeat messages
+  registerHeartbeatListener()
+  // synchronous listener for settings changes
+  watchInterceptionSettings(async () => {
+    log.info('interception settings have changed, updating declarativeNetRequest rules and listeners')
+    await updateDeclarativeNetRequest()
+    await registerInterceptionListener()
   })
 }
 
-async function setupInterception(settings: interception.Settings): Promise<void> {
+async function setupInterception(): Promise<void> {
+  log.info('setting up declarativeNetRequest rules and listeners for interception')
+  await updateDeclarativeNetRequest()
+  await registerInterceptionListener()
+}
+
+async function updateDeclarativeNetRequest(): Promise<void> {
   try {
     const [activeDomains, rules] = await Promise.all([
-      interception.getActiveDomains(),
+      getActiveDomains(),
       browser.declarativeNetRequest.getDynamicRules(),
     ])
-    const domains = activeDomains
     const ruleIds = rules.map((rule) => rule.id)
-    const urlFilterOptions = { urls: createUrlsFilter(domains) }
     log.info('updating declarativeNetRequest rules for interception')
     await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: ruleIds,
-      addRules: constructRuleSet(domains),
+      addRules: constructRuleSet(activeDomains),
     })
-    if (browser.webRequest.onBeforeRequest.hasListener(onBeforeRequestListener)) {
-      log.info('removing webRequest.onBeforeRequest listener for interception')
-      browser.webRequest.onBeforeRequest.removeListener(onBeforeRequestListener)
-    }
-    if (browser.webRequest.onErrorOccurred.hasListener(onErrorOccurredListener)) {
-      log.info('removing webRequest.onErrorOccurred listener for interception')
-      browser.webRequest.onErrorOccurred.removeListener(onErrorOccurredListener)
-    }
-    if (settings.enabled && activeDomains.length > 0) {
-      log.info('adding webRequest.onBeforeRequest listener for interception')
-      browser.webRequest.onBeforeRequest.addListener(onBeforeRequestListener, urlFilterOptions, ['requestBody'])
-      log.info('adding webRequest.onErrorOccurred listener for interception')
-      browser.webRequest.onErrorOccurred.addListener(onErrorOccurredListener, urlFilterOptions)
-    }
   } catch (e) {
-    log.error('failed to set up interception:', e instanceof Error ? e : new Error(String(e)))
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to update declarativeNetRequest for interception:', error)
+  }
+}
+
+// Interception listeners are registered asynchronously after fetching the settings.
+// The heartbeat messages from the content secript will keep the background script alive
+// to ensure the interception listeners work reliably.
+async function registerInterceptionListener(): Promise<void> {
+  const urlsFilter = await createUrlsFilter()
+
+  // Remove existing listeners
+  if (browser.webRequest.onBeforeRequest.hasListener(onBeforeRequestListener)) {
+    log.info('removing onBeforeRequest listener for interception')
+    browser.webRequest.onBeforeRequest.removeListener(onBeforeRequestListener)
+  }
+  if (browser.webRequest.onHeadersReceived.hasListener(onRedirectHeadersReceivedListener)) {
+    log.info('removing onRedirectHeadersReceived listener for interception')
+    browser.webRequest.onHeadersReceived.removeListener(onRedirectHeadersReceivedListener)
+  }
+  if (browser.tabs.onCreated.hasListener(onTabCreatedListener)) {
+    log.info('removing onTabCreated listener for interception')
+    browser.tabs.onCreated.removeListener(onTabCreatedListener)
+  }
+
+  // If none of the domains are active, skip listener registration
+  if (urlsFilter.length === 0) {
+    log.info('no active interception domains found, skipping listener registration')
+    return
+  }
+
+  // Add listener for interception
+  try {
+    log.info('registering onBeforeRequest listener for interception')
+    browser.webRequest.onBeforeRequest.addListener(onBeforeRequestListener, { urls: urlsFilter }, ['requestBody'])
+    log.info('registration of the onBeforeRequest listener for interception was successful')
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to register onBeforeRequest listener for interception:', error)
+  }
+  try {
+    log.info('registering onRedirectHeadersReceived listener for interception')
+    browser.webRequest.onHeadersReceived.addListener(onRedirectHeadersReceivedListener, { urls: [redirectURL] })
+    log.info('registration of the onRedirectHeadersReceived listener for interception was successful')
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to register onRedirectHeadersReceived listener for interception:', error)
+  }
+  try {
+    log.info('registering onTabCreated listener for interception')
+    browser.tabs.onCreated.addListener(onTabCreatedListener)
+    log.info('registration of the onTabCreated listener for interception was successful')
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to register onTabCreated listener for interception:', error)
+  }
+}
+
+function onTabCreatedListener(details: Browser.tabs.Tab): void {
+  if (details.id !== undefined && details.openerTabId !== undefined) {
+    tabRelationships.set(details.id, details.openerTabId)
+    setTimeout(() => {
+      if (tabRelationships.delete(details.id!)) {
+        log.info(`tab relationship for tab ${details.id} was cleared after 5 seconds`)
+      }
+    }, 5000)
   }
 }
 
@@ -85,6 +188,8 @@ function onBeforeRequestListener(
       }
     }
     requestCache.set(details.requestId, {
+      tabId: details.tabId,
+      requestId: details.requestId,
       url: details.url,
       method: details.method,
       body: bodyData,
@@ -93,216 +198,105 @@ function onBeforeRequestListener(
     })
     setTimeout(() => {
       if (requestCache.delete(details.requestId)) {
-        log.info(`request cache for request ${details.requestId} was cleared after 1000ms`)
+        log.info(`request cache for request ${details.requestId} was cleared after 5 seconds`)
       }
-    }, 1000)
+    }, 5000)
   })
   return undefined
 }
 
-function onErrorOccurredListener(details: Browser.webRequest.WebRequestDetails): void {
-  isURLTracked(details.url).then(async (isTracked) => {
-    let sourceUrl = ''
-    try {
-      if (!isTracked) return
-      notifications.info(i18n.t('interception.requestBlocked', [details.url]))
-      log.info(`request ${details.requestId} to ${details.url} was blocked by interception rules`)
-      if (details.tabId >= 0 && details.frameId === 0 && details.type === 'main_frame') {
-        log.info(`going back in tab ${details.tabId} due to blocked request`)
-        await goBack(details.tabId)
+function onRedirectHeadersReceivedListener(
+  details: Browser.webRequest.OnHeadersReceivedDetails
+): Browser.webRequest.BlockingResponse | undefined {
+  ;(async () => {
+    log.info(`interception redirect detected for request ${details.requestId}`)
+    // Wait for the request details to be available in the cache.
+    // This is necessary because onBeforeRedirectRequestListener may be called
+    // before onBeforeRequestListener has finished caching the details.
+    let timeout = false
+    setTimeout(() => {
+      timeout = true
+    }, 1000)
+    while (!requestCache.has(details.requestId)) {
+      log.info(`waiting for cached request details of request ${details.requestId}`)
+      await new Promise((resolve) => setTimeout(resolve, 100))
+      if (timeout) {
+        log.warn(`waiting for request details of request ${details.requestId} timed out, skipping interception`)
+        return
       }
-      const cachedRequest = requestCache.get(details.requestId)
-      if (!cachedRequest) throw new Error(`no cached request found for requestId ${details.requestId}`)
-      requestCache.delete(details.requestId) // Clear the cache after processing
-      const { url, source } = cachedRequest
-      const domain = getBaseDomainFromURL(url)
-      const setting = (await interception.getSettings()).domains.find((d) => d.domain === domain)
-      if (!setting) throw new Error(`no domain setting found for ${domain}`)
-      try {
-        const [scriptingResult] = await browser.scripting.executeScript({
-          target: { tabId: details.tabId },
-          func: () => window.location.href,
-        })
-        sourceUrl = scriptingResult.result as string
-        log.info(`source URL for request ${details.requestId} is ${sourceUrl}`)
-      } catch {
-        sourceUrl = source
-      }
-      const request = prepareRequest(cachedRequest, setting)
-      switch (setting.fetchOrigin) {
-        case 'injection': {
-          const response = await fetchFromContentScript(request, domain, details.tabId)
-          await processInterceptedRequestResponse({ response, source: sourceUrl })
-          break
-        }
-        default:
-          await fetchInterceptedRequest({ request: request, source: sourceUrl })
-      }
-    } catch (e) {
-      const url = details.url
-      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
-      log.error(`faild to intercept request ${details.requestId} from ${url}`, error)
-      notifications.error(i18n.t('interception.fetchError', [url, sourceUrl, error.message]))
-      await browser.scripting.executeScript({
-        target: { tabId: details.tabId },
-        func: (msg: string) => alert(msg),
-        args: [error.toString()],
-      })
     }
+    // Once the request details are available or the timeout is reached,
+    // either process the request if found in cache or ignore it
+    if (requestCache.has(details.requestId)) {
+      log.info(`request details of intercepted request ${details.requestId} found in cache`)
+      interceptRequest(requestCache.get(details.requestId)!)
+      requestCache.delete(details.requestId)
+    }
+  })()
+  return undefined
+}
+
+function registerHeartbeatListener(): void {
+  onMessage('heartbeat', async () => {
+    log.info('heartbeat message received from content script')
   })
 }
 
-function constructRuleSet(activeDomains: interception.DomainSettings[]): Browser.declarativeNetRequest.Rule[] {
-  return activeDomains.map((domain, index) => ({
+function constructRuleSet(activeDomains: DomainSettings[]): Browser.declarativeNetRequest.Rule[] {
+  // Create redirect rules for each active domain
+  const ruleSet: Browser.declarativeNetRequest.Rule[] = activeDomains.map((domain, index) => ({
     id: index + 1,
     priority: 1,
-    action: { type: 'block' },
+    action: { type: 'redirect', redirect: { url: redirectURL } },
     condition: {
       regexFilter: `${domain.domain}${normalizeRegexStart(domain.pathRegExp)}`,
-      resourceTypes: ['main_frame', 'sub_frame', 'xmlhttprequest', 'script', 'other'],
-      requestMethods: ['get', 'post'],
+      resourceTypes,
+      requestMethods,
       initiatorDomains: [domain.domain],
     },
   }))
+  // Add header modification rule to remove cookies and referer for redirected requests
+  const requestHeaderRule: Browser.declarativeNetRequest.Rule = {
+    id: ruleSet.length + 1,
+    priority: 1,
+    action: {
+      type: 'modifyHeaders',
+      requestHeaders: [
+        { header: 'cookie', operation: 'remove' },
+        { header: 'referer', operation: 'remove' },
+        { header: 'origin', operation: 'remove' },
+        { header: 'user-agent', operation: 'remove' },
+      ],
+    },
+    condition: {
+      regexFilter: redirectURL,
+      resourceTypes,
+      requestMethods,
+    },
+  }
+  ruleSet.push(requestHeaderRule)
+  return ruleSet
 }
 
-function createUrlsFilter(activeDomains: interception.DomainSettings[]): string[] {
+async function createUrlsFilter(): Promise<string[]> {
+  const activeDomains = await getActiveDomains()
   return activeDomains.filter((domainObj) => !!domainObj.domain).map((domainObj) => `*://*.${domainObj.domain}/*`)
 }
 
 async function isURLTracked(url: string): Promise<boolean> {
-  const activeDomains = await interception.getActiveDomains()
+  const activeDomains = await getActiveDomains()
   for (const domain of activeDomains) {
     try {
       const regex = new RegExp(`${domain.domain}${normalizeRegexStart(domain.pathRegExp)}`, 'i')
       if (regex.test(url)) return true
     } catch (e) {
-      log.error(
-        `invalid regex for domain ${domain.domain}: ${domain.pathRegExp}`,
-        e instanceof Error ? e : new Error(String(e))
-      )
+      const error = e instanceof Error ? e : new Error(String(e))
+      log.error(`invalid regex for domain ${domain.domain}: ${domain.pathRegExp}`, error)
     }
   }
   return false
 }
 
-async function goBack(tabId: number): Promise<void> {
-  return new Promise((resolve) => {
-    interception.getActiveDomains().then((domains) => {
-      const timer = () =>
-        setTimeout(async () => {
-          try {
-            const tab = await browser.tabs.get(tabId)
-            if (!tab) throw new Error('tab is not defined')
-            if (tab.status !== 'complete') {
-              timer() // Retry if tab is not fully loaded yet
-              return
-            }
-            if (import.meta.env.FIREFOX && !tab.url) {
-              // For some reason download tabs in Firefox do not have a URL?
-              browser.tabs.remove(tabId)
-            } else {
-              const domain = domains.find((d) => tab.url?.includes(d.domain))
-              if (!domain) throw new Error('domain not found')
-              const regex = new RegExp(`${domain.domain}${normalizeRegexStart(domain.pathRegExp)}`, 'i')
-              if (tab.url && regex.test(tab.url)) {
-                await browser.tabs.goBack(tabId)
-              }
-            }
-            resolve()
-          } catch (e) {
-            if (String(e).includes('Cannot find a next page in history')) {
-              try {
-                await browser.tabs.remove(tabId)
-              } catch {
-                // ignore errors
-              }
-            } else {
-              log.error(
-                `failed to go back in tab ${tabId}: ${String(e)}`,
-                e instanceof Error ? e : new Error(String(e))
-              )
-            }
-            resolve()
-          }
-        }, 10)
-      timer()
-    })
-  })
-}
-
 function normalizeRegexStart(input: string): string {
   return input.startsWith('^') ? input.slice(1) : '.*?' + input
-}
-
-function prepareRequest({ body, url, method }: RequestDetails, setting: interception.DomainSettings): Request {
-  let requestBody: BodyInit | null | undefined = undefined
-  let contentType: string = ''
-  if (body) {
-    switch (setting.postDataHandling) {
-      case 'sendAsFormData': {
-        const formData = new FormData()
-        for (const key in body) {
-          for (const value of body[key]) {
-            formData.append(key, value)
-          }
-        }
-        requestBody = formData
-        contentType = 'multipart/form-data'
-        break
-      }
-      default: {
-        const urlSearchParameters = new URLSearchParams()
-        for (const key in body) {
-          for (const value of body[key]) {
-            urlSearchParameters.append(key, value)
-          }
-        }
-        requestBody = urlSearchParameters.toString()
-        contentType = 'application/x-www-form-urlencoded;charset=UTF-8'
-        break
-      }
-    }
-  }
-  const headers = new Headers({ 'X-NZBBDonkey': 'true' })
-  if (contentType) headers.append('Content-Type', contentType)
-  return new Request(url, {
-    method: method,
-    body: requestBody,
-    headers: headers,
-  })
-}
-
-async function fetchFromContentScript(request: Request, domain: string, tabId: number): Promise<DeserializedResponse> {
-  const serializedRequest = await serializeRequest(request)
-  const ruleId = sessionRuleId++
-  try {
-    // add session rule to allow the request for exact this url
-    log.info(`adding session rule no ${ruleId} for ${request.url}`)
-    browser.declarativeNetRequest.updateSessionRules({
-      addRules: [
-        {
-          id: ruleId,
-          priority: 1,
-          action: { type: 'allow' },
-          condition: {
-            urlFilter: request.url,
-            resourceTypes: ['xmlhttprequest', 'script', 'other'],
-            initiatorDomains: [domain],
-          },
-        },
-      ],
-    })
-    log.info(`forwarding intercepted request to content script for ${request.url}`)
-    const serializedResponse = await sendMessage('fetchRequest', serializedRequest, tabId)
-    if (serializedResponse instanceof Error) {
-      throw serializedResponse
-    } else {
-      return deserializeResponse(serializedResponse)
-    }
-  } finally {
-    // remove the session rule after processing the request
-    log.info(`removing session rule no ${ruleId} for ${request.url}`)
-    await browser.declarativeNetRequest.updateSessionRules({ removeRuleIds: [ruleId] })
-  }
 }

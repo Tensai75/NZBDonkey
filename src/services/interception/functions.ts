@@ -30,7 +30,7 @@ export async function extractArchive(blob: Blob, source: string): Promise<NZBFil
         await nzbfile.addNzbFile(nzbTextfile, getFileNameFromPath(pathname), source)
         nzbFiles.push(nzbfile)
       } catch (e) {
-        const error = e instanceof Error ? e : new Error('unknown error')
+        const error = e instanceof Error ? e : new Error(String(e))
         log.warn('error while extracting the NZB file', error)
       }
     }
@@ -65,22 +65,27 @@ export async function handleResponseData({
 }): Promise<NZBFileObject[]> {
   const extension = getExtensionFromFilename(filename).toLowerCase()
   const nzbFiles: NZBFileObject[] = []
-  if (extension === 'nzb') {
-    log.info(`NZB file detected: ${filename}`)
-    const nzbFile = await new NZBFileObject().init()
-    await nzbFile.addNzbFile(await response.text(), filename, source)
-    nzbFiles.push(nzbFile)
-  } else if (allowedArchives.includes(extension)) {
-    log.info(`Archive file detected: ${filename}`)
-    const blob = await response.blob()
-    const archiveFiles = await extractArchive(blob, source)
-    nzbFiles.push(...archiveFiles)
-  } else {
-    await downloadFile(response, filename)
-    throw new Error('no NZB file or archive in intercepted response')
+  try {
+    if (extension === 'nzb') {
+      log.info(`NZB file detected: ${filename}`)
+      const nzbFile = await new NZBFileObject().init()
+      await nzbFile.addNzbFile(await response.text(), filename, source)
+      nzbFiles.push(nzbFile)
+    } else if (allowedArchives.includes(extension)) {
+      log.info(`Archive file detected: ${filename}`)
+      const blob = await response.blob()
+      const archiveFiles = await extractArchive(blob, source)
+      nzbFiles.push(...archiveFiles)
+    } else {
+      throw new Error('no NZB file or archive in intercepted response')
+    }
+    if (!nzbFiles.length) throw new Error('no NZB file found in download')
+    return nzbFiles
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    downloadFile(response, filename)
+    throw error
   }
-  if (!nzbFiles.length) throw new Error('no NZB file found in download')
-  return nzbFiles
 }
 
 export async function handleNzbDialogIfNeeded(
@@ -141,22 +146,27 @@ export async function handleError(error: Error, nzbFiles: NZBFileObject[]): Prom
 }
 
 async function downloadFile(response: Response | DeserializedResponse, filename: string): Promise<void> {
-  const blob = await response.blob()
-  // Create URL (blob for Firefox, data URL for Chrome)
-  let url: string
-  if (import.meta.env.FIREFOX) {
-    url = URL.createObjectURL(blob)
-  } else {
-    // Chrome: blob: not supported by downloads API in MV3 service worker
-    // Use data:; base64 to be safe with any binary chars
-    url = `data:${blob.type};base64,${await blobToBase64(blob)}`
+  try {
+    const blob = await response.blob()
+    // Create URL (blob for Firefox, data URL for Chrome)
+    let url: string
+    if (import.meta.env.FIREFOX) {
+      url = URL.createObjectURL(blob)
+    } else {
+      // Chrome: blob: not supported by downloads API in MV3 service worker
+      // Use data:; base64 to be safe with any binary chars
+      url = `data:${blob.type};base64,${await blobToBase64(blob)}`
+    }
+    log.info(`downloading file ${filename} via browser download`)
+    const downloadOptions: Browser.downloads.DownloadOptions = {
+      filename: filename,
+      url,
+    }
+    browser.downloads.download(downloadOptions)
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error(`error while downloading file ${filename}`, error)
   }
-  log.info(`downloading file ${filename} via browser download`)
-  const downloadOptions: Browser.downloads.DownloadOptions = {
-    filename: filename,
-    url,
-  }
-  browser.downloads.download(downloadOptions)
 }
 
 // Helper function for efficient blob to base64 encoding

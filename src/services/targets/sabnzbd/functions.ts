@@ -57,7 +57,7 @@ export const push = async (
         throw new Error(i18n.t('errors.unknownError'))
       }
     } catch (e) {
-      const error = e instanceof Error ? e : new Error(i18n.t('errors.unknownError'))
+      const error = e instanceof Error ? e : new Error(String(e))
       log.error(`error while pushing file "${nzb.title}" to ${targetSettings.name}`, error)
       throw error
     }
@@ -88,9 +88,9 @@ export const testConnection = async (targetSettings: TargetSettings): Promise<bo
       }
     }
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.error(`error while testing connection to ${targetSettings.name}`, error)
-    throw e
+    throw error
   }
 }
 
@@ -117,7 +117,7 @@ export const getCategories = async (targetSettings: TargetSettings): Promise<str
       throw new Error('no categories received')
     }
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     log.error(`error while getting the categories from ${targetSettings.name}`, error)
     throw error
   }
@@ -147,7 +147,7 @@ const connect = async (options: FetchOptions): Promise<SabnzbdApiResponse> => {
     const responseText = await response.text()
     return JSONparse(responseText) as SabnzbdApiResponse
   } catch (e) {
-    const error = e instanceof Error ? e : new Error('unknown error')
+    const error = e instanceof Error ? e : new Error(String(e))
     throw error
   }
 }

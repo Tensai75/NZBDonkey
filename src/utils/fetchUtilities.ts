@@ -90,15 +90,13 @@ export const useFetch = async (
       throw new Error(`${response.status} - ${getHttpStatusText(response.status)}`)
     }
     return response
-  } catch (error) {
-    if (error instanceof Error) {
-      if (error.name === 'AbortError') {
-        throw new Error('the request timed out')
-      } else {
-        throw new Error(`the request failed: ${error.message ?? 'unknown error'}`)
-      }
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    if (error.name === 'AbortError') {
+      throw new Error('the request timed out')
+    } else {
+      throw new Error(`the request failed: ${error.message}`)
     }
-    throw new Error(`the request failed: unknown error`)
   }
 }
 
@@ -206,8 +204,19 @@ export const generateFormData = (
  */
 export const getFilenameFromResponse = (response: Response): string => {
   const contentDisposition = response.headers.get('Content-Disposition')
-  const match = contentDisposition?.match(/filename\*?=(?:[^']*'')?"?([^"]*)"?/i)
-  return match?.[1] || getFileNameFromPath(response.url)
+  // Try to extract UTF-8 filename first
+  const utf8Filename = contentDisposition?.match(/filename\*=utf-8'.*'(.*?)(?:;|$)/i)
+  if (utf8Filename?.[1] !== '') {
+    return decodeURIComponent(utf8Filename![1])
+  }
+  // Fallback to regular filename
+  const filename = contentDisposition?.match(/filename="?(.*?)(?:"|;|$)/i)
+  if (filename?.[1] !== '') {
+    return filename![1]
+  }
+  // Fallback to URL path
+  const url = new URL(response.url)
+  return getFileNameFromPath(url.pathname)
 }
 
 /**
@@ -528,7 +537,7 @@ export async function serializeResponse(response: Response): Promise<SerializedR
     throw new Error('Response body already consumed')
   }
   const clone = response.clone()
-  const headers = Array.from(clone.headers.entries())
+  const headers = Array.from(clone.headers)
   const contentType = clone.headers.get('Content-Type') || ''
   const contentDisposition = clone.headers.get('Content-Disposition') || ''
   const isAttachment = contentDisposition.toLowerCase().includes('attachment')
