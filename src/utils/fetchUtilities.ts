@@ -204,8 +204,19 @@ export const generateFormData = (
  */
 export const getFilenameFromResponse = (response: Response): string => {
   const contentDisposition = response.headers.get('Content-Disposition')
-  const match = contentDisposition?.match(/filename\*?=(?:[^']*'')?"?([^"]*)"?/i)
-  return match?.[1] || getFileNameFromPath(new URL(response.url).pathname)
+  // Try to extract UTF-8 filename first
+  const utf8Filename = contentDisposition?.match(/filename\*=utf-8'.*'(.*?)(?:;|$)/i)
+  if (utf8Filename?.[1] !== '') {
+    return decodeURIComponent(utf8Filename![1])
+  }
+  // Fallback to regular filename
+  const filename = contentDisposition?.match(/filename="?(.*?)(?:"|;|$)/i)
+  if (filename?.[1] !== '') {
+    return filename![1]
+  }
+  // Fallback to URL path
+  const url = new URL(response.url)
+  return getFileNameFromPath(url.pathname)
 }
 
 /**
