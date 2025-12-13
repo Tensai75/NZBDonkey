@@ -1,3 +1,13 @@
+## [1.4.3](https://github.com/Tensai75/NZBDonkey/compare/v1.4.2...v1.4.3) (2025-12-13)
+
+
+### Bug Fixes
+
+* correct handling of UTF-8 filenames during interception ([66e3356](https://github.com/Tensai75/NZBDonkey/commit/66e3356855c3406d59d979c3a163466bdfa8cb92)), closes [#101](https://github.com/Tensai75/NZBDonkey/issues/101)
+* fix for an intermittent bug in Chrome resulting in incorrect window size ([0d2c6d7](https://github.com/Tensai75/NZBDonkey/commit/0d2c6d79b8cf5238a1cd2dc4727fe5263c3421eb))
+* prevent duplicate domains in interception settings ([c3bb8c6](https://github.com/Tensai75/NZBDonkey/commit/c3bb8c6a27ed9822bf9b946d8f4c795792cfa960))
+* use redirect to 204 instead of block for interception ([46b0c5e](https://github.com/Tensai75/NZBDonkey/commit/46b0c5ee266b24f88fc181624268994ebc5fe319))
+
 ## [1.4.2](https://github.com/Tensai75/NZBDonkey/compare/v1.4.1...v1.4.2) (2025-10-26)
 
 ### Bug Fixes
