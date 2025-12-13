@@ -60,7 +60,7 @@ function reset() {
           v-slot="$field"
           :name="i18n.t('settings.interception.domains.domain.title')"
           :initial-value="domain.domain"
-          :resolver="requiredUniqueBaseDomainResolver"
+          :resolver="isAdd ? requiredUniqueBaseDomainResolver : undefined"
           :validate-on-blur="true"
           :validate-on-value-update="true"
           :validate-on-mount="true"
@@ -73,7 +73,7 @@ function reset() {
             size="small"
             autocomplete="off"
             type="text"
-            :disabled="domain.isDefault"
+            :disabled="domain.isDefault || isAdd === false"
           />
           <Message v-if="$field?.invalid" severity="error" size="small" variant="simple" class="flex-auto">{{
             $field.error?.message
