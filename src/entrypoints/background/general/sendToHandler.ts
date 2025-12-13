@@ -52,12 +52,15 @@ export async function registerSendToContextMenu(): Promise<void> {
     return
   }
   log.info('registration of the send to context menu was successful')
+}
+
+export function registerSendToContextMenuListener(): void {
   log.info('registering the send to context menu listener')
-  if (browser.contextMenus.onClicked.hasListener(contextMenuListener)) {
+  if (browser.contextMenus.onClicked.hasListener(sendToContextMenuListener)) {
     log.info('the sent to context menu listener is already registered')
   } else {
     try {
-      browser.contextMenus.onClicked.addListener(contextMenuListener)
+      browser.contextMenus.onClicked.addListener(sendToContextMenuListener)
       log.info('registration of the send to context menu listener was successful')
     } catch (e) {
       const error = e instanceof Error ? e : new Error(String(e))
@@ -66,7 +69,10 @@ export async function registerSendToContextMenu(): Promise<void> {
   }
 }
 
-async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?: Browser.tabs.Tab): Promise<void> {
+async function sendToContextMenuListener(
+  info: Browser.contextMenus.OnClickData,
+  tab?: Browser.tabs.Tab
+): Promise<void> {
   if (info.menuItemId === CONTEXT_MENU_ID || info.parentMenuItemId === CONTEXT_MENU_ID) {
     let nzbFiles: NZBFileObject[] = []
     let filename = ''

@@ -1,6 +1,6 @@
 import { defineContentScript } from '#imports'
 import log from '@/services/logger/debugLogger'
-import { onMessage } from '@/services/messengers/extensionMessenger'
+import { onMessage, sendMessage } from '@/services/messengers/extensionMessenger'
 import { deserializeRequest, getHttpStatusText, serializeResponse } from '@/utils/fetchUtilities'
 
 export default defineContentScript({
@@ -8,6 +8,11 @@ export default defineContentScript({
   main() {
     log.initDebugLog('interception-content')
     log.info('interception content script loaded successfully')
+
+    setInterval(() => {
+      log.info('sending heartbeat message to background script')
+      sendMessage('heartbeat', null)
+    }, 25000) // every 25 seconds
 
     onMessage('fetchRequest', async (message) => {
       log.info(`fetch request message received`)

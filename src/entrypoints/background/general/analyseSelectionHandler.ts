@@ -3,7 +3,7 @@ import log from '@/services/logger/debugLogger'
 import { sendMessage } from '@/services/messengers/extensionMessenger'
 import { createContextMenuPromise } from '@/utils/generalUtilities'
 
-// Extend the Window interface to include the custom property
+// Extend the Window interface to include the custom property to avoid TypeScript errors
 declare global {
   interface Window {
     __NZBDONKEY_SELECTION_SCRIPT_INJECTED__?: boolean
@@ -29,12 +29,15 @@ export async function registerAnalyseSelectionContextMenu(): Promise<void> {
     return
   }
   log.info('registration of the analyse selection context menu was successful')
+}
+
+export function registerAnalyseSelectionContextMenuListener(): void {
   log.info('registering the analyse selection context menu listener')
-  if (browser.contextMenus.onClicked.hasListener(contextMenuListener)) {
+  if (browser.contextMenus.onClicked.hasListener(analyseSelectionContextMenuListener)) {
     log.info('the analyse selection context menu listener is already registered')
   } else {
     try {
-      browser.contextMenus.onClicked.addListener(contextMenuListener)
+      browser.contextMenus.onClicked.addListener(analyseSelectionContextMenuListener)
       log.info('registration of the analyse selection context menu listener was successful')
     } catch (e) {
       const error = e instanceof Error ? e : new Error(String(e))
@@ -43,7 +46,10 @@ export async function registerAnalyseSelectionContextMenu(): Promise<void> {
   }
 }
 
-async function contextMenuListener(info: Browser.contextMenus.OnClickData, tab?: Browser.tabs.Tab): Promise<void> {
+async function analyseSelectionContextMenuListener(
+  info: Browser.contextMenus.OnClickData,
+  tab?: Browser.tabs.Tab
+): Promise<void> {
   if (info.menuItemId === CONTEXT_MENU_ID && tab?.id) {
     try {
       // Check if the script is already injected

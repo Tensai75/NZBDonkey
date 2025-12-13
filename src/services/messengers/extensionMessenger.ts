@@ -12,6 +12,7 @@ interface ProtocolMap {
   nzbFileDialog(data: { windowID: number }): NZBFileObject | NZBFileObject[]
   connectionTest(data: TargetSettings): Promise<boolean>
   fetchRequest(data: SerializedRequest): Promise<SerializedResponse | Error>
+  heartbeat(data: null): void
 }
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>()
 export type RemoveListenerCallback = RemoveListenerCallbackType

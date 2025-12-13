@@ -1,9 +1,9 @@
 import { interceptRequest } from './interceptedRequestsHandler'
 
 import { browser, Browser } from '#imports'
-import * as interception from '@/services/interception'
-import { updateInterceptionDomainsList } from '@/services/lists'
+import { DomainSettings, getActiveDomains, watchSettings as watchInterceptionSettings } from '@/services/interception'
 import log from '@/services/logger/debugLogger'
+import { onMessage } from '@/services/messengers/extensionMessenger'
 
 export type RequestDetails = {
   tabId: number
@@ -27,7 +27,7 @@ const redirectURLs = [
 ]
 */
 // Redirect URL to be used in declarativeNetRequest rule
-const redirectURL: string = 'https://connectivity-check.ubuntu.com'
+const redirectURL: string = 'https://connectivity-check.ubuntu.com/204'
 // In-memory cache for request details
 export const requestCache = new Map<string, RequestDetails>()
 export const tabRelationships = new Map<number, number>() // key: new tab ID, value: opener tab ID
@@ -76,59 +76,91 @@ const resourceTypes: (
 ]
 
 export default function (): void {
-  interception.getSettings().then(async (settings) => {
-    if (settings.updateOnStartup) {
-      settings.domains = await updateInterceptionDomainsList(settings.domains)
-      interception.saveSettings(settings)
-    }
-    log.info('setting up interception')
-    setupInterception(settings)
-    interception.watchSettings((settings) => {
-      log.info('interception settings changed, updating interception setup')
-      setupInterception(settings)
-    })
+  setupInterception() // <- async setup
+  // synchronous listener for heartbeat messages
+  registerHeartbeatListener()
+  // synchronous listener for settings changes
+  watchInterceptionSettings(async () => {
+    log.info('interception settings have changed, updating declarativeNetRequest rules and listeners')
+    await updateDeclarativeNetRequest()
+    await registerInterceptionListener()
   })
 }
 
-async function setupInterception(settings: interception.Settings): Promise<void> {
+async function setupInterception(): Promise<void> {
+  log.info('setting up declarativeNetRequest rules and listeners for interception')
+  await updateDeclarativeNetRequest()
+  await registerInterceptionListener()
+}
+
+async function updateDeclarativeNetRequest(): Promise<void> {
   try {
     const [activeDomains, rules] = await Promise.all([
-      interception.getActiveDomains(),
+      getActiveDomains(),
       browser.declarativeNetRequest.getDynamicRules(),
     ])
-    const domains = activeDomains
     const ruleIds = rules.map((rule) => rule.id)
-    const urlFilterOptions = { urls: createUrlsFilter(domains) }
     log.info('updating declarativeNetRequest rules for interception')
     await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: ruleIds,
-      addRules: constructRuleSet(domains),
+      addRules: constructRuleSet(activeDomains),
     })
-    if (browser.webRequest.onBeforeRequest.hasListener(onBeforeRequestListener)) {
-      log.info('removing onBeforeRequest listener for interception')
-      browser.webRequest.onBeforeRequest.removeListener(onBeforeRequestListener)
-    }
-    if (browser.webRequest.onHeadersReceived.hasListener(onRedirectHeadersReceivedListener)) {
-      log.info('removing onRedirectHeadersReceived listener for interception')
-      browser.webRequest.onHeadersReceived.removeListener(onRedirectHeadersReceivedListener)
-    }
-    if (browser.tabs.onCreated.hasListener(onTabCreatedListener)) {
-      log.info('removing onTabCreated listener for interception')
-      browser.tabs.onCreated.removeListener(onTabCreatedListener)
-    }
-    if (settings.enabled && activeDomains.length > 0) {
-      log.info('adding onBeforeRequest listener for interception')
-      browser.webRequest.onBeforeRequest.addListener(onBeforeRequestListener, urlFilterOptions, ['requestBody'])
-      log.info('adding onRedirectHeadersReceived listener for interception')
-      browser.webRequest.onHeadersReceived.addListener(onRedirectHeadersReceivedListener, {
-        urls: [redirectURL + '/*'],
-      })
-      log.info('adding onTabCreated listener for interception')
-      browser.tabs.onCreated.addListener(onTabCreatedListener)
-    }
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
-    log.error('failed to set up interception:', error)
+    log.error('failed to update declarativeNetRequest for interception:', error)
+  }
+}
+
+// Interception listeners are registered asynchronously after fetching the settings.
+// The heartbeat messages from the content secript will keep the background script alive
+// to ensure the interception listeners work reliably.
+async function registerInterceptionListener(): Promise<void> {
+  const urlsFilter = await createUrlsFilter()
+
+  // Remove existing listeners
+  if (browser.webRequest.onBeforeRequest.hasListener(onBeforeRequestListener)) {
+    log.info('removing onBeforeRequest listener for interception')
+    browser.webRequest.onBeforeRequest.removeListener(onBeforeRequestListener)
+  }
+  if (browser.webRequest.onHeadersReceived.hasListener(onRedirectHeadersReceivedListener)) {
+    log.info('removing onRedirectHeadersReceived listener for interception')
+    browser.webRequest.onHeadersReceived.removeListener(onRedirectHeadersReceivedListener)
+  }
+  if (browser.tabs.onCreated.hasListener(onTabCreatedListener)) {
+    log.info('removing onTabCreated listener for interception')
+    browser.tabs.onCreated.removeListener(onTabCreatedListener)
+  }
+
+  // If none of the domains are active, skip listener registration
+  if (urlsFilter.length === 0) {
+    log.info('no active interception domains found, skipping listener registration')
+    return
+  }
+
+  // Add listener for interception
+  try {
+    log.info('registering onBeforeRequest listener for interception')
+    browser.webRequest.onBeforeRequest.addListener(onBeforeRequestListener, { urls: urlsFilter }, ['requestBody'])
+    log.info('registration of the onBeforeRequest listener for interception was successful')
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to register onBeforeRequest listener for interception:', error)
+  }
+  try {
+    log.info('registering onRedirectHeadersReceived listener for interception')
+    browser.webRequest.onHeadersReceived.addListener(onRedirectHeadersReceivedListener, { urls: [redirectURL] })
+    log.info('registration of the onRedirectHeadersReceived listener for interception was successful')
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to register onRedirectHeadersReceived listener for interception:', error)
+  }
+  try {
+    log.info('registering onTabCreated listener for interception')
+    browser.tabs.onCreated.addListener(onTabCreatedListener)
+    log.info('registration of the onTabCreated listener for interception was successful')
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to register onTabCreated listener for interception:', error)
   }
 }
 
@@ -177,7 +209,7 @@ function onRedirectHeadersReceivedListener(
   details: Browser.webRequest.OnHeadersReceivedDetails
 ): Browser.webRequest.BlockingResponse | undefined {
   ;(async () => {
-    log.info(`interception redirect detected for request ${details.requestId} to ${details.url}`)
+    log.info(`interception redirect detected for request ${details.requestId}`)
     // Wait for the request details to be available in the cache.
     // This is necessary because onBeforeRedirectRequestListener may be called
     // before onBeforeRequestListener has finished caching the details.
@@ -186,10 +218,10 @@ function onRedirectHeadersReceivedListener(
       timeout = true
     }, 1000)
     while (!requestCache.has(details.requestId)) {
-      log.info(`waiting for cached request details of ${details.requestId}`)
+      log.info(`waiting for cached request details of request ${details.requestId}`)
       await new Promise((resolve) => setTimeout(resolve, 100))
       if (timeout) {
-        log.warn(`waiting for request details of ${details.requestId} timed out, skipping interception`)
+        log.warn(`waiting for request details of request ${details.requestId} timed out, skipping interception`)
         return
       }
     }
@@ -204,7 +236,13 @@ function onRedirectHeadersReceivedListener(
   return undefined
 }
 
-function constructRuleSet(activeDomains: interception.DomainSettings[]): Browser.declarativeNetRequest.Rule[] {
+function registerHeartbeatListener(): void {
+  onMessage('heartbeat', async () => {
+    log.info('heartbeat message received from content script')
+  })
+}
+
+function constructRuleSet(activeDomains: DomainSettings[]): Browser.declarativeNetRequest.Rule[] {
   // Create redirect rules for each active domain
   const ruleSet: Browser.declarativeNetRequest.Rule[] = activeDomains.map((domain, index) => ({
     id: index + 1,
@@ -240,12 +278,13 @@ function constructRuleSet(activeDomains: interception.DomainSettings[]): Browser
   return ruleSet
 }
 
-function createUrlsFilter(activeDomains: interception.DomainSettings[]): string[] {
+async function createUrlsFilter(): Promise<string[]> {
+  const activeDomains = await getActiveDomains()
   return activeDomains.filter((domainObj) => !!domainObj.domain).map((domainObj) => `*://*.${domainObj.domain}/*`)
 }
 
 async function isURLTracked(url: string): Promise<boolean> {
-  const activeDomains = await interception.getActiveDomains()
+  const activeDomains = await getActiveDomains()
   for (const domain of activeDomains) {
     try {
       const regex = new RegExp(`${domain.domain}${normalizeRegexStart(domain.pathRegExp)}`, 'i')
