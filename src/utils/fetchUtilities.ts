@@ -206,13 +206,13 @@ export const getFilenameFromResponse = (response: Response): string => {
   const contentDisposition = response.headers.get('Content-Disposition')
   // Try to extract UTF-8 filename first
   const utf8Filename = contentDisposition?.match(/filename\*=utf-8'.*'(.*?)(?:;|$)/i)
-  if (utf8Filename?.[1] !== '') {
-    return decodeURIComponent(utf8Filename![1])
+  if (utf8Filename?.[1] && utf8Filename[1].length > 0) {
+    return decodeURIComponent(utf8Filename[1])
   }
   // Fallback to regular filename
   const filename = contentDisposition?.match(/filename="?(.*?)(?:"|;|$)/i)
-  if (filename?.[1] !== '') {
-    return filename![1]
+  if (filename?.[1] && filename[1].length > 0) {
+    return filename[1]
   }
   // Fallback to URL path
   const url = new URL(response.url)
