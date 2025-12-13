@@ -210,7 +210,7 @@
       "archiveFileExtensions": ["zip", "rar", "7z"],
       "domain": "nzbgrabit.org",
       "fetchOrigin": "injection",
-      "icon": "https://www.nzbgrabit.org/apple-touch-icon.png",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReMwKGW61hkP0YMt5fa-OlwkxNkLDknD1-lg&s",
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "/nzbcreate\\.php",
