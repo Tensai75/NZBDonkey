@@ -29,7 +29,6 @@ const redirectURLs = [
 // Redirect URL to be used in declarativeNetRequest rule
 const redirectURL: string = 'https://connectivity-check.ubuntu.com/204'
 // In-memory cache for request details
-export const requestCache = new Map<string, RequestDetails>()
 export const tabRelationships = new Map<number, number>() // key: new tab ID, value: opener tab ID
 
 // Request methods for declarativeNetRequest rules
@@ -122,10 +121,6 @@ async function registerInterceptionListener(): Promise<void> {
     log.info('removing onBeforeRequest listener for interception')
     browser.webRequest.onBeforeRequest.removeListener(onBeforeRequestListener)
   }
-  if (browser.webRequest.onHeadersReceived.hasListener(onRedirectHeadersReceivedListener)) {
-    log.info('removing onRedirectHeadersReceived listener for interception')
-    browser.webRequest.onHeadersReceived.removeListener(onRedirectHeadersReceivedListener)
-  }
   if (browser.tabs.onCreated.hasListener(onTabCreatedListener)) {
     log.info('removing onTabCreated listener for interception')
     browser.tabs.onCreated.removeListener(onTabCreatedListener)
@@ -145,14 +140,6 @@ async function registerInterceptionListener(): Promise<void> {
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
     log.error('failed to register onBeforeRequest listener for interception:', error)
-  }
-  try {
-    log.info('registering onRedirectHeadersReceived listener for interception')
-    browser.webRequest.onHeadersReceived.addListener(onRedirectHeadersReceivedListener, { urls: [redirectURL] })
-    log.info('registration of the onRedirectHeadersReceived listener for interception was successful')
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(String(e))
-    log.error('failed to register onRedirectHeadersReceived listener for interception:', error)
   }
   try {
     log.info('registering onTabCreated listener for interception')
@@ -179,15 +166,16 @@ function onBeforeRequestListener(
   details: Browser.webRequest.OnBeforeRequestDetails
 ): Browser.webRequest.BlockingResponse | undefined {
   isURLTracked(details.url).then((isTracked) => {
-    if (!isTracked) return
-    log.info(`request ${details.requestId} to ${details.url} is tracked, caching request details`)
+    // If the tabId is negative, it means the request comes from the background script itself and hence should be ignored
+    if (!isTracked || details.tabId < 0) return
+    log.info(`request ${details.requestId} to ${details.url} is going to be blocked, gathering request details`)
     let bodyData: RequestDetails['body']
     if (details.method !== 'GET' && details.requestBody) {
       if (details.requestBody.formData) {
         bodyData = details.requestBody.formData as RequestDetails['body']
       }
     }
-    requestCache.set(details.requestId, {
+    const requestDeatils = {
       tabId: details.tabId,
       requestId: details.requestId,
       url: details.url,
@@ -195,44 +183,9 @@ function onBeforeRequestListener(
       body: bodyData,
       // @ts-expect-error: Property 'originUrl' does not exist on type 'WebRequestBodyDetails'
       source: details.originUrl ?? details.initiator ?? '',
-    })
-    setTimeout(() => {
-      if (requestCache.delete(details.requestId)) {
-        log.info(`request cache for request ${details.requestId} was cleared after 5 seconds`)
-      }
-    }, 5000)
+    }
+    interceptRequest(requestDeatils)
   })
-  return undefined
-}
-
-function onRedirectHeadersReceivedListener(
-  details: Browser.webRequest.OnHeadersReceivedDetails
-): Browser.webRequest.BlockingResponse | undefined {
-  ;(async () => {
-    log.info(`interception redirect detected for request ${details.requestId}`)
-    // Wait for the request details to be available in the cache.
-    // This is necessary because onBeforeRedirectRequestListener may be called
-    // before onBeforeRequestListener has finished caching the details.
-    let timeout = false
-    setTimeout(() => {
-      timeout = true
-    }, 1000)
-    while (!requestCache.has(details.requestId)) {
-      log.info(`waiting for cached request details of request ${details.requestId}`)
-      await new Promise((resolve) => setTimeout(resolve, 100))
-      if (timeout) {
-        log.warn(`waiting for request details of request ${details.requestId} timed out, skipping interception`)
-        return
-      }
-    }
-    // Once the request details are available or the timeout is reached,
-    // either process the request if found in cache or ignore it
-    if (requestCache.has(details.requestId)) {
-      log.info(`request details of intercepted request ${details.requestId} found in cache`)
-      interceptRequest(requestCache.get(details.requestId)!)
-      requestCache.delete(details.requestId)
-    }
-  })()
   return undefined
 }
 
@@ -249,7 +202,7 @@ function constructRuleSet(activeDomains: DomainSettings[]): Browser.declarativeN
     priority: 1,
     action: { type: 'redirect', redirect: { url: redirectURL } },
     condition: {
-      regexFilter: `${domain.domain}${normalizeRegexStart(domain.pathRegExp)}`,
+      regexFilter: getDomainRegExp(domain),
       resourceTypes,
       requestMethods,
       initiatorDomains: [domain.domain],
@@ -284,10 +237,11 @@ async function createUrlsFilter(): Promise<string[]> {
 }
 
 async function isURLTracked(url: string): Promise<boolean> {
+  if (url.includes('x-nzbdonkey')) return false // avoid intercepting our own requests from the content script
   const activeDomains = await getActiveDomains()
   for (const domain of activeDomains) {
     try {
-      const regex = new RegExp(`${domain.domain}${normalizeRegexStart(domain.pathRegExp)}`, 'i')
+      const regex = new RegExp(getDomainRegExp(domain), 'i')
       if (regex.test(url)) return true
     } catch (e) {
       const error = e instanceof Error ? e : new Error(String(e))
@@ -297,6 +251,7 @@ async function isURLTracked(url: string): Promise<boolean> {
   return false
 }
 
-function normalizeRegexStart(input: string): string {
-  return input.startsWith('^') ? input.slice(1) : '.*?' + input
+function getDomainRegExp(domain: DomainSettings): string {
+  const pathRegExp = domain.pathRegExp.startsWith('^') ? domain.pathRegExp.slice(1) : '.*?' + domain.pathRegExp
+  return `${domain.domain}${pathRegExp}`
 }
