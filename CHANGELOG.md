@@ -1,3 +1,12 @@
+## [1.4.5](https://github.com/Tensai75/NZBDonkey/compare/v1.4.4...v1.4.5) (2025-12-15)
+
+
+### Bug Fixes
+
+* fix for interception domain edit dialog ([820c433](https://github.com/Tensai75/NZBDonkey/commit/820c433e03323d12753183b90fc82e7e71f43fdc))
+* have getActiveDomains respect global activation setting ([fc020a5](https://github.com/Tensai75/NZBDonkey/commit/fc020a5bdb7db46f852d878c41f1489d2f2af1b4))
+* simplify interception by processing requests directly ([98b0e77](https://github.com/Tensai75/NZBDonkey/commit/98b0e77d4e299669a1eb91920f2a6823e49124f2))
+
 ## [1.4.4](https://github.com/Tensai75/NZBDonkey/compare/v1.4.3...v1.4.4) (2025-12-13)
 
 
