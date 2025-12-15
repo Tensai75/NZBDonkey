@@ -69,6 +69,6 @@ export function addTimestampToURL(request: Request, ruleId: number): Request {
   const url = new URL(request.url)
   // Use a combination of timestamp and counter for uniqueness
   const uniqueId = `${Date.now()}${ruleId}`
-  url.searchParams.append('nzbdonkey', uniqueId)
+  url.searchParams.append('x-nzbdonkey', uniqueId)
   return new Request(url.toString(), request)
 }

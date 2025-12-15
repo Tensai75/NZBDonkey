@@ -41,7 +41,7 @@ export async function extractArchive(blob: Blob, source: string): Promise<NZBFil
 
 export async function getActiveDomains(): Promise<DomainSettings[]> {
   const settings = await getSettings()
-  return settings.domains.filter((domain) => domain.isActive)
+  return settings.enabled ? settings.domains.filter((domain) => domain.isActive) : []
 }
 
 export async function processNzbFiles(nzbFiles: NZBFileObject[], filename: string): Promise<void> {
