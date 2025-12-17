@@ -216,7 +216,7 @@ export const getFilenameFromResponse = (response: Response): string => {
   }
   // Fallback to URL path
   const url = new URL(response.url)
-  return getFileNameFromPath(url.pathname)
+  return decodeURIComponent(getFileNameFromPath(url.pathname))
 }
 
 /**

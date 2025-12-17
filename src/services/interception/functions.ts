@@ -1,3 +1,4 @@
+import parseTar from '@vigneshpa/parse-tar'
 import { PublicPath } from 'wxt/browser'
 
 import { ArchiveReader, libarchiveWasm } from './libarchive-wasm'
@@ -56,7 +57,7 @@ export async function handleResponseData({
   response,
   filename,
   source,
-  allowedArchives = ['zip', 'rar', '7z'],
+  allowedArchives = ['zip', 'rar', '7z', 'tar', 'gz'],
 }: {
   response: Response | DeserializedResponse
   filename: string
@@ -71,11 +72,15 @@ export async function handleResponseData({
       const nzbFile = await new NZBFileObject().init()
       await nzbFile.addNzbFile(await response.text(), filename, source)
       nzbFiles.push(nzbFile)
-    } else if (allowedArchives.includes(extension)) {
-      log.info(`Archive file detected: ${filename}`)
-      const blob = await response.blob()
-      const archiveFiles = await extractArchive(blob, source)
-      nzbFiles.push(...archiveFiles)
+    } else if (extension === 'gz' && allowedArchives.includes(extension)) {
+      log.info(`Gzip file detected: ${filename}`)
+      nzbFiles.push(...(await handleGzFile(await response.blob(), filename, source, allowedArchives)))
+    } else if (extension === 'tar' && allowedArchives.includes(extension)) {
+      log.info(`Tar file detected: ${filename}`)
+      nzbFiles.push(...(await handleTarFile(await response.blob(), source)))
+    } else if (['zip', 'rar', '7z'].includes(extension) && allowedArchives.includes(extension)) {
+      log.info(`${extension.toUpperCase()} file detected: ${filename}`)
+      nzbFiles.push(...(await extractArchive(await response.blob(), source)))
     } else {
       throw new Error('no NZB file or archive in intercepted response')
     }
@@ -145,6 +150,72 @@ export async function handleError(error: Error, nzbFiles: NZBFileObject[]): Prom
   })
 }
 
+// Helper function to decompress gzip blobs
+async function decompressBlob(blob: Blob): Promise<Blob> {
+  const ds = new DecompressionStream('gzip')
+  const decompressedStream = blob.stream().pipeThrough(ds)
+  return await new Response(decompressedStream).blob()
+}
+
+// Helper function to handle gzip files and extract NZB files
+async function handleGzFile(
+  blob: Blob,
+  filename: string,
+  source: string,
+  allowedArchives: string[]
+): Promise<NZBFileObject[]> {
+  try {
+    const decompressedBlob = await decompressBlob(blob)
+    const decompressedFilename = filename.replace(/\.gz$/i, '')
+    const extension = getExtensionFromFilename(decompressedFilename).toLowerCase()
+    if (extension === 'nzb') {
+      log.info(`Decompressed NZB file detected: ${decompressedFilename}`)
+      const nzbFile = await new NZBFileObject().init()
+      await nzbFile.addNzbFile(await decompressedBlob.text(), decompressedFilename, source)
+      return [nzbFile]
+    } else if (extension === 'tar' && allowedArchives.includes(extension)) {
+      log.info(`Decompressed tarball detected: ${decompressedFilename}`)
+      return await handleTarFile(decompressedBlob, source)
+    } else {
+      log.info(`Decompressed Gzip file is neither an NZB file nor an allowed archive: ${decompressedFilename}`)
+      return []
+    }
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`error while handling gzip file: ${error.message}`)
+  }
+}
+
+// Helper function to handle tar files and extract NZB files
+async function handleTarFile(blob: Blob, source: string): Promise<NZBFileObject[]> {
+  try {
+    const tarFiles = await parseTar(blob)
+    const nzbFiles: NZBFileObject[] = []
+    for (const file of tarFiles) {
+      const innerFilename = getFileNameFromPath(file.name)
+      const innerExtension = getExtensionFromFilename(innerFilename).toLowerCase()
+      if (innerExtension === 'nzb') {
+        try {
+          const fileContent = file.contents
+          if (!fileContent) continue
+          log.info(`NZB file detected inside tarball: ${innerFilename}`)
+          const nzbFile = await new NZBFileObject().init()
+          await nzbFile.addNzbFile(await fileContent.text(), innerFilename, source)
+          nzbFiles.push(nzbFile)
+        } catch (e) {
+          const error = e instanceof Error ? e : new Error(String(e))
+          log.warn(`error while extracting the NZB file '${innerFilename}' from tarball`, error)
+        }
+      }
+    }
+    return nzbFiles
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`error while handling tar file: ${error.message}`)
+  }
+}
+
+// Helper function to download a file via browser downloads API
 async function downloadFile(response: Response | DeserializedResponse, filename: string): Promise<void> {
   try {
     const blob = await response.blob()

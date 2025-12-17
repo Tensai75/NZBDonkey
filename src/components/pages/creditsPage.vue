@@ -19,6 +19,11 @@ import { i18n } from '#i18n'
         >)
       </div>
       <div class="text-sm">
+        <a href="https://github.com/vigneshpa/parse-tar">@vigneshpa/parse-tar</a> (<span
+          ><a href="https://github.com/vigneshpa/parse-tar/blob/master/LICENSE.txt">MIT License</a></span
+        >)
+      </div>
+      <div class="text-sm">
         <a href="https://github.com/vueuse/vueuse">@vueuse/core</a> (<span
           ><a href="https://github.com/vueuse/vueuse/blob/main/LICENSE">MIT License</a></span
         >)
@@ -71,6 +76,11 @@ import { i18n } from '#i18n'
       <div class="text-sm">
         <a href="https://github.com/primefaces/primevue">primevue</a> (<span
           ><a href="https://github.com/primefaces/primevue/blob/master/LICENSE.md">MIT License</a></span
+        >)
+      </div>
+      <div class="text-sm">
+        <a href="https://github.com/lupomontero/psl">psl</a> (<span
+          ><a href="https://github.com/lupomontero/psl/blob/main/LICENSE">MIT License</a></span
         >)
       </div>
       <div class="text-sm">
