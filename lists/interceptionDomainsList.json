@@ -216,6 +216,18 @@
       "pathRegExp": "/nzbcreate\\.php",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "tabula-rasa.pw",
+      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "domain": "tabula-rasa.pw",
+      "fetchOrigin": "background",
+      "icon": "https://www.tabula-rasa.pw/favicon.ico",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/getnzb.*",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
