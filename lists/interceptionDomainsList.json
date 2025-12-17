@@ -228,6 +228,18 @@
       "pathRegExp": "^/getnzb.*",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "abnzb.com",
+      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "domain": "abnzb.com",
+      "fetchOrigin": "background",
+      "icon": "https://abnzb.com/favicon.ico",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/getnzb.*",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
