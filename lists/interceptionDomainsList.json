@@ -240,6 +240,18 @@
       "pathRegExp": "^/getnzb.*",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "animetosho.org",
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
+      "domain": "animetosho.org",
+      "fetchOrigin": "background",
+      "icon": "https://animetosho.org/inc/favicon.ico",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/storage/nzbs/.*",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
