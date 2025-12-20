@@ -79,7 +79,7 @@ export async function handleResponseData({
       log.info(`Tar file detected: ${filename}`)
       nzbFiles.push(...(await handleTarFile(await response.blob(), source)))
     } else if (['zip', 'rar', '7z'].includes(extension) && allowedArchives.includes(extension)) {
-      log.info(`${extension.toUpperCase()} file detected: ${filename}`)
+      log.info(`${extension[0].toUpperCase() + extension.slice(1)} file detected: ${filename}`)
       nzbFiles.push(...(await extractArchive(await response.blob(), source)))
     } else {
       throw new Error('no NZB file or archive in intercepted response')
