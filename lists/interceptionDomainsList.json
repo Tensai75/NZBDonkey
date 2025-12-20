@@ -240,6 +240,18 @@
       "pathRegExp": "^/getnzb.*",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "bluraynzb.org",
+      "archiveFileExtensions": [],
+      "domain": "bluraynzb.org",
+      "fetchOrigin": "background",
+      "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Fbluraynzb.org",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/uploads/.*\\.nzb",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
