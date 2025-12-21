@@ -9,6 +9,10 @@ export default defineContentScript({
     log.initDebugLog('interception-content')
     log.info('interception content script loaded successfully')
 
+    // Immediately wake up the background script
+    sendMessage('heartbeat', null)
+
+    // Then set up a heartbeat to keep the background script alive
     setInterval(() => {
       log.info('sending heartbeat message to background script')
       sendMessage('heartbeat', null)
