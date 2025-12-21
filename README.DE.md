@@ -1,9 +1,3 @@
----
-layout: default
-title: Readme Deutsch
----
-[![English](https://img.shields.io/badge/English-blue?style=plastic&logo=readme&logoColor=white)](README.md)
-
 [![Chrome users](https://img.shields.io/chrome-web-store/users/edkhpdceeinkcacjdgebjehipmnbomce?style=plastic&label=Chrome%20users)](https://chrome.google.com/webstore/detail/nzbdonkey/edkhpdceeinkcacjdgebjehipmnbomce)
 [![Firefox users](https://img.shields.io/amo/users/nzbdonkey?style=plastic&label=Firefox%20users)](https://addons.mozilla.org/de/firefox/addon/nzbdonkey/)
 [![Latest release](https://img.shields.io/github/v/release/Tensai75/NZBDonkey?include_prereleases&display_name=tag&logo=github&label=latest%20release&style=plastic)](https://github.com/Tensai75/NZBDonkey/releases/latest)
