@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Tensai75/NZBDonkey/compare/v1.4.5...v1.5.0) (2025-12-21)
+
+
+### Features
+
+* add support for interception of .gz, .tar, and .tar.gz files ([25731d7](https://github.com/Tensai75/NZBDonkey/commit/25731d7ded6e1fc6b369320baf20124b6a41d525))
+
 ## [1.4.5](https://github.com/Tensai75/NZBDonkey/compare/v1.4.4...v1.4.5) (2025-12-15)
 
 
