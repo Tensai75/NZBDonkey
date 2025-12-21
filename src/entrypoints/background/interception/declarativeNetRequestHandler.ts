@@ -156,9 +156,9 @@ function onTabCreatedListener(details: Browser.tabs.Tab): void {
     tabRelationships.set(details.id, details.openerTabId)
     setTimeout(() => {
       if (tabRelationships.delete(details.id!)) {
-        log.info(`tab relationship for tab ${details.id} was cleared after 5 seconds`)
+        log.info(`tab relationship for tab ${details.id} was cleared after 500 ms`)
       }
-    }, 5000)
+    }, 500)
   }
 }
 
@@ -190,8 +190,13 @@ function onBeforeRequestListener(
 }
 
 function registerHeartbeatListener(): void {
-  onMessage('heartbeat', async () => {
+  onMessage('heartbeat', async (details) => {
     log.info('heartbeat message received from content script')
+    // Remove tabId from tab relationship if exists
+    const tab = details.sender.tab.id
+    if (tabRelationships.delete(tab)) {
+      log.info(`tab relationship for tab ${tab} was cleared`)
+    }
   })
 }
 
