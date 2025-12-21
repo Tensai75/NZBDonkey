@@ -27,7 +27,7 @@
     },
     {
       "id": "nzbking.com",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "nzbking.com",
       "fetchOrigin": "background",
       "icon": "https://www.nzbking.com/static/favicon.ico",
@@ -39,7 +39,7 @@
     },
     {
       "id": "scenenzbs.com",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "scenenzbs.com",
       "fetchOrigin": "background",
       "icon": "https://cdn.scenenzbs.com/templates/scenenzbs/images/favicon.ico",
@@ -51,7 +51,7 @@
     },
     {
       "id": "house-of-usenet.com",
-      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "house-of-usenet.com",
       "fetchOrigin": "background",
       "icon": "https://cdn.house-of-usenet.com/styles/custom/favicon.png",
@@ -63,7 +63,7 @@
     },
     {
       "id": "newzbay.cc",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "newzbay.cc",
       "fetchOrigin": "background",
       "icon": "https://newzbay.cc/templates/index/favicon/apple-touch-icon.png",
@@ -99,7 +99,7 @@
     },
     {
       "id": "drunkenslug.com",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "drunkenslug.com",
       "fetchOrigin": "background",
       "icon": "https://drunkenslug.com/themes/shared/img/favicon.ico",
@@ -111,7 +111,7 @@
     },
     {
       "id": "nzbplanet.net",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "nzbplanet.net",
       "fetchOrigin": "background",
       "icon": "https://nzbplanet.net/views/images/favicon.ico",
@@ -123,7 +123,7 @@
     },
     {
       "id": "nzb.life",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "nzb.life",
       "fetchOrigin": "background",
       "icon": "https://nzb.life/templates/light/images/icons/favicon.ico",
@@ -135,7 +135,7 @@
     },
     {
       "id": "omgwtfnzbs.org",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "omgwtfnzbs.org",
       "fetchOrigin": "background",
       "icon": "https://omgwtfnzbs.org/favicon.ico",
@@ -147,7 +147,7 @@
     },
     {
       "id": "g4u.to",
-      "archiveFileExtensions": ["7z", "rar", "zip"],
+      "archiveFileExtensions": ["7z", "rar", "zip", "tar", "gz"],
       "domain": "g4u.to",
       "fetchOrigin": "background",
       "icon": "https://g4u.to/favicon.ico",
@@ -159,7 +159,7 @@
     },
     {
       "id": "cinema-of-usenet.com",
-      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "cinema-of-usenet.com",
       "fetchOrigin": "background",
       "icon": "https://www.cinema-of-usenet.com/data/assets/logo/4552946.webp",
@@ -171,7 +171,7 @@
     },
     {
       "id": "usenet-crawler.com",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "usenet-crawler.com",
       "fetchOrigin": "background",
       "icon": "https://www.usenet-crawler.com/templates/dark/images/favicon.ico",
@@ -183,7 +183,7 @@
     },
     {
       "id": "nzbfinder.ws",
-      "archiveFileExtensions": ["zip"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "nzbfinder.ws",
       "fetchOrigin": "background",
       "icon": "https://nzbfinder.ws/favicon.ico",
@@ -195,7 +195,7 @@
     },
     {
       "id": "friends-of-binaries.info",
-      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "friends-of-binaries.info",
       "fetchOrigin": "background",
       "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Ffriends-of-binaries.info",
@@ -207,7 +207,7 @@
     },
     {
       "id": "nzbgrabit.org",
-      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "nzbgrabit.org",
       "fetchOrigin": "injection",
       "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReMwKGW61hkP0YMt5fa-OlwkxNkLDknD1-lg&s",
@@ -219,7 +219,7 @@
     },
     {
       "id": "tabula-rasa.pw",
-      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "tabula-rasa.pw",
       "fetchOrigin": "background",
       "icon": "https://www.tabula-rasa.pw/favicon.ico",
@@ -231,7 +231,7 @@
     },
     {
       "id": "abnzb.com",
-      "archiveFileExtensions": ["zip", "rar", "7z"],
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "abnzb.com",
       "fetchOrigin": "background",
       "icon": "https://abnzb.com/favicon.ico",
@@ -250,6 +250,18 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/uploads/.*\\.nzb",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
+    },
+    {
+      "id": "animetosho.org",
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
+      "domain": "animetosho.org",
+      "fetchOrigin": "background",
+      "icon": "https://animetosho.org/inc/favicon.ico",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/storage/nzbs/.*",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     }

@@ -34,7 +34,7 @@ if (props.domains[props.index]) {
   showDefaultsDomainsDialog.value = false
 }
 
-const extensions = ref(['zip', 'rar', '7z'])
+const extensions = ref(['zip', 'rar', '7z', 'tar', 'gz'])
 const rerenderKey = ref(0)
 
 function reset() {

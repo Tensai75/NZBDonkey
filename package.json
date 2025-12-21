@@ -25,6 +25,7 @@
   "dependencies": {
     "@primeuix/themes": "^1.0.0",
     "@primevue/forms": "^4.2.5",
+    "@vigneshpa/parse-tar": "^1.2.2",
     "@vueuse/core": "^12.5.0",
     "@webext-core/messaging": "^2.2.0",
     "@wxt-dev/i18n": "^0.2.3",
