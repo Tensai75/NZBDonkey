@@ -201,6 +201,7 @@ async function handleGzFile(
 // Helper function to handle tar files and extract NZB files
 async function handleTarFile(blob: Blob, source: string): Promise<NZBFileObject[]> {
   try {
+    const startTime = performance.now()
     const tarFiles = await parseTar(blob)
     const nzbFiles: NZBFileObject[] = []
     for (const file of tarFiles) {
@@ -220,6 +221,8 @@ async function handleTarFile(blob: Blob, source: string): Promise<NZBFileObject[
         }
       }
     }
+    const endTime = performance.now()
+    log.info(`extracted ${nzbFiles.length} NZB files from tarball in ${(endTime - startTime).toFixed(2)} ms`)
     return nzbFiles
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
