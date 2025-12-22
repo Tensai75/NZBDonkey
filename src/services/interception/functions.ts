@@ -177,7 +177,10 @@ async function handleGzFile(
   allowedArchives: string[]
 ): Promise<NZBFileObject[]> {
   try {
+    const startTime = performance.now()
     const decompressedBlob = await decompressBlob(blob)
+    const endTime = performance.now()
+    log.info(`Decompressed gzip file ${filename} in ${(endTime - startTime).toFixed(2)} ms`)
     const decompressedFilename = filename.replace(/\.gz$/i, '')
     const extension = getExtensionFromFilename(decompressedFilename).toLowerCase()
     if (extension === 'nzb') {
