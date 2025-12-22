@@ -19,6 +19,7 @@ const getManifest: (env: ConfigEnv) => Partial<Browser.runtime.Manifest> = (env)
       'clipboardWrite',
       'webRequest',
       'declarativeNetRequestWithHostAccess',
+      'offscreen',
     ],
     host_permissions: ['<all_urls>'],
     web_accessible_resources: [
