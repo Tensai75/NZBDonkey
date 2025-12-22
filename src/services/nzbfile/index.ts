@@ -1,5 +1,5 @@
 export * from './functions'
-export { NZBFileObject, type NZBFileTarget } from './nzbFile.class'
+export { NZBFileObject, serializedNZBFileObject, type NZBFileTarget } from './nzbFile.class'
 export {
   defaultSettings,
   get as getSettings,

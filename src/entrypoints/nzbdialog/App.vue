@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Form, FormField } from '@primevue/forms'
 import { Button, Column, DataTable, InputText, Message, ProgressSpinner, Select } from 'primevue'
-import { nextTick, onMounted, ref, Ref, watch } from 'vue'
+import { nextTick, onMounted, ref, Ref, toRaw, watch } from 'vue'
 
 import type { FormInstance } from '@primevue/forms'
 
@@ -9,14 +9,15 @@ import { i18n } from '#i18n'
 import { browser, Browser } from '#imports'
 import { CategorySettings, getAutomaticCategory, getDefaultCategory } from '@/services/categories'
 import log from '@/services/logger/debugLogger'
-import { NZBFileObject } from '@/services/nzbfile'
+import { sendMessage } from '@/services/messengers/extensionMessenger'
+import { serializedNZBFileObject } from '@/services/nzbfile'
 import { requiredResolver } from '@/services/resolvers'
 import { focusPopupWindow, resizePopupWindow, setZoomTo100 } from '@/utils/popupWindowUtilities'
 
 const overlay = ref(true)
 const loaded = ref(false)
 let port: Browser.runtime.Port | undefined = undefined
-const nzbFiles = ref([]) as Ref<NZBFileObject[]>
+const nzbFiles = ref([]) as Ref<serializedNZBFileObject[]>
 const filename = ref('')
 const formRef = ref<FormInstance | null>(null) // Reference to the form
 
@@ -28,9 +29,9 @@ browser.windows.getCurrent().then((window) => {
   port.onMessage.addListener((message: unknown) => {
     if (typeof message === 'object' && message !== null && 'nzbfiles' in message && 'filename' in message) {
       log.info('received nzb files from background script')
-      const typedMessage = message as { nzbfiles: NZBFileObject[]; filename: string }
+      const typedMessage = message as { nzbfiles: serializedNZBFileObject[]; filename: string }
       nzbFiles.value = typedMessage.nzbfiles
-      filename.value = typedMessage.filename != '' ? typedMessage.filename : typedMessage.nzbfiles[0].title
+      filename.value = typedMessage.filename !== '' ? typedMessage.filename : typedMessage.nzbfiles[0].title
       updateCategories()
       loaded.value = true
     } else {
@@ -72,13 +73,9 @@ function submit() {
   nzbFiles.value.forEach((nzbFile) => {
     nzbFile.targets = nzbFiles.value[0].targets
   })
-  const files: NZBFileObject[] = []
-  nzbFiles.value.forEach((nzbFile) => {
-    files.push(JSON.parse(JSON.stringify(nzbFile)))
-  })
   if (port) {
     log.info('sending nzbfiles back to background script')
-    port.postMessage(files)
+    port.postMessage(toRaw(nzbFiles.value))
   } else {
     log.error('port is undefined')
   }
@@ -99,6 +96,11 @@ onMounted(() => {
   })
   // Add a keydown listener to trigger submit on Enter
   window.addEventListener('keydown', handleKeydown)
+  // Set up a heartbeat to keep the background script alive while the dialog is open
+  setInterval(() => {
+    log.info('sending heartbeat message to background script')
+    sendMessage('heartbeat', null)
+  }, 25000) // every 25 seconds
 })
 
 function handleKeydown(event: KeyboardEvent) {

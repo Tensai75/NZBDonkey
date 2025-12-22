@@ -1,4 +1,4 @@
-import { NZBFileObject } from './nzbFile.class'
+import { NZBFileObject, serializedNZBFileObject } from './nzbFile.class'
 
 import { i18n } from '#i18n'
 import { browser, Browser } from '#imports'
@@ -31,7 +31,7 @@ export async function showNzbFileDialog(
   return new Promise((resolve, reject) => {
     openPopupWindow('/nzbdialog.html')
       .then((windowId) => {
-        const handlePortMessage = (message: NZBFileObject[] | null) => {
+        const handlePortMessage = (message: serializedNZBFileObject[] | null) => {
           if (Array.isArray(message)) {
             resolve(processNzbFiles(message))
           } else {
@@ -45,18 +45,11 @@ export async function showNzbFileDialog(
             cancel()
           }
         }
-        const processNzbFiles = (message: NZBFileObject[] | null): NZBFileObject[] => {
-          const processedFiles: NZBFileObject[] = message
-            ? message.map((nzbFileData) => {
-                const nzbFile = new NZBFileObject()
-                Object.assign(nzbFile, nzbFileData)
-                nzbFile.log(nzbFile)
-                return nzbFile
-              })
-            : []
+        const processNzbFiles = (message: serializedNZBFileObject[] | null): NZBFileObject[] => {
+          deserializeNZBFiles(message || [], nzbFiles)
           cleanup()
           browser.windows.remove(windowId)
-          return processedFiles
+          return nzbFiles
         }
         const cancel = async () => {
           nzbFiles.forEach((file) => {
@@ -82,7 +75,7 @@ export async function showNzbFileDialog(
           if (port.name === `nzbDialog_${windowId}`) {
             port.onMessage.addListener(handlePortMessage)
             port.postMessage({
-              nzbfiles: nzbFiles.map((file) => JSON.parse(JSON.stringify(file))),
+              nzbfiles: serializeNZBFiles(nzbFiles),
               filename,
             })
           }
@@ -95,5 +88,29 @@ export async function showNzbFileDialog(
         log.error('Failed to open NZB dialog window:', error)
         reject(error)
       })
+  })
+}
+
+function serializeNZBFiles(nzbFiles: NZBFileObject[]): serializedNZBFileObject[] {
+  return nzbFiles.map((nzbFile) => ({
+    id: nzbFile.id!,
+    selected: nzbFile.selected,
+    title: nzbFile.title,
+    password: nzbFile.password,
+    targets: nzbFile.targets,
+  }))
+}
+
+function deserializeNZBFiles(serializedNzbFiles: serializedNZBFileObject[], nzbFiles: NZBFileObject[]): void {
+  nzbFiles.forEach((nzbFile) => {
+    if (nzbFile.id !== undefined) {
+      const serializedNzbFile = serializedNzbFiles.find((file) => file.id === nzbFile.id)
+      if (serializedNzbFile) {
+        nzbFile.selected = serializedNzbFile.selected
+        nzbFile.title = serializedNzbFile.title
+        nzbFile.password = serializedNzbFile.password
+        nzbFile.targets = serializedNzbFile.targets
+      }
+    }
   })
 }
