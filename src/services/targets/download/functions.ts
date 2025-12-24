@@ -203,12 +203,11 @@ async function getBlobUrl(blob: Blob): Promise<string> {
     return URL.createObjectURL(blob)
   }
   // URL.createObjectURL is not supported in MV3 service worker in Chrome
-  // We therefore need to use offscreen document to create the blob URL
+  // We therefore need to use an offscreen document to create the blob URL
   const offscreenUrl = browser.runtime.getURL('offscreen.html' as PublicPath)
   try {
-    await chrome.offscreen.createDocument({
+    await browser.offscreen.createDocument({
       url: offscreenUrl,
-      // @ts-expect-error 'BLOBS' is not assignable to type Reason
       reasons: ['BLOBS'],
       justification: 'MV3 requirement',
     })
