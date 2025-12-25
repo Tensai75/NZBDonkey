@@ -215,8 +215,21 @@ async function getBlobUrl(blob: Blob): Promise<string> {
     const err = e instanceof Error ? e : new Error(String(e))
     if (!err.message.startsWith('Only a single offscreen')) throw err
   }
-  // @ts-expect-error clients is not defined
-  const client = (await clients.matchAll({ includeUncontrolled: true })).find((client) => client.url === offscreenUrl)
+  let client: ServiceWorker | undefined
+  let timedout = false
+  const timeout = 1000
+  setTimeout(() => {
+    timedout = true
+  }, timeout)
+  while (true) {
+    // @ts-expect-error clients is not defined
+    client = (await clients.matchAll({ includeUncontrolled: true })).find((client) => client.url === offscreenUrl)
+    if (client) break
+    if (timedout) {
+      throw new Error('timed out waiting for offscreen document to be available')
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100))
+  }
   const messageChannel = new MessageChannel()
   client.postMessage(blob, [messageChannel.port2])
   const response = await new Promise<MessageEvent>((callBack) => (messageChannel.port1.onmessage = callBack))
