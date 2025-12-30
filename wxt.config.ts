@@ -38,6 +38,9 @@ const getManifest: (env: ConfigEnv) => Partial<Browser.runtime.Manifest> = (env)
       },
     }
   }
+  if (env.browser === 'chrome') {
+    manifest.permissions?.push('offscreen')
+  }
   return manifest
 }
 

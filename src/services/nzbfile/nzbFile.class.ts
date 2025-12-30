@@ -24,6 +24,13 @@ export type NZBFileTarget = nzbFileTargets.TargetSettings & {
   errorMessage?: string
 }
 
+export type serializedNZBFileObject = {
+  selected: boolean
+  title: string
+  password: string
+  targets: NZBFileTarget[]
+}
+
 export class NZBFileObject {
   id?: number
   status?: NZBStatus
