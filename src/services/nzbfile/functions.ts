@@ -93,7 +93,6 @@ export async function showNzbFileDialog(
 
 function serializeNZBFiles(nzbFiles: NZBFileObject[]): serializedNZBFileObject[] {
   return nzbFiles.map((nzbFile) => ({
-    id: nzbFile.id!,
     selected: nzbFile.selected,
     title: nzbFile.title,
     password: nzbFile.password,
@@ -102,15 +101,10 @@ function serializeNZBFiles(nzbFiles: NZBFileObject[]): serializedNZBFileObject[]
 }
 
 function deserializeNZBFiles(serializedNzbFiles: serializedNZBFileObject[], nzbFiles: NZBFileObject[]): void {
-  nzbFiles.forEach((nzbFile) => {
-    if (nzbFile.id !== undefined) {
-      const serializedNzbFile = serializedNzbFiles.find((file) => file.id === nzbFile.id)
-      if (serializedNzbFile) {
-        nzbFile.selected = serializedNzbFile.selected
-        nzbFile.title = serializedNzbFile.title
-        nzbFile.password = serializedNzbFile.password
-        nzbFile.targets = serializedNzbFile.targets
-      }
-    }
+  nzbFiles.forEach((nzbFile, index) => {
+    nzbFile.selected = serializedNzbFiles[index].selected
+    nzbFile.title = serializedNzbFiles[index].title
+    nzbFile.password = serializedNzbFiles[index].password
+    nzbFile.targets = serializedNzbFiles[index].targets
   })
 }

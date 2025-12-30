@@ -25,7 +25,6 @@ export type NZBFileTarget = nzbFileTargets.TargetSettings & {
 }
 
 export type serializedNZBFileObject = {
-  id: number
   selected: boolean
   title: string
   password: string
