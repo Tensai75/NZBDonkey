@@ -264,6 +264,18 @@
       "pathRegExp": "^/storage/nzbs/.*",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "althub.co.za",
+      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
+      "domain": "althub.co.za",
+      "fetchOrigin": "background",
+      "icon": "https://althub.co.za/templates/Dark/images/icons/favicon.png",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/getnzb.*",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
