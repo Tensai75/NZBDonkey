@@ -1,5 +1,5 @@
 import { version } from '@@/package.json'
-import { XMLBuilder, XMLParser } from 'fast-xml-parser/src/fxp'
+import { JPathOrMatcher, X2jOptions, XMLBuilder, XmlBuilderOptions, XMLParser } from 'fast-xml-parser'
 
 export interface NZBObject {
   'xmlns'?: string
@@ -49,13 +49,13 @@ export const NZB_FILE_HEADER = `<?xml version="1.0" encoding="UTF-8"?>
 <nzb xmlns="http://www.newzbin.com/DTD/2003/nzb">
 <!-- created with NZBDonkey v${version} -->
 `
-const xmlConverterOptions = {
+const xmlOptions = {
   attributeNamePrefix: '',
   ignoreAttributes: false,
   allowBooleanAttributes: true,
   parseAttributeValue: true,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  isArray: (name: string, jpath: string, isLeafNode: boolean, isAttribute: boolean): boolean => {
+  isArray: (name: string, jpath: JPathOrMatcher, isLeafNode: boolean, isAttribute: boolean): boolean => {
     if (['meta', 'file', 'group', 'segment', 'comment'].includes(name)) return true
     return false
   },
@@ -64,7 +64,7 @@ const xmlConverterOptions = {
 }
 
 export const textToNzbObject = (text: string): NZBObject => {
-  const parser = new XMLParser(xmlConverterOptions)
+  const parser = new XMLParser(xmlOptions as X2jOptions)
   let xmlObject
   try {
     xmlObject = parser.parse(text)
@@ -80,7 +80,7 @@ export const nzbObjectToText = (
   format: boolean = true,
   indentBy: number = 4
 ): string => {
-  const builder = new XMLBuilder({ format: format, indentBy: ' '.repeat(indentBy), ...xmlConverterOptions })
+  const builder = new XMLBuilder({ format: format, indentBy: ' '.repeat(indentBy), ...xmlOptions as XmlBuilderOptions })
   let text: string
   try {
     text = builder.build(nzbObject)
