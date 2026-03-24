@@ -160,9 +160,9 @@
     {
       "id": "cinema-of-usenet.com",
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
-      "domain": "cinema-of-usenet.com",
+      "domain": "cinema-of-usenet.to",
       "fetchOrigin": "background",
-      "icon": "https://www.cinema-of-usenet.com/data/assets/logo/4552946.webp",
+      "icon": "https://www.cinema-of-usenet.to/data/assets/logo/4552946.webp",
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/attachments/.*/\\?sess=",
