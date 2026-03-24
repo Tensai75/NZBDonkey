@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/Tensai75/NZBDonkey/compare/v1.5.0...v1.5.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* determine the redirect URL by racing all available URLs ([46659d5](https://github.com/Tensai75/NZBDonkey/commit/46659d5c3c3bf4bcd6bfe0fa7012cee2518a9b8d)), closes [#122](https://github.com/Tensai75/NZBDonkey/issues/122)
+
 # [1.5.0](https://github.com/Tensai75/NZBDonkey/compare/v1.4.5...v1.5.0) (2025-12-21)
 
 
