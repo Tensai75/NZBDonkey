@@ -19,9 +19,18 @@ If your browser has profile synchronization enabled, NZBDonkey's configuration s
 NZBDonkey interacts with external websites and APIs to search for the required information or to send NZB files to the specified target applications. However, it only communicates with those sites and APIs that are explicitly configured in the extension's configurations settings. Stored access credentials, such as API keys, user names and passwords, are only sent to the correspondingly configured websites or APIs for authentication purposes.
 The extension does not send any requests or access credentials to unauthorized third parties.
 
-## 6. Redirecting requests to connectivity-check.ubuntu.com
+## 6. Redirecting requests for blocking NZB file downloads
 
-When the NZB file interception feature is enabled, requests initiated by the browser for NZB file downloads are redirected to 'https://connectivity-check.ubuntu.com' to provoke a 204 'no content' response, effectively blocking the request. The cookie and referer headers are removed from the redirected requests, but the IP address is visible to connectivity-check.ubuntu.com. The connectivity-check.ubuntu.com endpoint is used by Ubuntu to check the internet connection. There is no documentation that this endpoint collects browsing habits, device identifiers or otherwise tracks user behaviour.
+When the NZB file interception feature is enabled, requests initiated by the browser for NZB file downloads are redirected to one of the following URLs to provoke a 204 'no content' response, effectively blocking the request:
+
+-  https://cp.cloudflare.com/generate_204
+-  https://www.gstatic.com/generate_204
+-  https://connectivity-check.ubuntu.com/204
+-  https://httpstat.us/204
+-  https://httpbin.org/status/204
+-  https://www.google.com/generate_204
+
+The Cookie and Referer headers are removed from the redirected requests, but the IP address is visible to the redirect URL. There is no documentation indicating whether these endpoints collect browsing habits or device identifiers, or track user behavior in any other way.
 
 ## 7. GitHub Repository Access
 
@@ -58,4 +67,4 @@ If you have any questions about this privacy policy, please contact us at tensai
 
 ## 13. Effective Date:
 
-23 November 2025
+24 March 2026

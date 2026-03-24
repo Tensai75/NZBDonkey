@@ -19,9 +19,18 @@ Wenn in Ihrem Browser die Profilsynchronisierung aktiviert ist, können die Konf
 NZBDonkey interagiert mit externen Websites und APIs, um nach NZB-Dateien zu suchen oder um NZB-Dateien an die gewünschten Ziel-Anwendungen zu senden. Es wird jedoch nur mit den Webseiten und APIs kommuniziert, die in den Einstellungen der Erweiterung explizit konfiguriert wurden. Hinterlegte Zugangsdaten, wie API-Keys, Benutzernamen und Passwörter, werden dabei ausschliesslich zur Authentifizierung an die entsprechend konfigurierte Webseiten oder APIs gesendet.
 Die Erweiterung sendet keine Anfragen oder Zugangsdaten an unbefugte Dritte.
 
-## 6. Umleitung von Anfragen an connectivity-check.ubuntu.com
+## 6. Umleitung von Anfragen zum Blockieren von NZB-Datei-Downloads
 
-Wenn die Funktion zum Abfangen von NZB-Datei aktiviert ist, werden die vom Browser initiierten Anfragen für NZB-Datei-Downloads an 'https://connectivity-check.ubuntu.com' umgeleitet, um eine 204-Antwort 'kein Inhalt' zu provozieren und somit die Anfrage effektiv zu blockieren. Die Cookie- und Referer-Header werden aus den umgeleiteten Anfragen entfernt, die IP-Adresse ist jedoch für connectivity-check.ubuntu.com sichtbar. Die Seite connectivity-check.ubuntu.com wird von Ubuntu verwendet, um die Internetverbindung zu überprüfen. Es gibt keine Dokumentation darüber, dass dieser Endpunkt Browsing-Gewohnheiten, Gerätekennungen oder anderweitig das Benutzerverhalten erfasst.
+Wenn die Funktion zum Abfangen von NZB-Datei aktiviert ist, werden die vom Browser initiierten Anfragen für NZB-Datei-Downloads an eine der folgenden URLs umgeleitet, um eine 204-Antwort 'kein Inhalt' zu provozieren und somit die Anfrage effektiv zu blockieren:
+
+-  https://cp.cloudflare.com/generate_204
+-  https://www.gstatic.com/generate_204
+-  https://connectivity-check.ubuntu.com/204
+-  https://httpstat.us/204
+-  https://httpbin.org/status/204
+-  https://www.google.com/generate_204
+
+Die Cookie- und Referer-Header werden aus den weitergeleiteten Anfragen entfernt, doch die IP-Adresse ist für die verwendete Weiterleitungs-URL sichtbar. Es gibt keine Dokumentation darüber, ob diese Endpunkte Surfgewohnheiten oder Gerätekennungen erfassen oder das Nutzerverhalten anderweitig nachverfolgen.
 
 ## 7. GitHub-Repository-Zugang
 
@@ -58,4 +67,4 @@ Wenn Sie Fragen zu dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitt
 
 ## 13. Datum des Inkrafttretens
 
-23\. November 2025
+24\. März 2026
