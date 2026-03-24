@@ -294,7 +294,17 @@
         "seconds": "seconds"
       },
       "deviceDescription": "Can only be selected after the connection test.",
-      "deviceError": "There are no target devices available!"
+      "deviceError": "There are no target devices available!",
+      "customHeaders": {
+        "title": "Custom headers",
+        "description": "Add custom HTTP request headers to every API call made to this target",
+        "name": "Header name",
+        "value": "Header value",
+        "add": "Add header",
+        "remove": "Remove header",
+        "empty": "No custom headers defined",
+        "duplicateWarning": "Duplicate header name"
+      }
     },
     "ok": "OK",
     "next": "Next",

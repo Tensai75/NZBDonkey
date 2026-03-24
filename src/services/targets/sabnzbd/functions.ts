@@ -138,6 +138,13 @@ const setOptions = (settings: Settings): FetchOptions => {
     const basepathMatch = settings.basepath.match(/^\/*(.*?)\/*$/)
     options.basepath = basepathMatch ? basepathMatch[1] + '/' : ''
   }
+  if (settings.customHeaders?.length) {
+    options.headers = Object.fromEntries(
+      settings.customHeaders
+        .filter((h) => h.name.trim() !== '')
+        .map((h) => [h.name.trim(), h.value])
+    )
+  }
   return options
 }
 
