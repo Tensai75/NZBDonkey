@@ -361,6 +361,7 @@
     "domainExists": "Domain already available"
   },
   "interception": {
+    "noRedirectURLAvailable": "None of the redirect URLs responded successfully. The Download Interception function may not be working correctly.",
     "fetchError": "error loading url \"$1\" intercepted on $2: $3",
     "fetchResponseProcessingError": "error while processing file \"$1\" intercepted on $2: $3",
     "success": "NZB file \"$1\" was intercepted successfully",

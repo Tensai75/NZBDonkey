@@ -1,9 +1,10 @@
 import { interceptRequest } from './interceptedRequestsHandler'
 
-import { browser, Browser } from '#imports'
+import { browser, Browser, i18n } from '#imports'
 import { DomainSettings, getActiveDomains, watchSettings as watchInterceptionSettings } from '@/services/interception'
 import log from '@/services/logger/debugLogger'
 import { onMessage } from '@/services/messengers/extensionMessenger'
+import notifications from '@/services/notifications'
 
 export type RequestDetails = {
   tabId: number
@@ -15,8 +16,6 @@ export type RequestDetails = {
 }
 
 // Redirect URLs to be used in declarativeNetRequest rule
-// User selectable option to be implemented maybe in future versions
-/*
 const redirectURLs = [
   'https://cp.cloudflare.com/generate_204',
   'https://www.gstatic.com/generate_204',
@@ -25,9 +24,9 @@ const redirectURLs = [
   'https://httpbin.org/status/204',
   'https://www.google.com/generate_204',
 ]
-*/
-// Redirect URL to be used in declarativeNetRequest rule
-const redirectURL: string = 'https://connectivity-check.ubuntu.com/204'
+
+// Redirect URL to be used in declarativeNetRequest rule - determined at runtime by racing all URLs
+let redirectURL: string = redirectURLs[0]
 // In-memory cache for request details
 export const tabRelationships = new Map<number, number>() // key: new tab ID, value: opener tab ID
 
@@ -88,8 +87,27 @@ export default function (): void {
 
 async function setupInterception(): Promise<void> {
   log.info('setting up declarativeNetRequest rules and listeners for interception')
+  redirectURL = await getFastestRedirectURL()
   await updateDeclarativeNetRequest()
   await registerInterceptionListener()
+}
+
+async function getFastestRedirectURL(): Promise<string> {
+  try {
+    const racePromises = redirectURLs.map((url) =>
+      fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(5000) }).then((response) => {
+        if (response.ok || response.status === 204) return url
+        throw new Error(`${url} responded with status ${response.status}`)
+      })
+    )
+    const fastest = await Promise.any(racePromises)
+    log.info(`fastest redirect URL determined: ${fastest}`)
+    return fastest
+  } catch {
+    log.error(`no redirect URL responded successfully, using default: ${redirectURLs[0]}`)
+    notifications.error(i18n.t('interception.noRedirectURLAvailable'))
+    return redirectURLs[0]
+  }
 }
 
 async function updateDeclarativeNetRequest(): Promise<void> {

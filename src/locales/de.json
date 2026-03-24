@@ -361,6 +361,7 @@
     "domainExists": "Diese Domäne existiert schon"
   },
   "interception": {
+    "noRedirectURLAvailable": "Keine der Umleitungs-URLs hat erfolgreich geantwortet. Die Download-Überwachungsfunktion funktioniert möglicherweise nicht korrekt.",
     "fetchError": "Fehler beim Laden der URL \"$1\", abgefangen auf $2: $3",
     "fetchResponseProcessingError": "Fehler bei der Bearbeitung der Datei \"$1\", abgefangen auf $2: $3",
     "success": "NZB-Datei \"$1\" wurde erfolgreich abgefangen",
