@@ -124,7 +124,7 @@ async function requestPermission() {
         <template v-if="menuItem === 'credits'"><CreditsPage /></template>
       </div>
       <!-- Bottom Right -->
-      <div class="h-16 p-4 pl-0 w-full">Copyright &copy; {{ new Date().getFullYear() }} by Tensai</div>
+      <div class="h-16 p-4 pl-0 w-full">Copyright &copy; 2018-{{ new Date().getFullYear() }} by Tensai</div>
     </div>
   </div>
   <ConfirmDialog />
