@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/Tensai75/NZBDonkey/compare/v1.5.1...v1.5.2) (2026-03-27)
+
+
+### Bug Fixes
+
+* extend maxTotalExpansions for XML parsing ([3927774](https://github.com/Tensai75/NZBDonkey/commit/3927774854d2628c43c730cc65df9620c01284fb))
+
 ## [1.5.1](https://github.com/Tensai75/NZBDonkey/compare/v1.5.0...v1.5.1) (2026-03-24)
 
 
