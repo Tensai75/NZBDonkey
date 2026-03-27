@@ -63,8 +63,19 @@ const xmlOptions = {
   commentPropName: '#comment',
 }
 
+const xmlParserOptions: X2jOptions = {
+  ...xmlOptions,
+  processEntities: {
+    enabled: true,
+    maxTotalExpansions: 10000000,
+    maxExpandedLength: 1000000,
+    maxEntityCount: 100,
+    maxEntitySize: 10000
+  },
+}
+
 export const textToNzbObject = (text: string): NZBObject => {
-  const parser = new XMLParser(xmlOptions as X2jOptions)
+  const parser = new XMLParser(xmlParserOptions)
   let xmlObject
   try {
     xmlObject = parser.parse(text)
