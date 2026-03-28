@@ -1,6 +1,8 @@
 import { version } from '@@/package.json'
 import { JPathOrMatcher, X2jOptions, XMLBuilder, XmlBuilderOptions, XMLParser } from 'fast-xml-parser'
 
+import log from '@/services/logger/debugLogger'
+
 export interface NZBObject {
   'xmlns'?: string
   'head'?: NZBHeadObject
@@ -79,7 +81,9 @@ export const textToNzbObject = (text: string): NZBObject => {
   let xmlObject
   try {
     xmlObject = parser.parse(text)
-  } catch {
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('fast-xml-parser error:', error)
     throw new Error('not a valid XML file')
   }
   if (!xmlObject.nzb) throw new Error('not a valid NZB file')
@@ -99,7 +103,9 @@ export const nzbObjectToText = (
   let text: string
   try {
     text = builder.build(nzbObject)
-  } catch {
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('fast-xml-parser error:', error)
     throw new Error('not a valid NZBObject')
   }
   return text
