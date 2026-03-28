@@ -70,7 +70,7 @@ const xmlParserOptions: X2jOptions = {
     maxTotalExpansions: 10000000,
     maxExpandedLength: 1000000,
     maxEntityCount: 100,
-    maxEntitySize: 10000
+    maxEntitySize: 10000,
   },
 }
 
@@ -91,7 +91,11 @@ export const nzbObjectToText = (
   format: boolean = true,
   indentBy: number = 4
 ): string => {
-  const builder = new XMLBuilder({ format: format, indentBy: ' '.repeat(indentBy), ...xmlOptions as XmlBuilderOptions })
+  const builder = new XMLBuilder({
+    format: format,
+    indentBy: ' '.repeat(indentBy),
+    ...(xmlOptions as XmlBuilderOptions),
+  })
   let text: string
   try {
     text = builder.build(nzbObject)

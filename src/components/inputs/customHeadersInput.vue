@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Button, InputText, Message } from 'primevue'
+
 import { i18n } from '#i18n'
 
 const headers = defineModel<Array<{ name: string; value: string }>>({ default: () => [] })
@@ -8,7 +9,9 @@ const addHeader = () => headers.value.push({ name: '', value: '' })
 const removeHeader = (index: number) => headers.value.splice(index, 1)
 
 const isDuplicate = (index: number) =>
-  headers.value.some((h, i) => i !== index && h.name.trim() !== '' && h.name.trim() === headers.value[index].name.trim())
+  headers.value.some(
+    (h, i) => i !== index && h.name.trim() !== '' && h.name.trim() === headers.value[index].name.trim()
+  )
 </script>
 
 <template>

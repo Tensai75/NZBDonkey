@@ -140,9 +140,7 @@ const setOptions = (settings: Settings): FetchOptions => {
   }
   if (settings.customHeaders?.length) {
     options.headers = Object.fromEntries(
-      settings.customHeaders
-        .filter((h) => h.name.trim() !== '')
-        .map((h) => [h.name.trim(), h.value])
+      settings.customHeaders.filter((h) => h.name.trim() !== '').map((h) => [h.name.trim(), h.value])
     )
   }
   return options
