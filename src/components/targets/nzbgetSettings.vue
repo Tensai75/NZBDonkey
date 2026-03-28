@@ -4,6 +4,7 @@ import { InputText, Message, RadioButton, Select, ToggleSwitch } from 'primevue'
 import { Ref, computed, watch } from 'vue'
 
 import { i18n } from '#i18n'
+import CustomHeadersInput from '@/components/inputs/customHeadersInput.vue'
 import TimeoutInput from '@/components/inputs/timeoutInput.vue'
 import TestConnectionDialog from '@/components/targets/targetTestConnectionDialog.vue'
 import {
@@ -207,6 +208,14 @@ watch(
         $field.error?.message
       }}</Message>
     </FormField>
+  </div>
+  <div v-if="showAdvancedSettings" class="flex items-start gap-4 mb-4 flex-auto">
+    <label class="font-semibold w-24 text-right pt-2">
+      {{ i18n.t('common.settings.customHeaders.title') }}
+    </label>
+    <div class="flex-auto">
+      <CustomHeadersInput v-model="targetSettings.settings.customHeaders" />
+    </div>
   </div>
   <div class="flex items-center gap-4 mb-4">
     <label for="name" class="font-semibold w-24 text-right">{{ i18n.t('common.settings.timeout.title') }}</label>
