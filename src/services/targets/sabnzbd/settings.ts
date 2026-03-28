@@ -16,6 +16,7 @@ export const defaultSettings: TargetSettings = {
     port: '8080',
     scheme: 'http',
     timeout: 30000,
+    customHeaders: [],
   },
   categories: categoriesDefaultSettings,
 }
@@ -30,4 +31,5 @@ export type Settings = {
   port: string
   scheme: 'http' | 'https'
   timeout: number
+  customHeaders: Array<{ name: string; value: string }>
 }

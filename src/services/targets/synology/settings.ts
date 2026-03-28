@@ -14,6 +14,7 @@ export const defaultSettings: TargetSettings = {
     scheme: 'http',
     username: '',
     timeout: 30000,
+    customHeaders: [],
   },
   categories: categoriesDefaultSettings,
 }
@@ -26,4 +27,5 @@ export type Settings = {
   scheme: 'http' | 'https'
   username: string
   timeout: number
+  customHeaders: Array<{ name: string; value: string }>
 }

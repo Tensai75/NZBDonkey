@@ -1,3 +1,5 @@
+import { PublicPath } from 'wxt/browser'
+
 import { TargetSettings } from '../settings'
 
 import { Settings } from './settings'
@@ -6,7 +8,6 @@ import { browser, Browser, i18n } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { NZBFileObject } from '@/services/nzbfile'
 import { Semaphore } from '@/utils/generalUtilities'
-import { b64EncodeUnicode } from '@/utils/stringUtilities'
 
 const MAX_CONCURRENT = 5
 
@@ -76,7 +77,7 @@ class download {
   constructor(nzbFile: NZBFileObject, targetSettings: TargetSettings) {
     this.nzbFile = nzbFile
     this.targetSettings = targetSettings as TargetSettings & { settings: Settings; selectedCategory?: string }
-    this.filename = this.getFilename()
+    this.filename = this.nzbFile.filepath = this.getFilename()
     this.downloadID = -1
   }
 
@@ -87,23 +88,10 @@ class download {
     }
 
     log.info(`initiating the download for "${this.filename}"`)
-    let nzbText = this.nzbFile.getAsTextFile()
 
-    // Create URL (blob for Firefox, data URL for Chrome)
-    let url: string
-    let isBlob = false
-    if (import.meta.env.FIREFOX) {
-      const blob = new Blob([nzbText], { type: 'application/x-nzb' })
-      url = URL.createObjectURL(blob)
-      isBlob = true
-    } else {
-      // Chrome: blob: not supported by downloads API in MV3 service worker
-      // Use data:; base64 to be safe with any binary chars
-      url = 'data:application/x-nzb;base64,' + b64EncodeUnicode(nzbText)
-    }
-
-    // Free the raw text early
-    nzbText = ''
+    // Create URL
+    const blob = new Blob([this.nzbFile.getAsTextFile()], { type: 'application/x-nzb' })
+    const url = await getBlobUrl(blob)
 
     const downloadOptions: Browser.downloads.DownloadOptions = {
       filename: this.filename,
@@ -118,7 +106,7 @@ class download {
         .then((id) => {
           if (typeof id === 'undefined') {
             log.info(`failed to initiate the download for "${downloadOptions.filename}"`)
-            if (isBlob && typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
+            if (typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
             const err = browser.runtime.lastError
               ? new Error(browser.runtime.lastError.message)
               : new Error('unknown error')
@@ -129,11 +117,11 @@ class download {
           activeDownloads.set(id, {
             nzbFile: this.nzbFile,
             resolve: () => {
-              if (isBlob && typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
+              if (typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
               resolve()
             },
             reject: (e) => {
-              if (isBlob && typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
+              if (typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
               reject(e)
             },
           })
@@ -145,7 +133,7 @@ class download {
           }
         })
         .catch((e) => {
-          if (isBlob && typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
+          if (typeof URL.revokeObjectURL === 'function') URL.revokeObjectURL(url)
           reject(e instanceof Error ? e : new Error(String(e)))
         })
     })
@@ -207,4 +195,43 @@ function globalOnChanged(delta: Browser.downloads.DownloadDelta): void {
       entry.reject(new Error(msg))
     }
   }
+}
+
+async function getBlobUrl(blob: Blob): Promise<string> {
+  // For Firefox simply use URL.createObjectURL
+  if (import.meta.env.FIREFOX) {
+    return URL.createObjectURL(blob)
+  }
+  // URL.createObjectURL is not supported in MV3 service worker in Chrome
+  // We therefore need to use an offscreen document to create the blob URL
+  const offscreenUrl = browser.runtime.getURL('offscreen.html' as PublicPath)
+  try {
+    await browser.offscreen.createDocument({
+      url: offscreenUrl,
+      reasons: ['BLOBS'],
+      justification: 'MV3 requirement',
+    })
+  } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e))
+    if (!err.message.startsWith('Only a single offscreen')) throw err
+  }
+  let client: ServiceWorker | undefined
+  let timedout = false
+  const timeout = 1000
+  setTimeout(() => {
+    timedout = true
+  }, timeout)
+  while (true) {
+    // @ts-expect-error clients is not defined
+    client = (await clients.matchAll({ includeUncontrolled: true })).find((client) => client.url === offscreenUrl)
+    if (client) break
+    if (timedout) {
+      throw new Error('timed out waiting for offscreen document to be available')
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100))
+  }
+  const messageChannel = new MessageChannel()
+  client.postMessage(blob, [messageChannel.port2])
+  const response = await new Promise<MessageEvent>((callBack) => (messageChannel.port1.onmessage = callBack))
+  return response.data as string
 }

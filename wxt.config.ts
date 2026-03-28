@@ -35,8 +35,12 @@ const getManifest: (env: ConfigEnv) => Partial<Browser.runtime.Manifest> = (env)
     manifest.browser_specific_settings = {
       gecko: {
         id: '{dd77cf0b-b93f-4e9f-8006-b642c02219db}',
+        data_collection_permissions: { required: ['none'] },
       },
     }
+  }
+  if (env.browser === 'chrome') {
+    manifest.permissions?.push('offscreen')
   }
   return manifest
 }

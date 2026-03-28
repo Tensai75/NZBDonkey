@@ -294,7 +294,17 @@
         "seconds": "Sekunden"
       },
       "deviceDescription": "Kann erst nach dem Verbindungstest ausgewählt werden.",
-      "deviceError": "Es sind keine Ziel-Geräte vorhanden!"
+      "deviceError": "Es sind keine Ziel-Geräte vorhanden!",
+      "customHeaders": {
+        "title": "Benutzerdefinierte Header",
+        "description": "Benutzerdefinierte HTTP-Header zu allen API-Anfragen an dieses Ziel hinzufügen",
+        "name": "Header-Name",
+        "value": "Header-Wert",
+        "add": "Header hinzufügen",
+        "remove": "Header entfernen",
+        "empty": "Keine benutzerdefinierten Header definiert",
+        "duplicateWarning": "Doppelter Header-Name"
+      }
     },
     "ok": "OK",
     "next": "Weiter",

@@ -13,6 +13,7 @@ import { DeserializedResponse } from '@/utils/fetchUtilities'
 import { getExtensionFromFilename, getFileNameFromPath } from '@/utils/stringUtilities'
 
 export async function extractArchive(blob: Blob, source: string): Promise<NZBFileObject[]> {
+  const startTime = performance.now()
   const data = await blob.arrayBuffer()
   const path = '/libarchive.wasm'
   const mod = await libarchiveWasm({
@@ -22,20 +23,31 @@ export async function extractArchive(blob: Blob, source: string): Promise<NZBFil
   })
   const reader = new ArchiveReader(mod, new Int8Array(data))
   const nzbFiles: NZBFileObject[] = []
+  const extractPromises: Promise<void>[] = []
   for (const entry of reader.entries()) {
     const pathname = entry.getPathname()
     if (pathname.toLowerCase().endsWith('.nzb')) {
-      try {
-        const nzbTextfile = new TextDecoder().decode(entry.readData())
-        const nzbfile = await new NZBFileObject().init()
-        await nzbfile.addNzbFile(nzbTextfile, getFileNameFromPath(pathname), source)
-        nzbFiles.push(nzbfile)
-      } catch (e) {
-        const error = e instanceof Error ? e : new Error(String(e))
-        log.warn('error while extracting the NZB file', error)
-      }
+      const promise = new Promise<void>((resolve) => {
+        ;(async () => {
+          try {
+            const nzbTextfile = new TextDecoder().decode(entry.readData())
+            const nzbfile = await new NZBFileObject().init()
+            nzbfile.addNzbFile(nzbTextfile, getFileNameFromPath(pathname), source)
+            nzbFiles.push(nzbfile)
+            resolve()
+          } catch (e) {
+            const error = e instanceof Error ? e : new Error(String(e))
+            log.warn('error while extracting the NZB file', error)
+            resolve()
+          }
+        })()
+      })
+      extractPromises.push(promise)
     }
   }
+  await Promise.allSettled(extractPromises)
+  const endTime = performance.now()
+  log.info(`extracted ${nzbFiles.length} NZB files from archive in ${(endTime - startTime).toFixed(2)} ms`)
   reader.free()
   return nzbFiles
 }
@@ -165,7 +177,10 @@ async function handleGzFile(
   allowedArchives: string[]
 ): Promise<NZBFileObject[]> {
   try {
+    const startTime = performance.now()
     const decompressedBlob = await decompressBlob(blob)
+    const endTime = performance.now()
+    log.info(`Decompressed gzip file ${filename} in ${(endTime - startTime).toFixed(2)} ms`)
     const decompressedFilename = filename.replace(/\.gz$/i, '')
     const extension = getExtensionFromFilename(decompressedFilename).toLowerCase()
     if (extension === 'nzb') {
@@ -189,6 +204,7 @@ async function handleGzFile(
 // Helper function to handle tar files and extract NZB files
 async function handleTarFile(blob: Blob, source: string): Promise<NZBFileObject[]> {
   try {
+    const startTime = performance.now()
     const tarFiles = await parseTar(blob)
     const nzbFiles: NZBFileObject[] = []
     for (const file of tarFiles) {
@@ -208,6 +224,8 @@ async function handleTarFile(blob: Blob, source: string): Promise<NZBFileObject[
         }
       }
     }
+    const endTime = performance.now()
+    log.info(`extracted ${nzbFiles.length} NZB files from tarball in ${(endTime - startTime).toFixed(2)} ms`)
     return nzbFiles
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
