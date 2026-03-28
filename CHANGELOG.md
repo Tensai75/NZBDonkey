@@ -4,19 +4,14 @@
 ### Bug Fixes
 
 * only send required information to nzb dialog to improve performance ([046562d](https://github.com/Tensai75/NZBDonkey/commit/046562decaf2ad6a519bc8fd17cb55072513e86a))
-* only send required information to nzb dialog to improve performance ([80b2667](https://github.com/Tensai75/NZBDonkey/commit/80b26674fcedae895eb34d037eed53228bb2f6f8))
 * parallelise archive extraction for improved performance ([c67591f](https://github.com/Tensai75/NZBDonkey/commit/c67591f38cc8c30ec29abc973495d3db9bcbe5f6))
-* parallelise archive extraction for improved performance ([3a66741](https://github.com/Tensai75/NZBDonkey/commit/3a6674111535e25158580af7fffb1d87db2ce055))
 * use an offscreen document for URL.createObjectURL in Chrome ([5d52ede](https://github.com/Tensai75/NZBDonkey/commit/5d52ede17f78c76da538b3284557802589b879aa))
-* use an offscreen document for URL.createObjectURL in Chrome ([45180a6](https://github.com/Tensai75/NZBDonkey/commit/45180a6b102a5b26eeb69f941c66a03328ab5419))
 * use the heartbeat to immediately remove tabs from the tab relationship map ([db463f7](https://github.com/Tensai75/NZBDonkey/commit/db463f7f58083af5dc607fa354dc5397bf949845))
-* use the heartbeat to immediately remove tabs from the tab relationship map ([2ed41c9](https://github.com/Tensai75/NZBDonkey/commit/2ed41c90de92f7cc96337190a2594aa81ca5eb8d))
 
 
 ### Features
 
 * add custom HTTP headers support for NZB file targets ([44bd396](https://github.com/Tensai75/NZBDonkey/commit/44bd3962fa2499efd2b4bf596efb525fc71db351))
-* add custom HTTP headers support for NZB file targets ([91ab531](https://github.com/Tensai75/NZBDonkey/commit/91ab531c87a95ab7a2df115f778dfb7e93a1efec))
 
 ## [1.5.2](https://github.com/Tensai75/NZBDonkey/compare/v1.5.1...v1.5.2) (2026-03-27)
 
