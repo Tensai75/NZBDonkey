@@ -98,17 +98,13 @@ export class NZBFileObject {
   }
 
   private extractMetaInformation(): void {
-    if (this.nzbFile.head?.meta) {
-      for (const meta of this.nzbFile.head.meta) {
-        if (
-          ['title', 'password'].includes(meta.type) &&
-          !(this as Record<string, unknown>)[meta.type] &&
-          meta['#text']
-        ) {
-          ;(this as Record<string, unknown>)[meta.type] = meta['#text']
-        }
-      }
-    }
+    const metas = this.nzbFile.head?.meta
+    if (!metas) return
+
+    metas.forEach((meta) => {
+      if (meta.type === 'title' && !this.title) this.title = meta['#text']
+      if (meta.type === 'password' && !this.password) this.password = meta['#text']
+    })
   }
 
   private setDefaultsFromFilename(): void {
