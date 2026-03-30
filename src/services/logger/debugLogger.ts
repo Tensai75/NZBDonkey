@@ -24,12 +24,12 @@ export default {
   initMessageListener: () => init(),
 }
 
-const log = (
+const log = async (
   type: 'info' | 'warn' | 'error',
   text: string,
   error: Error | undefined = undefined,
   date: number = Date.now()
-): void => {
+): Promise<void> => {
   const message: IDebugLog = {
     type: type,
     date: date,
@@ -37,68 +37,49 @@ const log = (
     source: source,
     error: error ? error.toString() : '',
   }
+  const logger = await getLogger()
+  logger.log(message)
+}
+
+const clear = async () => {
+  const logger = await getLogger()
+  logger.clear()
+}
+
+const get = async () => {
+  const logger = await getLogger()
+  return logger.get()
+}
+
+const getLazy = async (debugLogQuery: DebugLogQuery) => {
+  const logger = await getLogger()
+  return logger.getLazy(debugLogQuery)
+}
+
+const count = async (debugLogQuery: DebugLogQuery) => {
+  const logger = await getLogger()
+  return logger.count(debugLogQuery)
+}
+
+const download = async () => {
+  const logger = await getLogger()
+  return logger.download()
+}
+
+const getSources = async () => {
+  const logger = await getLogger()
+  return logger.getSources()
+}
+
+const init = async () => {
   if (source === 'background') {
-    import('@/services/logger/debugLoggerBackground').then((logger) => logger.log(message))
-    return
-  } else {
-    import('@/services/logger/debugLoggerContent').then((logger) => logger.log(message))
-    return
+    const logger = await import('@/services/logger/debugLoggerBackground')
+    logger.init()
   }
 }
 
-const clear = () => {
-  if (source === 'background') {
-    import('@/services/logger/debugLoggerBackground').then((logger) => logger.clear())
-    return
-  } else {
-    import('@/services/logger/debugLoggerContent').then((logger) => logger.clear())
-    return
-  }
-}
-
-const get = () => {
-  if (source === 'background') {
-    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.get())
-  } else {
-    return import('@/services/logger/debugLoggerContent').then((logger) => logger.get())
-  }
-}
-
-const getLazy = (debugLogQuery: DebugLogQuery) => {
-  if (source === 'background') {
-    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.getLazy(debugLogQuery))
-  } else {
-    return import('@/services/logger/debugLoggerContent').then((logger) => logger.getLazy(debugLogQuery))
-  }
-}
-
-const count = (debugLogQuery: DebugLogQuery) => {
-  if (source === 'background') {
-    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.count(debugLogQuery))
-  } else {
-    return import('@/services/logger/debugLoggerContent').then((logger) => logger.count(debugLogQuery))
-  }
-}
-
-const download = () => {
-  if (source === 'background') {
-    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.download())
-  } else {
-    return import('@/services/logger/debugLoggerContent').then((logger) => logger.download())
-  }
-}
-
-const getSources = () => {
-  if (source === 'background') {
-    return import('@/services/logger/debugLoggerBackground').then((logger) => logger.getSources())
-  } else {
-    return import('@/services/logger/debugLoggerContent').then((logger) => logger.getSources())
-  }
-}
-
-const init = () => {
-  if (source === 'background') {
-    import('@/services/logger/debugLoggerBackground').then((logger) => logger.init())
-    return
-  }
+const getLogger = async () => {
+  return source === 'background'
+    ? import('@/services/logger/debugLoggerBackground')
+    : import('@/services/logger/debugLoggerContent')
 }
