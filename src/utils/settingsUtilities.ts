@@ -35,7 +35,7 @@ export const useSettings = async <T>({ name, defaults }: Settings<T>): Promise<R
         await settings.setValue(toRaw(value))
       }
     },
-    { deep: true }
+    { deep: true, flush: 'sync' }
   )
   return settingsRef
 }
@@ -69,7 +69,7 @@ export const watchSettings = <T>({ name }: Settings<T>, callback: (settings: T) 
   browser.storage.sync.onChanged.addListener(async (changes) => {
     if (changes[name]) {
       const settings = await getSettings({ name, defaults: changes[name].newValue })
-      callback(settings)
+      callback(settings as T)
     }
   })
 }
