@@ -267,18 +267,37 @@ export const getRelativeURL = (absoluteUrl: string): string => {
 }
 
 /**
+ * Converts a `Blob` object into a Base64-encoded data URL.
+ * @param {Blob} blob - The `Blob` object to convert.
+ * @return {Promise<string>} A promise resolving to the Base64 data URL.
+ * @throws {Error} Throws an error if the conversion fails.
+ */
+export const convertBlobToBase64DataURL = async (blob: Blob): Promise<string> => {
+  try {
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = () => reject(reader.error)
+      reader.readAsDataURL(blob)
+    })
+  } catch {
+    throw new Error('failed to convert Blob to Base64 data URL')
+  }
+}
+
+/**
  * Converts a `Blob` object into a Base64-encoded string.
  * @param {Blob} blob - The `Blob` object to convert.
  * @return {Promise<string>} A promise resolving to the Base64 string.
  * @throws {Error} Throws an error if the conversion fails.
  */
-export const convertBlobToBase64 = (blob: Blob): Promise<string> => {
-  const reader = new FileReader()
-  reader.readAsDataURL(blob)
-  return new Promise((resolve, reject) => {
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = () => reject(new Error('failed to convert Blob to Base64'))
-  })
+export const convertBlobToBase64String = async (blob: Blob): Promise<string> => {
+  try {
+    const dataUrl = await convertBlobToBase64DataURL(blob)
+    return dataUrl.split(',')[1]
+  } catch {
+    throw new Error('failed to convert Blob to Base64 string')
+  }
 }
 
 /**
@@ -287,12 +306,29 @@ export const convertBlobToBase64 = (blob: Blob): Promise<string> => {
  * @return {Promise<Blob>} A promise resolving to the `Blob` object.
  * @throws {Error} Throws an error if the conversion fails.
  */
-export const convertBase64toBlob = async (dataUrl: string): Promise<Blob> => {
+export const convertBase64DataURLToBlob = async (dataUrl: string): Promise<Blob> => {
   try {
     const response = await fetch(dataUrl)
     return response.blob()
   } catch {
-    throw new Error('failed to convert Base64 to Blob')
+    throw new Error('failed to convert Base64 data URL to Blob')
+  }
+}
+
+/**
+ * Converts a Base64-encoded string into a `Blob` object.
+ * @param {string} base64 - The Base64 string to convert.
+ * @param {string} [type] - The MIME type of the resulting `Blob`. Defaults to "application/octet-stream".
+ * @return {Promise<Blob>} A promise resolving to the `Blob` object.
+ * @throws {Error} Throws an error if the conversion fails.
+ * Note: The input string should not include the data URL prefix (e.g., "data:application/octet-stream;base64,").
+ */
+export const convertBase64StringToBlob = async (base64: string, type?: string): Promise<Blob> => {
+  try {
+    const dataUrl = `data:${type || 'application/octet-stream'};base64,${base64}`
+    return convertBase64DataURLToBlob(dataUrl)
+  } catch {
+    throw new Error('failed to convert Base64 string to Blob')
   }
 }
 
@@ -418,8 +454,7 @@ export async function serializeRequest(input: RequestInfo, init?: RequestInit): 
           mimeType: blob.type || 'text/plain',
         }
       } else {
-        const buffer = await blob.arrayBuffer()
-        const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)))
+        const base64 = await convertBlobToBase64String(blob)
         bodyData = {
           type: 'blob',
           content: base64,
@@ -452,7 +487,7 @@ export async function serializeRequest(input: RequestInfo, init?: RequestInit): 
  * @return {Request} The reconstructed Request object.
  * @throws {Error} Throws if the body type is unsupported.
  */
-export function deserializeRequest(data: SerializedRequest): Request {
+export async function deserializeRequest(data: SerializedRequest): Promise<Request> {
   let body: BodyInit | null = null
 
   if (data.body) {
@@ -477,12 +512,7 @@ export function deserializeRequest(data: SerializedRequest): Request {
       }
 
       case 'blob': {
-        const binary = atob(data.body.content)
-        const bytes = new Uint8Array(binary.length)
-        for (let i = 0; i < binary.length; i++) {
-          bytes[i] = binary.charCodeAt(i)
-        }
-        body = new Blob([bytes], { type: data.body.mimeType || '' })
+        body = await convertBase64StringToBlob(data.body.content, data.body.mimeType)
         break
       }
       default:
@@ -544,19 +574,10 @@ export async function serializeResponse(response: Response): Promise<SerializedR
 
   let bodyData: SerializedResponse['body'] = undefined
 
-  const blobToBase64 = (blob: Blob): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve((reader.result as string).split(',')[1])
-      reader.onerror = reject
-      reader.readAsDataURL(blob)
-    })
-  }
-
   if (isAttachment) {
     // Always treat attachments as blob
     const blob = await clone.blob()
-    const base64 = await blobToBase64(blob)
+    const base64 = await convertBlobToBase64String(blob)
     bodyData = {
       type: 'blob',
       content: base64,
@@ -578,8 +599,7 @@ export async function serializeResponse(response: Response): Promise<SerializedR
     }
   } else {
     const blob = await clone.blob()
-    const buffer = await blob.arrayBuffer()
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)))
+    const base64 = await convertBlobToBase64String(blob)
     bodyData = {
       type: 'blob',
       content: base64,
@@ -604,8 +624,8 @@ export async function serializeResponse(response: Response): Promise<SerializedR
  * @param {SerializedResponse} data - The serialized response object.
  * @return {Response} The reconstructed Response like object.
  */
-export function deserializeResponse(data: SerializedResponse): DeserializedResponse {
-  return new DeserializedResponse(data)
+export async function deserializeResponse(data: SerializedResponse): Promise<DeserializedResponse> {
+  return DeserializedResponse.fromSerialized(data)
 }
 
 /**
@@ -621,6 +641,7 @@ export function deserializeResponse(data: SerializedResponse): DeserializedRespo
  */
 export class DeserializedResponse {
   body: BodyInit | null
+  private serializedBody?: SerializedResponse['body']
   headers: Headers
   status: number
   statusText: string
@@ -629,8 +650,9 @@ export class DeserializedResponse {
   type: ResponseType
   ok: boolean
 
-  constructor(data: SerializedResponse) {
-    this.body = this.deserializeBody(data.body)
+  private constructor(data: SerializedResponse) {
+    this.body = null
+    this.serializedBody = data.body
     this.headers = new Headers(data.headers)
     this.status = data.status
     this.statusText = data.statusText
@@ -640,22 +662,25 @@ export class DeserializedResponse {
     this.ok = data.ok
   }
 
-  private deserializeBody(bodyData?: SerializedResponse['body']): BodyInit | null {
-    if (!bodyData) return null
-    switch (bodyData.type) {
+  static async fromSerialized(data: SerializedResponse): Promise<DeserializedResponse> {
+    const response = new DeserializedResponse(data)
+    await response.deserializeBody()
+    return response
+  }
+
+  private async deserializeBody(): Promise<void> {
+    if (!this.serializedBody) return
+    switch (this.serializedBody.type) {
       case 'text':
       case 'json':
-        return bodyData.content
+        this.body = this.serializedBody.content
+        break
       case 'blob': {
-        const binary = atob(bodyData.content)
-        const bytes = new Uint8Array(binary.length)
-        for (let i = 0; i < binary.length; i++) {
-          bytes[i] = binary.charCodeAt(i)
-        }
-        return new Blob([bytes], { type: bodyData.mimeType || '' })
+        this.body = await convertBase64StringToBlob(this.serializedBody.content, this.serializedBody.mimeType || '')
+        break
       }
       default:
-        return null
+        this.body = null
     }
   }
 
