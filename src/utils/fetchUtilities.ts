@@ -563,61 +563,68 @@ export type SerializedResponse = {
  * Handles text, JSON, and blob body types, and includes all relevant response properties.
  * @param {Response} response - The response to serialize.
  * @return {Promise<SerializedResponse>} The serialized response object.
- * @throws {Error} Throws if the response body is already consumed.
+ * @throws {Error} Throws an error if the response body is already consumed or if serialization fails.
+ * Note: For blob bodies, the content is serialized as a Base64 string.
+ * Consumers must check the `mimeType` to determine how to handle the content.
  */
 export async function serializeResponse(response: Response): Promise<SerializedResponse> {
-  if (response.bodyUsed) {
-    throw new Error('Response body already consumed')
-  }
-  const clone = response.clone()
-  const headers = Array.from(clone.headers)
-  const contentType = clone.headers.get('Content-Type') || ''
-  const contentDisposition = clone.headers.get('Content-Disposition') || ''
-  const isAttachment = contentDisposition.toLowerCase().includes('attachment')
+  try {
+    if (response.bodyUsed) {
+      throw new Error('response body already consumed')
+    }
+    const clone = response.clone()
+    const headers = Array.from(clone.headers)
+    const contentType = (clone.headers.get('Content-Type') || '').toLowerCase()
+    const contentDisposition = clone.headers.get('Content-Disposition') || ''
+    const isAttachment = contentDisposition.toLowerCase().includes('attachment')
 
-  let bodyData: SerializedResponse['body'] = undefined
+    let bodyData: SerializedResponse['body'] = undefined
 
-  if (isAttachment) {
-    // Always treat attachments as blob
-    const blob = await clone.blob()
-    const base64 = await convertBlobToBase64String(blob)
-    bodyData = {
-      type: 'blob',
-      content: base64,
-      mimeType: blob.type,
+    if (isAttachment) {
+      // Always treat attachments as blob
+      const blob = await clone.blob()
+      const base64 = await convertBlobToBase64String(blob)
+      bodyData = {
+        type: 'blob',
+        content: base64,
+        mimeType: blob.type,
+      }
+    } else if (contentType.includes('application/json')) {
+      const text = await clone.text()
+      bodyData = {
+        type: 'json',
+        content: text,
+        mimeType: contentType,
+      }
+    } else if (contentType.startsWith('text/') || contentType === '') {
+      const text = await clone.text()
+      bodyData = {
+        type: 'text',
+        content: text,
+        mimeType: contentType || 'text/plain',
+      }
+    } else {
+      const blob = await clone.blob()
+      const base64 = await convertBlobToBase64String(blob)
+      bodyData = {
+        type: 'blob',
+        content: base64,
+        mimeType: blob.type,
+      }
     }
-  } else if (contentType.includes('application/json')) {
-    const text = await clone.text()
-    bodyData = {
-      type: 'json',
-      content: text,
-      mimeType: contentType,
+    return {
+      status: clone.status,
+      statusText: clone.statusText,
+      headers,
+      body: bodyData,
+      url: clone.url,
+      redirected: clone.redirected,
+      type: clone.type,
+      ok: clone.ok,
     }
-  } else if (contentType.startsWith('text/') || contentType === '') {
-    const text = await clone.text()
-    bodyData = {
-      type: 'text',
-      content: text,
-      mimeType: contentType || 'text/plain',
-    }
-  } else {
-    const blob = await clone.blob()
-    const base64 = await convertBlobToBase64String(blob)
-    bodyData = {
-      type: 'blob',
-      content: base64,
-      mimeType: blob.type,
-    }
-  }
-  return {
-    status: clone.status,
-    statusText: clone.statusText,
-    headers,
-    body: bodyData,
-    url: clone.url,
-    redirected: clone.redirected,
-    type: clone.type,
-    ok: clone.ok,
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`response serialization failed: ${error.message}`)
   }
 }
 
@@ -626,9 +633,18 @@ export async function serializeResponse(response: Response): Promise<SerializedR
  * Reconstructs the body according to its serialized type and restores all relevant response properties.
  * @param {SerializedResponse} data - The serialized response object.
  * @return {Response} The reconstructed Response like object.
+ * @throws {Error} Throws an error if deserialization fails or if the body type is unsupported.
+ * Note: The returned object is an instance of DeserializedResponse,
+ * which mimics the standard Response interface but allows setting all properties.
+ * It can be used in most custom code as a drop-in replacement for Response, but it is not a real Response instance.
  */
 export async function deserializeResponse(data: SerializedResponse): Promise<DeserializedResponse> {
-  return DeserializedResponse.fromSerialized(data)
+  try {
+    return await DeserializedResponse.fromSerialized(data)
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`response deserialization failed: ${error.message}`)
+  }
 }
 
 /**
@@ -644,6 +660,7 @@ export async function deserializeResponse(data: SerializedResponse): Promise<Des
  */
 export class DeserializedResponse {
   body: BodyInit | null
+  bodyUsed: boolean
   private serializedBody?: SerializedResponse['body']
   headers: Headers
   status: number
@@ -655,6 +672,7 @@ export class DeserializedResponse {
 
   private constructor(data: SerializedResponse) {
     this.body = null
+    this.bodyUsed = false
     this.serializedBody = data.body
     this.headers = new Headers(data.headers)
     this.status = data.status
@@ -685,6 +703,7 @@ export class DeserializedResponse {
       default:
         this.body = null
     }
+    this.serializedBody = undefined
   }
 
   async text(): Promise<string> {
