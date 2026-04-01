@@ -712,8 +712,7 @@ export class DeserializedResponse {
     return ''
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async json(): Promise<any> {
+  async json<T>(): Promise<T> {
     const txt = await this.text()
     return JSON.parse(txt)
   }
