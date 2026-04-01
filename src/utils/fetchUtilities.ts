@@ -352,6 +352,8 @@ export const JSONparse = <T>(string: string): T => {
  *
  * Represents a plain-object serialization of a Request, including method,
  * headers, body, and all relevant fetch options.
+ * Note: For FormData bodies, this implementation only supports string values
+ * and does not handle file uploads. Blob bodies are serialized as Base64 strings.
  */
 export type SerializedRequest = {
   url: string
@@ -378,105 +380,95 @@ export type SerializedRequest = {
  * @param {RequestInfo} input - The request or URL to serialize.
  * @param {RequestInit} [init] - Optional request options.
  * @return {Promise<SerializedRequest>} The serialized request object.
- * @throws {Error} Throws if the request body is already consumed.
+ * @throws {Error} Throws an error if the request body contains unsupported types (e.g., File/Blob in FormData) or if serialization fails.
+ * Note: For FormData bodies, this implementation only supports string values
+ * and does not handle file uploads. Blob bodies are serialized as Base64 strings.
  */
 export async function serializeRequest(input: RequestInfo, init?: RequestInit): Promise<SerializedRequest> {
-  const req = new Request(input, init)
-  if (req.bodyUsed) {
-    throw new Error('cannot serialize a Request whose body is already consumed')
-  }
+  try {
+    const req = new Request(input, init)
+    const headers = Array.from(req.headers.entries())
+    const contentType = req.headers.get('Content-Type')?.toLowerCase() || ''
 
-  const clone = req.clone()
-  const headers = Array.from(clone.headers.entries())
-  const contentType = clone.headers.get('Content-Type')?.toLowerCase() || ''
+    let bodyData: SerializedRequest['body'] = undefined
 
-  let bodyData: SerializedRequest['body'] = undefined
-
-  if (clone.method !== 'GET' && clone.method !== 'HEAD') {
-    // Try URLSearchParams
-    if (!bodyData && contentType.includes('application/x-www-form-urlencoded')) {
-      const text = await clone.text()
-      bodyData = {
-        type: 'urlSearchParams',
-        content: text,
-        mimeType: 'application/x-www-form-urlencoded',
-      }
-    }
-
-    // Try JSON
-    if (!bodyData && contentType.includes('application/json')) {
-      const text = await clone.text()
-      bodyData = {
-        type: 'json',
-        content: text,
-        mimeType: 'application/json',
-      }
-    }
-
-    // Try FormData
-    if (!bodyData) {
-      try {
-        const form = await clone.clone().formData()
-        const obj: Record<string, string> = {}
-        let onlyStrings = true
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      if (contentType.includes('application/x-www-form-urlencoded')) {
+        // URLSearchParams
+        const text = await req.text()
+        bodyData = {
+          type: 'urlSearchParams',
+          content: text,
+          mimeType: 'application/x-www-form-urlencoded',
+        }
+      } else if (contentType.includes('application/json')) {
+        // JSON
+        const text = await req.text()
+        bodyData = {
+          type: 'json',
+          content: text,
+          mimeType: 'application/json',
+        }
+      } else if (contentType.includes('multipart/form-data')) {
+        // FormData
+        const form = await req.formData()
+        const obj: Record<string, string | string[]> = {}
 
         for (const [key, val] of form.entries()) {
-          if (typeof val === 'string') {
-            obj[key] = val
+          if (typeof val !== 'string') {
+            throw new Error('FormData contains File/Blob which is not supported in this version.')
+          }
+          if (key in obj) {
+            const existing = obj[key]
+            obj[key] = Array.isArray(existing) ? [...existing, val] : [existing, val]
           } else {
-            onlyStrings = false
-            break
+            obj[key] = val
           }
         }
 
-        if (onlyStrings) {
-          bodyData = {
-            type: 'formData',
-            content: JSON.stringify(obj),
-            mimeType: 'application/json',
-          }
-        } else {
-          throw new Error('FormData contains File/Blob which is not supported in this version.')
-        }
-      } catch {
-        // formData() failed — continue
-      }
-    }
-
-    // Try plain text or blob fallback
-    if (!bodyData) {
-      const blob = await clone.blob()
-      if (blob.type.startsWith('text/') || blob.type === '') {
-        const text = await blob.text()
         bodyData = {
-          type: 'text',
-          content: text,
-          mimeType: blob.type || 'text/plain',
+          type: 'formData',
+          content: JSON.stringify(obj),
+          mimeType: 'application/json',
         }
       } else {
-        const base64 = await convertBlobToBase64String(blob)
-        bodyData = {
-          type: 'blob',
-          content: base64,
-          mimeType: blob.type,
+        // Plain text or blob fallback
+        const blob = await req.blob()
+        if (blob.type.startsWith('text/') || blob.type === '') {
+          const text = await blob.text()
+          bodyData = {
+            type: 'text',
+            content: text,
+            mimeType: blob.type || 'text/plain',
+          }
+        } else {
+          const base64 = await convertBlobToBase64String(blob)
+          bodyData = {
+            type: 'blob',
+            content: base64,
+            mimeType: blob.type,
+          }
         }
       }
     }
-  }
 
-  return {
-    url: clone.url,
-    method: clone.method,
-    headers,
-    body: bodyData,
-    credentials: clone.credentials,
-    cache: clone.cache,
-    mode: clone.mode,
-    redirect: clone.redirect,
-    referrer: clone.referrer,
-    referrerPolicy: clone.referrerPolicy,
-    integrity: clone.integrity,
-    keepalive: clone.keepalive,
+    return {
+      url: req.url,
+      method: req.method,
+      headers,
+      body: bodyData,
+      credentials: req.credentials,
+      cache: req.cache,
+      mode: req.mode,
+      redirect: req.redirect,
+      referrer: req.referrer,
+      referrerPolicy: req.referrerPolicy,
+      integrity: req.integrity,
+      keepalive: req.keepalive,
+    }
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`request serialization failed: ${error.message}`)
   }
 }
 
@@ -485,54 +477,65 @@ export async function serializeRequest(input: RequestInfo, init?: RequestInit): 
  * Reconstructs the body according to its serialized type.
  * @param {SerializedRequest} data - The serialized request object.
  * @return {Request} The reconstructed Request object.
- * @throws {Error} Throws if the body type is unsupported.
+ * @throws {Error} Throws an error if deserialization fails or if the body type is unsupported.
+ * Note: For FormData bodies, this implementation only supports string values and does not handle file uploads.
  */
 export async function deserializeRequest(data: SerializedRequest): Promise<Request> {
-  let body: BodyInit | null = null
+  try {
+    let body: BodyInit | null = null
 
-  if (data.body) {
-    switch (data.body.type) {
-      case 'json':
-      case 'text':
-        body = data.body.content
-        break
+    if (data.body) {
+      switch (data.body.type) {
+        case 'json':
+        case 'text':
+          body = data.body.content
+          break
 
-      case 'urlSearchParams':
-        body = new URLSearchParams(data.body.content)
-        break
+        case 'urlSearchParams':
+          body = new URLSearchParams(data.body.content)
+          break
 
-      case 'formData': {
-        const jsonObj = JSON.parse(data.body.content)
-        const formData = new FormData()
-        for (const key in jsonObj) {
-          formData.append(key, jsonObj[key])
+        case 'formData': {
+          const jsonObj = JSON.parse(data.body.content)
+          const formData = new FormData()
+          for (const key in jsonObj) {
+            const value = jsonObj[key]
+            if (Array.isArray(value)) {
+              value.forEach((item: string) => formData.append(key, item))
+            } else {
+              formData.append(key, value)
+            }
+          }
+          body = formData
+          break
         }
-        body = formData
-        break
-      }
 
-      case 'blob': {
-        body = await convertBase64StringToBlob(data.body.content, data.body.mimeType)
-        break
+        case 'blob': {
+          body = await convertBase64StringToBlob(data.body.content, data.body.mimeType)
+          break
+        }
+        default:
+          throw new Error(`unsupported body type: ${data.body.type}`)
       }
-      default:
-        throw new Error(`Unsupported body type: ${data.body.type}`)
     }
-  }
 
-  return new Request(data.url, {
-    method: data.method,
-    headers: data.headers,
-    body,
-    credentials: data.credentials,
-    cache: data.cache,
-    mode: data.mode,
-    redirect: data.redirect,
-    referrer: data.referrer,
-    referrerPolicy: data.referrerPolicy,
-    integrity: data.integrity,
-    keepalive: data.keepalive,
-  })
+    return new Request(data.url, {
+      method: data.method,
+      headers: data.headers,
+      body,
+      credentials: data.credentials,
+      cache: data.cache,
+      mode: data.mode,
+      redirect: data.redirect,
+      referrer: data.referrer,
+      referrerPolicy: data.referrerPolicy,
+      integrity: data.integrity,
+      keepalive: data.keepalive,
+    })
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`request deserialization failed: ${error.message}`)
+  }
 }
 
 /**
