@@ -17,12 +17,12 @@ export type RequestDetails = {
 
 // Redirect URLs to be used in declarativeNetRequest rule
 const redirectURLs = [
-  'https://cp.cloudflare.com/generate_204',
-  'https://www.gstatic.com/generate_204',
-  'https://connectivity-check.ubuntu.com/204',
-  'https://httpstat.us/204',
-  'https://httpbin.org/status/204',
-  'https://www.google.com/generate_204',
+  'https://httpbin.org/status/204', // works
+  'https://cp.cloudflare.com/generate_204', // CORS error but should work
+  'https://www.gstatic.com/generate_204', // CORS error but should work
+  'https://connectivity-check.ubuntu.com/204', // CORS error but should work
+  'https://www.google.com/generate_204', // CORS error but should work
+  //'https://httpstat.us/204', // https gives a cert error
 ]
 
 // Redirect URL to be used in declarativeNetRequest rule - determined at runtime by racing all URLs
@@ -87,27 +87,27 @@ export default function (): void {
 
 async function setupInterception(): Promise<void> {
   log.info('setting up declarativeNetRequest rules and listeners for interception')
-  redirectURL = await getFastestRedirectURL()
+  redirectURL = await getRedirectURL()
   await updateDeclarativeNetRequest()
   await registerInterceptionListener()
 }
 
-async function getFastestRedirectURL(): Promise<string> {
-  try {
-    const racePromises = redirectURLs.map((url) =>
-      fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(5000) }).then((response) => {
-        if (response.ok || response.status === 204) return url
-        throw new Error(`${url} responded with status ${response.status}`)
-      })
-    )
-    const fastest = await Promise.any(racePromises)
-    log.info(`fastest redirect URL determined: ${fastest}`)
-    return fastest
-  } catch {
-    log.error(`no redirect URL responded successfully, using default: ${redirectURLs[0]}`)
-    notifications.error(i18n.t('interception.noRedirectURLAvailable'))
-    return redirectURLs[0]
+async function getRedirectURL(): Promise<string> {
+  for (const url of redirectURLs) {
+    try {
+      const response = await fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(5000) })
+      if (response.ok || response.status === 204) {
+        log.info(`redirect URL determined: ${url}`)
+        return url
+      }
+      log.info(`${url} responded with status ${response.status}, trying next`)
+    } catch {
+      log.info(`${url} did not respond, trying next`)
+    }
   }
+  log.error(`no redirect URL responded successfully, using default: ${redirectURLs[0]}`)
+  notifications.error(i18n.t('interception.noRedirectURLAvailable'))
+  return redirectURLs[0]
 }
 
 async function updateDeclarativeNetRequest(): Promise<void> {
