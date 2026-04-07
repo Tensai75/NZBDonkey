@@ -21,7 +21,7 @@ export default defineContentScript({
     onMessage('fetchRequest', async (message) => {
       log.info(`fetch request message received`)
       try {
-        const deserializedRequest = deserializeRequest(message.data)
+        const deserializedRequest = await deserializeRequest(message.data)
         log.info(`fetching ${deserializedRequest.url}`)
         const response = await fetch(deserializedRequest)
         if (!response.ok) {
