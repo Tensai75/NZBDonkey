@@ -161,6 +161,33 @@ function reset() {
         }}</label>
         <ToggleSwitch v-model="showAdvancedSettings" :disabled="domain.isDefault" />
       </div>
+      <div v-show="showAdvancedSettings" class="flex items-center gap-4 pt-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">Interception Method</label>
+        <FormField name="Interception Method" :initial-value="domain.interceptionMethod" class="grid-row flex-auto">
+          <div class="flex items-center">
+            <div class="flex items-center gap-2">
+              <RadioButton
+                v-model="domain.interceptionMethod"
+                input-id="background"
+                name="interceptionMethod"
+                value="declarativeNetRequest"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsURLSearchParams">Declarative Net Request ({{ i18n.t('common.default') }})</label>
+            </div>
+            <div class="flex items-center gap-2 ml-4">
+              <RadioButton
+                v-model="domain.interceptionMethod"
+                input-id="injection"
+                name="interceptionMethod"
+                value="fetchListener"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsFormData">Fetch Listener</label>
+            </div>
+          </div>
+        </FormField>
+      </div>
       <div v-show="showAdvancedSettings" class="flex items-center gap-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.postDataHandling.title')

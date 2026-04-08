@@ -79,17 +79,19 @@ export default function (): void {
   registerHeartbeatListener()
   // synchronous listener for settings changes
   watchInterceptionSettings(async () => {
-    log.info('interception settings have changed, updating declarativeNetRequest rules and listeners')
+    log.info(
+      'declarativeNetRequest interception settings have changed, updating declarativeNetRequest rules and listeners'
+    )
     await updateDeclarativeNetRequest()
-    await registerInterceptionListener()
+    await registerDeclarativeNetRequestInterceptionListener()
   })
 }
 
 async function setupInterception(): Promise<void> {
-  log.info('setting up declarativeNetRequest rules and listeners for interception')
+  log.info('setting up declarativeNetRequest rules and listeners for declarativeNetRequest interception')
   redirectURL = await getRedirectURL()
   await updateDeclarativeNetRequest()
-  await registerInterceptionListener()
+  await registerDeclarativeNetRequestInterceptionListener()
 }
 
 async function getRedirectURL(): Promise<string> {
@@ -117,36 +119,36 @@ async function updateDeclarativeNetRequest(): Promise<void> {
       browser.declarativeNetRequest.getDynamicRules(),
     ])
     const ruleIds = rules.map((rule) => rule.id)
-    log.info('updating declarativeNetRequest rules for interception')
+    log.info('updating declarativeNetRequest rules for declarativeNetRequest interception')
     await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: ruleIds,
       addRules: constructRuleSet(activeDomains),
     })
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
-    log.error('failed to update declarativeNetRequest for interception:', error)
+    log.error('failed to update declarativeNetRequest for declarativeNetRequest interception:', error)
   }
 }
 
-// Interception listeners are registered asynchronously after fetching the settings.
-// The heartbeat messages from the content secript will keep the background script alive
+// DeclarativeNetRequest interception listeners are registered asynchronously after fetching the settings.
+// The heartbeat messages from the content script will keep the background script alive
 // to ensure the interception listeners work reliably.
-async function registerInterceptionListener(): Promise<void> {
+async function registerDeclarativeNetRequestInterceptionListener(): Promise<void> {
   const urlsFilter = await createUrlsFilter()
 
   // Remove existing listeners
   if (browser.webRequest.onBeforeRequest.hasListener(onBeforeRequestListener)) {
-    log.info('removing onBeforeRequest listener for interception')
+    log.info('removing onBeforeRequest listener for declarativeNetRequest interception')
     browser.webRequest.onBeforeRequest.removeListener(onBeforeRequestListener)
   }
   if (browser.tabs.onCreated.hasListener(onTabCreatedListener)) {
-    log.info('removing onTabCreated listener for interception')
+    log.info('removing onTabCreated listener for declarativeNetRequest interception')
     browser.tabs.onCreated.removeListener(onTabCreatedListener)
   }
 
   // If none of the domains are active, skip listener registration
   if (urlsFilter.length === 0) {
-    log.info('no active interception domains found, skipping listener registration')
+    log.info('no active declarativeNetRequest interception domains found, skipping listener registration')
     return
   }
 
@@ -154,18 +156,18 @@ async function registerInterceptionListener(): Promise<void> {
   try {
     log.info('registering onBeforeRequest listener for interception')
     browser.webRequest.onBeforeRequest.addListener(onBeforeRequestListener, { urls: urlsFilter }, ['requestBody'])
-    log.info('registration of the onBeforeRequest listener for interception was successful')
+    log.info('registration of the onBeforeRequest listener for declarativeNetRequest interception was successful')
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
-    log.error('failed to register onBeforeRequest listener for interception:', error)
+    log.error('failed to register onBeforeRequest listener for declarativeNetRequest interception:', error)
   }
   try {
     log.info('registering onTabCreated listener for interception')
     browser.tabs.onCreated.addListener(onTabCreatedListener)
-    log.info('registration of the onTabCreated listener for interception was successful')
+    log.info('registration of the onTabCreated listener for declarativeNetRequest interception was successful')
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
-    log.error('failed to register onTabCreated listener for interception:', error)
+    log.error('failed to register onTabCreated listener for declarativeNetRequest interception:', error)
   }
 }
 
@@ -220,17 +222,19 @@ function registerHeartbeatListener(): void {
 
 function constructRuleSet(activeDomains: DomainSettings[]): Browser.declarativeNetRequest.Rule[] {
   // Create redirect rules for each active domain
-  const ruleSet: Browser.declarativeNetRequest.Rule[] = activeDomains.map((domain, index) => ({
-    id: index + 1,
-    priority: 1,
-    action: { type: 'redirect', redirect: { url: redirectURL } },
-    condition: {
-      regexFilter: getDomainRegExp(domain),
-      resourceTypes,
-      requestMethods,
-      initiatorDomains: [domain.domain],
-    },
-  }))
+  const ruleSet: Browser.declarativeNetRequest.Rule[] = activeDomains
+    .filter((domain) => !!domain.domain && domain.interceptionMethod === 'declarativeNetRequest')
+    .map((domain, index) => ({
+      id: index + 1,
+      priority: 1,
+      action: { type: 'redirect', redirect: { url: redirectURL } },
+      condition: {
+        regexFilter: getDomainRegExp(domain),
+        resourceTypes,
+        requestMethods,
+        initiatorDomains: [domain.domain],
+      },
+    }))
   // Add header modification rule to remove cookies and referer for redirected requests
   const requestHeaderRule: Browser.declarativeNetRequest.Rule = {
     id: ruleSet.length + 1,
@@ -256,7 +260,9 @@ function constructRuleSet(activeDomains: DomainSettings[]): Browser.declarativeN
 
 async function createUrlsFilter(): Promise<string[]> {
   const activeDomains = await getActiveDomains()
-  return activeDomains.filter((domainObj) => !!domainObj.domain).map((domainObj) => `*://*.${domainObj.domain}/*`)
+  return activeDomains
+    .filter((domainObj) => !!domainObj.domain && domainObj.interceptionMethod === 'declarativeNetRequest')
+    .map((domainObj) => `*://*.${domainObj.domain}/*`)
 }
 
 async function isURLTracked(url: string): Promise<boolean> {

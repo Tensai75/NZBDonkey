@@ -1,7 +1,8 @@
-import { defineContentScript } from '#imports'
+import { defineContentScript, injectScript } from '#imports'
+import { getActiveDomains } from '@/services/interception'
 import log from '@/services/logger/debugLogger'
 import { onMessage, sendMessage } from '@/services/messengers/extensionMessenger'
-import { deserializeRequest, getHttpStatusText, serializeResponse } from '@/utils/fetchUtilities'
+import { deserializeRequest, getBaseDomainFromURL, getHttpStatusText, serializeResponse } from '@/utils/fetchUtilities'
 
 export default defineContentScript({
   registration: 'runtime',
@@ -18,6 +19,7 @@ export default defineContentScript({
       sendMessage('heartbeat', null)
     }, 25000) // every 25 seconds
 
+    // Listen for fetch requests from the background script
     onMessage('fetchRequest', async (message) => {
       log.info(`fetch request message received`)
       try {
@@ -34,6 +36,38 @@ export default defineContentScript({
         const error = e instanceof Error ? e : new Error(String(e))
         log.error('error fetching intercepted request', error)
         return error
+      }
+    })
+
+    // Inject the fetchListener script into the page if required
+    getActiveDomains().then(async (domains) => {
+      const sourceURL = window.location.href
+      const currentDomain = getBaseDomainFromURL(sourceURL)
+      const domainSettings = domains.filter(
+        (d) => d.domain === currentDomain && d.interceptionMethod === 'fetchListener'
+      )[0]
+      if (!domainSettings) {
+        return
+      }
+      log.info(
+        `Domain ${currentDomain} is set to be intercepted with fetchListener, injecting fetchListener content script`
+      )
+      try {
+        await injectScript('/fetchListener.js', {
+          modifyScript(script) {
+            script.addEventListener('fromFetchListenerScript', (event) => {
+              if (event instanceof CustomEvent) {
+                log.info('fetch request received from fetchListener script, sending request to background script')
+                sendMessage('fetchListenerRequest', { request: event.detail, sourceURL })
+              }
+            })
+            script.dataset['fetchURLRegexp'] = domainSettings.pathRegExp
+          },
+        })
+        log.info('fetchListener content script injected successfully')
+      } catch (e) {
+        const error = e instanceof Error ? e : new Error(String(e))
+        log.error('error injecting fetchListener script', error)
       }
     })
   },

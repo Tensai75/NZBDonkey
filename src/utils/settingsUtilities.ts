@@ -1,6 +1,7 @@
 import { ref, Ref, toRaw, watch } from 'vue'
 
 import { browser, storage } from '#imports'
+import log from '@/services/logger/debugLogger'
 
 export type Settings<T> = {
   name: string
@@ -57,7 +58,12 @@ export const getSettings = async <T>({ name, defaults }: Settings<T>): Promise<T
  * @return {Promise<void>} Resolves when the settings are saved.
  */
 export const setSettings = async <T>({ name }: Settings<T>, newSettings: T): Promise<void> => {
-  await browser.storage.sync.set({ [name]: newSettings })
+  try {
+    await browser.storage.sync.set({ [name]: newSettings })
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error(`Failed to set settings for ${name}`, error)
+  }
 }
 
 /**

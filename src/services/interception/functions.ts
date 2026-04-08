@@ -2,7 +2,7 @@ import parseTar from '@vigneshpa/parse-tar'
 import { PublicPath } from 'wxt/browser'
 
 import { ArchiveReader, libarchiveWasm } from './libarchive-wasm'
-import { DomainSettings, get as getSettings } from './settings'
+import { DomainSettings, get as getSettings, InterceptionMethod } from './settings'
 
 import { Browser, i18n } from '#imports'
 import { getCategory } from '@/services/categories'
@@ -55,6 +55,15 @@ export async function extractArchive(blob: Blob, source: string): Promise<NZBFil
 export async function getActiveDomains(): Promise<DomainSettings[]> {
   const settings = await getSettings()
   return settings.enabled ? settings.domains.filter((domain) => domain.isActive) : []
+}
+
+export async function getActiveDomainsMatchPatternArray(
+  interceptionMethod?: InterceptionMethod
+): Promise<Array<string>> {
+  const activeDomains = await getActiveDomains()
+  return activeDomains
+    .filter((domain) => !!domain.domain && (!interceptionMethod || domain.interceptionMethod === interceptionMethod))
+    .map((domain) => `*://*.${domain.domain}/*`)
 }
 
 export async function processNzbFiles(nzbFiles: NZBFileObject[], filename: string): Promise<void> {

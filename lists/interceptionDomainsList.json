@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "data": [
     {
       "id": "nzbindex.com",
@@ -10,6 +10,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/api/download.*?(t=\\d+|\\.nzb)$",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -22,6 +23,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/nzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -34,6 +36,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/nzb:?.*/",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -46,6 +49,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -58,6 +62,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/attachments/.*(nzb|zip|rar)\\.\\d+",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -70,6 +75,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -82,6 +88,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^.*&nzbID=.*$",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -94,6 +101,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/api\\?t=get&id=",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -106,6 +114,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -118,6 +127,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -130,6 +140,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -142,6 +153,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^(/send|/browsesend\\?type=send|/cartsend\\.php\\?type=sendfinal)",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -154,6 +166,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/nzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -166,6 +179,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/attachments/.*/\\?sess=",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -178,6 +192,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -190,6 +205,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -202,6 +218,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "/index\\.php\\?attachments/.+/&sess=.+",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -214,6 +231,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "/nzbcreate\\.php",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -226,6 +244,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -238,6 +257,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -250,6 +270,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/uploads/.*\\.nzb",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -262,6 +283,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/storage/nzbs/.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -274,6 +296,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     }

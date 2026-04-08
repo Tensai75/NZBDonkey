@@ -11,7 +11,7 @@ import log from '@/services/logger/debugLogger'
 
 const interceptionDoaminsList = {
   url: `https://raw.githubusercontent.com/${import.meta.env.WXT_REPOSITORY_NAME}/${import.meta.env.WXT_BRANCH_NAME}/lists/interceptionDomainsList.json`,
-  expectedVersion: 2,
+  expectedVersion: 3,
   sortkey: 'domain',
   defaultList: interceptionDomainsDefaultList,
   defaultKeys: [...Object.keys(defaultDomainSettings), 'icon'] as (keyof InterceptionDomainsListItem)[],
@@ -64,6 +64,7 @@ export async function updateInterceptionDomainsList(
             ...domain,
             domain: domainsListDomain.domain,
             pathRegExp: domainsListDomain.pathRegExp,
+            interceptionMethod: domainsListDomain.interceptionMethod,
             postDataHandling: domainsListDomain.postDataHandling,
             fetchOrigin: domainsListDomain.fetchOrigin,
             archiveFileExtensions: domainsListDomain.archiveFileExtensions,

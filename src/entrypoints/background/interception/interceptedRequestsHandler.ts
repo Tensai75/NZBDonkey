@@ -3,6 +3,7 @@ import { addTimestampToURL, prepareRequest, waitForTabToLoad } from './helperFun
 
 import { i18n } from '#imports'
 import {
+  DomainSettings,
   getSettings as getInterceptionSettings,
   handleError,
   handleNzbDialogIfNeeded,
@@ -64,20 +65,9 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
       log.error(`failed to get source URL for request ${details.requestId}`, error)
     }
     log.info(`source URL for request ${details.requestId} is ${sourceUrl}`)
-    // Prepare the request
+    // Prepare and fetch the request
     const request = prepareRequest(details, setting)
-    let response: Response | DeserializedResponse
-    // Fetch the request based on the fetch origin setting
-    switch (setting.fetchOrigin) {
-      case 'injection': {
-        response = await fetchInterceptedRequestFromContentScript(request, domain, tabId)
-        break
-      }
-      default:
-        response = await fetchInterceptedRequest(request)
-    }
-    // Process the response
-    processInterceptedRequestResponse({ response, source: sourceUrl })
+    await fetchAndProcessInterceptedRequest(request, setting, domain, tabId, sourceUrl)
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
     log.error(`faild to intercept request ${details.requestId} from ${url}`, error)
@@ -85,7 +75,28 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
   }
 }
 
-export async function fetchInterceptedRequest(request: Request): Promise<Response> {
+export async function fetchAndProcessInterceptedRequest(
+  request: Request,
+  setting: DomainSettings,
+  domain: string,
+  tabId: number,
+  sourceUrl: string
+): Promise<void> {
+  let response: Response | DeserializedResponse
+  // Fetch the request based on the fetch origin setting
+  switch (setting.fetchOrigin) {
+    case 'injection': {
+      response = await fetchInterceptedRequestFromContentScript(request, domain, tabId)
+      break
+    }
+    default:
+      response = await fetchInterceptedRequestFromBackground(request)
+  }
+  // Process the response
+  await processInterceptedRequestResponse({ response, source: sourceUrl })
+}
+
+export async function fetchInterceptedRequestFromBackground(request: Request): Promise<Response> {
   try {
     log.info(`fetching intercepted request from ${request.url}`)
     const response = await fetch(request)
