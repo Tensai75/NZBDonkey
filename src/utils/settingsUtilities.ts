@@ -74,7 +74,6 @@ export const getSettings = async <T>({ name, defaults }: Settings<T>): Promise<T
  * @return {Promise<void>} Resolves when the settings are saved.
  */
 export const setSettings = async <T>({ name }: Settings<T>, newSettings: T): Promise<void> => {
-  console.log('Saving settings for', name, name === 'interceptionSettings')
   try {
     switch (name) {
       case 'interceptionSettings': {
