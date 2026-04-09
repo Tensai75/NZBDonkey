@@ -210,19 +210,6 @@
       "showNzbDialog": true
     },
     {
-      "id": "friends-of-binaries.info",
-      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
-      "domain": "friends-of-binaries.info",
-      "fetchOrigin": "background",
-      "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Ffriends-of-binaries.info",
-      "isActive": true,
-      "isDefault": true,
-      "pathRegExp": "/index\\.php\\?attachments/.+/&sess=.+",
-      "interceptionMethod": "declarativeNetRequest",
-      "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
-    },
-    {
       "id": "nzbgrabit.org",
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "nzbgrabit.org",
