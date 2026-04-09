@@ -299,6 +299,19 @@
       "interceptionMethod": "fetchListener",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "amenzb.moe",
+      "archiveFileExtensions": [],
+      "domain": "amenzb.moe",
+      "fetchOrigin": "background",
+      "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Famenzb.moe",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/download/\\d+",
+      "interceptionMethod": "declarativeNetRequest",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
