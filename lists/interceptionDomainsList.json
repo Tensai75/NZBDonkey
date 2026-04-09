@@ -299,6 +299,19 @@
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "grumpynzb.com",
+      "archiveFileExtensions": [],
+      "domain": "grumpynzb.com",
+      "fetchOrigin": "background",
+      "icon": "https://grumpynzb.com/favicon.ico",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/api/v1/nzb/.*",
+      "interceptionMethod": "fetchListener",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
