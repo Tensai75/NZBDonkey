@@ -114,10 +114,13 @@ export const setSettings = async <T>({ name }: Settings<T>, newSettings: T): Pro
  * @param {Settings<T>} settingsConfig - Configuration containing the name of the settings.
  * @param {(settings: T) => void} callback - Function to call when the settings change.
  */
-export const watchSettings = <T>({ name }: Settings<T>, callback: (settings: T) => void) => {
+export const watchSettings = <T>({ name, defaults }: Settings<T>, callback: (settings: T) => void) => {
   browser.storage.sync.onChanged.addListener(async (changes) => {
     if (changes[name]) {
       const settings = await getSettings({ name, defaults: changes[name].newValue })
+      callback(settings as T)
+    } else if (name === 'interceptionSettings' && Object.keys(changes).some((key) => key.startsWith('domain.'))) {
+      const settings = await getSettings({ name, defaults })
       callback(settings as T)
     }
   })

@@ -79,9 +79,7 @@ export default function (): void {
   registerHeartbeatListener()
   // synchronous listener for settings changes
   watchInterceptionSettings(async () => {
-    log.info(
-      'declarativeNetRequest interception settings have changed, updating declarativeNetRequest rules and listeners'
-    )
+    log.info('interception settings have changed, updating declarativeNetRequest rules and listeners')
     await updateDeclarativeNetRequest()
     await registerDeclarativeNetRequestInterceptionListener()
   })
