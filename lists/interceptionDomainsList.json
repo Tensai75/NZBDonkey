@@ -312,6 +312,19 @@
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "indexarr.net",
+      "archiveFileExtensions": [],
+      "domain": "indexarr.net",
+      "fetchOrigin": "background",
+      "icon": "https://nzb.indexarr.net/favicon.png",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/releases/\\d+/nzb",
+      "interceptionMethod": "declarativeNetRequest",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
