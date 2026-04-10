@@ -15,6 +15,8 @@ export type RequestDetails = {
   source: string
 }
 
+const prefetchRequests = new Set<string>() // to track prefetch requests and avoid intercepting them in onBeforeRequestListener
+
 // Redirect URLs to be used in declarativeNetRequest rule
 const redirectURLs = [
   'https://httpbin.org/status/204', // works
@@ -143,6 +145,10 @@ async function registerDeclarativeNetRequestInterceptionListener(): Promise<void
     log.info('removing onTabCreated listener for declarativeNetRequest interception')
     browser.tabs.onCreated.removeListener(onTabCreatedListener)
   }
+  if (browser.webRequest.onBeforeSendHeaders.hasListener(onBeforeSendHeadersListener)) {
+    log.info('removing onBeforeSendHeaders listener for declarativeNetRequest interception')
+    browser.webRequest.onBeforeSendHeaders.removeListener(onBeforeSendHeadersListener)
+  }
 
   // If none of the domains are active, skip listener registration
   if (urlsFilter.length === 0) {
@@ -167,6 +173,35 @@ async function registerDeclarativeNetRequestInterceptionListener(): Promise<void
     const error = e instanceof Error ? e : new Error(String(e))
     log.error('failed to register onTabCreated listener for declarativeNetRequest interception:', error)
   }
+  try {
+    log.info('registering onBeforeSendHeaders listener for interception')
+    browser.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeadersListener, { urls: urlsFilter }, [
+      'requestHeaders',
+      'extraHeaders',
+    ])
+    log.info('registration of the onBeforeSendHeaders listener for declarativeNetRequest interception was successful')
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    log.error('failed to register onBeforeSendHeaders listener for declarativeNetRequest interception:', error)
+  }
+}
+
+function onBeforeSendHeadersListener(
+  details: Browser.webRequest.OnBeforeSendHeadersDetails
+): Browser.webRequest.BlockingResponse | undefined {
+  isURLTracked(details.url).then((isTracked) => {
+    // If the tabId is negative, it means the request comes from the background script itself and hence should be ignored
+    if (!isTracked || details.tabId < 0) return
+    details.requestHeaders?.forEach((header) => {
+      if (header.name.toLowerCase() === 'sec-purpose' && header.value?.toLowerCase() === 'prefetch') {
+        prefetchRequests.add(details.requestId)
+        log.info(
+          `request ${details.requestId} to ${details.url} is identified as a prefetch request, it will be ignored in onBeforeRequestListener`
+        )
+      }
+    })
+  })
+  return undefined
 }
 
 function onTabCreatedListener(details: Browser.tabs.Tab): void {
@@ -186,23 +221,31 @@ function onBeforeRequestListener(
   isURLTracked(details.url).then((isTracked) => {
     // If the tabId is negative, it means the request comes from the background script itself and hence should be ignored
     if (!isTracked || details.tabId < 0) return
-    log.info(`request ${details.requestId} to ${details.url} is going to be blocked, gathering request details`)
-    let bodyData: RequestDetails['body']
-    if (details.method !== 'GET' && details.requestBody) {
-      if (details.requestBody.formData) {
-        bodyData = details.requestBody.formData as RequestDetails['body']
+    setTimeout(() => {
+      // ensure this runs after the onBeforeSendHeadersListener
+      if (prefetchRequests.has(details.requestId)) {
+        log.info(`request ${details.requestId} to ${details.url} is a prefetch request, ignoring it`)
+        prefetchRequests.delete(details.requestId)
+        return
       }
-    }
-    const requestDeatils = {
-      tabId: details.tabId,
-      requestId: details.requestId,
-      url: details.url,
-      method: details.method,
-      body: bodyData,
-      // @ts-expect-error: Property 'originUrl' does not exist on type 'WebRequestBodyDetails'
-      source: details.originUrl ?? details.initiator ?? '',
-    }
-    interceptRequest(requestDeatils)
+      log.info(`request ${details.requestId} to ${details.url} is going to be blocked, gathering request details`)
+      let bodyData: RequestDetails['body']
+      if (details.method !== 'GET' && details.requestBody) {
+        if (details.requestBody.formData) {
+          bodyData = details.requestBody.formData as RequestDetails['body']
+        }
+      }
+      const requestDeatils = {
+        tabId: details.tabId,
+        requestId: details.requestId,
+        url: details.url,
+        method: details.method,
+        body: bodyData,
+        // @ts-expect-error: Property 'originUrl' does not exist on type 'WebRequestBodyDetails'
+        source: details.originUrl ?? details.initiator ?? '',
+      }
+      interceptRequest(requestDeatils)
+    }, 250)
   })
   return undefined
 }
