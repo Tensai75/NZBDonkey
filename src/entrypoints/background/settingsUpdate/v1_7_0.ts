@@ -1,3 +1,4 @@
+import { browser } from '#imports'
 import { saveSettings as saveInterceptionSettings } from '@/services/interception'
 import {
   defaultSettings as interceptionDefaultSettings,
@@ -18,6 +19,9 @@ async function migrateInterceptionSettings() {
   settings.domains.forEach((domain) => {
     if (!domain.interceptionMethod) {
       domain.interceptionMethod = 'declarativeNetRequest'
+    }
+    if (!domain.id) {
+      domain.id = domain.domain
     }
   })
   // saving the updated settings will automatically save the domain settings separately in the storage

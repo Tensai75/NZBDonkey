@@ -37,6 +37,13 @@ if (props.domains[props.index]) {
 const extensions = ref(['zip', 'rar', '7z', 'tar', 'gz'])
 const rerenderKey = ref(0)
 
+function save() {
+  if (!domain.value.id) {
+    domain.value.id = domain.value.domain
+  }
+  emit('save', domain.value)
+}
+
 function reset() {
   domain.value = structuredClone(interception.defaultDomainSettings)
   rerenderKey.value++
@@ -276,12 +283,7 @@ function reset() {
               @click="reset()"
             ></Button>
             <Button type="button" :label="i18n.t('common.cancel')" severity="secondary" @click="emit('close')"></Button>
-            <Button
-              type="button"
-              :label="i18n.t('common.save')"
-              :disabled="!$form.valid"
-              @click="emit('save', domain)"
-            ></Button>
+            <Button type="button" :label="i18n.t('common.save')" :disabled="!$form.valid" @click="save()"></Button>
           </div>
         </div>
       </template>
