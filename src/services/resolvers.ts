@@ -8,8 +8,8 @@ import { browser } from '#imports'
 
 // --- Types ---
 
-type ResolverResult = { errors: { message: string }[] }
-type Resolver = (options: FormFieldResolverOptions) => ResolverResult | Promise<ResolverResult>
+export type ResolverResult = { errors: { message: string }[] }
+export type Resolver = (options: FormFieldResolverOptions) => ResolverResult | Promise<ResolverResult>
 
 // --- Compose helper ---
 
