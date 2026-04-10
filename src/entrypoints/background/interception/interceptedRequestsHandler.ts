@@ -1,7 +1,7 @@
 import { RequestDetails, tabRelationships } from './declarativeNetRequestHandler'
 import { addTimestampToURL, prepareRequest, waitForTabToLoad } from './helperFunction'
 
-import { i18n } from '#imports'
+import { browser, i18n } from '#imports'
 import {
   DomainSettings,
   getSettings as getInterceptionSettings,
@@ -53,7 +53,6 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
     try {
       const [scriptingResult] = await browser.scripting.executeScript({
         target: { tabId: tabId },
-        // @ts-expect-error "Type '() => string' is not assignable to type '() => void | undefined'."
         func: () => {
           return window.location.href
         },

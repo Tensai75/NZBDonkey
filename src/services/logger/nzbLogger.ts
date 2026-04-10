@@ -1,4 +1,4 @@
-import { Browser } from '#imports'
+import { Browser, browser } from '#imports'
 import { getSettings } from '@/services/general'
 import { db, INZBLog, NZBLogQuery, NZBStatus, Target } from '@/services/logger/loggerDB'
 import { NZBFileObject } from '@/services/nzbfile'

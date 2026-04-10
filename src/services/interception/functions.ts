@@ -4,7 +4,7 @@ import { PublicPath } from 'wxt/browser'
 import { ArchiveReader, libarchiveWasm } from './libarchive-wasm'
 import { DomainSettings, get as getSettings, InterceptionMethod } from './settings'
 
-import { Browser, i18n } from '#imports'
+import { Browser, browser, i18n } from '#imports'
 import { getCategory } from '@/services/categories'
 import log from '@/services/logger/debugLogger'
 import notifications from '@/services/notifications'

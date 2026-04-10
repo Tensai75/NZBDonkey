@@ -1,3 +1,4 @@
+import { browser } from '#imports'
 import { getActiveDomainsMatchPatternArray } from '@/services/interception'
 import { InterceptionMethod } from '@/services/interception/settings'
 import log from '@/services/logger/debugLogger'
@@ -11,7 +12,7 @@ export async function contentScriptRegistration(
 ): Promise<void> {
   const domains = await getActiveDomainsMatchPatternArray(interceptionMethod)
   const scripts = await browser.scripting.getRegisteredContentScripts()
-  const isRegistered = scripts.some((script) => script.id === scriptId)
+  const isRegistered = scripts.some((script: { id: string }) => script.id === scriptId)
   if (domains.length === 0) {
     handleNoDomains(isRegistered, scriptId, scriptName)
   } else {

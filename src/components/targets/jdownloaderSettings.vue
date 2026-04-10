@@ -6,7 +6,7 @@ import { Ref, ref } from 'vue'
 import { i18n } from '#i18n'
 import TimeoutInput from '@/components/inputs/timeoutInput.vue'
 import TestConnectionDialog from '@/components/targets/targetTestConnectionDialog.vue'
-import { requiredResolver } from '@/services/resolvers'
+import { requiredResolver, ResolverResult } from '@/services/resolvers'
 import * as targets from '@/services/targets'
 
 const targetSettings = defineModel('targetSettings') as Ref<
@@ -23,7 +23,7 @@ function deviceListResolver({ name, value }: { name?: string; value?: string }) 
   const errors = []
   if (connectionSuccessful.value) {
     if (targetSettings.value.settings.devices.length > 0) {
-      errors.push(...requiredResolver({ name, value }).errors)
+      errors.push(...(requiredResolver({ name, value }) as ResolverResult).errors)
     } else {
       errors.push({ message: i18n.t('validation.noJDDevices') })
     }

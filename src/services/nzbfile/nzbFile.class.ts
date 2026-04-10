@@ -3,7 +3,7 @@ import { PublicPath } from 'wxt/browser'
 import { analyseNzbLink, showNzbFileDialog } from './functions'
 import { ValidateResults, validateNZBFile } from './validation'
 
-import { i18n } from '#imports'
+import { browser, i18n } from '#imports'
 import { getCategory } from '@/services/categories'
 import * as general from '@/services/general'
 import { handleError } from '@/services/interception'

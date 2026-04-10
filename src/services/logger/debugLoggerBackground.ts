@@ -3,7 +3,7 @@ import { defineExtensionMessaging } from '@webext-core/messaging'
 
 import { db, DebugLogProtocolMap, DebugLogQuery, IDebugLog } from './loggerDB'
 
-import { Browser } from '#imports'
+import { Browser, browser } from '#imports'
 import { getSettings as getGeneralSettings } from '@/services/general'
 import { b64EncodeUnicode } from '@/utils/stringUtilities'
 
