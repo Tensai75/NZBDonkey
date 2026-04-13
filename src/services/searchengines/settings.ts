@@ -3,7 +3,7 @@ import { Settings as EasyNewsEngineSettings } from './easyNewsEngine/settings'
 
 import { getSettings, setSettings, useSettings, watchSettings } from '@/utils/settingsUtilities'
 
-export const name = 'serachenginesSettings'
+export const name = 'searchenginesSettings'
 
 export const defaultSettings: Settings = {
   searchOrder: 'parallel',
