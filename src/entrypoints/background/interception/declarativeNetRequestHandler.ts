@@ -58,6 +58,10 @@ const resourceTypes: (
   | 'csp_report'
   | 'media'
   | 'websocket'
+  | 'webtransport'
+  | 'webbundle'
+  | 'object_subrequest'
+  | 'beacon'
   | 'other'
 )[] = [
   'object',
@@ -74,6 +78,14 @@ const resourceTypes: (
   'websocket',
   'other',
 ]
+if (import.meta.env.CHROME) {
+  // these resource types are only supported in declarativeNetRequest in Chrome, not in Firefox
+  resourceTypes.push('webtransport', 'webbundle')
+}
+if (import.meta.env.FIREFOX) {
+  // these resource types are only supported in declarativeNetRequest in Firefox, not in Chrome
+  resourceTypes.push('object_subrequest', 'beacon')
+}
 
 export default function (): void {
   setupInterception() // <- async setup
@@ -177,7 +189,6 @@ async function registerDeclarativeNetRequestInterceptionListener(): Promise<void
     log.info('registering onBeforeSendHeaders listener for interception')
     browser.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeadersListener, { urls: urlsFilter }, [
       'requestHeaders',
-      'extraHeaders',
     ])
     log.info('registration of the onBeforeSendHeaders listener for declarativeNetRequest interception was successful')
   } catch (e) {
@@ -190,8 +201,7 @@ function onBeforeSendHeadersListener(
   details: Browser.webRequest.OnBeforeSendHeadersDetails
 ): Browser.webRequest.BlockingResponse | undefined {
   isURLTracked(details.url).then((isTracked) => {
-    // If the tabId is negative, it means the request comes from the background script itself and hence should be ignored
-    if (!isTracked || details.tabId < 0) return
+    if (!isTracked) return
     details.requestHeaders?.forEach((header) => {
       if (header.name.toLowerCase() === 'sec-purpose' && header.value?.toLowerCase() === 'prefetch') {
         prefetchRequests.add(details.requestId)
@@ -218,9 +228,18 @@ function onTabCreatedListener(details: Browser.tabs.Tab): void {
 function onBeforeRequestListener(
   details: Browser.webRequest.OnBeforeRequestDetails
 ): Browser.webRequest.BlockingResponse | undefined {
+  // Ignore requests from the extension itself
+  if (
+    details.initiator?.includes('chrome-extension') ||
+    // @ts-expect-error: originUrl is missing in the type definition
+    details.originUrl?.includes('moz-extension') ||
+    // @ts-expect-error: documentUrl is missing in the type definition
+    details.documentUrl?.includes('moz-extension')
+  )
+    return
+  // Check if the URL matches any of the regex patterns of the active domains
   isURLTracked(details.url).then((isTracked) => {
-    // If the tabId is negative, it means the request comes from the background script itself and hence should be ignored
-    if (!isTracked || details.tabId < 0) return
+    if (!isTracked) return
     setTimeout(() => {
       // ensure this runs after the onBeforeSendHeadersListener
       if (prefetchRequests.has(details.requestId)) {
@@ -263,6 +282,7 @@ function registerHeartbeatListener(): void {
 
 function constructRuleSet(activeDomains: DomainSettings[]): Browser.declarativeNetRequest.Rule[] {
   // Create redirect rules for each active domain
+  // @ts-expect-error: the type definition for declarativeNetRequest is outdated and does not include all supported properties
   const ruleSet: Browser.declarativeNetRequest.Rule[] = activeDomains
     .filter((domain) => !!domain.domain && domain.interceptionMethod === 'declarativeNetRequest')
     .map((domain, index) => ({
@@ -291,6 +311,7 @@ function constructRuleSet(activeDomains: DomainSettings[]): Browser.declarativeN
     },
     condition: {
       regexFilter: redirectURL,
+      // @ts-expect-error: the type definition for declarativeNetRequest is outdated and does not include all supported properties
       resourceTypes,
       requestMethods,
     },

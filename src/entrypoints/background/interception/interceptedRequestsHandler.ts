@@ -35,7 +35,7 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
     notifications.info(i18n.t('interception.requestBlocked', [url]))
     log.info(`request ${details.requestId} to ${url} was blocked by interception rules`)
     // Check if the tab was opened from another tab
-    if (tabRelationships.has(details.tabId)) {
+    if (details.tabId >= 0 && tabRelationships.has(details.tabId)) {
       // If the tab was opened from another tab, close it
       log.info(`closing tab ${tabId} opened from tab ${tabRelationships.get(tabId)}`)
       await browser.tabs.remove(tabId)
@@ -48,20 +48,22 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
     const setting = (await getInterceptionSettings()).domains.find((d) => d.domain === domain)
     if (!setting) throw new Error(`no domain setting found for ${domain}`)
     // Wait for the tab to be loaded completely
-    await waitForTabToLoad(tabId)
+    if (tabId >= 0) await waitForTabToLoad(tabId)
     // Inject a script to get the source URL
-    try {
-      const [scriptingResult] = await browser.scripting.executeScript({
-        target: { tabId: tabId },
-        func: () => {
-          return window.location.href
-        },
-        injectImmediately: true,
-      })
-      sourceUrl = scriptingResult.result as string
-    } catch (e) {
-      const error = e instanceof Error ? e : new Error(String(e))
-      log.error(`failed to get source URL for request ${details.requestId}`, error)
+    if (tabId >= 0) {
+      try {
+        const [scriptingResult] = await browser.scripting.executeScript({
+          target: { tabId: tabId },
+          func: () => {
+            return window.location.href
+          },
+          injectImmediately: true,
+        })
+        sourceUrl = scriptingResult.result as string
+      } catch (e) {
+        const error = e instanceof Error ? e : new Error(String(e))
+        log.error(`failed to get source URL for request ${details.requestId}`, error)
+      }
     }
     log.info(`source URL for request ${details.requestId} is ${sourceUrl}`)
     // Prepare and fetch the request
@@ -118,7 +120,7 @@ export async function fetchInterceptedRequestFromContentScript(
   const ruleId = sessionRuleId++
   try {
     // wait for the tab to be loaded completely
-    await waitForTabToLoad(tabId)
+    if (tabId >= 0) await waitForTabToLoad(tabId)
     // modify the request URL to have unique URLs and hence also unique blocking rules
     request = addTimestampToURL(request, ruleId)
     // add session rule to allow the request for exact this unique URL
