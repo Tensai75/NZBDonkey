@@ -5,7 +5,7 @@ import generalBackground from '@/entrypoints/background/general'
 import interceptionBackground from '@/entrypoints/background/interception'
 import settingsUpdate from '@/entrypoints/background/settingsUpdate'
 import log from '@/services/logger/debugLogger'
-import { onMessage } from '@/services/messengers/extensionMessenger'
+//import { onMessage } from '@/services/messengers/extensionMessenger'
 
 export default defineBackground(() => {
   log.initDebugLog('background')
@@ -22,6 +22,7 @@ export default defineBackground(() => {
       browser.tabs.create({ url: browser.runtime.getURL('/nzbdonkey.html' as PublicPath) })
     }
   })
+  /*
   onMessage('momentumCheck', async (): Promise<boolean> => {
     const ports = [62234, 52234, 42234, 32234, 22234, 12234, 5003]
     const fetchPromises: Promise<boolean>[] = []
@@ -48,5 +49,6 @@ export default defineBackground(() => {
     }
     return await Promise.any(fetchPromises).catch(() => false)
   })
+  */
   log.info('background script loaded successfully')
 })

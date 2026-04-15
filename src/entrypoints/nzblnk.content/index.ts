@@ -42,6 +42,7 @@ export default defineContentScript({
       })
       log.info('nzblnk content script loaded successfully')
     })
+    /*
     window.addEventListener('message', async (event: MessageEvent) => {
       if (event.source !== window) return
       if (event.data?.type !== 'NZBDONKEY_MOMENTUM_CHECK') return
@@ -54,5 +55,6 @@ export default defineContentScript({
         event.origin
       )
     })
+    */
   },
 })

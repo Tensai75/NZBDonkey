@@ -14,7 +14,7 @@ export interface ProtocolMap {
   fetchRequest(data: SerializedRequest): Promise<SerializedResponse | Error>
   fetchListenerRequest(data: { request: SerializedRequest; sourceURL: string }): void
   heartbeat(data: null): void
-  momentumCheck(data: boolean): Promise<boolean>
+  //momentumCheck(data: boolean): Promise<boolean>
 }
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>()
 export type RemoveListenerCallback = RemoveListenerCallbackType
