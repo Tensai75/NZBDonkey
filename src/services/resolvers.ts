@@ -60,17 +60,19 @@ export const replacementStringResolver: Resolver = ({ value }) => {
   return { errors }
 }
 
-export const uniqueBaseDomainResolver: Resolver = async ({ value }) => {
-  const errors: { message: string }[] = []
-  if (psl.get(value) !== value) {
-    errors.push({ message: i18n.t('validation.noBaseDomain') })
+export const uniqueBaseDomainResolver =
+  (initialValue = ''): Resolver =>
+  async ({ value }) => {
+    const errors: { message: string }[] = []
+    if (psl.get(value) !== value) {
+      errors.push({ message: i18n.t('validation.noBaseDomain') })
+    }
+    const settings = await getInterceptionSettings()
+    if (value !== initialValue && settings.domains.some((d) => d.domain === value)) {
+      errors.push({ message: i18n.t('validation.domainExists') })
+    }
+    return { errors }
   }
-  const settings = await getInterceptionSettings()
-  if (settings.domains.some((d) => d.domain === value)) {
-    errors.push({ message: i18n.t('validation.domainExists') })
-  }
-  return { errors }
-}
 
 export const jsonPathResolver: Resolver = ({ value }) => {
   const errors: { message: string }[] = []
@@ -137,7 +139,8 @@ export const portResolver: Resolver = ({ value }) => {
 // --- Composed resolvers ---
 
 export const requiredURLResolver = compose(requiredResolver, urlResolver, replacementStringResolver)
-export const requiredUniqueBaseDomainResolver = compose(requiredResolver, uniqueBaseDomainResolver)
+export const requiredUniqueBaseDomainResolver = (initialValue = ''): Resolver =>
+  compose(requiredResolver, uniqueBaseDomainResolver(initialValue))
 export const requiredJSONPathResolver = compose(requiredResolver, jsonPathResolver)
 export const requiredRegexpResolver = compose(requiredResolver, regexpResolver)
 export const requiredNetRequestRegexpResolver = compose(requiredResolver, regexpResolver, netRequestRegexpResolver)

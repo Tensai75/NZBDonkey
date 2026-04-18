@@ -24,12 +24,14 @@ const showAdvancedSettings = ref(false)
 // default is add
 const title = ref(i18n.t('settings.interception.addDialog'))
 const domain = ref<interception.DomainSettings>(structuredClone(interception.defaultDomainSettings))
+const initialDomain = ref(domain.value.domain)
 const isAdd = ref(true)
 const showDefaultsDomainsDialog = ref(true)
 
 if (props.domains[props.index]) {
   title.value = i18n.t('settings.interception.editDialog')
   domain.value = structuredClone(toRaw(props.domains[props.index]))
+  initialDomain.value = domain.value.domain
   isAdd.value = false
   showDefaultsDomainsDialog.value = false
 }
@@ -46,6 +48,7 @@ function save() {
 
 function reset() {
   domain.value = structuredClone(interception.defaultDomainSettings)
+  initialDomain.value = domain.value.domain
   rerenderKey.value++
 }
 </script>
@@ -67,7 +70,7 @@ function reset() {
           v-slot="$field"
           :name="i18n.t('settings.interception.domains.domain.title')"
           :initial-value="domain.domain"
-          :resolver="isAdd ? requiredUniqueBaseDomainResolver : undefined"
+          :resolver="requiredUniqueBaseDomainResolver(initialDomain)"
           :validate-on-blur="true"
           :validate-on-value-update="true"
           :validate-on-mount="true"
@@ -80,14 +83,14 @@ function reset() {
             size="small"
             autocomplete="off"
             type="text"
-            :disabled="domain.isDefault || isAdd === false"
+            :disabled="domain.isDefault"
           />
           <Message v-if="$field?.invalid" severity="error" size="small" variant="simple" class="flex-auto">{{
             $field.error?.message
           }}</Message>
         </FormField>
       </div>
-      <div class="flex items-center gap-4 mb-4">
+      <div v-if="!domain.isDefault" class="flex items-center gap-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.pathRegExp')
         }}</label>
@@ -132,7 +135,7 @@ function reset() {
           </div>
         </FormField>
       </div>
-      <div class="flex items-center gap-4 pt-4 mb-4">
+      <div v-if="!domain.isDefault" class="flex items-center gap-4 pt-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.interceptArchiveFiles.title')
         }}</label>
@@ -162,7 +165,7 @@ function reset() {
           }}</Message>
         </FormField>
       </div>
-      <div class="flex items-center gap-4 mb-4">
+      <div v-if="!domain.isDefault" class="flex items-center gap-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.common.confirmAdvancedSettings.header')
         }}</label>
@@ -295,6 +298,7 @@ function reset() {
     @save="
       (defaultDomain) => {
         domain = defaultDomain
+        initialDomain = defaultDomain.domain
         showDefaultsDomainsDialog = false
         rerenderKey++
       }
