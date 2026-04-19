@@ -1,3 +1,20 @@
+# [1.7.0](https://github.com/Tensai75/NZBDonkey/compare/v1.6.0...v1.7.0) (2026-04-19)
+
+
+### Bug Fixes
+
+* allow interception from service worker and subdocuments ([2863e90](https://github.com/Tensai75/NZBDonkey/commit/2863e904c9c76084053a5ffe5aa3e4df8ad66e22))
+* ignore prefetch requests on Chrome ([9af9f4b](https://github.com/Tensai75/NZBDonkey/commit/9af9f4bfc32176ba7c22350c57f5f48fd22bf5fc)), closes [#131](https://github.com/Tensai75/NZBDonkey/issues/131)
+* only run watchSettings callback if values have changed ([3487bf4](https://github.com/Tensai75/NZBDonkey/commit/3487bf4efb86bab2060b1b26350243f7ab866e34))
+* refactor serializeRequest/deserializeRequest ([b3fb4fc](https://github.com/Tensai75/NZBDonkey/commit/b3fb4fc8d4aff8201523e899111b31215f61b1c7))
+* refactor serializeResponse/deserializeResponse ([c4cc9f2](https://github.com/Tensai75/NZBDonkey/commit/c4cc9f2aaaec338fb60a687d9c187e1d8c78da6f))
+* resolve settings watcher race condition ([6553160](https://github.com/Tensai75/NZBDonkey/commit/6553160d9a5581fdd1902eed19c882b8b073cb34))
+
+
+### Features
+
+* additional interception method to directly intercept fetch calls ([989a87a](https://github.com/Tensai75/NZBDonkey/commit/989a87ab4c893081e955534ec15ce048d1b711d0))
+
 # [1.6.0](https://github.com/Tensai75/NZBDonkey/compare/v1.5.2...v1.6.0) (2026-03-28)
 
 
