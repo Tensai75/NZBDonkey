@@ -20,7 +20,7 @@
         "removeHyphen": false,
         "setIntoQuotes": false
       },
-      "icon": "https://nzbindex.com/favicon.ico"
+      "icon": "https://www.faviconextractor.com/favicon/nzbindex.com"
     },
     {
       "type": "defaultEngine",
@@ -41,7 +41,7 @@
         "removeHyphen": false,
         "setIntoQuotes": false
       },
-      "icon": "https://nzbindex.nl/favicon.ico"
+      "icon": "https://www.faviconextractor.com/favicon/nzbindex.nl"
     },
     {
       "type": "defaultEngine",
