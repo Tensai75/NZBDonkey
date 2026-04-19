@@ -267,18 +267,37 @@ export const getRelativeURL = (absoluteUrl: string): string => {
 }
 
 /**
+ * Converts a `Blob` object into a Base64-encoded data URL.
+ * @param {Blob} blob - The `Blob` object to convert.
+ * @return {Promise<string>} A promise resolving to the Base64 data URL.
+ * @throws {Error} Throws an error if the conversion fails.
+ */
+export const convertBlobToBase64DataURL = async (blob: Blob): Promise<string> => {
+  try {
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = () => reject(reader.error)
+      reader.readAsDataURL(blob)
+    })
+  } catch {
+    throw new Error('failed to convert Blob to Base64 data URL')
+  }
+}
+
+/**
  * Converts a `Blob` object into a Base64-encoded string.
  * @param {Blob} blob - The `Blob` object to convert.
  * @return {Promise<string>} A promise resolving to the Base64 string.
  * @throws {Error} Throws an error if the conversion fails.
  */
-export const convertBlobToBase64 = (blob: Blob): Promise<string> => {
-  const reader = new FileReader()
-  reader.readAsDataURL(blob)
-  return new Promise((resolve, reject) => {
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = () => reject(new Error('failed to convert Blob to Base64'))
-  })
+export const convertBlobToBase64String = async (blob: Blob): Promise<string> => {
+  try {
+    const dataUrl = await convertBlobToBase64DataURL(blob)
+    return dataUrl.split(',')[1]
+  } catch {
+    throw new Error('failed to convert Blob to Base64 string')
+  }
 }
 
 /**
@@ -287,12 +306,29 @@ export const convertBlobToBase64 = (blob: Blob): Promise<string> => {
  * @return {Promise<Blob>} A promise resolving to the `Blob` object.
  * @throws {Error} Throws an error if the conversion fails.
  */
-export const convertBase64toBlob = async (dataUrl: string): Promise<Blob> => {
+export const convertBase64DataURLToBlob = async (dataUrl: string): Promise<Blob> => {
   try {
     const response = await fetch(dataUrl)
     return response.blob()
   } catch {
-    throw new Error('failed to convert Base64 to Blob')
+    throw new Error('failed to convert Base64 data URL to Blob')
+  }
+}
+
+/**
+ * Converts a Base64-encoded string into a `Blob` object.
+ * @param {string} base64 - The Base64 string to convert.
+ * @param {string} [type] - The MIME type of the resulting `Blob`. Defaults to "application/octet-stream".
+ * @return {Promise<Blob>} A promise resolving to the `Blob` object.
+ * @throws {Error} Throws an error if the conversion fails.
+ * Note: The input string should not include the data URL prefix (e.g., "data:application/octet-stream;base64,").
+ */
+export const convertBase64StringToBlob = async (base64: string, type?: string): Promise<Blob> => {
+  try {
+    const dataUrl = `data:${type || 'application/octet-stream'};base64,${base64}`
+    return convertBase64DataURLToBlob(dataUrl)
+  } catch {
+    throw new Error('failed to convert Base64 string to Blob')
   }
 }
 
@@ -316,6 +352,8 @@ export const JSONparse = <T>(string: string): T => {
  *
  * Represents a plain-object serialization of a Request, including method,
  * headers, body, and all relevant fetch options.
+ * Note: For FormData bodies, this implementation only supports string values
+ * and does not handle file uploads. Blob bodies are serialized as Base64 strings.
  */
 export type SerializedRequest = {
   url: string
@@ -342,106 +380,95 @@ export type SerializedRequest = {
  * @param {RequestInfo} input - The request or URL to serialize.
  * @param {RequestInit} [init] - Optional request options.
  * @return {Promise<SerializedRequest>} The serialized request object.
- * @throws {Error} Throws if the request body is already consumed.
+ * @throws {Error} Throws an error if the request body contains unsupported types (e.g., File/Blob in FormData) or if serialization fails.
+ * Note: For FormData bodies, this implementation only supports string values
+ * and does not handle file uploads. Blob bodies are serialized as Base64 strings.
  */
 export async function serializeRequest(input: RequestInfo, init?: RequestInit): Promise<SerializedRequest> {
-  const req = new Request(input, init)
-  if (req.bodyUsed) {
-    throw new Error('cannot serialize a Request whose body is already consumed')
-  }
+  try {
+    const req = new Request(input, init)
+    const headers = Array.from(req.headers.entries())
+    const contentType = req.headers.get('Content-Type')?.toLowerCase() || ''
 
-  const clone = req.clone()
-  const headers = Array.from(clone.headers.entries())
-  const contentType = clone.headers.get('Content-Type')?.toLowerCase() || ''
+    let bodyData: SerializedRequest['body'] = undefined
 
-  let bodyData: SerializedRequest['body'] = undefined
-
-  if (clone.method !== 'GET' && clone.method !== 'HEAD') {
-    // Try URLSearchParams
-    if (!bodyData && contentType.includes('application/x-www-form-urlencoded')) {
-      const text = await clone.text()
-      bodyData = {
-        type: 'urlSearchParams',
-        content: text,
-        mimeType: 'application/x-www-form-urlencoded',
-      }
-    }
-
-    // Try JSON
-    if (!bodyData && contentType.includes('application/json')) {
-      const text = await clone.text()
-      bodyData = {
-        type: 'json',
-        content: text,
-        mimeType: 'application/json',
-      }
-    }
-
-    // Try FormData
-    if (!bodyData) {
-      try {
-        const form = await clone.clone().formData()
-        const obj: Record<string, string> = {}
-        let onlyStrings = true
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      if (contentType.includes('application/x-www-form-urlencoded')) {
+        // URLSearchParams
+        const text = await req.text()
+        bodyData = {
+          type: 'urlSearchParams',
+          content: text,
+          mimeType: 'application/x-www-form-urlencoded',
+        }
+      } else if (contentType.includes('application/json')) {
+        // JSON
+        const text = await req.text()
+        bodyData = {
+          type: 'json',
+          content: text,
+          mimeType: 'application/json',
+        }
+      } else if (contentType.includes('multipart/form-data')) {
+        // FormData
+        const form = await req.formData()
+        const obj: Record<string, string | string[]> = {}
 
         for (const [key, val] of form.entries()) {
-          if (typeof val === 'string') {
-            obj[key] = val
+          if (typeof val !== 'string') {
+            throw new Error('FormData contains File/Blob which is not supported in this version.')
+          }
+          if (key in obj) {
+            const existing = obj[key]
+            obj[key] = Array.isArray(existing) ? [...existing, val] : [existing, val]
           } else {
-            onlyStrings = false
-            break
+            obj[key] = val
           }
         }
 
-        if (onlyStrings) {
-          bodyData = {
-            type: 'formData',
-            content: JSON.stringify(obj),
-            mimeType: 'application/json',
-          }
-        } else {
-          throw new Error('FormData contains File/Blob which is not supported in this version.')
-        }
-      } catch {
-        // formData() failed — continue
-      }
-    }
-
-    // Try plain text or blob fallback
-    if (!bodyData) {
-      const blob = await clone.blob()
-      if (blob.type.startsWith('text/') || blob.type === '') {
-        const text = await blob.text()
         bodyData = {
-          type: 'text',
-          content: text,
-          mimeType: blob.type || 'text/plain',
+          type: 'formData',
+          content: JSON.stringify(obj),
+          mimeType: 'application/json',
         }
       } else {
-        const buffer = await blob.arrayBuffer()
-        const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)))
-        bodyData = {
-          type: 'blob',
-          content: base64,
-          mimeType: blob.type,
+        // Plain text or blob fallback
+        const blob = await req.blob()
+        if (blob.type.startsWith('text/') || blob.type === '') {
+          const text = await blob.text()
+          bodyData = {
+            type: 'text',
+            content: text,
+            mimeType: blob.type || 'text/plain',
+          }
+        } else {
+          const base64 = await convertBlobToBase64String(blob)
+          bodyData = {
+            type: 'blob',
+            content: base64,
+            mimeType: blob.type,
+          }
         }
       }
     }
-  }
 
-  return {
-    url: clone.url,
-    method: clone.method,
-    headers,
-    body: bodyData,
-    credentials: clone.credentials,
-    cache: clone.cache,
-    mode: clone.mode,
-    redirect: clone.redirect,
-    referrer: clone.referrer,
-    referrerPolicy: clone.referrerPolicy,
-    integrity: clone.integrity,
-    keepalive: clone.keepalive,
+    return {
+      url: req.url,
+      method: req.method,
+      headers,
+      body: bodyData,
+      credentials: req.credentials,
+      cache: req.cache,
+      mode: req.mode,
+      redirect: req.redirect,
+      referrer: req.referrer,
+      referrerPolicy: req.referrerPolicy,
+      integrity: req.integrity,
+      keepalive: req.keepalive,
+    }
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`request serialization failed: ${error.message}`)
   }
 }
 
@@ -450,59 +477,65 @@ export async function serializeRequest(input: RequestInfo, init?: RequestInit): 
  * Reconstructs the body according to its serialized type.
  * @param {SerializedRequest} data - The serialized request object.
  * @return {Request} The reconstructed Request object.
- * @throws {Error} Throws if the body type is unsupported.
+ * @throws {Error} Throws an error if deserialization fails or if the body type is unsupported.
+ * Note: For FormData bodies, this implementation only supports string values and does not handle file uploads.
  */
-export function deserializeRequest(data: SerializedRequest): Request {
-  let body: BodyInit | null = null
+export async function deserializeRequest(data: SerializedRequest): Promise<Request> {
+  try {
+    let body: BodyInit | null = null
 
-  if (data.body) {
-    switch (data.body.type) {
-      case 'json':
-      case 'text':
-        body = data.body.content
-        break
+    if (data.body) {
+      switch (data.body.type) {
+        case 'json':
+        case 'text':
+          body = data.body.content
+          break
 
-      case 'urlSearchParams':
-        body = new URLSearchParams(data.body.content)
-        break
+        case 'urlSearchParams':
+          body = new URLSearchParams(data.body.content)
+          break
 
-      case 'formData': {
-        const jsonObj = JSON.parse(data.body.content)
-        const formData = new FormData()
-        for (const key in jsonObj) {
-          formData.append(key, jsonObj[key])
+        case 'formData': {
+          const jsonObj = JSON.parse(data.body.content)
+          const formData = new FormData()
+          for (const key in jsonObj) {
+            const value = jsonObj[key]
+            if (Array.isArray(value)) {
+              value.forEach((item: string) => formData.append(key, item))
+            } else {
+              formData.append(key, value)
+            }
+          }
+          body = formData
+          break
         }
-        body = formData
-        break
-      }
 
-      case 'blob': {
-        const binary = atob(data.body.content)
-        const bytes = new Uint8Array(binary.length)
-        for (let i = 0; i < binary.length; i++) {
-          bytes[i] = binary.charCodeAt(i)
+        case 'blob': {
+          body = await convertBase64StringToBlob(data.body.content, data.body.mimeType)
+          break
         }
-        body = new Blob([bytes], { type: data.body.mimeType || '' })
-        break
+        default:
+          throw new Error(`unsupported body type: ${data.body.type}`)
       }
-      default:
-        throw new Error(`Unsupported body type: ${data.body.type}`)
     }
-  }
 
-  return new Request(data.url, {
-    method: data.method,
-    headers: data.headers,
-    body,
-    credentials: data.credentials,
-    cache: data.cache,
-    mode: data.mode,
-    redirect: data.redirect,
-    referrer: data.referrer,
-    referrerPolicy: data.referrerPolicy,
-    integrity: data.integrity,
-    keepalive: data.keepalive,
-  })
+    return new Request(data.url, {
+      method: data.method,
+      headers: data.headers,
+      body,
+      credentials: data.credentials,
+      cache: data.cache,
+      mode: data.mode,
+      redirect: data.redirect,
+      referrer: data.referrer,
+      referrerPolicy: data.referrerPolicy,
+      integrity: data.integrity,
+      keepalive: data.keepalive,
+    })
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`request deserialization failed: ${error.message}`)
+  }
 }
 
 /**
@@ -530,71 +563,68 @@ export type SerializedResponse = {
  * Handles text, JSON, and blob body types, and includes all relevant response properties.
  * @param {Response} response - The response to serialize.
  * @return {Promise<SerializedResponse>} The serialized response object.
- * @throws {Error} Throws if the response body is already consumed.
+ * @throws {Error} Throws an error if the response body is already consumed or if serialization fails.
+ * Note: For blob bodies, the content is serialized as a Base64 string.
+ * Consumers must check the `mimeType` to determine how to handle the content.
  */
 export async function serializeResponse(response: Response): Promise<SerializedResponse> {
-  if (response.bodyUsed) {
-    throw new Error('Response body already consumed')
-  }
-  const clone = response.clone()
-  const headers = Array.from(clone.headers)
-  const contentType = clone.headers.get('Content-Type') || ''
-  const contentDisposition = clone.headers.get('Content-Disposition') || ''
-  const isAttachment = contentDisposition.toLowerCase().includes('attachment')
+  try {
+    if (response.bodyUsed) {
+      throw new Error('response body already consumed')
+    }
+    const clone = response.clone()
+    const headers = Array.from(clone.headers)
+    const contentType = (clone.headers.get('Content-Type') || '').toLowerCase()
+    const contentDisposition = clone.headers.get('Content-Disposition') || ''
+    const isAttachment = contentDisposition.toLowerCase().includes('attachment')
 
-  let bodyData: SerializedResponse['body'] = undefined
+    let bodyData: SerializedResponse['body'] = undefined
 
-  const blobToBase64 = (blob: Blob): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve((reader.result as string).split(',')[1])
-      reader.onerror = reject
-      reader.readAsDataURL(blob)
-    })
-  }
-
-  if (isAttachment) {
-    // Always treat attachments as blob
-    const blob = await clone.blob()
-    const base64 = await blobToBase64(blob)
-    bodyData = {
-      type: 'blob',
-      content: base64,
-      mimeType: blob.type,
+    if (isAttachment) {
+      // Always treat attachments as blob
+      const blob = await clone.blob()
+      const base64 = await convertBlobToBase64String(blob)
+      bodyData = {
+        type: 'blob',
+        content: base64,
+        mimeType: blob.type,
+      }
+    } else if (contentType.includes('application/json')) {
+      const text = await clone.text()
+      bodyData = {
+        type: 'json',
+        content: text,
+        mimeType: contentType,
+      }
+    } else if (contentType.startsWith('text/') || contentType === '') {
+      const text = await clone.text()
+      bodyData = {
+        type: 'text',
+        content: text,
+        mimeType: contentType || 'text/plain',
+      }
+    } else {
+      const blob = await clone.blob()
+      const base64 = await convertBlobToBase64String(blob)
+      bodyData = {
+        type: 'blob',
+        content: base64,
+        mimeType: blob.type,
+      }
     }
-  } else if (contentType.includes('application/json')) {
-    const text = await clone.text()
-    bodyData = {
-      type: 'json',
-      content: text,
-      mimeType: contentType,
+    return {
+      status: clone.status,
+      statusText: clone.statusText,
+      headers,
+      body: bodyData,
+      url: clone.url,
+      redirected: clone.redirected,
+      type: clone.type,
+      ok: clone.ok,
     }
-  } else if (contentType.startsWith('text/') || contentType === '') {
-    const text = await clone.text()
-    bodyData = {
-      type: 'text',
-      content: text,
-      mimeType: contentType || 'text/plain',
-    }
-  } else {
-    const blob = await clone.blob()
-    const buffer = await blob.arrayBuffer()
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)))
-    bodyData = {
-      type: 'blob',
-      content: base64,
-      mimeType: blob.type,
-    }
-  }
-  return {
-    status: clone.status,
-    statusText: clone.statusText,
-    headers,
-    body: bodyData,
-    url: clone.url,
-    redirected: clone.redirected,
-    type: clone.type,
-    ok: clone.ok,
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`response serialization failed: ${error.message}`)
   }
 }
 
@@ -603,9 +633,18 @@ export async function serializeResponse(response: Response): Promise<SerializedR
  * Reconstructs the body according to its serialized type and restores all relevant response properties.
  * @param {SerializedResponse} data - The serialized response object.
  * @return {Response} The reconstructed Response like object.
+ * @throws {Error} Throws an error if deserialization fails or if the body type is unsupported.
+ * Note: The returned object is an instance of DeserializedResponse,
+ * which mimics the standard Response interface but allows setting all properties.
+ * It can be used in most custom code as a drop-in replacement for Response, but it is not a real Response instance.
  */
-export function deserializeResponse(data: SerializedResponse): DeserializedResponse {
-  return new DeserializedResponse(data)
+export async function deserializeResponse(data: SerializedResponse): Promise<DeserializedResponse> {
+  try {
+    return await DeserializedResponse.fromSerialized(data)
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e))
+    throw new Error(`response deserialization failed: ${error.message}`)
+  }
 }
 
 /**
@@ -621,6 +660,8 @@ export function deserializeResponse(data: SerializedResponse): DeserializedRespo
  */
 export class DeserializedResponse {
   body: BodyInit | null
+  bodyUsed: boolean
+  private serializedBody?: SerializedResponse['body']
   headers: Headers
   status: number
   statusText: string
@@ -629,8 +670,10 @@ export class DeserializedResponse {
   type: ResponseType
   ok: boolean
 
-  constructor(data: SerializedResponse) {
-    this.body = this.deserializeBody(data.body)
+  private constructor(data: SerializedResponse) {
+    this.body = null
+    this.bodyUsed = false
+    this.serializedBody = data.body
     this.headers = new Headers(data.headers)
     this.status = data.status
     this.statusText = data.statusText
@@ -640,23 +683,27 @@ export class DeserializedResponse {
     this.ok = data.ok
   }
 
-  private deserializeBody(bodyData?: SerializedResponse['body']): BodyInit | null {
-    if (!bodyData) return null
-    switch (bodyData.type) {
+  static async fromSerialized(data: SerializedResponse): Promise<DeserializedResponse> {
+    const response = new DeserializedResponse(data)
+    await response.deserializeBody()
+    return response
+  }
+
+  private async deserializeBody(): Promise<void> {
+    if (!this.serializedBody) return
+    switch (this.serializedBody.type) {
       case 'text':
       case 'json':
-        return bodyData.content
+        this.body = this.serializedBody.content
+        break
       case 'blob': {
-        const binary = atob(bodyData.content)
-        const bytes = new Uint8Array(binary.length)
-        for (let i = 0; i < binary.length; i++) {
-          bytes[i] = binary.charCodeAt(i)
-        }
-        return new Blob([bytes], { type: bodyData.mimeType || '' })
+        this.body = await convertBase64StringToBlob(this.serializedBody.content, this.serializedBody.mimeType || '')
+        break
       }
       default:
-        return null
+        this.body = null
     }
+    this.serializedBody = undefined
   }
 
   async text(): Promise<string> {
@@ -665,8 +712,7 @@ export class DeserializedResponse {
     return ''
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async json(): Promise<any> {
+  async json<T>(): Promise<T> {
     const txt = await this.text()
     return JSON.parse(txt)
   }

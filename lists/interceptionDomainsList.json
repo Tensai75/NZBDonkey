@@ -1,15 +1,16 @@
 {
-  "version": 2,
+  "version": 3,
   "data": [
     {
       "id": "nzbindex.com",
       "archiveFileExtensions": [],
       "domain": "nzbindex.com",
       "fetchOrigin": "background",
-      "icon": "https://nzbindex.com/favicon.ico",
+      "icon": "https://www.faviconextractor.com/favicon/nzbindex.com",
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/api/download.*?(t=\\d+|\\.nzb)$",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -22,6 +23,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/nzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -34,6 +36,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/nzb:?.*/",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -42,10 +45,11 @@
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "scenenzbs.com",
       "fetchOrigin": "background",
-      "icon": "https://cdn.scenenzbs.com/templates/scenenzbs/images/favicon.ico",
+      "icon": "https://www.faviconextractor.com/favicon/scenenzbs.com",
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -58,6 +62,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/attachments/.*(nzb|zip|rar)\\.\\d+",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -70,6 +75,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -82,6 +88,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^.*&nzbID=.*$",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -94,6 +101,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/api\\?t=get&id=",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -106,6 +114,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -118,6 +127,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -130,6 +140,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -142,6 +153,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^(/send|/browsesend\\?type=send|/cartsend\\.php\\?type=sendfinal)",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -154,6 +166,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/nzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -162,10 +175,11 @@
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "cinema-of-usenet.to",
       "fetchOrigin": "background",
-      "icon": "https://www.cinema-of-usenet.to/data/assets/logo/4552946.webp",
+      "icon": "https://www.faviconextractor.com/favicon/cinema-of-usenet.to",
       "isActive": true,
       "isDefault": true,
-      "pathRegExp": "^/attachments/.*/\\?sess=",
+      "pathRegExp": "^/get_nzb",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -178,6 +192,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -190,18 +205,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
-      "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
-    },
-    {
-      "id": "friends-of-binaries.info",
-      "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
-      "domain": "friends-of-binaries.info",
-      "fetchOrigin": "background",
-      "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Ffriends-of-binaries.info",
-      "isActive": true,
-      "isDefault": true,
-      "pathRegExp": "/index\\.php\\?attachments/.+/&sess=.+",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -214,6 +218,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "/nzbcreate\\.php",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -226,6 +231,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -238,6 +244,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -250,6 +257,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/uploads/.*\\.nzb",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -262,6 +270,7 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/storage/nzbs/.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     },
@@ -274,6 +283,33 @@
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
+      "interceptionMethod": "declarativeNetRequest",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
+    },
+    {
+      "id": "amenzb.moe",
+      "archiveFileExtensions": [],
+      "domain": "amenzb.moe",
+      "fetchOrigin": "background",
+      "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=https%3A%2F%2Famenzb.moe",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/download/\\d+",
+      "interceptionMethod": "declarativeNetRequest",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
+    },
+    {
+      "id": "indexarr.net",
+      "archiveFileExtensions": [],
+      "domain": "indexarr.net",
+      "fetchOrigin": "background",
+      "icon": "https://nzb.indexarr.net/favicon.png",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "^/releases/\\d+/nzb",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     }

@@ -4,6 +4,7 @@ import {
 } from './analyseSelectionHandler'
 import { registerSendToContextMenu, registerSendToContextMenuListener } from './sendToHandler'
 
+import { browser } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { watchSettings as watchTargetSettings } from '@/services/targets'
 

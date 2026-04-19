@@ -1,8 +1,9 @@
 import { RequestDetails, tabRelationships } from './declarativeNetRequestHandler'
 import { addTimestampToURL, prepareRequest, waitForTabToLoad } from './helperFunction'
 
-import { i18n } from '#imports'
+import { browser, i18n } from '#imports'
 import {
+  DomainSettings,
   getSettings as getInterceptionSettings,
   handleError,
   handleNzbDialogIfNeeded,
@@ -34,7 +35,7 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
     notifications.info(i18n.t('interception.requestBlocked', [url]))
     log.info(`request ${details.requestId} to ${url} was blocked by interception rules`)
     // Check if the tab was opened from another tab
-    if (tabRelationships.has(details.tabId)) {
+    if (details.tabId >= 0 && tabRelationships.has(details.tabId)) {
       // If the tab was opened from another tab, close it
       log.info(`closing tab ${tabId} opened from tab ${tabRelationships.get(tabId)}`)
       await browser.tabs.remove(tabId)
@@ -47,37 +48,27 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
     const setting = (await getInterceptionSettings()).domains.find((d) => d.domain === domain)
     if (!setting) throw new Error(`no domain setting found for ${domain}`)
     // Wait for the tab to be loaded completely
-    await waitForTabToLoad(tabId)
+    if (tabId >= 0) await waitForTabToLoad(tabId)
     // Inject a script to get the source URL
-    try {
-      const [scriptingResult] = await browser.scripting.executeScript({
-        target: { tabId: tabId },
-        // @ts-expect-error "Type '() => string' is not assignable to type '() => void | undefined'."
-        func: () => {
-          return window.location.href
-        },
-        injectImmediately: true,
-      })
-      sourceUrl = scriptingResult.result as string
-    } catch (e) {
-      const error = e instanceof Error ? e : new Error(String(e))
-      log.error(`failed to get source URL for request ${details.requestId}`, error)
+    if (tabId >= 0) {
+      try {
+        const [scriptingResult] = await browser.scripting.executeScript({
+          target: { tabId: tabId },
+          func: () => {
+            return window.location.href
+          },
+          injectImmediately: true,
+        })
+        sourceUrl = scriptingResult.result as string
+      } catch (e) {
+        const error = e instanceof Error ? e : new Error(String(e))
+        log.error(`failed to get source URL for request ${details.requestId}`, error)
+      }
     }
     log.info(`source URL for request ${details.requestId} is ${sourceUrl}`)
-    // Prepare the request
+    // Prepare and fetch the request
     const request = prepareRequest(details, setting)
-    let response: Response | DeserializedResponse
-    // Fetch the request based on the fetch origin setting
-    switch (setting.fetchOrigin) {
-      case 'injection': {
-        response = await fetchInterceptedRequestFromContentScript(request, domain, tabId)
-        break
-      }
-      default:
-        response = await fetchInterceptedRequest(request)
-    }
-    // Process the response
-    processInterceptedRequestResponse({ response, source: sourceUrl })
+    await fetchAndProcessInterceptedRequest(request, setting, domain, tabId, sourceUrl)
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e))
     log.error(`faild to intercept request ${details.requestId} from ${url}`, error)
@@ -85,7 +76,28 @@ export async function interceptRequest(details: RequestDetails): Promise<void> {
   }
 }
 
-export async function fetchInterceptedRequest(request: Request): Promise<Response> {
+export async function fetchAndProcessInterceptedRequest(
+  request: Request,
+  setting: DomainSettings,
+  domain: string,
+  tabId: number,
+  sourceUrl: string
+): Promise<void> {
+  let response: Response | DeserializedResponse
+  // Fetch the request based on the fetch origin setting
+  switch (setting.fetchOrigin) {
+    case 'injection': {
+      response = await fetchInterceptedRequestFromContentScript(request, domain, tabId)
+      break
+    }
+    default:
+      response = await fetchInterceptedRequestFromBackground(request)
+  }
+  // Process the response
+  await processInterceptedRequestResponse({ response, source: sourceUrl })
+}
+
+export async function fetchInterceptedRequestFromBackground(request: Request): Promise<Response> {
   try {
     log.info(`fetching intercepted request from ${request.url}`)
     const response = await fetch(request)
@@ -108,7 +120,7 @@ export async function fetchInterceptedRequestFromContentScript(
   const ruleId = sessionRuleId++
   try {
     // wait for the tab to be loaded completely
-    await waitForTabToLoad(tabId)
+    if (tabId >= 0) await waitForTabToLoad(tabId)
     // modify the request URL to have unique URLs and hence also unique blocking rules
     request = addTimestampToURL(request, ruleId)
     // add session rule to allow the request for exact this unique URL

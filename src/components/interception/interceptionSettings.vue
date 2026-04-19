@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Column, DataTable, Fieldset, ToggleSwitch, useConfirm } from 'primevue'
+import { Button, Column, DataTable, Fieldset, Tag, ToggleSwitch, useConfirm } from 'primevue'
 import { ref, Ref } from 'vue'
 
 import EditInterceptionDomainDialog from '../../components/interception/editDomainDialog.vue'
@@ -97,22 +97,23 @@ const updateNow = async () => {
               />
             </template>
           </Column>
-          <Column
-            field="domain"
-            :header="i18n.t('settings.interception.domains.domain.title')"
-            header-style="width: auto"
-          ></Column>
-          <Column header-style="width: 1%; padding-right: 0px">
+          <Column :header="i18n.t('settings.interception.domains.domain.title')" header-style="width: auto">
             <template #body="slotProps">
-              <Button
-                icon="pi pi-trash"
-                variant="outlined"
-                raised
-                size="small"
-                rounded
-                severity="danger"
-                @click="confirmDelete(slotProps.index)"
-              />
+              <span class="inline-flex items-center gap-2">
+                <span>{{ slotProps.data.domain }}</span>
+                <Tag
+                  v-if="slotProps.data.isDefault"
+                  :value="i18n.t('settings.interception.domains.domain.predefined')"
+                  severity="secondary"
+                  style="font-size: 0.6rem; height: 1.5em; padding: 0.25em 0.5em"
+                />
+                <Tag
+                  v-if="!slotProps.data.isDefault"
+                  :value="i18n.t('settings.interception.domains.domain.custom')"
+                  severity="info"
+                  style="font-size: 0.6rem; height: 1.5em; padding: 0.25em 0.5em"
+                />
+              </span>
             </template>
           </Column>
           <Column header-style="width: 1%">
@@ -124,6 +125,19 @@ const updateNow = async () => {
                 size="small"
                 rounded
                 @click="showEditDialog(slotProps.index)"
+              />
+            </template>
+          </Column>
+          <Column header-style="width: 1%; padding-right: 0px">
+            <template #body="slotProps">
+              <Button
+                icon="pi pi-trash"
+                variant="outlined"
+                raised
+                size="small"
+                rounded
+                severity="danger"
+                @click="confirmDelete(slotProps.index)"
               />
             </template>
           </Column>

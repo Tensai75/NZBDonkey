@@ -1,6 +1,6 @@
 /*** Cryptographic functions for the MyDownloader API but with native Web Crypto API ***/
 export const sha256 = async (value: string): Promise<string> => {
-  const hashBuffer = await crypto.subtle.digest('SHA-256', encodeUtf8(value))
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encodeUtf8(value) as BufferSource)
   return uint8ArrayToHex(hashBuffer)
 }
 
@@ -13,30 +13,34 @@ export const sha256UpdateKey = async (oldKey: string, newKey: string): Promise<s
 export const hmacSha256 = async (key: string, value: string): Promise<string> => {
   const cryptoKey = await crypto.subtle.importKey(
     'raw',
-    hexToUint8Array(key),
+    hexToUint8Array(key) as BufferSource,
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['sign']
   )
-  const signature = await crypto.subtle.sign('HMAC', cryptoKey, encodeUtf8(value))
+  const signature = await crypto.subtle.sign('HMAC', cryptoKey, encodeUtf8(value) as BufferSource)
   return uint8ArrayToHex(signature)
 }
 
 export const aesEncrypt = async (secret: string, value: object): Promise<string> => {
   const { iv, key } = extractAesKeyAndIv(secret)
-  const cryptoKey = await crypto.subtle.importKey('raw', key, { name: 'AES-CBC' }, false, ['encrypt'])
+  const cryptoKey = await crypto.subtle.importKey('raw', key as BufferSource, { name: 'AES-CBC' }, false, ['encrypt'])
   const encryptedBuffer = await crypto.subtle.encrypt(
-    { name: 'AES-CBC', iv },
+    { name: 'AES-CBC', iv: iv as BufferSource },
     cryptoKey,
-    encodeUtf8(JSON.stringify(value))
+    encodeUtf8(JSON.stringify(value)) as BufferSource
   )
   return uint8ArrayToBase64(new Uint8Array(encryptedBuffer))
 }
 
 export const aesDecrypt = async (secret: string, value: string): Promise<string> => {
   const { iv, key } = extractAesKeyAndIv(secret)
-  const cryptoKey = await crypto.subtle.importKey('raw', key, { name: 'AES-CBC' }, false, ['decrypt'])
-  const decryptedBuffer = await crypto.subtle.decrypt({ name: 'AES-CBC', iv }, cryptoKey, base64ToUint8Array(value))
+  const cryptoKey = await crypto.subtle.importKey('raw', key as BufferSource, { name: 'AES-CBC' }, false, ['decrypt'])
+  const decryptedBuffer = await crypto.subtle.decrypt(
+    { name: 'AES-CBC', iv: iv as BufferSource },
+    cryptoKey,
+    base64ToUint8Array(value) as BufferSource
+  )
   return decodeUtf8(decryptedBuffer)
 }
 

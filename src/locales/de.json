@@ -239,7 +239,9 @@
             "title": "NZB-Einstellungsdialog",
             "description": "einen Dialog anzeigen um Titel, Passwort und andere Einstellungen anzupassen"
           },
-          "pathRegExp": "RegExp für den Download-Pfad"
+          "pathRegExp": "RegExp für den Download-Pfad",
+          "predefined": "Vordefinierte Domäne",
+          "custom": "Benutzerdefinierte Domäne"
         },
         "domainsList": "Vordefinierte Domänen",
         "addNewDomain": "neue Domäne hinzufügen",

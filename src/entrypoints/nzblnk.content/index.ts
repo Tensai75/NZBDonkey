@@ -42,5 +42,19 @@ export default defineContentScript({
       })
       log.info('nzblnk content script loaded successfully')
     })
+    /*
+    window.addEventListener('message', async (event: MessageEvent) => {
+      if (event.source !== window) return
+      if (event.data?.type !== 'NZBDONKEY_MOMENTUM_CHECK') return
+      const response = await sendMessage('momentumCheck', true)
+      event.source.postMessage(
+        {
+          type: 'NZBDONKEY_MOMENTUM_CHECK_RESULT',
+          payload: response,
+        },
+        event.origin
+      )
+    })
+    */
   },
 })

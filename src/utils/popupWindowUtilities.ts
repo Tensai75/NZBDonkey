@@ -3,7 +3,7 @@ import log from '@/services/logger/debugLogger'
 
 export async function openPopupWindow(source: string): Promise<number> {
   try {
-    log.info(`openinge popup dialog window with source "${source}"`)
+    log.info(`opening popup dialog window with source "${source}"`)
     const win = await browser.windows.getCurrent()
     const width = 250
     const height = 250
@@ -52,7 +52,7 @@ export async function resizePopupWindow(width: number, height: number): Promise<
   })
 }
 
-export function focusPopupWindow(intervall: number) {
+export function focusPopupWindow(interval: number) {
   browser.windows.getCurrent().then((window) => {
     setInterval(async () => {
       const focusedWindow = await browser.windows.getLastFocused()
@@ -62,7 +62,7 @@ export function focusPopupWindow(intervall: number) {
           drawAttention: true,
         })
       }
-    }, intervall)
+    }, interval)
   })
 }
 

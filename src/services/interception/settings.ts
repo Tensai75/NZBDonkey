@@ -21,6 +21,7 @@ export const defaultDomainSettings: DomainSettings = {
   pathRegExp: '',
   isDefault: false,
   showNzbDialog: true,
+  interceptionMethod: 'declarativeNetRequest',
   postDataHandling: 'sendAsURLSearchParams',
   fetchOrigin: 'background',
   archiveFileExtensions: [],
@@ -33,11 +34,14 @@ export type DomainSettings = {
   pathRegExp: string
   isDefault: boolean
   showNzbDialog: boolean
+  interceptionMethod: InterceptionMethod
   postDataHandling: 'sendAsFormData' | 'sendAsURLSearchParams'
   fetchOrigin: 'injection' | 'background'
   archiveFileExtensions: string[]
   icon?: string
 }
+
+export type InterceptionMethod = 'declarativeNetRequest' | 'fetchListener'
 
 export const use = async () => useSettings<Settings>({ name, defaults: defaultSettings })
 export const get = async () => getSettings<Settings>({ name, defaults: defaultSettings })

@@ -239,7 +239,9 @@
             "title": "NZB settings dialog",
             "description": "show a dialog to set title, password, and other options"
           },
-          "pathRegExp": "RegExp for the download path"
+          "pathRegExp": "RegExp for the download path",
+          "predefined": "Predefined domain",
+          "custom": "Custom domain"
         },
         "domainsList": "Predefined domains",
         "addNewDomain": "add new domain",

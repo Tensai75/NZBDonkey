@@ -1,4 +1,4 @@
-import { Browser, browser, i18n } from '#imports'
+import { Browser, browser, i18n, ScriptPublicPath } from '#imports'
 import log from '@/services/logger/debugLogger'
 import { sendMessage } from '@/services/messengers/extensionMessenger'
 import { createContextMenuPromise } from '@/utils/generalUtilities'
@@ -12,7 +12,7 @@ declare global {
 }
 
 const CONTEXT_MENU_ID: string = 'NZBDONKEY_Selection'
-const selectionScriptSource: string = '/content-scripts/selection.js'
+const selectionScriptSource: ScriptPublicPath = '/content-scripts/selection.js'
 
 export async function registerAnalyseSelectionContextMenu(): Promise<void> {
   // create analyse selection context menu

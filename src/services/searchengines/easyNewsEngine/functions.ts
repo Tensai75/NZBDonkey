@@ -46,25 +46,17 @@ const checkresponse = async (
       throw new Error(`search engine "${engine.name}" did not return a valid JSON response`)
     }
     if (!response_JSON.data) throw new Error(`search engine "${engine.name}" did not return any results`)
-    const results: { [key: string]: Array<{ [key: string]: string }> } = {}
-    // loop through the search results
+    // loop through the results and get all files with same setID as the first result
+    const results: Array<{ [key: string]: string }> = []
+    let firstResultSetID = ''
     for (const item of response_JSON.data as Array<{ [key: string]: string }>) {
-      // generate a hash of the base filename and the poster name
-      const matchResult = item[10].match(/^([^.]*?)(?:\.|$)/im)
-      if (matchResult) {
-        const basefilename: string = matchResult[1]
-        const hash = await digestMessage(basefilename + item[7])
-        // group results belonging together based on the hash
-        if (!results[hash]) {
-          results[hash] = new Array<{ [key: string]: string }>()
-        }
-        results[hash].push(item)
-      }
+      if (!item.setid) continue
+      if (!firstResultSetID) firstResultSetID = item.setid
+      if (item.setid !== firstResultSetID) continue
+      results.push(item)
     }
-
-    // if there are results get the NZB file of first result
-    if (Object.keys(results).length >= 1) {
-      return results[Object.keys(results)[0]]
+    if (results.length >= 1) {
+      return results
     } else {
       throw new Error(`search engine "${engine.name}" did not return any results`)
     }
@@ -84,14 +76,6 @@ const makeDownloadFormData = (results: Array<{ [key: string]: string }>): FetchO
   return {
     data: formData,
   }
-}
-
-const digestMessage = async (message: string): Promise<string> => {
-  const msgUint8 = new TextEncoder().encode(message) // encode as (utf-8) Uint8Array
-  const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8) // hash the message
-  const hashArray = Array.from(new Uint8Array(hashBuffer)) // convert buffer to byte array
-  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('') // convert bytes to hex string
-  return hashHex
 }
 
 const encodeFileName = (baseName: string, extension: string): string => {

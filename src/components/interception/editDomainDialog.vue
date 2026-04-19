@@ -24,12 +24,14 @@ const showAdvancedSettings = ref(false)
 // default is add
 const title = ref(i18n.t('settings.interception.addDialog'))
 const domain = ref<interception.DomainSettings>(structuredClone(interception.defaultDomainSettings))
+const initialDomain = ref(domain.value.domain)
 const isAdd = ref(true)
 const showDefaultsDomainsDialog = ref(true)
 
 if (props.domains[props.index]) {
   title.value = i18n.t('settings.interception.editDialog')
   domain.value = structuredClone(toRaw(props.domains[props.index]))
+  initialDomain.value = domain.value.domain
   isAdd.value = false
   showDefaultsDomainsDialog.value = false
 }
@@ -37,8 +39,16 @@ if (props.domains[props.index]) {
 const extensions = ref(['zip', 'rar', '7z', 'tar', 'gz'])
 const rerenderKey = ref(0)
 
+function save() {
+  if (!domain.value.id) {
+    domain.value.id = domain.value.domain
+  }
+  emit('save', domain.value)
+}
+
 function reset() {
   domain.value = structuredClone(interception.defaultDomainSettings)
+  initialDomain.value = domain.value.domain
   rerenderKey.value++
 }
 </script>
@@ -60,7 +70,7 @@ function reset() {
           v-slot="$field"
           :name="i18n.t('settings.interception.domains.domain.title')"
           :initial-value="domain.domain"
-          :resolver="isAdd ? requiredUniqueBaseDomainResolver : undefined"
+          :resolver="requiredUniqueBaseDomainResolver(initialDomain)"
           :validate-on-blur="true"
           :validate-on-value-update="true"
           :validate-on-mount="true"
@@ -73,14 +83,14 @@ function reset() {
             size="small"
             autocomplete="off"
             type="text"
-            :disabled="domain.isDefault || isAdd === false"
+            :disabled="domain.isDefault"
           />
           <Message v-if="$field?.invalid" severity="error" size="small" variant="simple" class="flex-auto">{{
             $field.error?.message
           }}</Message>
         </FormField>
       </div>
-      <div class="flex items-center gap-4 mb-4">
+      <div v-if="!domain.isDefault" class="flex items-center gap-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.pathRegExp')
         }}</label>
@@ -125,7 +135,7 @@ function reset() {
           </div>
         </FormField>
       </div>
-      <div class="flex items-center gap-4 pt-4 mb-4">
+      <div v-if="!domain.isDefault" class="flex items-center gap-4 pt-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.interception.domains.domain.interceptArchiveFiles.title')
         }}</label>
@@ -155,11 +165,38 @@ function reset() {
           }}</Message>
         </FormField>
       </div>
-      <div class="flex items-center gap-4 mb-4">
+      <div v-if="!domain.isDefault" class="flex items-center gap-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
           i18n.t('settings.common.confirmAdvancedSettings.header')
         }}</label>
         <ToggleSwitch v-model="showAdvancedSettings" :disabled="domain.isDefault" />
+      </div>
+      <div v-show="showAdvancedSettings" class="flex items-center gap-4 pt-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">Interception Method</label>
+        <FormField name="Interception Method" :initial-value="domain.interceptionMethod" class="grid-row flex-auto">
+          <div class="flex items-center">
+            <div class="flex items-center gap-2">
+              <RadioButton
+                v-model="domain.interceptionMethod"
+                input-id="background"
+                name="interceptionMethod"
+                value="declarativeNetRequest"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsURLSearchParams">Declarative Net Request ({{ i18n.t('common.default') }})</label>
+            </div>
+            <div class="flex items-center gap-2 ml-4">
+              <RadioButton
+                v-model="domain.interceptionMethod"
+                input-id="injection"
+                name="interceptionMethod"
+                value="fetchListener"
+                :disabled="domain.isDefault"
+              />
+              <label for="sendAsFormData">Fetch Listener</label>
+            </div>
+          </div>
+        </FormField>
       </div>
       <div v-show="showAdvancedSettings" class="flex items-center gap-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{
@@ -249,12 +286,7 @@ function reset() {
               @click="reset()"
             ></Button>
             <Button type="button" :label="i18n.t('common.cancel')" severity="secondary" @click="emit('close')"></Button>
-            <Button
-              type="button"
-              :label="i18n.t('common.save')"
-              :disabled="!$form.valid"
-              @click="emit('save', domain)"
-            ></Button>
+            <Button type="button" :label="i18n.t('common.save')" :disabled="!$form.valid" @click="save()"></Button>
           </div>
         </div>
       </template>
@@ -266,6 +298,7 @@ function reset() {
     @save="
       (defaultDomain) => {
         domain = defaultDomain
+        initialDomain = defaultDomain.domain
         showDefaultsDomainsDialog = false
         rerenderKey++
       }
