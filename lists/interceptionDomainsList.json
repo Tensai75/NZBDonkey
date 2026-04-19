@@ -175,10 +175,10 @@
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "cinema-of-usenet.to",
       "fetchOrigin": "background",
-      "icon": "https://www.cinema-of-usenet.to/data/assets/logo/4552946.webp",
+      "icon": "https://www.faviconextractor.com/favicon/cinema-of-usenet.to",
       "isActive": true,
       "isDefault": true,
-      "pathRegExp": "^/attachments/.*/\\?sess=",
+      "pathRegExp": "^/get_nzb",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
