@@ -43,9 +43,9 @@
     {
       "id": "scenenzbs.com",
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
-      "domain": "scenenzbs.com",
+      "domain": "treasure-maps.com",
       "fetchOrigin": "background",
-      "icon": "https://www.faviconextractor.com/favicon/scenenzbs.com",
+      "icon": "https://treasure-maps.com/favicon.ico",
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
