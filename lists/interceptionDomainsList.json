@@ -71,7 +71,7 @@
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "newzbay.cc",
       "fetchOrigin": "background",
-      "icon": "https://newzbay.cc/templates/index/favicon/apple-touch-icon.png",
+      "icon": "https://newzbay.cc/favicon/favicon.ico",
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb",
