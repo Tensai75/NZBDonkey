@@ -299,6 +299,19 @@
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
+    },
+    {
+      "id": "videothek.io",
+      "archiveFileExtensions": ["zip"],
+      "domain": "videothek.io",
+      "fetchOrigin": "injection",
+      "icon": "https://videothek.io/favicon.ico",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "(/nzb/\\d+|/download/zip)",
+      "interceptionMethod": "fetchListener",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true
     }
   ]
 }
