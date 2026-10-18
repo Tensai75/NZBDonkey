@@ -304,12 +304,12 @@
       "id": "videothek.io",
       "archiveFileExtensions": ["zip"],
       "domain": "videothek.io",
-      "fetchOrigin": "injection",
+      "fetchOrigin": "background",
       "icon": "https://videothek.io/favicon.ico",
       "isActive": true,
       "isDefault": true,
-      "pathRegExp": "(/nzb/\\d+|/download/zip)",
-      "interceptionMethod": "fetchListener",
+      "pathRegExp": "^/v1/(nzb|cart/zip)\\?.*",
+      "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true
     }
