@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "data": [
     {
       "id": "nzbindex.com",
@@ -12,7 +12,12 @@
       "pathRegExp": "^/api/download.*?(t=\\d+|\\.nzb)$",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "binsearch.info",
@@ -25,7 +30,12 @@
       "pathRegExp": "^/nzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "nzbking.com",
@@ -38,7 +48,12 @@
       "pathRegExp": "^/nzb:?.*/",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "scenenzbs.com",
@@ -51,20 +66,30 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "house-of-usenet.com",
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "house-of-usenet.com",
       "fetchOrigin": "background",
-      "icon": "https://cdn.house-of-usenet.com/styles/custom/favicon.png",
+      "icon": "https://house-of-usenet.com/hou-favicon.svg",
       "isActive": true,
       "isDefault": true,
-      "pathRegExp": "^/attachments/.*(nzb|zip|rar)\\.\\d+",
-      "interceptionMethod": "declarativeNetRequest",
+      "pathRegExp": "^/attachments/.*",
+      "interceptionMethod": "clickListener",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": ["download"],
+        "contentRegExp": ".*\\.(nzb|zip|rar|7z|tar|gz)$"
+      }
     },
     {
       "id": "newzbay.cc",
@@ -77,7 +102,12 @@
       "pathRegExp": "^/getnzb",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "fileleechers.com",
@@ -90,7 +120,12 @@
       "pathRegExp": "^.*&nzbID=.*$",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "nzbgeek.info",
@@ -103,7 +138,12 @@
       "pathRegExp": "^/api\\?t=get&id=",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "drunkenslug.com",
@@ -116,7 +156,12 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "nzbplanet.net",
@@ -129,7 +174,12 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "nzb.life",
@@ -142,7 +192,12 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "omgwtfnzbs.org",
@@ -155,7 +210,12 @@
       "pathRegExp": "^(/send|/browsesend\\?type=send|/cartsend\\.php\\?type=sendfinal)",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "g4u.to",
@@ -168,7 +228,12 @@
       "pathRegExp": "^/nzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "cinema-of-usenet.com",
@@ -181,7 +246,12 @@
       "pathRegExp": "^/get_nzb",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "usenet-crawler.com",
@@ -194,7 +264,12 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "nzbfinder.ws",
@@ -207,7 +282,12 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "nzbgrabit.org",
@@ -220,7 +300,12 @@
       "pathRegExp": "/nzbcreate\\.php",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "tabula-rasa.pw",
@@ -233,7 +318,12 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "abnzb.com",
@@ -246,7 +336,12 @@
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "bluraynzb.org",
@@ -259,7 +354,12 @@
       "pathRegExp": "^/uploads/.*\\.nzb",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "animetosho.org",
@@ -272,20 +372,30 @@
       "pathRegExp": "^/storage/nzbs/.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "althub.co.za",
       "archiveFileExtensions": ["zip", "rar", "7z", "tar", "gz"],
       "domain": "althub.co.za",
       "fetchOrigin": "background",
-      "icon": "https://althub.co.za/templates/Dark/images/icons/favicon.png",
+      "icon": "https://althub.co.za/templates/Tabler/images/icons/favicon.png",
       "isActive": true,
       "isDefault": true,
       "pathRegExp": "^/getnzb.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "amenzb.moe",
@@ -298,7 +408,12 @@
       "pathRegExp": "^/download/\\d+",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     },
     {
       "id": "videothek.io",
@@ -311,7 +426,12 @@
       "pathRegExp": "^/v1/(nzb|cart/zip)\\?.*",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
-      "showNzbDialog": true
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     }
   ]
 }

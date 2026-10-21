@@ -9,12 +9,12 @@ import { deserializeRequest, getBaseDomainFromURL, SerializedRequest } from '@/u
 
 export default function (): void {
   // async setup
-  log.info('Setting up fetchListener message listener')
-  contentScriptMessageListener('fetchListenerRequest', fetchListenerRequestContentScriptMessageListener)
+  log.info('Setting up interceptedRequest message listener')
+  contentScriptMessageListener('interceptedRequest', interceptedRequestFromContentScriptHandler)
 }
 
-async function fetchListenerRequestContentScriptMessageListener(message: unknown): Promise<void> {
-  log.info('fetchListenerRequest message received from content script')
+async function interceptedRequestFromContentScriptHandler(message: unknown): Promise<void> {
+  log.info('interceptedRequest message received from content script')
   let url = ''
   try {
     const typedMessage = message as {

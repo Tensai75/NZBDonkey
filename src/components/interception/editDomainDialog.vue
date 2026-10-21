@@ -4,9 +4,10 @@ import { Button, Dialog, InputText, Listbox, Message, RadioButton, ToggleSwitch 
 import { PropType, ref, toRaw } from 'vue'
 
 import { i18n } from '#i18n'
+import TagInput from '@/components/inputs/tagInput.vue'
 import DefaultDomainsDialog from '@/components/interception/defaultDomainsDialog.vue'
 import * as interception from '@/services/interception'
-import { requiredNetRequestRegexpResolver, requiredUniqueBaseDomainResolver } from '@/services/resolvers'
+import { regexpResolver, requiredNetRequestRegexpResolver, requiredUniqueBaseDomainResolver } from '@/services/resolvers'
 
 const props = defineProps({
   domains: {
@@ -188,15 +189,80 @@ function reset() {
             <div class="flex items-center gap-2 ml-4">
               <RadioButton
                 v-model="domain.interceptionMethod"
-                input-id="injection"
+                input-id="injectionFetch"
                 name="interceptionMethod"
                 value="fetchListener"
                 :disabled="domain.isDefault"
               />
-              <label for="sendAsFormData">Fetch Listener</label>
+              <label for="injectionFetch">Fetch Listener</label>
+            </div>
+            <div class="flex items-center gap-2 ml-4">
+              <RadioButton
+                v-model="domain.interceptionMethod"
+                input-id="injectionClick"
+                name="interceptionMethod"
+                value="clickListener"
+                :disabled="domain.isDefault"
+              />
+              <label for="injectionClick">Click Listener</label>
             </div>
           </div>
         </FormField>
+      </div>
+      <div v-show="showAdvancedSettings && domain.interceptionMethod === 'clickListener'" class="flex items-center gap-4 pt-4 mb-4">
+        <label for="name" class="font-semibold min-w-32 max-w-32 w-32">Click Listener filter</label>
+        <div class="flex-auto">
+          <div class="flex items-center taginput">
+            <label class="label-text min-w-20 max-w-40 w-40 mr-4">
+              Classes
+            </label>
+            <TagInput
+              v-model="domain.clickListenerFilterOptions.classes"
+              placeholder="Classes"
+              tag-bg-color="var(--p-primary-400)"
+              tag-text-color="var(--p-primary-contrast-color)"
+            />
+          </div>
+          <div class="flex items-center taginput">
+            <label class="label-text min-w-20 max-w-40 w-40 mr-4">
+              Attributes
+            </label>
+            <TagInput
+              v-model="domain.clickListenerFilterOptions.attributes"
+              placeholder="Attributes"
+              tag-bg-color="var(--p-primary-400)"
+              tag-text-color="var(--p-primary-contrast-color)"
+            />
+          </div>
+          <div class="flex items-center taginput">
+            <label class="label-text min-w-20 max-w-40 w-40 mr-4">
+              Content RegExp
+            </label>
+            <FormField
+              v-slot="$field"
+              name="Content RegExp"
+              :initial-value="domain.clickListenerFilterOptions.contentRegExp"
+              :resolver="regexpResolver"
+              :validate-on-blur="true"
+              :validate-on-value-update="true"
+              :validate-on-mount="true"
+              class="grid-row flex-auto"
+            >
+              <InputText
+                id="name"
+                v-model="domain.clickListenerFilterOptions.contentRegExp as string"
+                class="w-full"
+                size="small"
+                autocomplete="off"
+                type="text"
+                :disabled="domain.isDefault"
+              />
+              <Message v-if="$field?.invalid" severity="error" size="small" variant="simple" class="flex-auto">{{
+                $field.error?.message
+              }}</Message>
+            </FormField>
+          </div>
+        </div>
       </div>
       <div v-show="showAdvancedSettings" class="flex items-center gap-4 mb-4">
         <label for="name" class="font-semibold min-w-32 max-w-32 w-32">{{

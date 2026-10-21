@@ -24,6 +24,11 @@ export const defaultDomainSettings: DomainSettings = {
   interceptionMethod: 'declarativeNetRequest',
   postDataHandling: 'sendAsURLSearchParams',
   fetchOrigin: 'background',
+  clickListenerFilterOptions: {
+    classes: [],
+    attributes: [],
+    contentRegExp: '',
+  },
   archiveFileExtensions: [],
 }
 
@@ -36,12 +41,19 @@ export type DomainSettings = {
   showNzbDialog: boolean
   interceptionMethod: InterceptionMethod
   postDataHandling: 'sendAsFormData' | 'sendAsURLSearchParams'
+  clickListenerFilterOptions: ClickListenerFilterOptions
   fetchOrigin: 'injection' | 'background'
   archiveFileExtensions: string[]
   icon?: string
 }
 
-export type InterceptionMethod = 'declarativeNetRequest' | 'fetchListener'
+export type InterceptionMethod = 'declarativeNetRequest' | 'fetchListener' | 'clickListener'
+
+export type ClickListenerFilterOptions = {
+  classes: string[]
+  attributes: string[]
+  contentRegExp: string
+}
 
 export const use = async () => useSettings<Settings>({ name, defaults: defaultSettings })
 export const get = async () => getSettings<Settings>({ name, defaults: defaultSettings })

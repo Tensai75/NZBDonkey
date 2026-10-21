@@ -12,7 +12,7 @@ export interface ProtocolMap {
   nzbFileDialog(data: { windowID: number }): NZBFileObject | NZBFileObject[]
   connectionTest(data: TargetSettings): Promise<boolean>
   fetchRequest(data: SerializedRequest): Promise<SerializedResponse | Error>
-  fetchListenerRequest(data: { request: SerializedRequest; sourceURL: string }): void
+  interceptedRequest(data: { request: SerializedRequest; sourceURL: string }): void
   heartbeat(data: null): void
   //momentumCheck(data: boolean): Promise<boolean>
 }
