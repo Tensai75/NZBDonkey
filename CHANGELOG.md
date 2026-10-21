@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/Tensai75/NZBDonkey/compare/v1.7.0...v1.8.0) (2026-10-21)
+
+
+### Features
+
+* additional interception method to directly capture clicks on links ([11da19b](https://github.com/Tensai75/NZBDonkey/commit/11da19bd2373d15c08a2828b8a65efa796ced202)), closes [#142](https://github.com/Tensai75/NZBDonkey/issues/142)
+
 # [1.7.0](https://github.com/Tensai75/NZBDonkey/compare/v1.6.0...v1.7.0) (2026-04-19)
 
 
