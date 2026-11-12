@@ -432,6 +432,24 @@
         "attributes": [],
         "contentRegExp": ""
       }
+    },
+    {
+      "id": "searchnzb.com",
+      "archiveFileExtensions": [],
+      "domain": "searchnzb.com",
+      "fetchOrigin": "background",
+      "icon": "https://searchnzb.com/static/logo.svg",
+      "isActive": true,
+      "isDefault": true,
+      "pathRegExp": "/download/.*\\.nzb",
+      "interceptionMethod": "fetchListener",
+      "postDataHandling": "sendAsURLSearchParams",
+      "showNzbDialog": true,
+      "clickListenerFilterOptions": {
+        "classes": [],
+        "attributes": [],
+        "contentRegExp": ""
+      }
     }
   ]
 }
