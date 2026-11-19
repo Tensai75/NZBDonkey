@@ -243,7 +243,7 @@
       "icon": "https://www.faviconextractor.com/favicon/cinema-of-usenet.to",
       "isActive": true,
       "isDefault": true,
-      "pathRegExp": "^/get_nzb",
+      "pathRegExp": "^/(get_nzb.php\\?.*&token=.*|get_nzb_zip.php)",
       "interceptionMethod": "declarativeNetRequest",
       "postDataHandling": "sendAsURLSearchParams",
       "showNzbDialog": true,
